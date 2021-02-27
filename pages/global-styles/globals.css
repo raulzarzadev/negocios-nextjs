@@ -1,0 +1,47 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+:root {
+  --whait: #fff;
+  --black: #000;
+  --primary: #c9f;
+  --secondary: #fca;
+  --shadow-1: 1px 1px 4px #000;
+  --shadow-in: inset 0.5px 0.5px 3px #000;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  padding: 0;
+  margin: 0;
+}
+
+h4 {
+  font-size: 0.9rem;
+}
+p {
+  font-size: 0.9rem;
+}

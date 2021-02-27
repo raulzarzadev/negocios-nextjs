@@ -1,0 +1,23 @@
+.barrio {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.adverts {
+  display: grid;
+  gap: 1rem;
+}
+.advert {
+  width: 100%;
+}
+
+@media (min-width: 450px) {
+  .adverts {
+    grid-auto-flow: column;
+  }
+  .advert {
+    width: 220px;
+  }
+}

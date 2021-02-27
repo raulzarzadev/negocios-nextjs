@@ -1,0 +1,45 @@
+.advert {
+  border: 1px solid;
+  display: grid;
+  grid-template-rows: 30px auto 30px;
+  width: 100%;
+  max-width: 350px;
+  margin: 0 auto;
+}
+.header {
+  padding: 0 4px;
+  display: flex;
+  justify-content: space-between;
+}
+.labels {
+  padding: 0 4px;
+  display: flex;
+  width: 70%;
+  align-items: center;
+}
+.image {
+  height: 100%;
+  margin: 0 auto;
+  display: block;
+}
+.actions {
+  display: flex;
+  align-items: center;
+}
+.body_images {
+  height: 4rem;
+}
+.body_content {
+  padding: 0.5rem;
+}
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.contacts {
+  width: 90%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}

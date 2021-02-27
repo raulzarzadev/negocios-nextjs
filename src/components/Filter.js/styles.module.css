@@ -1,0 +1,33 @@
+.filter_bar {
+  margin: 0 auto;
+  overflow: auto;
+  width: 100%;
+
+  background-color: var(--secondary);
+}
+.filter_labels {
+  max-width: 320px;
+  display: flex;
+  overflow: auto;
+  margin: 0 auto;
+}
+.filter_label {
+  margin: 4px;
+  cursor: pointer;
+}
+.filter_label:hover {
+  box-shadow: 1px 1px 1px #000;
+}
+.filter_display {
+  background: var(--primary);
+  text-align: center;
+  width: 180px;
+  display: flex;
+  justify-content: center;
+  margin: 4px auto;
+  border-radius: 100%;
+  box-shadow: var(--shadow-in);
+
+  font-size: 0.9rem;
+  font-weight: 600;
+}
