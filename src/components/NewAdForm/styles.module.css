@@ -1,0 +1,13 @@
+.form_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 70vh;
+  padding: 4px;
+}
+
+.section_form{
+  text-align: center;
+  padding: 4px;
+}

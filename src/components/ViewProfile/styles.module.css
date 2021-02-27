@@ -1,0 +1,11 @@
+.profile_actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+}
+.action {
+  padding: 4px;
+  margin: 4px;
+  text-align: center;
+}

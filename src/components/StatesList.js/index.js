@@ -9,8 +9,8 @@ export default function StateList({ statesList = [] }) {
           <h3
             className={styles.state_title}
           >{`${state?.name} (${state.barrios?.length})`}</h3>
-          {state?.barrios?.map((barrio) => (
-            <h5 className={styles.barrio}>
+          {state?.barrios?.map((barrio, i) => (
+            <h5 key={i} className={styles.barrio}>
               <L
                 href={barrio.shortName}
               >{`${barrio.name} (${barrio.advertsPublished})`}</L>
