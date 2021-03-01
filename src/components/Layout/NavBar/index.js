@@ -6,7 +6,6 @@ import styles from "./styles.module.css";
 export default function NavBar() {
   const { user } = useUser();
   const [isLogin, setIsLogin] = useState();
-  console.log(user);
   useEffect(() => {
     if (user) {
       setIsLogin(true);
@@ -31,7 +30,7 @@ export default function NavBar() {
                 <L href="/profile">
                   <div
                     className={styles.avatar}
-                    style={{ backgroundImage: `url(${user.image})` }}
+                    style={{ backgroundImage: `url(${user?.image})` }}
                   />
                 </L>
               </li>

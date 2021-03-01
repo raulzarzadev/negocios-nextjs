@@ -8,14 +8,17 @@ if (!firebase.apps.length) {
 
 const mapUserFromFirebase = (user) => {
   const { email, displayName, photoURL } = user;
-  console.log(user);
   return { email, name: displayName, image: photoURL };
 };
 
 export const onAuthStateChanged = (onChange) => {
   return firebase.auth().onAuthStateChanged((user) => {
-    const normalizeUser = mapUserFromFirebase(user);
-    onChange(normalizeUser);
+    if (user) {
+      const normalizeUser = mapUserFromFirebase(user);
+      onChange(normalizeUser);
+    } else {
+      onChange(null);
+    }
   });
 };
 
@@ -29,6 +32,40 @@ export const loginWithGoogle = () => {
     });
 };
 
-export const logout = () => {
-  console.log("logauot");
+export const firebaseLogout = () => {
+  firebase.auth().signOut();
+};
+
+/* ------------------------------------------------------------------------------------------- */
+/*  ---------------------***---------FIREBASE DATA BASE ----------***--------------------------*/
+/* ------------------------------------------------------------------------------------------- */
+
+var db = firebase.firestore();
+
+export const addBarrio = ({ name, state, shortName }) => {
+  return db
+    .collection("barrios")
+    .add({
+      name,
+      state,
+      shortName,
+    })
+    .then((docRef) => {
+      return { ok: true, type: "BARRIO_CREATED", ref: docRef.id };
+    })
+    .catch((error) => {
+      console.error("Error adding document: ", error);
+    });
+};
+
+export const addAdvert = (advert) => {
+  return db
+    .collection("adverts")
+    .add(advert)
+    .then((docRef) => {
+      return { ok: true, type: "AD_CREATED", ref: docRef.id };
+    })
+    .catch((error) => {
+      console.error("Error adding document: ", error);
+    });
 };

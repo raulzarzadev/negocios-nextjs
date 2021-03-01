@@ -1,10 +1,11 @@
 import { L } from "@comps/L";
-import { logout } from "firebase/client";
+import { firebaseLogout } from "firebase/client";
+
 import styles from "./styles.module.css";
 
 export default function ViewProfile() {
   const handleLogOut = () => {
-    logout();
+    firebaseLogout();
   };
   return (
     <div className={styles.view_profile}>

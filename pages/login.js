@@ -5,7 +5,8 @@ import { useUser } from "src/context/UserContext";
 
 export default function Login() {
   const router = useRouter();
-  const user = useUser();
+  const {user} = useUser();
+  console.log(user)
   useEffect(() => {
     if (user) {
       router.replace("/");

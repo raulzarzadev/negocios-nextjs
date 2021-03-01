@@ -1,4 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+// Initialize Cloud Firestore through Firebase
+
+
+
 
 export default function barriosHandler(req, res) {
   res.status(200).json({

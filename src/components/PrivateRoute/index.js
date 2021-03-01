@@ -7,7 +7,7 @@ export default function PrivateRoute({ Component, ...res }) {
   const { user } = useUser();
   const [userData, setUserData] = useState(undefined);
   const [loading, setLoading] = useState(true);
-  console.log(user);
+ 
   useEffect(() => {
     if (user) {
       setUserData(user);
@@ -15,6 +15,7 @@ export default function PrivateRoute({ Component, ...res }) {
     }
     if (user === null) router.replace("/");
   }, [user]);
+
 
   if (loading) return "Cargando ...";
 
