@@ -6,11 +6,13 @@ import styles from "./styles.module.css";
 export default function NavBar() {
   const { user } = useUser();
   const [isLogin, setIsLogin] = useState();
+  console.log(user);
   useEffect(() => {
     if (user) {
       setIsLogin(true);
     } else setIsLogin(false);
   }, [user]);
+
   return (
     <section className={styles.top_bar}>
       <nav className={styles.nav}>
@@ -22,11 +24,16 @@ export default function NavBar() {
         <menu className={styles.nav_menu}>
           <ul className={styles.nav_menu_list}>
             <li className={styles.list_item}>
-              <L href="/mas">Mas</L>
+              <L href="/about">Mas</L>
             </li>
             {isLogin && (
               <li className={styles.list_item}>
-                <L href="/profile">Perfil</L>
+                <L href="/profile">
+                  <div
+                    className={styles.avatar}
+                    style={{ backgroundImage: `url(${user.image})` }}
+                  />
+                </L>
               </li>
             )}
             {!isLogin && (
