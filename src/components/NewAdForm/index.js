@@ -2,27 +2,20 @@ import Advert from "@comps/Advert";
 import ColorPicker from "@comps/ColorPicker";
 import ContactInputs from "@comps/ContactInputs";
 import SelectLabels from "@comps/SelectLabels";
-import { addAdvert } from "firebase/client";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useAds } from "src/hooks/useAds";
 import styles from "./styles.module.css";
 
 export default function NewAdForm() {
   const router = useRouter();
   const [form, setForm] = useState(undefined);
-
+  const { addAdvert } = useAds();
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
   const handleSubmit = (form) => {
-    const { title, content, backgroundColor, contacts, labels } = form;
-    addAdvert({
-      title,
-      content,
-      backgroundColor,
-      contacts,
-      labels,
-    }).then((res) => {
+    addAdvert(form).then((res) => {
       setTimeout(() => {
         console.log("redireccionando a perfil");
         router.push("/profile");

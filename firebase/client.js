@@ -8,7 +8,7 @@ if (!firebase.apps.length) {
 
 const mapUserFromFirebase = (user) => {
   const { email, displayName, photoURL } = user;
-  return { email, name: displayName, image: photoURL };
+  return { email, name: displayName, image: photoURL, id: user.uid };
 };
 
 export const onAuthStateChanged = (onChange) => {
@@ -58,7 +58,7 @@ export const addBarrio = ({ name, state, shortName }) => {
     });
 };
 
-export const addAdvert = (advert) => {
+export const fb_addAdvert = (advert) => {
   return db
     .collection("adverts")
     .add(advert)
@@ -68,4 +68,41 @@ export const addAdvert = (advert) => {
     .catch((error) => {
       console.error("Error adding document: ", error);
     });
+};
+
+export const fb_getBarrios = () => {
+  return db
+    .collection("barrios")
+    .get()
+    .then((snapShot) =>
+      snapShot.docs.map((doc) => {
+        return { id: doc.id, ...doc.data() };
+      })
+    )
+    .catch((err) => console.log(err));
+};
+
+export const fb_getAds = () => {
+  return db
+    .collection("adverts")
+    .get()
+    .then((snapShot) =>
+      snapShot.docs.map((doc) => {
+        return { id: doc.id, ...doc.data() };
+      })
+    )
+    .catch((err) => console.log(err));
+};
+
+export const fb_getUserAds = (userId) => {
+  return db
+    .collection("adverts")
+    .where("userId", "==", userId)
+    .get()
+    .then((snapShot) =>
+      snapShot.docs.map((doc) => {
+        return { id: doc.id, ...doc.data() };
+      })
+    )
+    .catch((err) => console.log(err));
 };

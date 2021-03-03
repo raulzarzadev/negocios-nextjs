@@ -1,11 +1,35 @@
+import { fb_addAdvert, fb_getAds, fb_getUserAds } from "firebase/client";
+import { useUser } from "src/context/UserContext";
+
+const fetcher = (url) => fetch(url).then((res) => res.json());
+
 export function useAds() {
-  const fetcher = (url) => fetch(url).then((res) => res.json());
+  const { user } = useUser();
 
   function getAds() {
-    return fetcher("/api/ads");
+    return fb_getAds().then((res) => {
+      return res;
+    });
   }
   function getAdsByBarrio(barrio) {
     return fetcher(`/api/ads/${barrio}`);
   }
-  return { getAds, getAdsByBarrio };
+  function getUserAds() {
+    return fb_getUserAds(user.id).then((res) => {
+      return res;
+    });
+  }
+  function addAdvert(form) {
+    const { title, content, backgroundColor, contacts, labels } = form;
+    return fb_addAdvert({
+      createdAt: new Date().toISOString(),
+      userId: user.id,
+      title,
+      content,
+      backgroundColor,
+      contacts,
+      labels,
+    }).then((res) => res);
+  }
+  return { getAds, getAdsByBarrio, getUserAds, addAdvert };
 }

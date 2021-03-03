@@ -7,19 +7,21 @@ export default function ViewBarrios() {
   const { getBarrios } = useBarrios();
   const { getAds } = useAds();
   const [barrios, setBarrios] = useState([]);
+  const [ads, setAds] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getBarrios()
-      .then(({ barrios }) => {
-        setBarrios(barrios);
-      })
-      .catch((err) => console.log(err))
-      .then(setLoading(false));
-    getAds()
-      .then(({ ads }) => console.log(ads))
-      .then((err) => console.log(err));
+    getBarrios().then((res) => setBarrios(res));
+    getAds().then((res) => setAds(res));
   }, []);
+
+  console.log(barrios, ads);
+
+  const normalizeBarriosList = (barrios, ads) => {
+    barrios.reduce((acc, curr) => {
+      
+    })
+  }
 
   const formatBarrioList = [
     {
@@ -48,8 +50,6 @@ export default function ViewBarrios() {
     },
   ];
   if (loading) return "Cargando...";
-
-  
 
   return <StateList statesList={formatBarrioList} />;
 }

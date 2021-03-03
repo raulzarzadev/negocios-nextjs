@@ -9,3 +9,16 @@
   margin: 4px;
   text-align: center;
 }
+
+.user_ads_grid{
+  display: grid;
+  gap: 4px;
+  padding: 4px;
+  grid-auto-flow: column;
+  overflow: auto;
+  box-shadow: inset 1px 1px 10px 1px;
+}
+
+.grid_item {
+  width: 250px;
+}
