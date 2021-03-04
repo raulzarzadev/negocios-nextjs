@@ -92,7 +92,7 @@ export default function NewAdForm({ advert = undefined }) {
         {/* CLASIFICATION */}
         <section className={styles.section_form}>
           <h4>Clasificación</h4>
-          <SelectLabels labels={form?.labels} setLabels={handleSetLabels} />
+          <SelectLabels labels={form?.labels } setLabels={handleSetLabels} />
         </section>
         {/* CONTACTS */}
         <section className={styles.section_form}>

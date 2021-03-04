@@ -113,7 +113,6 @@ export const fb_getAdvertById = (advertId) => {
     .doc(advertId)
     .get()
     .then((snapShot) => {
-      console.log(snapShot);
       return { id: snapShot.id, ...snapShot.data() };
     })
     .catch((err) => console.log(err));
