@@ -106,3 +106,23 @@ export const fb_getUserAds = (userId) => {
     )
     .catch((err) => console.log(err));
 };
+
+export const fb_getAdvertById = (advertId) => {
+  return db
+    .collection("adverts")
+    .doc(advertId)
+    .get()
+    .then((snapShot) => {
+      console.log(snapShot);
+      return { id: snapShot.id, ...snapShot.data() };
+    })
+    .catch((err) => console.log(err));
+};
+
+export const fb_editAdvert = (id, advert) => {
+  const ad = db.collection("adverts").doc(id);
+  return ad
+    .update(advert)
+    .then((res) => res)
+    .catch((err) => console.log(err));
+};

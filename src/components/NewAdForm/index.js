@@ -3,24 +3,44 @@ import ColorPicker from "@comps/ColorPicker";
 import ContactInputs from "@comps/ContactInputs";
 import SelectLabels from "@comps/SelectLabels";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAds } from "src/hooks/useAds";
 import styles from "./styles.module.css";
 
-export default function NewAdForm() {
+export default function NewAdForm({ advert = undefined }) {
+  useEffect(() => {
+    if (advert) {
+      setForm(advert);
+    }
+  }, [advert]);
+
   const router = useRouter();
   const [form, setForm] = useState(undefined);
-  const { addAdvert } = useAds();
+  const { addAdvert, editAdvert } = useAds();
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
+  console.log(advert);
+
   const handleSubmit = (form) => {
-    addAdvert(form).then((res) => {
-      setTimeout(() => {
-        console.log("redireccionando a perfil");
-        router.push("/profile");
-      }, 1000);
-    });
+    /* --------------Edit Advert-------------- */
+    if (advert?.id) {
+      editAdvert(advert.id, form).then((res) => {
+        setTimeout(() => {
+          console.log(res);
+          console.log("Editando");
+          router.push("/profile");
+        }, 1000);
+      });
+    } else {
+      /* --------------New Advert-------------- */
+      addAdvert(form).then((res) => {
+        setTimeout(() => {
+          console.log("redireccionando a perfil");
+          router.push("/profile");
+        }, 1000);
+      });
+    }
   };
   const handleChangeColor = (e) => {
     setForm({ ...form, backgroundColor: e });
@@ -51,7 +71,12 @@ export default function NewAdForm() {
           {/* TITLE AND CONTENT */}
           <span>
             <p>Titulo:</p>
-            <input type="text" name="title" onChange={handleChange} />
+            <input
+              type="text"
+              name="title"
+              onChange={handleChange}
+              value={form?.title || ""}
+            />
           </span>
           <span>
             <p>Contenido:</p>
@@ -60,6 +85,7 @@ export default function NewAdForm() {
               name="content"
               onChange={handleChange}
               rows={3}
+              value={form?.content || ""}
             />
           </span>
         </section>

@@ -1,10 +1,12 @@
 import styles from "./styles.module.css";
 import Link from "next/link";
 
-export function L({ href, children }) {
+export function L({ href, children, style }) {
   return (
     <Link href={href}>
-      <a className={styles.link}>{children}</a>
+      <a className={styles.link} style={style}>
+        {children}
+      </a>
     </Link>
   );
 }

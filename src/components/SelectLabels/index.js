@@ -3,22 +3,26 @@ import { CHIP_LABELS } from "CONST/CHIPS_LABELS";
 import { useEffect, useState } from "react";
 
 export default function SelectLabels({ labels = [], setLabels = {} }) {
-  /* TODO no carga las labels existentes */
   const [labelsSelected, setLabelsSelected] = useState(labels || []);
   const handleDeleteChip = (chip) => () => {
-    let res = labelsSelected.filter((element) => element !== chip);
-    setLabelsSelected(res);
+    const filteredLabels = labels.filter((label) => label != chip);
+    setLabels(filteredLabels);
   };
 
   const hanldeAddChip = (chip) => {
-    setLabelsSelected([...labelsSelected, chip]);
     setLabels([...labels, chip.value]);
   };
   const LIMIT_LABLES_SELECTED = 5;
-  /* 
+
   useEffect(() => {
-    setAdvert({ ...advert, labels: labelsSelected });
-  }, [labelsSelected]); */
+    if (labels) {
+      const selected = labels.map((label) =>
+        CHIP_LABELS.find((chip) => chip.value === label)
+      );
+      setLabelsSelected(selected);
+    }
+  }, [labels]);
+
 
   return (
     <div>
@@ -41,7 +45,7 @@ export default function SelectLabels({ labels = [], setLabels = {} }) {
             color={chip?.color || "primary"}
             label={chip?.label}
             size="small"
-            onDelete={handleDeleteChip(chip)}
+            onDelete={handleDeleteChip(chip.value)}
           />
         ))}
       </div>

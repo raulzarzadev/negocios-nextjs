@@ -1,9 +1,13 @@
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
+import MenuIcon from "@material-ui/icons/Menu";
+
 import { SvgIcon } from "@material-ui/core";
 import { CHIP_LABELS } from "CONST/CHIPS_LABELS";
 
 import styles from "./styles.module.css";
 import { CONTACT_TYPES } from "CONST/CONTACT_TYPES";
+import { useState } from "react";
+import { L } from "@comps/L";
 const defaulAdvert = {
   labels: ["lab1", "lab2"],
   images: [
@@ -22,14 +26,21 @@ const defaulAdvert = {
 };
 
 export default function Advert({ advert = defaulAdvert }) {
-  const { labels, images, title, content, contacts, backgroundColor } = advert;
+  const {
+    labels,
+    images,
+    title,
+    content,
+    contacts,
+    backgroundColor,
+    id,
+  } = advert;
   const chips = labels?.map((label) =>
     CHIP_LABELS.find((chip) => chip.value === label)
   );
   const contactLinks = contacts?.map((contact) =>
-    CONTACT_TYPES.find((contactType => contactType.value === contact.type))
+    CONTACT_TYPES.find((contactType) => contactType.value === contact.type)
   );
-  
   return (
     <div style={{ backgroundColor }} className={styles.advert}>
       <header className={styles.header}>
@@ -41,6 +52,7 @@ export default function Advert({ advert = defaulAdvert }) {
           <button>
             <BookmarkBorderIcon />
           </button>
+          <MenuAdminAd advertId={id} />
         </div>
       </header>
       <section className={styles.body}>
@@ -63,3 +75,45 @@ export default function Advert({ advert = defaulAdvert }) {
     </div>
   );
 }
+
+const MenuAdminAd = ({ advertId }) => {
+  const handleOpen = (e) => {
+    console.log("open");
+    setOpen(true);
+  };
+  const handleClose = (e) => {
+    e.stopPropagation();
+    e.target.id !== "menu-container" && setOpen(false);
+  };
+
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <button
+        onClick={handleOpen}
+        className={styles.open_buttom}
+        id="menu-desplegable"
+      >
+        <MenuIcon />
+        {open && (
+          <div
+            className={styles.menu_continer}
+            id="modal-container"
+            onClick={handleClose}
+          >
+            <div className={styles.menu}>
+              <ul className={styles.menu_list}>
+                <L href={`/adverts/edit/${advertId}`}>
+                  <li className={styles.menu_item}>Editar</li>
+                </L>
+                <li className={styles.menu_item}>link</li>
+                <li className={styles.menu_item}>link</li>
+              </ul>
+            </div>
+          </div>
+        )}
+      </button>
+    </>
+  );
+};
