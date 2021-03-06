@@ -4,6 +4,7 @@ import { useAds } from "src/hooks/useAds";
 import AdvertsList from "@comps/AdvertsList";
 import Filter from "@comps/Filter.js";
 import { CHIP_LABELS } from "CONST/CHIPS_LABELS";
+import { useBarrios } from "src/hooks/useBarrios";
 
 export default function Barrio() {
   const { getAdsByBarrio } = useAds();
@@ -17,15 +18,12 @@ export default function Barrio() {
 
   useEffect(() => {
     if (barrioName) {
-      getAdsByBarrio(barrioName)
-        .then((res) => setBarrio(res))
-        .catch((err) => console.log(err));
+      getAdsByBarrio(barrioName).then(setBarrio);
     }
   }, [barrioName]);
 
-  const labels = CHIP_LABELS;
+  const [adverts, setAdverts] = useState(barrio?.ads || []);
 
-  const [adverts, setAdverts] = useState(undefined);
   const [filter, setFilter] = useState("Todos");
 
   useEffect(() => {
@@ -47,10 +45,9 @@ export default function Barrio() {
     });
     return filtered;
   };
+  console.log(barrio)
 
-  if (barrio === undefined) return "Cargando...";
-
-  const labelsAvailables = barrio.ads.reduce((acc, item) => {
+  const labelsAvailables = barrio?.ads?.reduce((acc, item) => {
     const labels = [...acc, item.labels].flat().reduce((acc, item) => {
       if (acc.includes(item)) return acc;
       return [...acc, item];
@@ -59,6 +56,7 @@ export default function Barrio() {
     return labels;
   }, []);
 
+  if (barrio === undefined) return "Cargando...";
   return (
     <>
       <Filter labels={labelsAvailables} handleSetFilter={handleSetFilter} />

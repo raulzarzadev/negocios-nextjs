@@ -45,7 +45,8 @@ var db = firebase.firestore();
 export const addBarrio = ({ name, state, shortName }) => {
   return db
     .collection("barrios")
-    .add({
+    .doc(shortName)
+    .set({
       name,
       state,
       shortName,
@@ -55,6 +56,16 @@ export const addBarrio = ({ name, state, shortName }) => {
     })
     .catch((error) => {
       console.error("Error adding document: ", error);
+    });
+};
+
+export const fb_getBarrio = (barrio) => {
+  return db
+    .collection("barrios")
+    .doc(barrio)
+    .get()
+    .then((snapShot) => {
+      return { id: snapShot.id, ...snapShot.data() };
     });
 };
 
@@ -124,4 +135,47 @@ export const fb_editAdvert = (id, advert) => {
     .update(advert)
     .then((res) => res)
     .catch((err) => console.log(err));
+};
+
+export const fb_deleteAdvert = (id) => {
+  return db
+    .collection("adverts")
+    .doc(id)
+    .delete()
+    .then((res) => res)
+    .catch((err) => console.log(err));
+};
+
+export const fb_publishAdvert = (publication) => {
+  return db
+    .collection("publications")
+    .add(publication)
+    .then((docRef) => {
+      return { ok: true, type: "PUBLICATION_CREATED", ref: docRef.id };
+    })
+    .catch((error) => {
+      console.error("Error adding document: ", error);
+    });
+};
+
+export const fb_getBarrioActivePublications = async (barrio) => {
+  console.log(barrio);
+  return db
+    .collection("publications")
+    .where("barrioId", "==", barrio)
+    .where("active", "==", true)
+    .get()
+    .then(({ docs }) =>
+      docs.map((doc) => {
+        return { id: doc.id, ...doc.data() };
+      })
+    );
+};
+
+export const fb_unpublishAdvert = (publication) => {
+  console.log(publication.id);
+  return db
+    .collection("publications")
+    .doc(publication.id)
+    .update({ active: false });
 };

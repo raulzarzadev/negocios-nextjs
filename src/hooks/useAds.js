@@ -3,7 +3,12 @@ import {
   fb_getAds,
   fb_getUserAds,
   fb_getAdvertById,
-  fb_editAdvert
+  fb_editAdvert,
+  fb_deleteAdvert,
+  fb_publishAdvert,
+  fb_getBarrioActivePublications,
+  fb_getBarrio,
+  fb_unpublishAdvert,
 } from "firebase/client";
 import { useUser } from "src/context/UserContext";
 
@@ -17,9 +22,18 @@ export function useAds() {
       return res;
     });
   }
-  function getAdsByBarrio(barrio) {
-    return fetcher(`/api/ads/${barrio}`);
+  async function getAdsByBarrio(barrio) {
+    const barrioDetails = await fb_getBarrio(barrio);
+    const activePublications = await fb_getBarrioActivePublications(barrio);
+    const adverts = activePublications.map(async (publication) => {
+      const advert = await getAdvert(publication.advertId);
+      return { ...advert, publication };
+    });
+    return Promise.all(adverts).then((res) => {
+      return { ...barrioDetails, ads: res };
+    });
   }
+
   function getUserAds() {
     return fb_getUserAds(user.id).then((res) => {
       return res;
@@ -28,7 +42,7 @@ export function useAds() {
   function getAdvert(id) {
     return fb_getAdvertById(id).then((res) => res);
   }
-  function editAdvert(id,advert) {
+  function editAdvert(id, advert) {
     return fb_editAdvert(id, advert).then((res) => res);
   }
   function addAdvert(form) {
@@ -43,6 +57,15 @@ export function useAds() {
       labels,
     }).then((res) => res);
   }
+  function deleteAdvert(id) {
+    return fb_deleteAdvert(id).then((res) => res);
+  }
+  function publishAdvert(publication) {
+    return fb_publishAdvert(publication).then((res) => console.log(res));
+  }
+  function unpublishAdvert(publishId) {
+    return fb_unpublishAdvert(publishId).then((res) => console.log(res));
+  }
   return {
     getAds,
     getAdsByBarrio,
@@ -50,5 +73,8 @@ export function useAds() {
     addAdvert,
     getAdvert,
     editAdvert,
+    deleteAdvert,
+    publishAdvert,
+    unpublishAdvert,
   };
 }
