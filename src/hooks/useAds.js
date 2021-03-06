@@ -9,13 +9,28 @@ import {
   fb_getBarrioActivePublications,
   fb_getBarrio,
   fb_unpublishAdvert,
+  fb_getUserActivePublications,
+  fb_addFavorite,
+  fb_removeFavorite,
+  fb_getUserFavorites,
+  fb_listenUserFavorites,
 } from "firebase/client";
+import { useEffect, useState } from "react";
 import { useUser } from "src/context/UserContext";
-
-const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export function useAds() {
   const { user } = useUser();
+
+  const [favorites, setFavorites] = useState([]);
+
+  useEffect(() => {
+    if (user) {
+      fb_listenUserFavorites(user.id, (favorites) => {
+        formatFavoritesAds(favorites).then(setFavorites);
+      });
+    }
+  }, []);
+  console.log(favorites);
 
   function getAds() {
     return fb_getAds().then((res) => {
@@ -39,6 +54,18 @@ export function useAds() {
       return res;
     });
   }
+
+  async function getUserActiveAds() {
+    const activePublications = await fb_getUserActivePublications(user.id);
+    const adverts = activePublications?.map(async (publication) => {
+      const advert = await getAdvert(publication.advertId);
+      return { ...advert, publication };
+    });
+    return Promise.all(adverts || []).then((res) => {
+      return res;
+    });
+  }
+
   function getAdvert(id) {
     return fb_getAdvertById(id).then((res) => res);
   }
@@ -61,12 +88,40 @@ export function useAds() {
     return fb_deleteAdvert(id).then((res) => res);
   }
   function publishAdvert(publication) {
-    return fb_publishAdvert(publication).then((res) => console.log(res));
+    return fb_publishAdvert({ userId: user.id, ...publication }).then((res) =>
+      console.log(res)
+    );
   }
   function unpublishAdvert(publishId) {
     return fb_unpublishAdvert(publishId).then((res) => console.log(res));
   }
+  function addFavorite(advertId) {
+    return fb_addFavorite(user.id, advertId);
+  }
+  function removeFavorite(advertId) {
+    return fb_removeFavorite(user.id, advertId);
+  }
+  async function getUserFavorites() {
+    const favList = await fb_getUserFavorites(user.id);
+    const adverts = favList?.map(async (fav) => {
+      const advert = await getAdvert(fav.advertId);
+      return { ...advert, fav };
+    });
+    return Promise.all(adverts || []).then((res) => {
+      return res;
+    });
+  }
+  function formatFavoritesAds(favorites) {
+    const adverts = favorites?.map(async (fav) => {
+      const advert = await getAdvert(fav.advertId);
+      return { ...advert, fav };
+    });
+    return Promise.all(adverts || []).then((res) => {
+      return res;
+    });
+  }
   return {
+    favorites,
     getAds,
     getAdsByBarrio,
     getUserAds,
@@ -76,5 +131,9 @@ export function useAds() {
     deleteAdvert,
     publishAdvert,
     unpublishAdvert,
+    getUserActiveAds,
+    removeFavorite,
+    addFavorite,
+    getUserFavorites,
   };
 }

@@ -1,4 +1,5 @@
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
+import BookmarkIcon from "@material-ui/icons/Bookmark";
 import MenuIcon from "@material-ui/icons/Menu";
 
 import { SvgIcon } from "@material-ui/core";
@@ -11,6 +12,7 @@ import { L } from "@comps/L";
 import Modal from "@comps/Modal";
 import { useAds } from "src/hooks/useAds";
 import ModalPubish from "@comps/ModalPublish";
+import { useUser } from "src/context/UserContext";
 
 const defaulAdvert = {
   labels: ["lab1", "lab2"],
@@ -40,8 +42,16 @@ export default function Advert({ advert = defaulAdvert }) {
     id,
     publication,
   } = advert;
-  console.log(advert);
-  const { deleteAdvert, unpublishAdvert } = useAds();
+  const {
+    deleteAdvert,
+    unpublishAdvert,
+    addFavorite,
+    removeFavorite,
+  } = useAds();
+
+  const { favoritesList } = useUser();
+  const favorite = favoritesList.includes(id);
+  console.log(favoritesList, id)
   const chips = labels?.map((label) =>
     CHIP_LABELS.find((chip) => chip.value === label)
   );
@@ -62,6 +72,12 @@ export default function Advert({ advert = defaulAdvert }) {
   const handleUnpublish = () => {
     unpublishAdvert(publication);
   };
+  const handleAddFavorite = () => {
+    addFavorite(id).then((res) => console.log(res));
+  };
+  const handleRemoveFavorite = () => {
+    removeFavorite(id).then((res) => console.log(res));
+  };
 
   const handleDeleteAd = () => {
     deleteAdvert(id);
@@ -75,9 +91,15 @@ export default function Advert({ advert = defaulAdvert }) {
         ))}
         <div className={styles.labels}></div>
         <div className={styles.actions}>
-          <button>
-            <BookmarkBorderIcon />
-          </button>
+          {favorite ? (
+            <button onClick={handleRemoveFavorite}>
+              <BookmarkIcon />
+            </button>
+          ) : (
+            <button onClick={handleAddFavorite}>
+              <BookmarkBorderIcon />
+            </button>
+          )}
           <MenuAdminAd
             advertId={id}
             handleDeleteAd={handleOpenDelete}

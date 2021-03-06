@@ -159,7 +159,6 @@ export const fb_publishAdvert = (publication) => {
 };
 
 export const fb_getBarrioActivePublications = async (barrio) => {
-  console.log(barrio);
   return db
     .collection("publications")
     .where("barrioId", "==", barrio)
@@ -173,9 +172,76 @@ export const fb_getBarrioActivePublications = async (barrio) => {
 };
 
 export const fb_unpublishAdvert = (publication) => {
-  console.log(publication.id);
   return db
     .collection("publications")
     .doc(publication.id)
     .update({ active: false });
+};
+
+export const fb_getUserActivePublications = (userId) => {
+  return db
+    .collection("publications")
+    .where("userId", "==", userId)
+    .where("active", "==", true)
+    .get()
+    .then(({ docs }) =>
+      docs.map((doc) => {
+        return { id: doc.id, ...doc.data() };
+      })
+    );
+};
+
+export const fb_addFavorite = async (userId, advertId) => {
+  const favExist = await db
+    .collection("favorites")
+    .where("userId", "==", userId)
+    .where("advertId", "==", advertId)
+    .get()
+    .then(({ empty }) => !empty && true);
+  if (favExist) return { ok: true, type: "FAVORITE_ALREADY_EXIST" };
+  return db
+    .collection("favorites")
+    .add({ advertId, userId, createdAt: new Date().toISOString() })
+    .then((docRef) => {
+      return { ok: true, type: "FAVORITE_ADDED", ref: docRef.id };
+    });
+ 
+};
+
+export const fb_removeFavorite = async (userId, advertId) => {
+  const fav = await db
+    .collection("favorites")
+    .where("userId", "==", userId)
+    .where("advertId", "==", advertId)
+    .get();
+  if (fav.empty) return { ok: false, type: "FAVORITE_DO_NOT_EXIST" };
+  return fav.docs.forEach((doc) =>
+    doc.ref.delete().then((res) => {
+      return { ok: true, type: "FAVORITE_REMOVED", ref: doc.id };
+    })
+  );
+};
+
+export const fb_getUserFavorites = (userId) => {
+  return db
+    .collection("favorites")
+    .where("userId", "==", userId)
+    .get()
+    .then(({ docs }) =>
+      docs.map((doc) => {
+        return { id: doc.id, ...doc.data() };
+      })
+    );
+};
+
+export const fb_listenUserFavorites = (userId, callback) => {
+  return db
+    .collection("favorites")
+    .where("userId", "==", userId)
+    .onSnapshot(({ docs }) => {
+      const favoriteList = docs.map((doc) => {
+        return { ...doc.data(), id: doc.id };
+      });
+      callback(favoriteList);
+    });
 };
