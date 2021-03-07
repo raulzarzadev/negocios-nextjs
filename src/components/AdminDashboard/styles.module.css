@@ -1,0 +1,21 @@
+.dashboard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.table_title {
+  padding: 4px;
+  font-weight: 600;
+}
+.table_cell {
+  padding: 4px;
+}
+.dash_table {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr) 150px;
+}
+.dash_row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr) 150px;
+}

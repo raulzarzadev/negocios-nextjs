@@ -38,6 +38,9 @@ export default function ViewProfile() {
         <div className={styles.action}>
           <L href="/barrios/new">{"Nuevo Barrio"}</L>
         </div>
+        <div className={styles.action}>
+          <L href="/dashboard">{"Dashboard"}</L>
+        </div>
       </div>
       <div>
         <h3>Favoritos Guardados</h3>
