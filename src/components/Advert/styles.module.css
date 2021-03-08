@@ -1,7 +1,7 @@
 .advert {
   border: 1px solid;
   display: grid;
-  grid-template-rows: 30px auto 30px;
+  grid-template-rows: 30px auto auto;
   width: 100%;
   max-width: 350px;
   margin: 0 auto;

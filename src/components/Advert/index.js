@@ -13,6 +13,7 @@ import Modal from "@comps/Modal";
 import { useAds } from "src/hooks/useAds";
 import ModalPubish from "@comps/ModalPublish";
 import { useUser } from "src/context/UserContext";
+import IconBtn from "@comps/IconBtn";
 
 const defaulAdvert = {
   labels: ["lab1", "lab2"],
@@ -31,7 +32,7 @@ const defaulAdvert = {
   ],
 };
 
-export default function Advert({ advert = defaulAdvert }) {
+export default function Advert({ advert = defaulAdvert, newForm }) {
   const {
     labels,
     images,
@@ -51,7 +52,7 @@ export default function Advert({ advert = defaulAdvert }) {
 
   const { favoritesList } = useUser();
   const favorite = favoritesList.includes(id);
-  console.log(favoritesList, id)
+  console.log(favoritesList, id);
   const chips = labels?.map((label) =>
     CHIP_LABELS.find((chip) => chip.value === label)
   );
@@ -83,6 +84,9 @@ export default function Advert({ advert = defaulAdvert }) {
     deleteAdvert(id);
   };
 
+  const admin = false;
+  const showSetFavorite = !newForm;
+
   return (
     <div style={{ backgroundColor }} className={styles.advert}>
       <header className={styles.header}>
@@ -91,21 +95,27 @@ export default function Advert({ advert = defaulAdvert }) {
         ))}
         <div className={styles.labels}></div>
         <div className={styles.actions}>
-          {favorite ? (
-            <button onClick={handleRemoveFavorite}>
-              <BookmarkIcon />
-            </button>
-          ) : (
-            <button onClick={handleAddFavorite}>
-              <BookmarkBorderIcon />
-            </button>
+          {showSetFavorite && (
+            <div>
+              {favorite ? (
+                <IconBtn onClick={handleRemoveFavorite}>
+                  <BookmarkIcon />
+                </IconBtn>
+              ) : (
+                <IconBtn onClick={handleAddFavorite}>
+                  <BookmarkBorderIcon />
+                </IconBtn>
+              )}
+            </div>
           )}
-          <MenuAdminAd
-            advertId={id}
-            handleDeleteAd={handleOpenDelete}
-            handlePublish={handleOpenPublish}
-            handleUnpublish={handleUnpublish}
-          />
+          {admin && (
+            <MenuAdminAd
+              advertId={id}
+              handleDeleteAd={handleOpenDelete}
+              handlePublish={handleOpenPublish}
+              handleUnpublish={handleUnpublish}
+            />
+          )}
         </div>
       </header>
       <section className={styles.body}>
@@ -121,7 +131,9 @@ export default function Advert({ advert = defaulAdvert }) {
       <footer className={styles.footer}>
         <div className={styles.contacts}>
           {contactLinks?.map((contact, i) => (
-            <SvgIcon key={i}>{contact?.icon}</SvgIcon>
+            <IconBtn key={i} onClick={()=> console.log('click')}>
+              <SvgIcon fontSize='large'>{contact?.icon}</SvgIcon>
+            </IconBtn>
           ))}
         </div>
         {/* MODALES */}

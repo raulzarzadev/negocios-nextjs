@@ -145,7 +145,7 @@ export default function NewAdForm({ advert = undefined }) {
         </section>
         {/* PREVIEW ADVERT */}
         <section className={styles.section_form}>
-          <Advert advert={form} />
+          <Advert advert={form} newForm={true} />
         </section>
         <button type="submit">Guardar</button>
       </form>
