@@ -1,9 +1,6 @@
 import styles from "./styles.module.css";
-import GetAppIcon from "@material-ui/icons/GetApp";
 import EditIcon from "@material-ui/icons/Edit";
 import SettingsApplicationsIcon from "@material-ui/icons/SettingsApplications";
-import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import PublishIcon from "@material-ui/icons/Publish";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import { useEffect, useState } from "react";
