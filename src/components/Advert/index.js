@@ -14,6 +14,7 @@ import { useAds } from "src/hooks/useAds";
 import ModalPubish from "@comps/ModalPublish";
 import { useUser } from "src/context/UserContext";
 import IconBtn from "@comps/IconBtn";
+import Tooltip from "@comps/Tooltip";
 
 const defaulAdvert = {
   labels: ["lab1", "lab2"],
@@ -91,7 +92,9 @@ export default function Advert({ advert = defaulAdvert, newForm }) {
     <div style={{ backgroundColor }} className={styles.advert}>
       <header className={styles.header}>
         {chips?.map((chip, i) => (
-          <SvgIcon key={i}>{chip?.icon}</SvgIcon>
+          <Tooltip key={i} text={chip.label}>
+            <SvgIcon>{chip?.icon}</SvgIcon>
+          </Tooltip>
         ))}
         <div className={styles.labels}></div>
         <div className={styles.actions}>
@@ -131,8 +134,8 @@ export default function Advert({ advert = defaulAdvert, newForm }) {
       <footer className={styles.footer}>
         <div className={styles.contacts}>
           {contactLinks?.map((contact, i) => (
-            <IconBtn key={i} onClick={()=> console.log('click')}>
-              <SvgIcon fontSize='large'>{contact?.icon}</SvgIcon>
+            <IconBtn key={i} onClick={() => console.log("click")}>
+              <SvgIcon fontSize="large">{contact?.icon}</SvgIcon>
             </IconBtn>
           ))}
         </div>
