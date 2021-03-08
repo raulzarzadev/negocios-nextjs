@@ -58,8 +58,10 @@ export default function Advert({ advert = defaulAdvert, newForm }) {
     CHIP_LABELS.find((chip) => chip.value === label)
   );
   const contactLinks = contacts?.map((contact) =>
-    CONTACT_TYPES.find((contactType) => contactType.value === contact.type)
+    CONTACT_TYPES.find((contactType) => contactType.value === contact.type && {...contact})
   );
+
+  console.log(contactLinks);
 
   const [openDelete, setOpenDelete] = useState(false);
   const [openPublish, setOpenPublish] = useState(false);
@@ -134,9 +136,11 @@ export default function Advert({ advert = defaulAdvert, newForm }) {
       <footer className={styles.footer}>
         <div className={styles.contacts}>
           {contactLinks?.map((contact, i) => (
-            <IconBtn key={i} onClick={() => console.log("click")}>
-              <SvgIcon fontSize="large">{contact?.icon}</SvgIcon>
-            </IconBtn>
+            <Tooltip text={contact.label}>
+              <IconBtn key={i} onClick={() => console.log("click")}>
+                <SvgIcon fontSize="large">{contact?.icon}</SvgIcon>
+              </IconBtn>
+            </Tooltip>
           ))}
         </div>
         {/* MODALES */}
