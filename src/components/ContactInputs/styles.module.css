@@ -1,0 +1,9 @@
+.contact_display{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+.input_select{
+    width: 100%;
+}

@@ -3,26 +3,33 @@ import { CHIP_LABELS } from "CONST/CHIPS_LABELS";
 import { useEffect, useState } from "react";
 
 export default function SelectLabels({ labels = [], setLabels = {} }) {
-  console.log(labels);
+  const LIMIT_LABLES_SELECTED = 5;
   const [labelsSelected, setLabelsSelected] = useState(labels || []);
-  const handleDeleteChip = (chip) => () => {
-    const filteredLabels = labels?.filter((label) => label != chip);
+  const handleRemoveChip = (chipKey) => () => {
+    console.log(chipKey);
+    const filteredLabels = labels?.filter((label) => label != chipKey);
     setLabels(filteredLabels);
   };
+  console.log(labels);
 
-  const hanldeAddChip = (chip) => {
-    setLabels([...labels, chip.value]);
+  const hanldeAddChip = (chipKey) => {
+    setLabels([...labels, chipKey]);
   };
-  const LIMIT_LABLES_SELECTED = 5;
 
   useEffect(() => {
-    if (!!labels.length) {
-      const selected = labels?.map((label) =>
-        CHIP_LABELS.find((chip) => chip.value === label)
-      );
-      setLabelsSelected(selected);
-    }
+    setLabelsSelected(
+      labels?.map((label) => CHIP_LABELS.find((chip) => chip?.key === label))
+    );
   }, [labels]);
+
+  const [chipsDisplay, setChipDisplay] = useState([]);
+  useEffect(() => {
+    const chipsFiltered = CHIP_LABELS.filter((chip) =>
+      !labels.includes(chip.key)
+    );
+    setChipDisplay(chipsFiltered);
+  }, [labels]);
+  console.log(chipsDisplay);
 
   return (
     <div>
@@ -39,27 +46,27 @@ export default function SelectLabels({ labels = [], setLabels = {} }) {
       >
         {labelsSelected?.map((chip, i) => (
           <Chip
-            key={i}
+            key={chip?.key}
             style={{ margin: "4px" }}
             icon={chip?.icon}
             color={chip?.color || "primary"}
             label={chip?.label}
             size="small"
-            onDelete={handleDeleteChip(chip.value)}
+            onDelete={handleRemoveChip(chip?.key)}
           />
         ))}
       </div>
-      {CHIP_LABELS.map((chip, i) => {
+      {chipsDisplay.map((chip) => {
         return (
           <Chip
-            key={i}
+            key={chip?.key}
             disabled={labelsSelected?.length >= LIMIT_LABLES_SELECTED}
             style={{ margin: "4px" }}
             icon={chip?.icon}
             color={chip?.color || "primary"}
             label={chip?.label}
             size="small"
-            onClick={() => hanldeAddChip(chip)}
+            onClick={() => hanldeAddChip(chip?.key)}
           />
         );
       })}

@@ -4,7 +4,7 @@
   grid-template-rows: 30px auto auto;
   width: 100%;
   max-width: 350px;
-  margin: 0 auto;
+  margin-top: 2rem;
 }
 .header {
   padding: 0 4px;
@@ -36,7 +36,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: auto;
 }
 .contacts {
   width: 90%;
