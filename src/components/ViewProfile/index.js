@@ -13,7 +13,6 @@ export default function ViewProfile() {
   const handleLogOut = () => {
     firebaseLogout();
   };
-  console.log(favorites);
   const [userAds, setUserAds] = useState();
 
   useEffect(() => {
@@ -23,8 +22,6 @@ export default function ViewProfile() {
   useEffect(() => {
     getUserActiveAds().then(setPublishedAds);
   }, []);
-
-  console.log(favoritesList);
 
   return (
     <div className={styles.view_profile}>
@@ -62,7 +59,11 @@ export default function ViewProfile() {
           <div className={styles.user_ads_grid}>
             {userAds.map((ad) => (
               <div key={ad.id} className={styles.grid_item}>
-                <Advert advert={ad} favorite={favoritesList.includes(ad.id)} />
+                <Advert
+                  advert={ad}
+                  favorite={favoritesList.includes(ad.id)}
+                  admin
+                />
               </div>
             ))}
           </div>
@@ -76,7 +77,11 @@ export default function ViewProfile() {
           <div className={styles.user_ads_grid}>
             {publishedAds.map((ad) => (
               <div key={ad.id} className={styles.grid_item}>
-                <Advert advert={ad} favorite={favoritesList.includes(ad.id)} />
+                <Advert
+                  advert={ad}
+                  favorite={favoritesList.includes(ad.id)}
+                  admin
+                />
               </div>
             ))}
           </div>

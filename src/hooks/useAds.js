@@ -30,7 +30,6 @@ export function useAds() {
       });
     }
   }, []);
-  console.log(favorites);
 
   function getAds() {
     return fb_getAds().then((res) => {
@@ -75,7 +74,6 @@ export function useAds() {
   function addAdvert(form) {
     const { title, content, backgroundColor, contacts, labels } = form;
     return fb_addAdvert({
-      createdAt: new Date().toISOString(),
       userId: user.id,
       title,
       content,

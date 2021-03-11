@@ -60,7 +60,7 @@ export default function Barrio() {
   return (
     <>
       <Filter labels={labelsAvailables} handleSetFilter={handleSetFilter} />
-      <AdvertsList barrio={barrio} adverts={adverts} />
+      <AdvertsList barrio={barrio} adverts={adverts}  />
     </>
   );
 }

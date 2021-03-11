@@ -14,7 +14,6 @@ export function UserProvider({ children }) {
   useEffect(() => {
     if (user) {
       fb_listenUserFavorites(user.id, (favorites) => {
-        console.log(favorites)
         setFavoritesList(favorites.map((fav) => fav.advertId));
       });
     }

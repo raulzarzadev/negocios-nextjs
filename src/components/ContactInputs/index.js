@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
-import { Box, div, IconButton, p } from "@material-ui/core";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import { CONTACT_TYPES } from "CONST/CONTACT_TYPES";
 
@@ -73,7 +72,7 @@ export default function ContactInputs({ contacts = [], setContacts }) {
               </button>
             </div>
             <div>
-              <p>{contact.type}:</p>
+              <p>{contact.icon}:</p>
             </div>
             <div>
               <p>{contact.value}</p>

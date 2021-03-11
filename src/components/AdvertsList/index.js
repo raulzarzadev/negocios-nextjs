@@ -9,7 +9,7 @@ export default function AdvertsList({ barrio = undefined, adverts }) {
       <div className={styles.adverts}>
         {adverts?.map((ad, i) => (
           <div key={i} className={styles.advert}>
-            <Advert advert={ad} />
+            <Advert advert={ad} showFavorite/>
           </div>
         ))}
       </div>

@@ -40,8 +40,6 @@ export default function NewAdForm({ advert = undefined }) {
     if (advert?.id) {
       editAdvert(advert.id, form).then((res) => {
         setTimeout(() => {
-          console.log(res);
-          console.log("Editando");
           router.push("/profile");
         }, 1000);
       });
@@ -49,7 +47,6 @@ export default function NewAdForm({ advert = undefined }) {
       /* --------------New Advert-------------- */
       addAdvert(form).then((res) => {
         setTimeout(() => {
-          console.log("redireccionando a perfil");
           router.push("/profile");
         }, 1000);
       });

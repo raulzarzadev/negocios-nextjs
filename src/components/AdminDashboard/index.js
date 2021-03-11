@@ -15,7 +15,6 @@ export default function AdminDashboard() {
   useEffect(() => {
     getAds().then(setAdverts);
   }, []);
-  console.log(adverts);
   const [openDetails, setOpenDetails] = useState(false);
   const handleOpenDetailsModal = () => {
     setOpenDetails(!openDetails);
@@ -52,7 +51,10 @@ export default function AdminDashboard() {
               </div>
             </div>
             <Modal open={openDetails} handleOpen={handleOpenDetailsModal}>
-              <Advert advert={ad} />
+              <div style={{width:200}}>
+                Barrio : 
+              <Advert advert={ad} admin/>
+              </div>
             </Modal>
           </div>
         ))}

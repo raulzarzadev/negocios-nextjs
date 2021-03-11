@@ -72,7 +72,10 @@ export const fb_getBarrio = (barrio) => {
 export const fb_addAdvert = (advert) => {
   return db
     .collection("adverts")
-    .add(advert)
+    .add({
+      ...advert,
+      createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
+    })
     .then((docRef) => {
       return { ok: true, type: "AD_CREATED", ref: docRef.id };
     })
@@ -171,10 +174,10 @@ export const fb_getBarrioActivePublications = async (barrio) => {
     );
 };
 
-export const fb_unpublishAdvert = (publication) => {
+export const fb_unpublishAdvert = (id) => {
   return db
     .collection("publications")
-    .doc(publication.id)
+    .doc(id)
     .update({ active: false });
 };
 
@@ -205,7 +208,6 @@ export const fb_addFavorite = async (userId, advertId) => {
     .then((docRef) => {
       return { ok: true, type: "FAVORITE_ADDED", ref: docRef.id };
     });
- 
 };
 
 export const fb_removeFavorite = async (userId, advertId) => {

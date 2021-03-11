@@ -33,7 +33,7 @@ const defaulAdvert = {
   ],
 };
 
-export default function Advert({ advert = defaulAdvert, newForm }) {
+export default function Advert({ advert = defaulAdvert, showFavorite, admin }) {
   const {
     labels,
     images,
@@ -53,15 +53,14 @@ export default function Advert({ advert = defaulAdvert, newForm }) {
 
   const { favoritesList } = useUser();
   const favorite = favoritesList.includes(id);
-  console.log(favoritesList, id);
   const chips = labels?.map((label) =>
     CHIP_LABELS.find((chip) => chip.value === label)
   );
   const contactLinks = contacts?.map((contact) =>
-    CONTACT_TYPES.find((contactType) => contactType.value === contact.type && {...contact})
+    CONTACT_TYPES.find(
+      (contactType) => contactType.value === contact.type && { ...contact }
+    )
   );
-
-  console.log(contactLinks);
 
   const [openDelete, setOpenDelete] = useState(false);
   const [openPublish, setOpenPublish] = useState(false);
@@ -73,8 +72,8 @@ export default function Advert({ advert = defaulAdvert, newForm }) {
     setOpenPublish(!openPublish);
   };
 
-  const handleUnpublish = () => {
-    unpublishAdvert(publication);
+  const handleUnpublish = (publicationId) => {
+    unpublishAdvert(publicationId);
   };
   const handleAddFavorite = () => {
     addFavorite(id).then((res) => console.log(res));
@@ -87,20 +86,18 @@ export default function Advert({ advert = defaulAdvert, newForm }) {
     deleteAdvert(id);
   };
 
-  const admin = false;
-  const showSetFavorite = !newForm;
 
   return (
     <div style={{ backgroundColor }} className={styles.advert}>
       <header className={styles.header}>
         {chips?.map((chip, i) => (
-          <Tooltip key={i} text={chip.label}>
+          <Tooltip key={i} text={chip?.label}>
             <SvgIcon>{chip?.icon}</SvgIcon>
           </Tooltip>
         ))}
         <div className={styles.labels}></div>
         <div className={styles.actions}>
-          {showSetFavorite && (
+          {showFavorite && (
             <div>
               {favorite ? (
                 <IconBtn onClick={handleRemoveFavorite}>
@@ -115,6 +112,7 @@ export default function Advert({ advert = defaulAdvert, newForm }) {
           )}
           {admin && (
             <MenuAdminAd
+              publication={publication}
               advertId={id}
               handleDeleteAd={handleOpenDelete}
               handlePublish={handleOpenPublish}
@@ -136,8 +134,8 @@ export default function Advert({ advert = defaulAdvert, newForm }) {
       <footer className={styles.footer}>
         <div className={styles.contacts}>
           {contactLinks?.map((contact, i) => (
-            <Tooltip text={contact.label}>
-              <IconBtn key={i} onClick={() => console.log("click")}>
+            <Tooltip key={i} text={contact.label}>
+              <IconBtn onClick={() => console.log("click")}>
                 <SvgIcon fontSize="large">{contact?.icon}</SvgIcon>
               </IconBtn>
             </Tooltip>
@@ -159,6 +157,7 @@ export default function Advert({ advert = defaulAdvert, newForm }) {
 }
 
 const MenuAdminAd = ({
+  publication,
   advertId,
   handleDeleteAd,
   handlePublish,
@@ -173,7 +172,6 @@ const MenuAdminAd = ({
   };
 
   const [open, setOpen] = useState(false);
-
   return (
     <>
       <button
@@ -196,14 +194,17 @@ const MenuAdminAd = ({
                 <li className={styles.menu_item} onClick={handleDeleteAd}>
                   {` Eliminar`}
                 </li>
-                <li
-                  className={styles.menu_item}
-                  onClick={handlePublish}
-                >{`Publicar`}</li>
-                <li
-                  className={styles.menu_item}
-                  onClick={handleUnpublish}
-                >{`Despublicar`}</li>
+                {!!publication ? (
+                  <li
+                    className={styles.menu_item}
+                    onClick={() => handleUnpublish(publication.id)}
+                  >{`Despublicar`}</li>
+                ) : (
+                  <li
+                    className={styles.menu_item}
+                    onClick={handlePublish}
+                  >{`Publicar`}</li>
+                )}
               </ul>
             </div>
           </div>
