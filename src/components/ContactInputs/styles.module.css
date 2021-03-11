@@ -1,9 +1,19 @@
-.contact_display{
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
+.contact_display {
+  margin: 2rem 0;
 }
-.input_select{
-    width: 100%;
+.contacts_list {
+  margin: 2rem 0;
+}
+.contact_row {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+.input_select {
+  width: 100%;
+}
+
+.input_buttom {
+  margin: 1rem;
 }

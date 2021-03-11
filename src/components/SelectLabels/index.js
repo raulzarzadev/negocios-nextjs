@@ -6,11 +6,9 @@ export default function SelectLabels({ labels = [], setLabels = {} }) {
   const LIMIT_LABLES_SELECTED = 5;
   const [labelsSelected, setLabelsSelected] = useState(labels || []);
   const handleRemoveChip = (chipKey) => () => {
-    console.log(chipKey);
     const filteredLabels = labels?.filter((label) => label != chipKey);
     setLabels(filteredLabels);
   };
-  console.log(labels);
 
   const hanldeAddChip = (chipKey) => {
     setLabels([...labels, chipKey]);
@@ -20,20 +18,18 @@ export default function SelectLabels({ labels = [], setLabels = {} }) {
     setLabelsSelected(
       labels?.map((label) => CHIP_LABELS.find((chip) => chip?.key === label))
     );
-  }, [labels]);
-
+  }, [labels.length]);
+  
   const [chipsDisplay, setChipDisplay] = useState([]);
   useEffect(() => {
-    const chipsFiltered = CHIP_LABELS.filter((chip) =>
-      !labels.includes(chip.key)
-    );
-    setChipDisplay(chipsFiltered);
-  }, [labels]);
-  console.log(chipsDisplay);
+    const chipsFiltered = CHIP_LABELS.filter(
+      (chip) => !labels.includes(chip.key)
+      );
+      setChipDisplay(chipsFiltered);
+    }, [labels.length]);
 
   return (
     <div>
-      <em>Max {LIMIT_LABLES_SELECTED} etiquetas</em>
       <div
         style={{
           maxWidth: "300px",
@@ -56,20 +52,23 @@ export default function SelectLabels({ labels = [], setLabels = {} }) {
           />
         ))}
       </div>
-      {chipsDisplay.map((chip) => {
-        return (
-          <Chip
-            key={chip?.key}
-            disabled={labelsSelected?.length >= LIMIT_LABLES_SELECTED}
-            style={{ margin: "4px" }}
-            icon={chip?.icon}
-            color={chip?.color || "primary"}
-            label={chip?.label}
-            size="small"
-            onClick={() => hanldeAddChip(chip?.key)}
-          />
-        );
-      })}
+      <em>Max {LIMIT_LABLES_SELECTED} etiquetas</em>
+      <div>
+        {chipsDisplay.map((chip) => {
+          return (
+            <Chip
+              key={chip?.key}
+              disabled={labelsSelected?.length >= LIMIT_LABLES_SELECTED}
+              style={{ margin: "4px" }}
+              icon={chip?.icon}
+              color={chip?.color || "primary"}
+              label={chip?.label}
+              size="small"
+              onClick={() => hanldeAddChip(chip?.key)}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 }

@@ -7,7 +7,6 @@ import IconBtn from "@comps/IconBtn";
 import Tooltip from "@comps/Tooltip";
 
 export default function ContactInputs({ contacts = [], setContacts }) {
-  const [contactsList, setContactsList] = useState(contacts || []);
   const [newContact, setNewContact] = useState({ type: "" });
   const [placeholder, setPlaceholder] = useState("");
   const [defaultValue, setDefaultValue] = useState("");
@@ -15,10 +14,8 @@ export default function ContactInputs({ contacts = [], setContacts }) {
   const CONTACTS_MAX = 5;
 
   useEffect(() => {
-    if (contacts) {
-      setContactsList(contacts);
-    }
-  }, []);
+    contacts.length >= CONTACTS_MAX ? setDisabled(true) : setDisabled(false);
+  }, [contacts.length]);
 
   useEffect(() => {
     switch (newContact.type) {
@@ -49,17 +46,17 @@ export default function ContactInputs({ contacts = [], setContacts }) {
         break;
     }
   }, [newContact]);
-  //console.log(defaultValue);
 
   const addContact = () => {
-    setContactsList([...contactsList, newContact]);
-    setContacts([...contactsList, newContact]);
+    setContacts([...contacts, newContact]);
   };
 
   const handleDeleteContact = (contact) => {
-    const arr = contactsList.filter((item) => item !== contact);
-    setContactsList(arr);
-    setContacts(arr);
+    const newList = contacts.filter(
+      (cntct) =>
+        !(cntct.type === contact.type.value && cntct.value === contact.value)
+    );
+    setContacts(newList);
   };
   const handleChange = (e) => {
     setNewContact({ ...newContact, [e.target.name]: e.target.value });
@@ -67,37 +64,39 @@ export default function ContactInputs({ contacts = [], setContacts }) {
 
   const [disabled, setDisabled] = useState(false);
 
-  useEffect(() => {
-    contactsList.length === CONTACTS_MAX
-      ? setDisabled(true)
-      : setDisabled(false);
-  }, [contactsList]);
-
-
-  const formatedContacts = contactsList?.map((contact) =>
-    CONTACT_TYPES.find((contactType) => {
-      console.log(contactType)
-      return contactType.value === contact.type && { ...contact };
-    })
-  );
+  const formatedContacts = contacts?.map((contact) => {
+    const type = CONTACT_TYPES.find(
+      (contactType) => contactType.value === contact.type
+    );
+    return { ...contact, type };
+  });
 
   return (
-    <div>
-      {formatedContacts?.map((contact, i) => (
-        <div key={i}>
-          <div className={styles.contact_display}>
-            <div>
-              <Tooltip text={contact.label}>{contact.icon}</Tooltip>
+    <div className={styles.contact_display}>
+      <div className={styles.contacts_list}>
+        <h3>Lista de contactos</h3>
+        {formatedContacts?.map((contact, i) => (
+          <div key={i}>
+            <div className={styles.contact_row}>
+              <div>
+                <Tooltip text={contact.type.label}>
+                  <p>{contact.type.icon}</p>
+                </Tooltip>
+              </div>
+              <div>
+                <p>{contact.value}</p>
+              </div>
+              <Tooltip text={"Eliminar"}>
+                <IconBtn onClick={() => handleDeleteContact(contact)}>
+                  <DeleteForeverIcon />
+                </IconBtn>
+              </Tooltip>
             </div>
-            <div>
-              <p>{contact.value}</p>
-            </div>
-            <IconBtn onClick={() => handleDeleteContact(contact)}>
-              <DeleteForeverIcon />
-            </IconBtn>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
+
+      <h3>Nuevo contacto</h3>
 
       <InputContact
         disabled={disabled}
@@ -108,9 +107,9 @@ export default function ContactInputs({ contacts = [], setContacts }) {
         defaultValue={defaultValue}
       />
       {disabled && <em>{`Maximo ${CONTACTS_MAX} contactos`}</em>}
-      <div>
+      <div className="center">
         <button
-          className={styles.input_button}
+          className={styles.input_buttom}
           disabled={!newContact.type || !newContact.value || disabled}
           onClick={() => {
             addContact();
@@ -138,13 +137,13 @@ const InputContact = ({
         <span>
           <p>Tipo :</p>
           <select
+            className={styles.input_select}
             disabled={disabled}
             name={`type`}
             value={type || ""}
             placeholder={"Tipo"}
             options={CONTACT_TYPES}
             onChange={handleChange}
-            className={styles.input_select}
           >
             <option value="" unselectable="true">
               Selecciona
@@ -161,12 +160,12 @@ const InputContact = ({
         <span>
           <p>Valor: </p>
           <input
+            className={styles.input_text}
             disabled={disabled}
             placeholder={placeholder}
             name={`value`}
             value={value || ""}
             onChange={handleChange}
-            className={styles.input_text}
           />
         </span>
       </div>
