@@ -7,17 +7,19 @@
 
 .adverts {
   display: grid;
-  gap: 1rem;
+  grid-gap: 10px;
+  justify-content: center;
 }
 .advert {
   width: 100%;
 }
-
-@media (min-width: 450px) {
+@media (min-width: 600px) {
   .adverts {
-    grid-auto-flow: column;
+    grid-template-columns: repeat(2, 1fr);
   }
-  .advert {
-    width: 220px;
+}
+@media (min-width: 900px) {
+  .adverts {
+    grid-template-columns: repeat(3, 1fr);
   }
 }

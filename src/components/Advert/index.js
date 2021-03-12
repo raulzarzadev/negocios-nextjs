@@ -8,7 +8,7 @@ import { CHIP_LABELS } from "CONST/CHIPS_LABELS";
 import styles from "./styles.module.css";
 import { CONTACT_TYPES } from "CONST/CONTACT_TYPES";
 import { useState } from "react";
-import { L } from "@comps/L";
+import { BtnL, L } from "@comps/L";
 import Modal from "@comps/Modal";
 import { useAds } from "src/hooks/useAds";
 import ModalPubish from "@comps/ModalPublish";
@@ -54,7 +54,7 @@ export default function Advert({ advert = defaulAdvert, showFavorite, admin }) {
   const { favoritesList } = useUser();
   const favorite = favoritesList.includes(id);
   const chips = labels?.map((label) =>
-    CHIP_LABELS.find((chip) => chip.value === label)
+    CHIP_LABELS.find((chip) => chip.key === label)
   );
   const contactLinks = contacts?.map((contact) =>
     CONTACT_TYPES.find(
@@ -85,7 +85,6 @@ export default function Advert({ advert = defaulAdvert, showFavorite, admin }) {
   const handleDeleteAd = () => {
     deleteAdvert(id);
   };
-
 
   return (
     <div style={{ backgroundColor }} className={styles.advert}>
@@ -123,12 +122,17 @@ export default function Advert({ advert = defaulAdvert, showFavorite, admin }) {
       </header>
       <section className={styles.body}>
         <div className={styles.body_images}>
-          {/*  <img src={"/logotipo.png"} alt={""} className={styles.image} /> */}
+          <img src={"/logotipo.png"} alt={""} className={styles.image} />
           {/* {images[0] && <img src={images[0].url} alt={images[0].title} />} */}
         </div>
         <div className={styles.body_content}>
           <h4>{title}</h4>
-          <p>{content}</p>
+          <p>
+            {content.slice(0, 100)}
+            <BtnL onClick={() => console.log("show details")}>
+              <em> ver mas </em>
+            </BtnL>
+          </p>
         </div>
       </section>
       <footer className={styles.footer}>

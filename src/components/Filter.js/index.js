@@ -5,7 +5,7 @@ import { CHIP_LABELS } from "CONST/CHIPS_LABELS";
 
 export default function Filter({ handleSetFilter, labels = [] }) {
   const formatedLabels = labels.map((label) =>
-    CHIP_LABELS.find((chip) => chip.value === label)
+    CHIP_LABELS.find((chip) => chip.key === label)
   );
 
   const [filtro, setFiltro] = useState("Todos");
@@ -37,7 +37,7 @@ export default function Filter({ handleSetFilter, labels = [] }) {
             }}
             className={styles.filter_label}
             onClick={() => {
-              handleChangeFilter(label?.value);
+              handleChangeFilter(label?.key);
               setFiltro(label?.label);
             }}
           >

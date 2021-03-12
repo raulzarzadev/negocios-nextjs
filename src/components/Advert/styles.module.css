@@ -1,7 +1,7 @@
 .advert {
   border: 1px solid;
   display: grid;
-  grid-template-rows: 30px auto auto;
+  grid-template-rows: 40px 200px 50px;
   width: 100%;
   max-width: 350px;
   margin-top: 2rem;
@@ -10,6 +10,7 @@
   padding: 0 4px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .labels {
   padding: 0 4px;
@@ -27,7 +28,7 @@
   align-items: center;
 }
 .body_images {
-  height: 4rem;
+  height: 6rem;
 }
 .body_content {
   padding: 0.5rem;
