@@ -1,6 +1,6 @@
 import styles from "./styles.module.css";
 
-export default function IconBtn({ children, onClick }) {
+export default function IconBtn({ children, onClick = () => {} }) {
   return (
     <a
       onClick={(e) => {

@@ -25,9 +25,13 @@ a {
   --white: #fff;
   --black: #000;
   --primary: #c9f;
+  --gray: rgb(196, 196, 196);
+  --blue: #c9f;
   --secondary: #fca;
   --shadow-1: 1px 1px 4px #000;
   --shadow-in: inset 0.5px 0.5px 3px #000;
+
+  --p-small: 0.7rem;
 }
 
 h1,

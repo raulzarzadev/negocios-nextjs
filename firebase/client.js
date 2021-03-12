@@ -175,10 +175,7 @@ export const fb_getBarrioActivePublications = async (barrio) => {
 };
 
 export const fb_unpublishAdvert = (id) => {
-  return db
-    .collection("publications")
-    .doc(id)
-    .update({ active: false });
+  return db.collection("publications").doc(id).update({ active: false });
 };
 
 export const fb_getUserActivePublications = (userId) => {
@@ -246,4 +243,19 @@ export const fb_listenUserFavorites = (userId, callback) => {
       });
       callback(favoriteList);
     });
+};
+
+/* ------------------------------------------------------------------------------------------- */
+/*  ---------------------***---------    PUBLICATIONS    ----------***--------------------------*/
+/* ------------------------------------------------------------------------------------------- */
+
+export const fb_getAllPublications = () => {
+  return db
+    .collection("publications")
+    .get()
+    .then(({ docs }) =>
+      docs.map((doc) => {
+        return { id: doc.id, ...doc.data() };
+      })
+    );
 };
