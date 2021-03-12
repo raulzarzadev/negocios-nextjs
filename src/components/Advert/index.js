@@ -90,7 +90,7 @@ export default function Advert({ advert = defaulAdvert, showFavorite, admin }) {
     <div style={{ backgroundColor }} className={styles.advert}>
       <header className={styles.header}>
         {chips?.map((chip, i) => (
-          <Tooltip key={i} text={chip?.label}>
+          <Tooltip key={i} text={chip?.label} position="left">
             <SvgIcon>{chip?.icon}</SvgIcon>
           </Tooltip>
         ))}
@@ -99,13 +99,17 @@ export default function Advert({ advert = defaulAdvert, showFavorite, admin }) {
           {showFavorite && (
             <div>
               {favorite ? (
-                <IconBtn onClick={handleRemoveFavorite}>
-                  <BookmarkIcon />
-                </IconBtn>
+                <Tooltip text="Eliminar de favoritos" position="right">
+                  <IconBtn onClick={handleRemoveFavorite}>
+                    <BookmarkIcon />
+                  </IconBtn>
+                </Tooltip>
               ) : (
-                <IconBtn onClick={handleAddFavorite}>
-                  <BookmarkBorderIcon />
-                </IconBtn>
+                <Tooltip text="Agregar a favoritos" position="right">
+                  <IconBtn onClick={handleAddFavorite}>
+                    <BookmarkBorderIcon />
+                  </IconBtn>
+                </Tooltip>
               )}
             </div>
           )}
@@ -128,7 +132,7 @@ export default function Advert({ advert = defaulAdvert, showFavorite, admin }) {
         <div className={styles.body_content}>
           <h4>{title}</h4>
           <p>
-            {content.slice(0, 100)}
+            {content?.slice(0, 100)}
             <BtnL onClick={() => console.log("show details")}>
               <em> ver mas </em>
             </BtnL>

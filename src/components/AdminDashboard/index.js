@@ -15,10 +15,8 @@ export default function AdminDashboard() {
   useEffect(() => {
     getAds().then(setAdverts);
   }, []);
-  const [openDetails, setOpenDetails] = useState(false);
-  const handleOpenDetailsModal = () => {
-    setOpenDetails(!openDetails);
-  };
+  
+
   return (
     <div className={styles.dashboard}>
       <div>
@@ -29,36 +27,54 @@ export default function AdminDashboard() {
           <div className={styles.table_title}>Acciones</div>
         </div>
         {adverts?.map((ad) => (
-          <div className={styles.dash_row} key={ad.id}>
-            <div className={styles.table_cell}>{ad.title}</div>
-            <div className={styles.table_cell}>
-              <div className="center">
-                <CheckCircleIcon />
-                <CheckCircleOutlineIcon />
-              </div>
-            </div>
-
-            <div className={styles.table_cell}>
-              <div className="center">
-                <L href={`/adverts/edit/${ad.id}`}>
-                  <button>
-                    <EditIcon />
-                  </button>
-                </L>
-                <button onClick={handleOpenDetailsModal}>
-                  <SettingsApplicationsIcon />
-                </button>
-              </div>
-            </div>
-            <Modal open={openDetails} handleOpen={handleOpenDetailsModal}>
-              <div style={{width:200}}>
-                Barrio : 
-              <Advert advert={ad} admin/>
-              </div>
-            </Modal>
-          </div>
+          <AddRow ad={ad} />
         ))}
       </div>
     </div>
   );
 }
+const AddRow = ({ ad }) => {
+  const [openDetails, setOpenDetails] = useState(false);
+  const handleOpenDetailsModal = () => {
+    setOpenDetails(!openDetails);
+  };
+  return (
+    <>
+      <div className={styles.dash_row} key={ad.id}>
+        <div className={styles.table_cell}>{ad.title}</div>
+        <div className={styles.table_cell}>
+          <div className="center">
+            <CheckCircleIcon />
+            <CheckCircleOutlineIcon />
+          </div>
+        </div>
+
+        <div className={styles.table_cell}>
+          <div className="center">
+            <L href={`/adverts/edit/${ad.id}`}>
+              <button>
+                <EditIcon />
+              </button>
+            </L>
+            <button onClick={handleOpenDetailsModal}>
+              <SettingsApplicationsIcon />
+            </button>
+          </div>
+        </div>
+        <Modal open={openDetails} handleOpen={handleOpenDetailsModal}>
+          <div className={styles.modal_advert}>
+            <div className={styles.modal_options}>
+              <div>
+                Publicaciones:{console.log(ad)}
+                <div></div>
+              </div>
+              <div>Creado:</div>
+              <div>Dueño:</div>
+            </div>
+            <Advert advert={ad} admin />
+          </div>
+        </Modal>
+      </div>
+    </>
+  );
+};

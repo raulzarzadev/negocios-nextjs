@@ -45,7 +45,7 @@
   justify-content: center;
   align-items: center;
   overflow-y: auto;
-  max-height: 300px;
+  max-height: 400px;
 }
 
 .modal_button_close {

@@ -19,3 +19,13 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr) 150px;
 }
+
+.modal_advert {
+  display: flex;
+}
+.modal_options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

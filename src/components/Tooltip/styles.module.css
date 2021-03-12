@@ -32,3 +32,13 @@
   left: 50%;
   margin-left: -60px; /* Use half of the width (120/2 = 60), to center the tooltip */
 }
+
+.tooltip .tooltiptext[position="right"] {
+  left: -100px;
+}
+.tooltip .tooltiptext[position="left"] {
+  left: 50px;
+}
+
+@media (min-width: 900px) {
+}

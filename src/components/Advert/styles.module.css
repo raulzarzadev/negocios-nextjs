@@ -1,10 +1,10 @@
 .advert {
-  border: 1px solid;
   display: grid;
   grid-template-rows: 40px 200px 50px;
   width: 100%;
   max-width: 350px;
   margin-top: 2rem;
+  box-shadow: var(--shadow-in),  var(--shadow-1);
 }
 .header {
   padding: 0 4px;
@@ -43,6 +43,12 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+}
+
+@media (min-width:600px){
+  .advert{
+    border-radius: 1rem;
+  }
 }
 
 /* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
