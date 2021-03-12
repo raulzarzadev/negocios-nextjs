@@ -36,7 +36,7 @@ const defaulAdvert = {
 export default function Advert({ advert = defaulAdvert, showFavorite, admin }) {
   const {
     labels,
-    images,
+    image,
     title,
     content,
     contacts,
@@ -126,7 +126,7 @@ export default function Advert({ advert = defaulAdvert, showFavorite, admin }) {
       </header>
       <section className={styles.body}>
         <div className={styles.body_images}>
-          <img src={"/logotipo.png"} alt={""} className={styles.image} />
+          <img src={image || "/logotipo.png"} alt={""} className={styles.image} />
           {/* {images[0] && <img src={images[0].url} alt={images[0].title} />} */}
         </div>
         <div className={styles.body_content}>
@@ -182,7 +182,7 @@ const MenuAdminAd = ({
   const [open, setOpen] = useState(false);
   return (
     <>
-      <button
+      <IconBtn
         onClick={handleOpen}
         className={styles.open_buttom}
         id="menu-desplegable"
@@ -217,7 +217,7 @@ const MenuAdminAd = ({
             </div>
           </div>
         )}
-      </button>
+      </IconBtn>
     </>
   );
 };

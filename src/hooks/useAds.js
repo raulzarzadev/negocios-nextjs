@@ -72,7 +72,7 @@ export function useAds() {
     return fb_editAdvert(id, advert).then((res) => res);
   }
   function addAdvert(form) {
-    const { title, content, backgroundColor, contacts, labels } = form;
+    const { title, content, backgroundColor, contacts, labels, image } = form;
     return fb_addAdvert({
       userId: user.id,
       title,
@@ -80,6 +80,7 @@ export function useAds() {
       backgroundColor,
       contacts,
       labels,
+      image,
     }).then((res) => res);
   }
   function deleteAdvert(id) {

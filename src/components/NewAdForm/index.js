@@ -3,24 +3,47 @@ import ColorPicker from "@comps/ColorPicker";
 import ContactInputs from "@comps/ContactInputs";
 import Modal from "@comps/Modal";
 import SelectLabels from "@comps/SelectLabels";
+import { uploadImage } from "firebase/client";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useAds } from "src/hooks/useAds";
 import styles from "./styles.module.css";
 
 export default function NewAdForm({ advert = undefined }) {
+  const router = useRouter();
+  const [form, setForm] = useState(undefined);
+  const { addAdvert, editAdvert } = useAds();
   useEffect(() => {
     if (advert) {
       setForm(advert);
     }
   }, [advert]);
 
-  const router = useRouter();
-  const [form, setForm] = useState(undefined);
-  const { addAdvert, editAdvert } = useAds();
+  /* --------------MANAGE IMAGE----------------- */
+  const [imageToUpload, setImageToUpload] = useState(null);
+  const [imgURL, setImageURL] = useState(null);
+  useEffect(() => {
+    if (imageToUpload) {
+      const onProgress = (e) => console.log("progess", e);
+      const onError = (e) => console.log("error", e);
+      const onComplete = (e) => {
+        imageToUpload.snapshot.ref.getDownloadURL().then(setImageURL);
+        console.log("complete", e);
+      };
+      imageToUpload.on("state_change", onProgress, onError, onComplete);
+    }
+  }, [imageToUpload]);
+
+  useEffect(() => {
+    if (imgURL) {
+      setForm({ ...form, image: imgURL });
+    }
+  }, [imgURL]);
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
+  console.log(form)
 
   const [selectLabelsModal, setSelectLabelsModal] = useState(false);
   const [selectColorModal, setSelectColorModal] = useState(false);
@@ -56,7 +79,9 @@ export default function NewAdForm({ advert = undefined }) {
     setForm({ ...form, backgroundColor: e });
   };
   const handleSelectImage = (e) => {
-    setForm({ ...form, images: e.target.files });
+    e.preventDefault();
+    const task = uploadImage(e.target.files[0]);
+    setImageToUpload(task);
   };
   const handleSetContacts = (e) => {
     setForm({ ...form, contacts: e });
@@ -78,6 +103,7 @@ export default function NewAdForm({ advert = undefined }) {
         <section className={styles.section_form}>
           <h4>Contenido</h4>
           {/* IMAGE */}
+
           {/* TITLE AND CONTENT */}
           <span>
             <p>Titulo:</p>
@@ -138,7 +164,12 @@ export default function NewAdForm({ advert = undefined }) {
         {/* IMAGES */}
         <section className={styles.section_form}>
           <h4>Imagenes</h4>
-          <input type="file" name="images" onChange={handleSelectImage} />
+          <input
+            type="file"
+            name="images"
+            onChange={handleSelectImage}
+            multiple
+          />
         </section>
         {/* PREVIEW ADVERT */}
         <section className={styles.section_form}>

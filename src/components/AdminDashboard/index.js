@@ -5,7 +5,6 @@ import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import { useEffect, useState } from "react";
 import { useAds } from "src/hooks/useAds";
-import { BtnL, L } from "@comps/L";
 import Modal from "@comps/Modal";
 import Advert from "@comps/Advert";
 import IconBtn from "@comps/IconBtn";
