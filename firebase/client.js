@@ -126,8 +126,8 @@ export const fb_getAdvertById = (advertId) => {
     .collection("adverts")
     .doc(advertId)
     .get()
-    .then((snapShot) => {
-      return { id: snapShot.id, ...snapShot.data() };
+    .then((doc) => {
+      if (doc.exists) return { id: doc.id, ...doc.data() };
     })
     .catch((err) => console.log(err));
 };

@@ -90,8 +90,9 @@ const AddRow = ({ ad }) => {
                 Publicaciones: {publications?.length}
                 <div className={styles.details}>
                   {publications?.map(
-                    ({ barrioId, active, publishEnds, publishStart }) => (
+                    ({ id, barrioId, active, publishEnds, publishStart }) => (
                       <div
+                        key={id}
                         className={styles.details_cell}
                         style={{ background: active ? "blue" : "red" }}
                       >

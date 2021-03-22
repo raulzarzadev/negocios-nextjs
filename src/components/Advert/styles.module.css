@@ -4,7 +4,7 @@
   width: 100%;
   max-width: 350px;
   margin-top: 2rem;
-  box-shadow: var(--shadow-in),  var(--shadow-1);
+  box-shadow: var(--shadow-in), var(--shadow-1);
 }
 .header {
   padding: 0 4px;
@@ -20,15 +20,19 @@
 }
 .image {
   height: 100%;
-  margin: 0 auto;
-  display: block;
+  width: 100%;
+  background-size: contain;
+  background-repeat: repeat-x;
+  background-position: center;
+  border-radius: 4px;
+  box-shadow: var(--shadow-in);
 }
 .actions {
   display: flex;
   align-items: center;
 }
 .body_images {
-  height: 6rem;
+  height: 8rem;
 }
 .body_content {
   padding: 0.5rem;
@@ -45,8 +49,8 @@
   align-items: center;
 }
 
-@media (min-width:600px){
-  .advert{
+@media (min-width: 600px) {
+  .advert {
     border-radius: 1rem;
   }
 }

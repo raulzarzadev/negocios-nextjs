@@ -1,6 +1,7 @@
-.view_profile{
-max-width: 700px;
-margin: 0 auto;
+.view_profile {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem 0;
 }
 .profile_actions {
   display: flex;
@@ -14,15 +15,16 @@ margin: 0 auto;
   text-align: center;
 }
 
-.user_ads_grid{
+.user_ads_grid {
   display: grid;
-  gap: 4px;
-  padding: 4px;
+  gap: 8px;
+  padding: 12px;
   grid-auto-flow: column;
   overflow: auto;
   box-shadow: inset 1px 1px 10px 1px;
 }
 
 .grid_item {
+  justify-self: center;
   width: 250px;
 }

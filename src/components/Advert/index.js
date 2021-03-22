@@ -15,6 +15,7 @@ import ModalPubish from "@comps/ModalPublish";
 import { useUser } from "src/context/UserContext";
 import IconBtn from "@comps/IconBtn";
 import Tooltip from "@comps/Tooltip";
+import { P } from "@comps/P";
 
 const defaulAdvert = {
   labels: ["lab1", "lab2"],
@@ -125,18 +126,24 @@ export default function Advert({ advert = defaulAdvert, showFavorite, admin }) {
         </div>
       </header>
       <section className={styles.body}>
+        {/* ---------------------------------IMAGE---------------------------------- */}
         <div className={styles.body_images}>
-          <img src={image || "/logotipo.png"} alt={""} className={styles.image} />
-          {/* {images[0] && <img src={images[0].url} alt={images[0].title} />} */}
+          <div
+            style={{
+              backgroundImage: `url(${image || "/logotipo.png"})`,
+            }}
+            className={styles.image}
+          />
         </div>
+        {/* ---------------------------------IMAGE---------------------------------- */}
         <div className={styles.body_content}>
           <h4>{title}</h4>
-          <p>
+          <P size="small">
             {content?.slice(0, 100)}
             <BtnL onClick={() => console.log("show details")}>
               <em> ver mas </em>
             </BtnL>
-          </p>
+          </P>
         </div>
       </section>
       <footer className={styles.footer}>

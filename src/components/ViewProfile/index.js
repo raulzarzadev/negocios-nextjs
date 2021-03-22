@@ -45,9 +45,9 @@ export default function ViewProfile() {
           <p>No has guardado</p>
         ) : (
           <div className={styles.user_ads_grid}>
-            {favorites.map((ad) => (
+            {favorites.map((ad,i) => (
               <div key={ad.id} className={styles.grid_item}>
-                <Advert advert={ad} favorite={true} />
+                <Advert advert={ad} showFavorite={true} />
               </div>
             ))}
           </div>
