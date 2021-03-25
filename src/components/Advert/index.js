@@ -16,6 +16,7 @@ import { useUser } from "src/context/UserContext";
 import IconBtn from "@comps/IconBtn";
 import Tooltip from "@comps/Tooltip";
 import { P } from "@comps/P";
+import formatContacts from "src/utils/formatContacts";
 
 const defaulAdvert = {
   labels: ["lab1", "lab2"],
@@ -45,6 +46,7 @@ export default function Advert({ advert = defaulAdvert, showFavorite, admin }) {
     id,
     publication,
   } = advert;
+
   const {
     deleteAdvert,
     unpublishAdvert,
@@ -54,15 +56,12 @@ export default function Advert({ advert = defaulAdvert, showFavorite, admin }) {
 
   const { favoritesList } = useUser();
   const favorite = favoritesList.includes(id);
+
   const chips = labels?.map((label) =>
     CHIP_LABELS.find((chip) => chip.key === label)
   );
-  const contactLinks = contacts?.map((contact) =>
-    CONTACT_TYPES.find(
-      (contactType) => contactType.value === contact.type && { ...contact }
-    )
-  );
 
+  const contactLinks = formatContacts(contacts);
   const [openDelete, setOpenDelete] = useState(false);
   const [openPublish, setOpenPublish] = useState(false);
 
@@ -149,11 +148,7 @@ export default function Advert({ advert = defaulAdvert, showFavorite, admin }) {
       <footer className={styles.footer}>
         <div className={styles.contacts}>
           {contactLinks?.map((contact, i) => (
-            <Tooltip key={i} text={contact.label}>
-              <IconBtn onClick={() => console.log("click")}>
-                <SvgIcon fontSize="large">{contact?.icon}</SvgIcon>
-              </IconBtn>
-            </Tooltip>
+            <ContactLink contact={contact} key={i} />
           ))}
         </div>
         {/* MODALES */}
@@ -170,6 +165,25 @@ export default function Advert({ advert = defaulAdvert, showFavorite, admin }) {
     </div>
   );
 }
+
+const ContactLink = ({ contact }) => {
+  const hrefOptions = {
+    ws: `https://wa.me/521${contact.value.replace(
+      / /g,
+      ""
+    )}?text=Hola,%20te%20encontre%20en%20negociosdelbarrio.com%20y%20quisiera..`,
+  };
+
+  return (
+    <Tooltip text={contact?.label}>
+      <IconBtn>
+        <a href={hrefOptions[contact.type] || contact.value} target='_blank'>
+          <SvgIcon fontSize="large">{contact?.icon}</SvgIcon>
+        </a>
+      </IconBtn>
+    </Tooltip>
+  );
+};
 
 const MenuAdminAd = ({
   publication,

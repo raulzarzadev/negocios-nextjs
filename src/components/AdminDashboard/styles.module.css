@@ -21,11 +21,16 @@
 }
 .dash_table {
   display: grid;
-  grid-template-columns: 1fr 80px 1fr;
+  grid-template-columns: 1fr 100px 100px;
 }
 .dash_row {
   display: grid;
-  grid-template-columns: 1fr 80px 1fr;
+  grid-template-columns: 1fr 100px 100px;
+}
+
+.publications {
+  font-size: 0.7rem;
+  white-space: nowrap;
 }
 
 .modal_advert {
@@ -47,8 +52,9 @@
   gap: 4px;
   text-align: center;
 }
-.details_cell {
+.public_details_cell {
   padding: 4px;
+  min-width: 4rem;
   border: 1px solid;
   border-radius: 4px;
   font-size: 0.7rem;

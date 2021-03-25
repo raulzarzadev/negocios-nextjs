@@ -1,15 +1,9 @@
 import styles from "./styles.module.css";
 
-export default function IconBtn({ children, onClick = () => {} }) {
+export default function IconBtn({ children, ...rest }) {
   return (
-    <a
-      onClick={(e) => {
-        e.preventDefault();
-        onClick();
-      }}
-      className={styles.button}
-    >
+    <div {...rest} className={styles.button}>
       {children}
-    </a>
+    </div>
   );
 }

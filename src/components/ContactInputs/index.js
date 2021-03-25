@@ -5,6 +5,8 @@ import { CONTACT_TYPES } from "CONST/CONTACT_TYPES";
 import styles from "./styles.module.css";
 import IconBtn from "@comps/IconBtn";
 import Tooltip from "@comps/Tooltip";
+import formatContacts from "src/utils/formatContacts";
+import KeyboardNumbers from "@comps/keyboardNumbers";
 
 export default function ContactInputs({ contacts = [], setContacts }) {
   const [newContact, setNewContact] = useState({ type: "" });
@@ -13,50 +15,21 @@ export default function ContactInputs({ contacts = [], setContacts }) {
 
   const CONTACTS_MAX = 5;
 
-  useEffect(() => {
-    contacts.length >= CONTACTS_MAX ? setDisabled(true) : setDisabled(false);
-  }, [contacts.length]);
-
-  useEffect(() => {
-    switch (newContact.type) {
-      case "":
-        setPlaceholder("Selecciona el tipo de contacto");
-        setDefaultValue("");
-        break;
-      case "ws":
-        setPlaceholder("Escribe tu whats app");
-        setDefaultValue("+52");
-        break;
-      case "tel":
-        setPlaceholder("Numero de teléfono");
-        setDefaultValue("");
-        break;
-      case "fb":
-        setDefaultValue("https://facebook.com/");
-        //setPlaceholder("Numero de teléfono");
-        break;
-      case "in":
-        setDefaultValue("https://instagram.com/");
-        break;
-      case "web":
-        setDefaultValue("https://");
-        break;
-      default:
-        setPlaceholder("Copia el link");
-        break;
-    }
-  }, [newContact]);
-
   const addContact = () => {
-    setContacts([...contacts, newContact]);
+    setContacts([
+      ...contacts,
+      { ...newContact, value: `${contactType.prefix}${newContact.value}` },
+    ]);
   };
 
   const handleDeleteContact = (contact) => {
-    const newList = contacts.filter(
-      (cntct) =>
-        !(cntct.type === contact.type.value && cntct.value === contact.value)
-    );
-    setContacts(newList);
+    const reduced = formatedContacts.reduce((acc, curr) => {
+      if (curr.type === contact.type && curr.value === contact.value) {
+        return acc;
+      }
+      return [...acc, curr];
+    }, []);
+    setContacts(reduced);
   };
   const handleChange = (e) => {
     setNewContact({ ...newContact, [e.target.name]: e.target.value });
@@ -64,12 +37,18 @@ export default function ContactInputs({ contacts = [], setContacts }) {
 
   const [disabled, setDisabled] = useState(false);
 
-  const formatedContacts = contacts?.map((contact) => {
-    const type = CONTACT_TYPES.find(
-      (contactType) => contactType.value === contact.type
-    );
-    return { ...contact, type };
-  });
+  const formatedContacts = formatContacts(contacts);
+  const numberKeyboard = newContact.type === "ws" || newContact.type === "tel";
+
+  useEffect(() => {
+    contacts.length >= CONTACTS_MAX ? setDisabled(true) : setDisabled(false);
+  }, [contacts.length]);
+
+  const contactType = CONTACT_TYPES.find(
+    (contact) => contact.type === newContact.type
+  );
+
+  console.log(contacts);
 
   return (
     <div className={styles.contact_display}>
@@ -100,12 +79,21 @@ export default function ContactInputs({ contacts = [], setContacts }) {
 
       <InputContact
         disabled={disabled}
+        numberKeyboard={numberKeyboard}
         type={newContact.type}
         value={newContact.value}
         handleChange={handleChange}
         placeholder={placeholder}
         defaultValue={defaultValue}
+        prefix={contactType?.prefix}
       />
+      {numberKeyboard && (
+        <KeyboardNumbers
+          hideDisplay
+          value={newContact.value}
+          setValue={(value) => setNewContact({ ...newContact, value })}
+        />
+      )}
       {disabled && <em>{`Maximo ${CONTACTS_MAX} contactos`}</em>}
       <div className="center">
         <button
@@ -130,45 +118,47 @@ const InputContact = ({
   placeholder,
   defaultValue,
   disabled,
-}) => (
-  <>
-    <div>
-      <div>
-        <span>
-          <p>Tipo :</p>
-          <select
-            className={styles.input_select}
-            disabled={disabled}
-            name={`type`}
-            value={type || ""}
-            placeholder={"Tipo"}
-            options={CONTACT_TYPES}
-            onChange={handleChange}
-          >
-            <option value="" unselectable="true">
-              Selecciona
+  numberKeyboard,
+  prefix,
+}) => {
+  return (
+    <>
+      <span className={styles.contact_content}>
+        <div className={styles.input_label}>Tipo:</div>
+        <select
+          className={styles.input_select}
+          disabled={disabled}
+          name={`type`}
+          value={type || ""}
+          placeholder={"Tipo"}
+          options={CONTACT_TYPES}
+          onChange={handleChange}
+        >
+          <option value="" unselectable="true">
+            Selecciona
+          </option>
+          {CONTACT_TYPES.map((type, i) => (
+            <option key={i} value={type.type}>
+              {type.name}
             </option>
-            {CONTACT_TYPES.map((type, i) => (
-              <option key={i} value={type.value}>
-                {type.name}
-              </option>
-            ))}
-          </select>
-        </span>
-      </div>
-      <div>
-        <span>
-          <p>Valor: </p>
+          ))}
+        </select>
+      </span>
+
+      <span className={styles.contact_content}>
+        <div className={styles.input_label}>Valor:</div>
+        <span className={styles.input_prefix}>
+          {prefix}
           <input
             className={styles.input_text}
-            disabled={disabled}
+            disabled={disabled || numberKeyboard}
             placeholder={placeholder}
             name={`value`}
             value={value || ""}
             onChange={handleChange}
           />
         </span>
-      </div>
-    </div>
-  </>
-);
+      </span>
+    </>
+  );
+};

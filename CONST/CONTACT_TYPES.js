@@ -7,32 +7,37 @@ import InstagramIcon from "@material-ui/icons/Instagram";
 export const CONTACT_TYPES = [
   {
     name: "Whatsapp",
-    value: "ws",
+    type: "ws",
     label: "Whats App",
     icon: <WhatsAppIcon fontSize="default" />,
+    prefix: "52",
   },
   {
     name: "facebook",
-    value: "fb",
+    type: "fb",
     label: "Facebook",
     icon: <FacebookIcon fontSize="default" />,
+    prefix: "https://facebook.com/",
   },
   {
     name: "instagram",
-    value: "in",
+    type: "in",
     label: "Instagram",
     icon: <InstagramIcon fontSize="default" />,
+    prefix: "https://instagram.com/",
   },
   {
     name: "webpage",
-    value: "web",
+    type: "web",
     label: "Web",
     icon: <LanguageIcon fontSize="default" />,
+    prefix: "https://",
   },
   {
     name: "tel",
-    value: "tel",
+    type: "tel",
     label: "Fijo",
     icon: <CallIcon fontSize="default" />,
+    prefix: "",
   },
 ];

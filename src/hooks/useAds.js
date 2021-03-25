@@ -14,6 +14,7 @@ import {
   fb_removeFavorite,
   fb_getUserFavorites,
   fb_listenUserFavorites,
+  fb_reactivePublishAdvert
 } from "firebase/client";
 import { useEffect, useState } from "react";
 import { useUser } from "src/context/UserContext";
@@ -94,7 +95,12 @@ export function useAds() {
   function unpublishAdvert(publishId) {
     return fb_unpublishAdvert(publishId).then((res) => console.log(res));
   }
-  function addFavorite(advertId) {
+  function reactivePublish(publishId) {
+    return fb_reactivePublishAdvert(publishId).then((res) => console.log(res));
+    
+  }
+  async function addFavorite(advertId) {
+    if (!user) return await { message: "NOT_USER" };
     return fb_addFavorite(user.id, advertId);
   }
   function removeFavorite(advertId) {
@@ -134,5 +140,6 @@ export function useAds() {
     removeFavorite,
     addFavorite,
     getUserFavorites,
+    reactivePublish
   };
 }

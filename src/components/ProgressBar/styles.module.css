@@ -1,0 +1,15 @@
+.progress_bar_content {
+  position: relative;
+  margin: 1rem;
+}
+.progress_bar_content > span {
+  z-index: 1;
+  position: relative;
+}
+.progress {
+  position: absolute;
+  background-color: var(--primary);
+  text-align: center;
+  height: 18px;
+  
+}

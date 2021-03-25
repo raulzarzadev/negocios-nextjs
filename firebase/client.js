@@ -70,6 +70,7 @@ export const fb_getBarrio = (barrio) => {
 };
 
 export const fb_addAdvert = (advert) => {
+  console.log(advert);
   return db
     .collection("adverts")
     .add({
@@ -176,6 +177,10 @@ export const fb_getBarrioActivePublications = async (barrio) => {
 
 export const fb_unpublishAdvert = (id) => {
   return db.collection("publications").doc(id).update({ active: false });
+};
+
+export const fb_reactivePublishAdvert = (id) => {
+  return db.collection("publications").doc(id).update({ active: true });
 };
 
 export const fb_getUserActivePublications = (userId) => {

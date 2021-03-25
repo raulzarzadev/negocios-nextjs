@@ -11,11 +11,12 @@ import IconBtn from "@comps/IconBtn";
 import { P } from "@comps/P";
 import Link from "next/link";
 import { usePublications } from "src/hooks/usePublications";
+import { useRouter } from "next/router";
 
 export default function AdminDashboard() {
   const [adverts, setAdverts] = useState([]);
   const [publications, setPublications] = useState([]);
-  const { getAds } = useAds();
+  const { getAds, unpublishAdvert, reactivePublish } = useAds();
   const { getAllPublications } = usePublications();
   useEffect(() => {
     getAds().then(setAdverts);
@@ -27,35 +28,56 @@ export default function AdminDashboard() {
     return { ...ad, publications: adPublications };
   });
   console.log(normalizeAds);
+
   return (
     <div className={styles.dashboard}>
       <div>
         <h3 className={styles.page_title}>{`Todos los anuncios`}</h3>
         <div className={styles.dash_table}>
-          <div className={styles.table_title}>Titulo</div>
-          <div className={styles.table_title}>¿Pub?</div>
-          <div className={styles.table_title}>Acciones</div>
+          <div className={styles.table_title}>{`Titulo`}</div>
+          <div className={styles.table_title}>{`¿Pub?`}</div>
+          <div className={styles.table_title}>{`Acciones`}</div>
         </div>
         {normalizeAds?.map((ad) => (
-          <AddRow key={ad.id} ad={ad} />
+          <AddRow
+            key={ad.id}
+            ad={ad}
+            unpublishAdvert={unpublishAdvert}
+            reactivePublish={reactivePublish}
+          />
         ))}
       </div>
     </div>
   );
 }
+
 const normalizeDate = (date) => {
   const newDate = new Date(date);
   const month = newDate.getMonth();
   const year = newDate.getFullYear().toString().slice(2);
   return `${month}-${year}`;
 };
-const AddRow = ({ ad }) => {
+const AddRow = ({ ad, unpublishAdvert, reactivePublish }) => {
+  const [openPublicationOptions, setOpenPublicationOptions] = useState(false);
+  const router = useRouter();
+  const handleOpenPublicationOptions = () => {
+    setOpenPublicationOptions(!openPublicationOptions);
+  };
   const [openDetails, setOpenDetails] = useState(false);
   const handleOpenDetailsModal = () => {
     setOpenDetails(!openDetails);
   };
-  const { title, publications } = ad;
+  const handleUnpublish = (publicationId) => {
+    unpublishAdvert(publicationId);
+  };
+  const handleReactivePublish = (publicationId) => {
+    reactivePublish(publicationId);
+  };
+  const handleEditRedirect = (advertId) => {
+    router.push(`/adverts/edit/${ad.id}`);
+  };
 
+  const { title, publications } = ad;
   return (
     <>
       <div className={styles.dash_row} key={ad.id}>
@@ -63,27 +85,31 @@ const AddRow = ({ ad }) => {
           <P size="small">{title}</P>
         </div>
         <div className={styles.table_cell}>
-          <div className="center">
-            <CheckCircleIcon />
-            <CheckCircleOutlineIcon />
+          <div className={styles.publications}>
+            Publicaciones: <strong>{publications.length}</strong>
+            {publications.map(({ barrioId }) => (
+              <div key={barrioId} className={styles.publicaciones_barrio}>
+                {barrioId}
+              </div>
+            ))}
           </div>
         </div>
 
         <div className={styles.table_cell}>
           <div className="center">
-            <Link href={`/adverts/edit/${ad.id}`} forwardRef>
-              <>
-                <IconBtn>
-                  <EditIcon fontSize="small" />
-                </IconBtn>
-              </>
-            </Link>
+            <IconBtn onClick={handleEditRedirect}>
+              <EditIcon fontSize="small" />
+            </IconBtn>
             <IconBtn onClick={handleOpenDetailsModal}>
               <SettingsApplicationsIcon fontSize="small" />
             </IconBtn>
           </div>
         </div>
-        <Modal open={openDetails} handleOpen={handleOpenDetailsModal}>
+        <Modal
+          title="Configuaciones de anuncio"
+          open={openDetails}
+          handleOpen={handleOpenDetailsModal}
+        >
           <div className={styles.modal_advert}>
             <div className={styles.modal_options}>
               <div>
@@ -93,12 +119,44 @@ const AddRow = ({ ad }) => {
                     ({ id, barrioId, active, publishEnds, publishStart }) => (
                       <div
                         key={id}
-                        className={styles.details_cell}
-                        style={{ background: active ? "blue" : "red" }}
+                        className={styles.public_details_cell}
+                        style={{ background: active ? "green" : "red" }}
+                        onClick={() => handleOpenPublicationOptions(id)}
                       >
-                        <div>{`barrio name`}</div>
+                        <div>{barrioId}</div>
                         <div>de: {normalizeDate(publishStart)}</div>
                         <div>a: {normalizeDate(publishEnds)}</div>
+                        <Modal
+                          title="Activar / Desactivar Publicación"
+                          open={openPublicationOptions}
+                          handleOpen={handleOpenPublicationOptions}
+                        >
+                          {active ? (
+                            <div>
+                              Desactivar publicacion
+                              <button
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  handleUnpublish(id);
+                                }}
+                              >
+                                descativar
+                              </button>
+                            </div>
+                          ) : (
+                            <div>
+                              Reactivar publicacion
+                              <button
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  handleReactivePublish(id);
+                                }}
+                              >
+                                Activar
+                              </button>
+                            </div>
+                          )}
+                        </Modal>
                       </div>
                     )
                   )}

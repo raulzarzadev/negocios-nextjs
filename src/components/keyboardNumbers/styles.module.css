@@ -1,0 +1,31 @@
+.numbers_input {
+    border-radius: 8px;
+    padding: 8px 0;
+    box-shadow: var(--shadow-1);
+  }
+  .numbers_display {
+    border: 1px solid;
+    padding: 4px;
+    margin: 8px;
+  }
+  .numbers_keyboard {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    align-content: center;
+    justify-items: center;
+  }
+  .numbers_key {
+    border-radius: 4px;
+    border: 1px solid;
+    height: 30px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: var(--shadow-1);
+  }
+  .numbers_key:active {
+    box-shadow: var(--shadow-2);
+  }

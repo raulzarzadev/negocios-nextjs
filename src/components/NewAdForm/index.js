@@ -2,6 +2,7 @@ import Advert from "@comps/Advert";
 import ColorPicker from "@comps/ColorPicker";
 import ContactInputs from "@comps/ContactInputs";
 import Modal from "@comps/Modal";
+import ProgressBar from "@comps/ProgressBar";
 import SelectLabels from "@comps/SelectLabels";
 import { uploadImage } from "firebase/client";
 import { useRouter } from "next/router";
@@ -11,7 +12,14 @@ import styles from "./styles.module.css";
 
 export default function NewAdForm({ advert = undefined }) {
   const router = useRouter();
-  const [form, setForm] = useState(undefined);
+  const [form, setForm] = useState({
+    content: "",
+    title: "",
+    backgroundColor: "",
+    contacts: [],
+    image: "",
+    labels: [],
+  });
   const { addAdvert, editAdvert } = useAds();
   useEffect(() => {
     if (advert) {
@@ -22,9 +30,14 @@ export default function NewAdForm({ advert = undefined }) {
   /* --------------MANAGE IMAGE----------------- */
   const [imageToUpload, setImageToUpload] = useState(null);
   const [imgURL, setImageURL] = useState(null);
+  const [uploadProgress, setUploadProgress] = useState(0);
   useEffect(() => {
     if (imageToUpload) {
-      const onProgress = (e) => console.log("progess", e);
+      const onProgress = (e) => {
+        const progress = (e.bytesTransferred / e.totalBytes).toFixed(1) * 100;
+        setUploadProgress(progress);
+        console.log("progess", progress + "%");
+      };
       const onError = (e) => console.log("error", e);
       const onComplete = (e) => {
         imageToUpload.snapshot.ref.getDownloadURL().then(setImageURL);
@@ -43,7 +56,6 @@ export default function NewAdForm({ advert = undefined }) {
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
-  console.log(form)
 
   const [selectLabelsModal, setSelectLabelsModal] = useState(false);
   const [selectColorModal, setSelectColorModal] = useState(false);
@@ -80,6 +92,7 @@ export default function NewAdForm({ advert = undefined }) {
   };
   const handleSelectImage = (e) => {
     e.preventDefault();
+    setUploadProgress(1);
     const task = uploadImage(e.target.files[0]);
     setImageToUpload(task);
   };
@@ -89,6 +102,8 @@ export default function NewAdForm({ advert = undefined }) {
   const handleSetLabels = (e) => {
     setForm({ ...form, labels: e });
   };
+
+  const disableButton = !!!form?.title;
 
   return (
     <div className={styles.form_container}>
@@ -170,12 +185,15 @@ export default function NewAdForm({ advert = undefined }) {
             onChange={handleSelectImage}
             multiple
           />
+          {!(uploadProgress === 100 || uploadProgress === 0) && (
+            <ProgressBar progressPorcent={uploadProgress} showPorcent />
+          )}
         </section>
         {/* PREVIEW ADVERT */}
         <section className={styles.section_form}>
           <Advert advert={form} newForm={true} />
         </section>
-        <button type="submit">Guardar</button>
+        <button disabled={disableButton} type="submit">Guardar</button>
       </form>
       <Modal
         title="Clasifica tu anuncio"

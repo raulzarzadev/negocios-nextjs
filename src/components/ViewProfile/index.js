@@ -39,7 +39,7 @@ export default function ViewProfile() {
           <L href="/dashboard">{"Dashboard"}</L>
         </div>
       </div>
-      <div>
+      {/* <div>
         <h3>Favoritos Guardados</h3>
         {favorites.length === 0 ? (
           <p>No has guardado</p>
@@ -87,6 +87,7 @@ export default function ViewProfile() {
           </div>
         )}
       </div>
+    */}{" "}
     </div>
   );
 }
