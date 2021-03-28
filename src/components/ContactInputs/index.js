@@ -52,7 +52,7 @@ export default function ContactInputs({ contacts = [], setContacts }) {
     (contact) => contact.type === newContact.type
   )
 
-  console.log(contacts)
+  console.log(newContact)
 
   return (
     <div className={styles.contact_display}>
@@ -94,8 +94,8 @@ export default function ContactInputs({ contacts = [], setContacts }) {
       {numberKeyboard && (
         <KeyboardNumbers
           hideDisplay
-          value={newContact.value}
-          setValue={(value) => setNewContact({ ...newContact, value })}
+          value={newContact.suffix}
+          setValue={(suffix) => setNewContact({ ...newContact, suffix })}
         />
       )}
       {disabled && <em>{`Maximo ${CONTACTS_MAX} contactos`}</em>}
@@ -105,7 +105,7 @@ export default function ContactInputs({ contacts = [], setContacts }) {
           disabled={!newContact.type || disabled}
           onClick={() => {
             addContact()
-            setNewContact({ type: '', value: '' })
+            setNewContact({ type: '', value: '', suffix: '' })
           }}
         >
           Agregar contacto <AddCircleOutlineIcon />
