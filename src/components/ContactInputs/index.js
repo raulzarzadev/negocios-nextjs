@@ -12,12 +12,9 @@ export default function ContactInputs({ contacts = [], setContacts }) {
   const [newContact, setNewContact] = useState({ type: '' })
   const [placeholder, setPlaceholder] = useState('')
   const [defaultValue, setDefaultValue] = useState('')
-console.log(newContact)
   const CONTACTS_MAX = 5
 
-
   const addContact = () => {
-
     setContacts([
       ...contacts,
       {
@@ -37,7 +34,6 @@ console.log(newContact)
     setContacts(reduced)
   }
   const handleChange = (e) => {
-    console.log(e.target)
     setNewContact({ ...newContact, [e.target.name]: e.target.value })
   }
 
@@ -53,8 +49,6 @@ console.log(newContact)
   const contactType = CONTACT_TYPES.find(
     (contact) => contact.type === newContact.type
   )
-
-  console.log(newContact)
 
   return (
     <div className={styles.contact_display}>
