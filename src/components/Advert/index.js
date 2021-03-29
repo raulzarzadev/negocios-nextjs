@@ -1,41 +1,43 @@
-import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
-import BookmarkIcon from "@material-ui/icons/Bookmark";
-import MenuIcon from "@material-ui/icons/Menu";
+import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder'
+import BookmarkIcon from '@material-ui/icons/Bookmark'
+import MenuIcon from '@material-ui/icons/Menu'
 
-import { SvgIcon } from "@material-ui/core";
-import { CHIP_LABELS } from "CONST/CHIPS_LABELS";
+import { SvgIcon } from '@material-ui/core'
+import { CHIP_LABELS } from 'CONST/CHIPS_LABELS'
 
-import styles from "./styles.module.css";
-import { CONTACT_TYPES } from "CONST/CONTACT_TYPES";
-import { useState } from "react";
-import { BtnL, L } from "@comps/L";
-import Modal from "@comps/Modal";
-import { useAds } from "src/hooks/useAds";
-import ModalPubish from "@comps/ModalPublish";
-import { useUser } from "src/context/UserContext";
-import IconBtn from "@comps/IconBtn";
-import Tooltip from "@comps/Tooltip";
-import { P } from "@comps/P";
-import formatContacts from "src/utils/formatContacts";
+import styles from './styles.module.css'
+import { CONTACT_TYPES } from 'CONST/CONTACT_TYPES'
+import { useState } from 'react'
+import { BtnL, L } from '@comps/L'
+import Modal from '@comps/Modal'
+import { useAds } from 'src/hooks/useAds'
+import ModalPubish from '@comps/ModalPublish'
+import { useUser } from 'src/context/UserContext'
+import IconBtn from '@comps/IconBtn'
+import Tooltip from '@comps/Tooltip'
+import { P } from '@comps/P'
+import formatContacts from 'src/utils/formatContacts'
+import { useRouter } from 'next/router'
 
 const defaulAdvert = {
-  labels: ["lab1", "lab2"],
+  labels: ['lab1', 'lab2'],
   images: [
-    { title: " deserunt veniam ipsum", url: "strud ex id voluptate " },
-    { title: " deserunt veniam ipsum", url: "strud ex id voluptate " },
-    { title: " deserunt veniam ipsum", url: "strud ex id voluptate " },
+    { title: ' deserunt veniam ipsum', url: 'strud ex id voluptate ' },
+    { title: ' deserunt veniam ipsum', url: 'strud ex id voluptate ' },
+    { title: ' deserunt veniam ipsum', url: 'strud ex id voluptate ' },
   ],
-  title: "strud ex id voluptate ",
+  title: 'strud ex id voluptate ',
   content:
-    "Irure minim esse nostrud ex id voluptate deserunt veniam ipsum ut reprehenderit.",
+    'Irure minim esse nostrud ex id voluptate deserunt veniam ipsum ut reprehenderit.',
   contacts: [
-    { type: "ws", value: "55555555555" },
-    { type: "fb", value: "55555555" },
-    { type: "web", value: "555555555" },
+    { type: 'ws', value: '55555555555' },
+    { type: 'fb', value: '55555555' },
+    { type: 'web', value: '555555555' },
   ],
-};
+}
 
 export default function Advert({ advert = defaulAdvert, showFavorite, admin }) {
+  const router = useRouter()
   const {
     labels,
     image,
@@ -45,46 +47,46 @@ export default function Advert({ advert = defaulAdvert, showFavorite, admin }) {
     backgroundColor,
     id,
     publication,
-  } = advert;
+  } = advert
 
   const {
     deleteAdvert,
     unpublishAdvert,
     addFavorite,
     removeFavorite,
-  } = useAds();
+  } = useAds()
 
-  const { favoritesList } = useUser();
-  const favorite = favoritesList.includes(id);
+  const { favoritesList } = useUser()
+  const favorite = favoritesList.includes(id)
 
   const chips = labels?.map((label) =>
     CHIP_LABELS.find((chip) => chip.key === label)
-  );
+  )
 
-  const contactLinks = formatContacts(contacts);
-  const [openDelete, setOpenDelete] = useState(false);
-  const [openPublish, setOpenPublish] = useState(false);
+  const contactLinks = formatContacts(contacts)
+  const [openDelete, setOpenDelete] = useState(false)
+  const [openPublish, setOpenPublish] = useState(false)
 
   const handleOpenDelete = () => {
-    setOpenDelete(!openDelete);
-  };
+    setOpenDelete(!openDelete)
+  }
   const handleOpenPublish = () => {
-    setOpenPublish(!openPublish);
-  };
+    setOpenPublish(!openPublish)
+  }
 
   const handleUnpublish = (publicationId) => {
-    unpublishAdvert(publicationId);
-  };
+    unpublishAdvert(publicationId)
+  }
   const handleAddFavorite = () => {
-    addFavorite(id).then((res) => console.log(res));
-  };
+    addFavorite(id).then((res) => console.log(res))
+  }
   const handleRemoveFavorite = () => {
-    removeFavorite(id).then((res) => console.log(res));
-  };
+    removeFavorite(id).then((res) => console.log(res))
+  }
 
   const handleDeleteAd = () => {
-    deleteAdvert(id);
-  };
+    deleteAdvert(id).then((res) => router.reload())
+  }
 
   return (
     <div style={{ backgroundColor }} className={styles.advert}>
@@ -129,7 +131,7 @@ export default function Advert({ advert = defaulAdvert, showFavorite, admin }) {
         <div className={styles.body_images}>
           <div
             style={{
-              backgroundImage: `url(${image || "/logotipo.png"})`,
+              backgroundImage: `url(${image || '/logotipo.png'})`,
             }}
             className={styles.image}
           />
@@ -139,7 +141,7 @@ export default function Advert({ advert = defaulAdvert, showFavorite, admin }) {
           <h4>{title}</h4>
           <P size="small">
             {content?.slice(0, 100)}
-            <BtnL onClick={() => console.log("show details")}>
+            <BtnL onClick={() => console.log('show details')}>
               <em> ver mas </em>
             </BtnL>
           </P>
@@ -153,8 +155,10 @@ export default function Advert({ advert = defaulAdvert, showFavorite, admin }) {
         </div>
         {/* MODALES */}
         <Modal open={openDelete} handleOpen={handleOpenDelete}>
-          {`Eliminar anuncio`}
-          <button onClick={handleDeleteAd}>Eliminar</button>
+          <div>
+            <P>{`Eliminar anuncio`}</P>
+            <button onClick={handleDeleteAd}>Eliminar</button>
+          </div>
         </Modal>
         <ModalPubish
           open={openPublish}
@@ -163,27 +167,27 @@ export default function Advert({ advert = defaulAdvert, showFavorite, admin }) {
         />
       </footer>
     </div>
-  );
+  )
 }
 
 const ContactLink = ({ contact }) => {
   const hrefOptions = {
     ws: `https://wa.me/521${contact.value.replace(
       / /g,
-      ""
+      ''
     )}?text=Hola,%20te%20encontre%20en%20negociosdelbarrio.com%20y%20quisiera..`,
-  };
+  }
 
   return (
     <Tooltip text={contact?.label}>
       <IconBtn>
-        <a href={hrefOptions[contact.type] || contact.value} target='_blank'>
+        <a href={hrefOptions[contact.type] || contact.value} target="_blank">
           <SvgIcon fontSize="large">{contact?.icon}</SvgIcon>
         </a>
       </IconBtn>
     </Tooltip>
-  );
-};
+  )
+}
 
 const MenuAdminAd = ({
   publication,
@@ -193,14 +197,14 @@ const MenuAdminAd = ({
   handleUnpublish,
 }) => {
   const handleOpen = (e) => {
-    setOpen(true);
-  };
+    setOpen(true)
+  }
   const handleClose = (e) => {
-    e.stopPropagation();
-    e.target.id !== "menu-container" && setOpen(false);
-  };
+    e.stopPropagation()
+    e.target.id !== 'menu-container' && setOpen(false)
+  }
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
   return (
     <>
       <IconBtn
@@ -240,5 +244,5 @@ const MenuAdminAd = ({
         )}
       </IconBtn>
     </>
-  );
-};
+  )
+}
