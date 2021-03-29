@@ -12,10 +12,12 @@ export default function ContactInputs({ contacts = [], setContacts }) {
   const [newContact, setNewContact] = useState({ type: '' })
   const [placeholder, setPlaceholder] = useState('')
   const [defaultValue, setDefaultValue] = useState('')
-
+console.log(newContact)
   const CONTACTS_MAX = 5
 
+
   const addContact = () => {
+
     setContacts([
       ...contacts,
       {
@@ -26,7 +28,7 @@ export default function ContactInputs({ contacts = [], setContacts }) {
     ])
   }
   const handleDeleteContact = (contact) => {
-    const reduced = formatedContacts.reduce((acc, curr) => {
+    const reduced = contacts.reduce((acc, curr) => {
       if (curr.type === contact.type && curr.value === contact.value) {
         return acc
       }

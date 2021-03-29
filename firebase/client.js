@@ -135,6 +135,7 @@ export const fb_getAdvertById = (advertId) => {
 
 export const fb_editAdvert = (id, advert) => {
   const ad = db.collection("adverts").doc(id);
+  console.log(advert)
   return ad
     .update(advert)
     .then((res) => res)

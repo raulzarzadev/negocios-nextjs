@@ -1,118 +1,118 @@
-import Advert from "@comps/Advert";
-import ColorPicker from "@comps/ColorPicker";
-import ContactInputs from "@comps/ContactInputs";
-import Modal from "@comps/Modal";
-import ProgressBar from "@comps/ProgressBar";
-import SelectLabels from "@comps/SelectLabels";
-import { uploadImage } from "firebase/client";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { useAds } from "src/hooks/useAds";
-import styles from "./styles.module.css";
+import Advert from '@comps/Advert'
+import ColorPicker from '@comps/ColorPicker'
+import ContactInputs from '@comps/ContactInputs'
+import Modal from '@comps/Modal'
+import ProgressBar from '@comps/ProgressBar'
+import SelectLabels from '@comps/SelectLabels'
+import { uploadImage } from 'firebase/client'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+import { useAds } from 'src/hooks/useAds'
+import styles from './styles.module.css'
 
 export default function NewAdForm({ advert = undefined }) {
-  const router = useRouter();
+  const router = useRouter()
   const [form, setForm] = useState({
-    content: "",
-    title: "",
-    backgroundColor: "",
+    content: '',
+    title: '',
+    backgroundColor: '',
     contacts: [],
-    image: "",
+    image: '',
     labels: [],
-  });
-  const { addAdvert, editAdvert } = useAds();
+  })
+  const { addAdvert, editAdvert } = useAds()
   useEffect(() => {
     if (advert) {
-      setForm(advert);
+      setForm(advert)
     }
-  }, [advert]);
+  }, [advert])
 
   /* --------------MANAGE IMAGE----------------- */
-  const [imageToUpload, setImageToUpload] = useState(null);
-  const [imgURL, setImageURL] = useState(null);
-  const [uploadProgress, setUploadProgress] = useState(0);
+  const [imageToUpload, setImageToUpload] = useState(null)
+  const [imgURL, setImageURL] = useState(null)
+  const [uploadProgress, setUploadProgress] = useState(0)
   useEffect(() => {
     if (imageToUpload) {
       const onProgress = (e) => {
-        const progress = (e.bytesTransferred / e.totalBytes).toFixed(1) * 100;
-        setUploadProgress(progress);
-        console.log("progess", progress + "%");
-      };
-      const onError = (e) => console.log("error", e);
+        const progress = (e.bytesTransferred / e.totalBytes).toFixed(1) * 100
+        setUploadProgress(progress)
+        console.log('progess', progress + '%')
+      }
+      const onError = (e) => console.log('error', e)
       const onComplete = (e) => {
-        imageToUpload.snapshot.ref.getDownloadURL().then(setImageURL);
-        console.log("complete", e);
-      };
-      imageToUpload.on("state_change", onProgress, onError, onComplete);
+        imageToUpload.snapshot.ref.getDownloadURL().then(setImageURL)
+        console.log('complete', e)
+      }
+      imageToUpload.on('state_change', onProgress, onError, onComplete)
     }
-  }, [imageToUpload]);
+  }, [imageToUpload])
 
   useEffect(() => {
     if (imgURL) {
-      setForm({ ...form, image: imgURL });
+      setForm({ ...form, image: imgURL })
     }
-  }, [imgURL]);
+  }, [imgURL])
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+    setForm({ ...form, [e.target.name]: e.target.value })
+  }
 
-  const [selectLabelsModal, setSelectLabelsModal] = useState(false);
-  const [selectColorModal, setSelectColorModal] = useState(false);
+  const [selectLabelsModal, setSelectLabelsModal] = useState(false)
+  const [selectColorModal, setSelectColorModal] = useState(false)
   const handleOpenSelectColor = () => {
-    setSelectColorModal(!selectColorModal);
-  };
+    setSelectColorModal(!selectColorModal)
+  }
   const handleOpenSelectLabels = () => {
-    setSelectLabelsModal(!selectLabelsModal);
-  };
-  const [contactsModal, setContactsModal] = useState(false);
+    setSelectLabelsModal(!selectLabelsModal)
+  }
+  const [contactsModal, setContactsModal] = useState(false)
   const handleAddContact = () => {
-    setContactsModal(!contactsModal);
-  };
+    setContactsModal(!contactsModal)
+  }
 
   const handleSubmit = (form) => {
     /* --------------Edit Advert-------------- */
     if (advert?.id) {
       editAdvert(advert.id, form).then((res) => {
         setTimeout(() => {
-          router.push("/profile");
-        }, 1000);
-      });
+          router.push('/profile')
+        }, 1000)
+      })
     } else {
       /* --------------New Advert-------------- */
       addAdvert(form).then((res) => {
         setTimeout(() => {
-          router.push("/profile");
-        }, 1000);
-      });
+          router.push('/profile')
+        }, 1000)
+      })
     }
-  };
+  }
   const handleChangeColor = (e) => {
-    setForm({ ...form, backgroundColor: e });
-  };
+    setForm({ ...form, backgroundColor: e })
+  }
   const handleSelectImage = (e) => {
-    e.preventDefault();
-    setUploadProgress(1);
-    const task = uploadImage(e.target.files[0]);
-    setImageToUpload(task);
-  };
+    e.preventDefault()
+    setUploadProgress(1)
+    const task = uploadImage(e.target.files[0])
+    setImageToUpload(task)
+  }
   const handleSetContacts = (e) => {
-    setForm({ ...form, contacts: e });
-  };
+    setForm({ ...form, contacts: e })
+  }
   const handleSetLabels = (e) => {
-    setForm({ ...form, labels: e });
-  };
+    setForm({ ...form, labels: e })
+  }
 
-  const disableButton = !!!form?.title;
-
+  const disableButton = !!!form?.title
+  console.log(form.contacts)
   return (
     <div className={styles.form_container}>
       <h3>Nuevo Anuncio</h3>
       {/* NEW ADVERT */}
       <form
         onSubmit={(e) => {
-          e.preventDefault();
-          handleSubmit(form);
+          e.preventDefault()
+          handleSubmit(form)
         }}
       >
         <section className={styles.section_form}>
@@ -126,7 +126,7 @@ export default function NewAdForm({ advert = undefined }) {
               type="text"
               name="title"
               onChange={handleChange}
-              value={form?.title || ""}
+              value={form?.title || ''}
             />
           </span>
           <span>
@@ -136,7 +136,7 @@ export default function NewAdForm({ advert = undefined }) {
               name="content"
               onChange={handleChange}
               rows={3}
-              value={form?.content || ""}
+              value={form?.content || ''}
             />
           </span>
         </section>
@@ -145,8 +145,8 @@ export default function NewAdForm({ advert = undefined }) {
           <h4>Clasificación</h4>
           <button
             onClick={(e) => {
-              e.preventDefault();
-              handleOpenSelectLabels();
+              e.preventDefault()
+              handleOpenSelectLabels()
             }}
           >
             Clasifica tu anuncio
@@ -157,8 +157,8 @@ export default function NewAdForm({ advert = undefined }) {
           <h4>Contactos</h4>
           <button
             onClick={(e) => {
-              e.preventDefault();
-              handleAddContact();
+              e.preventDefault()
+              handleAddContact()
             }}
           >
             Agrega un contacto
@@ -169,8 +169,8 @@ export default function NewAdForm({ advert = undefined }) {
           <h4>Color</h4>
           <button
             onClick={(e) => {
-              e.preventDefault();
-              handleOpenSelectColor();
+              e.preventDefault()
+              handleOpenSelectColor()
             }}
           >
             Selecciona un color
@@ -193,7 +193,9 @@ export default function NewAdForm({ advert = undefined }) {
         <section className={styles.section_form}>
           <Advert advert={form} newForm={true} />
         </section>
-        <button disabled={disableButton} type="submit">Guardar</button>
+        <button disabled={disableButton} type="submit">
+          Guardar
+        </button>
       </form>
       <Modal
         title="Clasifica tu anuncio"
@@ -225,5 +227,5 @@ export default function NewAdForm({ advert = undefined }) {
         />
       </Modal>
     </div>
-  );
+  )
 }
