@@ -1,16 +1,15 @@
-import LoginView from "@comps/Login";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
-import { useUser } from "src/context/UserContext";
+import LoginView from '@comps/Login'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
+import { useUser } from 'src/context/UserContext'
 
 export default function Login() {
-  const router = useRouter();
-  const {user} = useUser();
-  console.log(user)
+  const router = useRouter()
+  const { user } = useUser()
   useEffect(() => {
     if (user) {
-      router.replace("/");
+      router.replace('/')
     }
-  });
-  return <LoginView />;
+  })
+  return <LoginView />
 }

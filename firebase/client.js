@@ -27,9 +27,7 @@ export const loginWithGoogle = () => {
     .auth()
     .signInWithPopup(googleProvider)
     .then(async ({ user }) => {
-      console.log(user)
       const userAlreadyExist = await getUser(user?.uid)
-      console.log(userAlreadyExist)
       if (userAlreadyExist) return userAlreadyExist
       return await createNewUser(mapUserFromFirebase(user))
     })

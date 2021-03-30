@@ -10,7 +10,6 @@ import styles from './styles.module.css'
 export default function ViewProfile() {
   const { getUserAds, getUserActiveAds, favorites } = useAds()
   const { favoritesList, user } = useUser()
-  console.log(user)
   const handleLogOut = () => {
     firebaseLogout()
   }
