@@ -4,7 +4,7 @@
     max-width: 599px;
     margin: 1rem auto;
     display: grid;
-    grid-template-columns: repeat( auto-fit, minmax(100px, 1fr) );
+    grid-template-columns: repeat( auto-fit, minmax(100px, auto-fit) );
 }
 .cell {
     display: flex;

@@ -2,6 +2,7 @@
   display: grid;
   grid-template-rows: 40px 200px 50px;
   width: 100%;
+  min-width: 170px;
   max-width: 350px;
   margin-top: 2rem;
   box-shadow: var(--shadow-in), var(--shadow-1);

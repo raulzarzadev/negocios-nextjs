@@ -1,5 +1,7 @@
+import Advert from '@comps/Advert'
 import IconBtn from '@comps/IconBtn'
 import { BtnL, ExternalL, L } from '@comps/L'
+import PrimBtn from '@comps/PrimBtn'
 import styles from './styles.module.css'
 
 export default function VisualGuide() {
@@ -9,14 +11,34 @@ export default function VisualGuide() {
         <BtnL>Link</BtnL>
       </div>
       <div className={styles.cell}>
-        <L href="">Normal Link</L>
+        <L href="#">App Link</L>
       </div>
       <div className={styles.cell}>
-        <ExternalL>External Link</ExternalL>
+        <ExternalL href="#">External Link</ExternalL>
       </div>
       <div className={styles.cell}>
         <IconBtn>Icon Button</IconBtn>
       </div>
+      <div className={styles.cell}>
+        <PrimBtn color="primary">Primary</PrimBtn>
+      </div>
+      <div className={styles.cell}>
+        <PrimBtn color="secondary">Secondary</PrimBtn>
+      </div>
+      <div className={styles.cell}>
+        <PrimBtn color="danger">Danger</PrimBtn>
+      </div>
+      <div className={styles.cell}>
+        <PrimBtn color="warning">Warning</PrimBtn>
+      </div>
+      <div className={styles.cell}>
+        <PrimBtn color="success">Success</PrimBtn>
+      </div>
+      
+      <div className={styles.cell}>
+        <Advert />
+      </div>
+      
     </div>
   )
 }

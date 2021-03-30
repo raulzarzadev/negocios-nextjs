@@ -22,16 +22,27 @@ a {
 }
 
 :root {
+  /* ----------------MAIN COLORS---------------------- */
   --white: #fff;
   --black: #000;
   --primary: #c9f;
+  --secondary: #fca;
+  --danger:rgb(236, 117, 109);
+  --warning:rgb(189, 223, 0);
+  --success:rgb(5, 199, 86);
+  
+  
   --gray: rgb(196, 196, 196);
   --blue: #c9f;
-  --secondary: #fca;
   --shadow-1: 1px 1px 4px #000;
   --shadow-in: inset 0.5px 0.5px 3px #000;
-
+  
   --p-small: 0.7rem;
+  /* ----------------  SPACES   ---------------------- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
 }
 
 h1,

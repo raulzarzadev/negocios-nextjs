@@ -1,6 +1,6 @@
-import styles from "./styles.module.css";
-import Link from "next/link";
-
+import styles from './styles.module.css'
+import Link from 'next/link'
+import PropTypes from 'prop-types'
 export function L({ href, children, style }) {
   return (
     <Link href={href}>
@@ -8,7 +8,13 @@ export function L({ href, children, style }) {
         {children}
       </a>
     </Link>
-  );
+  )
+}
+
+L.propTypes = {
+  href: PropTypes.string.isRequired,
+  children: PropTypes.node,
+  style: PropTypes.object
 }
 
 export function BtnL({ onClick, children, style }) {
@@ -16,7 +22,13 @@ export function BtnL({ onClick, children, style }) {
     <a onClick={onClick} className={styles.link} style={style}>
       {children}
     </a>
-  );
+  )
+}
+
+BtnL.propTypes = {
+  onClick: PropTypes.func,
+  children: PropTypes.node,
+  style: PropTypes.object
 }
 
 export function ExternalL({ href, children }) {
@@ -24,5 +36,10 @@ export function ExternalL({ href, children }) {
     <a className={`${styles.link} ${styles.external_link}`} href={href}>
       {children}
     </a>
-  );
+  )
+}
+
+ExternalL.propTypes = {
+  href: PropTypes.string.isRequired,
+  children: PropTypes.node,
 }

@@ -20,7 +20,8 @@ import formatContacts from 'src/utils/formatContacts'
 import { useRouter } from 'next/router'
 
 const defaulAdvert = {
-  labels: ['lab1', 'lab2'],
+  backgroundColor:'gray',
+  labels: ['food', 'drink'],
   images: [
     { title: ' deserunt veniam ipsum', url: 'strud ex id voluptate ' },
     { title: ' deserunt veniam ipsum', url: 'strud ex id voluptate ' },
