@@ -1,5 +1,6 @@
-import NewAdForm from "@comps/NewAdForm";
+import NewAdForm from '@comps/NewAdForm'
+import PrivateRoute from 'src/HOC/PrivateRoute'
 
 export default function NewAdvert() {
-  return <NewAdForm  />;
+  return <PrivateRoute Component={NewAdForm} />
 }

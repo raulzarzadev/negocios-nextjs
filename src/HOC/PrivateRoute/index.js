@@ -13,6 +13,7 @@ export default function PrivateRoute({ Component, ...res }) {
       setUserData(user);
       setLoading(false);
     }
+    // console.log(user)
     if (user === null) router.replace("/");
   }, [user]);
 

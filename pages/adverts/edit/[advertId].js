@@ -1,6 +1,7 @@
 import NewAdForm from "@comps/NewAdForm";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import PrivateRoute from "src/HOC/PrivateRoute";
 import { useAds } from "src/hooks/useAds";
 
 export default function EditAdvert() {
@@ -16,6 +17,5 @@ export default function EditAdvert() {
       getAdvert(advertId).then(setAdvert);
     }
   }, [router]);
-  if (advert === undefined) return "Cargando...";
-  return <NewAdForm advert={advert} />;
+  return <PrivateRoute Component={NewAdForm} advert={advert} />;
 }

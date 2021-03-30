@@ -36,9 +36,14 @@ export default function ViewProfile() {
           <L href="/barrios/new">{'Nuevo Barrio'}</L>
         </div>
         {user?.admin && (
-          <div className={styles.action}>
-            <L href="/dashboard">{'Dashboard'}</L>
-          </div>
+          <>
+            <div className={styles.action}>
+              <L href="/dashboard">{'Dashboard'}</L>
+            </div>
+            <div className={styles.action}>
+              <L href="/visual-guide">{'Guia Visual'}</L>
+            </div>
+          </>
         )}
       </div>
       {/* <div>

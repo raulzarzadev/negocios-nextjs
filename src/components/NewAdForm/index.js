@@ -80,11 +80,13 @@ export default function NewAdForm({ advert = undefined }) {
       })
     } else {
       /* --------------New Advert-------------- */
-      addAdvert(form).then((res) => {
+      addAdvert(form)
+      .then((res) => {
         setTimeout(() => {
           router.push('/profile')
         }, 1000)
       })
+      .catch(err => console.log(err))
     }
   }
   const handleChangeColor = (e) => {
@@ -104,7 +106,6 @@ export default function NewAdForm({ advert = undefined }) {
   }
 
   const disableButton = !!!form?.title
-  console.log(form.contacts)
   return (
     <div className={styles.form_container}>
       <h3>Nuevo Anuncio</h3>
