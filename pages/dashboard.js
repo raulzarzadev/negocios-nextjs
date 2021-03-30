@@ -1,6 +1,6 @@
-import PrivateRoute from "@comps/PrivateRoute";
 import AdminDashboard from "@comps/AdminDashboard";
+import AdminRoute from "src/HOC/AdminRoute";
 
 export default function Dashboard() {
-  return <PrivateRoute Component={AdminDashboard} />;
+  return <AdminRoute Component={AdminDashboard} />;
 }
