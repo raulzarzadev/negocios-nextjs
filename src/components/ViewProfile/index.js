@@ -96,8 +96,8 @@ export default function ViewProfile() {
           <p>No has publicado anuncios</p>
         ) : (
           <div className={styles.user_ads_grid}>
-            {publishedAds.map((ad) => (
-              <div key={ad.id} className={styles.grid_item}>
+            {publishedAds.map((ad, i) => (
+              <div key={`${ad.id}-${i}`} className={styles.grid_item}>
                 <Advert
                   advert={ad}
                   favorite={favoritesList.includes(ad.id)}
