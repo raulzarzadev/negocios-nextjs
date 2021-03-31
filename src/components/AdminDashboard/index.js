@@ -1,33 +1,33 @@
-import styles from "./styles.module.css";
-import EditIcon from "@material-ui/icons/Edit";
-import SettingsApplicationsIcon from "@material-ui/icons/SettingsApplications";
-import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
-import { useEffect, useState } from "react";
-import { useAds } from "src/hooks/useAds";
-import Modal from "@comps/Modal";
-import Advert from "@comps/Advert";
-import IconBtn from "@comps/IconBtn";
-import { P } from "@comps/P";
-import Link from "next/link";
-import { usePublications } from "src/hooks/usePublications";
-import { useRouter } from "next/router";
+import styles from './styles.module.css'
+import EditIcon from '@material-ui/icons/Edit'
+import SettingsApplicationsIcon from '@material-ui/icons/SettingsApplications'
+import CheckCircleIcon from '@material-ui/icons/CheckCircle'
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline'
+import { useEffect, useState } from 'react'
+import { useAds } from 'src/hooks/useAds'
+import Modal from '@comps/Modal'
+import Advert from '@comps/Advert'
+import IconBtn from '@comps/IconBtn'
+import { P } from '@comps/P'
+import Link from 'next/link'
+import { usePublications } from 'src/hooks/usePublications'
+import { useRouter } from 'next/router'
 
 export default function AdminDashboard() {
-  const [adverts, setAdverts] = useState([]);
-  const [publications, setPublications] = useState([]);
-  const { getAds, unpublishAdvert, reactivePublish } = useAds();
-  const { getAllPublications } = usePublications();
+  const [adverts, setAdverts] = useState([])
+  const [publications, setPublications] = useState([])
+  const { getAds, unpublishAdvert, reactivePublish } = useAds()
+  const { getAllPublications } = usePublications()
   useEffect(() => {
-    getAds().then(setAdverts);
-    getAllPublications().then(setPublications);
-  }, []);
+    getAds().then(setAdverts)
+    getAllPublications().then(setPublications)
+  }, [])
 
   const normalizeAds = adverts.map((ad) => {
-    const adPublications = publications.filter((pub) => pub.advertId === ad.id);
-    return { ...ad, publications: adPublications };
-  });
-  console.log(normalizeAds);
+    const adPublications = publications.filter((pub) => pub.advertId === ad.id)
+    return { ...ad, publications: adPublications }
+  })
+  console.log(normalizeAds)
 
   return (
     <div className={styles.dashboard}>
@@ -48,36 +48,36 @@ export default function AdminDashboard() {
         ))}
       </div>
     </div>
-  );
+  )
 }
 
 const normalizeDate = (date) => {
-  const newDate = new Date(date);
-  const month = newDate.getMonth();
-  const year = newDate.getFullYear().toString().slice(2);
-  return `${month}-${year}`;
-};
+  const newDate = new Date(date)
+  const month = newDate.getMonth()
+  const year = newDate.getFullYear().toString().slice(2)
+  return `${month}-${year}`
+}
 const AddRow = ({ ad, unpublishAdvert, reactivePublish }) => {
-  const [openPublicationOptions, setOpenPublicationOptions] = useState(false);
-  const router = useRouter();
+  const [openPublicationOptions, setOpenPublicationOptions] = useState(false)
+  const router = useRouter()
   const handleOpenPublicationOptions = () => {
-    setOpenPublicationOptions(!openPublicationOptions);
-  };
-  const [openDetails, setOpenDetails] = useState(false);
+    setOpenPublicationOptions(!openPublicationOptions)
+  }
+  const [openDetails, setOpenDetails] = useState(false)
   const handleOpenDetailsModal = () => {
-    setOpenDetails(!openDetails);
-  };
+    setOpenDetails(!openDetails)
+  }
   const handleUnpublish = (publicationId) => {
-    unpublishAdvert(publicationId);
-  };
+    unpublishAdvert(publicationId)
+  }
   const handleReactivePublish = (publicationId) => {
-    reactivePublish(publicationId);
-  };
+    reactivePublish(publicationId)
+  }
   const handleEditRedirect = (advertId) => {
-    router.push(`/adverts/edit/${ad.id}`);
-  };
+    router.push(`/adverts/edit/${ad.id}`)
+  }
 
-  const { title, publications } = ad;
+  const { title, publications } = ad
   return (
     <>
       <div className={styles.dash_row} key={ad.id}>
@@ -106,61 +106,59 @@ const AddRow = ({ ad, unpublishAdvert, reactivePublish }) => {
           </div>
         </div>
         <Modal
-          title="Configuaciones de anuncio"
+          title="Configuraciones de anuncio"
           open={openDetails}
           handleOpen={handleOpenDetailsModal}
         >
           <div className={styles.modal_advert}>
             <div className={styles.modal_options}>
-              <div>
-                Publicaciones: {publications?.length}
-                <div className={styles.details}>
-                  {publications?.map(
-                    ({ id, barrioId, active, publishEnds, publishStart }) => (
-                      <div
-                        key={id}
-                        className={styles.public_details_cell}
-                        style={{ background: active ? "green" : "red" }}
-                        onClick={() => handleOpenPublicationOptions(id)}
+              Publicaciones: {publications?.length}
+              <div className={styles.details}>
+                {publications?.map(
+                  ({ id, barrioId, active, publishEnds, publishStart }) => (
+                    <div
+                      key={id}
+                      className={styles.public_details_cell}
+                      style={{ background: active ? 'green' : 'red' }}
+                      onClick={() => handleOpenPublicationOptions(id)}
+                    >
+                      <div>{barrioId}</div>
+                      <div>de: {normalizeDate(publishStart)}</div>
+                      <div>a: {normalizeDate(publishEnds)}</div>
+                      <Modal
+                        title="Activar / Desactivar Publicación"
+                        open={openPublicationOptions}
+                        handleOpen={handleOpenPublicationOptions}
                       >
-                        <div>{barrioId}</div>
-                        <div>de: {normalizeDate(publishStart)}</div>
-                        <div>a: {normalizeDate(publishEnds)}</div>
-                        <Modal
-                          title="Activar / Desactivar Publicación"
-                          open={openPublicationOptions}
-                          handleOpen={handleOpenPublicationOptions}
-                        >
-                          {active ? (
-                            <div>
-                              Desactivar publicacion
-                              <button
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  handleUnpublish(id);
-                                }}
-                              >
-                                descativar
-                              </button>
-                            </div>
-                          ) : (
-                            <div>
-                              Reactivar publicacion
-                              <button
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  handleReactivePublish(id);
-                                }}
-                              >
-                                Activar
-                              </button>
-                            </div>
-                          )}
-                        </Modal>
-                      </div>
-                    )
-                  )}
-                </div>
+                        {active ? (
+                          <div>
+                            Desactivar publicacion
+                            <button
+                              onClick={(e) => {
+                                e.preventDefault()
+                                handleUnpublish(id)
+                              }}
+                            >
+                              descativar
+                            </button>
+                          </div>
+                        ) : (
+                          <div>
+                            Reactivar publicacion
+                            <button
+                              onClick={(e) => {
+                                e.preventDefault()
+                                handleReactivePublish(id)
+                              }}
+                            >
+                              Activar
+                            </button>
+                          </div>
+                        )}
+                      </Modal>
+                    </div>
+                  )
+                )}
               </div>
             </div>
             <Advert advert={ad} admin />
@@ -168,5 +166,5 @@ const AddRow = ({ ad, unpublishAdvert, reactivePublish }) => {
         </Modal>
       </div>
     </>
-  );
-};
+  )
+}

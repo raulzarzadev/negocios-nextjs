@@ -36,6 +36,8 @@
 .modal_advert {
   display: flex;
   flex-direction: column;
+  height: 300px;
+  align-items: center;
 }
 .modal_options {
   display: flex;
