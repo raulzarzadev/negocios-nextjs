@@ -1,6 +1,7 @@
 import { Chip } from "@material-ui/core";
 import { CHIP_LABELS } from "CONST/CHIPS_LABELS";
 import { useEffect, useState } from "react";
+import styles from './styles.module.css'
 
 export default function SelectLabels({ labels = [], setLabels = {} }) {
   const LIMIT_LABLES_SELECTED = 5;
@@ -29,16 +30,16 @@ export default function SelectLabels({ labels = [], setLabels = {} }) {
     }, [labels.length]);
 
   return (
-    <div>
+    <div className={styles.select_labels}>
       <div
-        style={{
+       /*  style={{
           maxWidth: "300px",
           border: "1px solid black",
           borderRadius: "16px",
           padding: "16px",
           minHeight: "48px",
           margin: "16px auto",
-        }}
+        }} */
       >
         {labelsSelected?.map((chip, i) => (
           <Chip
@@ -53,7 +54,7 @@ export default function SelectLabels({ labels = [], setLabels = {} }) {
         ))}
       </div>
       <em>Max {LIMIT_LABLES_SELECTED} etiquetas</em>
-      <div>
+      <div className={styles.labels_availables}>
         {chipsDisplay.map((chip) => {
           return (
             <Chip
