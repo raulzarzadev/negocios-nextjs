@@ -28,9 +28,8 @@ PrimBtn.propTypes = {
     'danger',
     'warning',
     'success',
-  ]),
+  ]).isRequired,
   onChange: PropTypes.func,
   children: PropTypes.node,
   type: PropTypes.string,
-
 }
