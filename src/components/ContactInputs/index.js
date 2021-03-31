@@ -7,6 +7,7 @@ import IconBtn from '@comps/IconBtn'
 import Tooltip from '@comps/Tooltip'
 import formatContacts from 'src/utils/formatContacts'
 import KeyboardNumbers from '@comps/keyboardNumbers'
+import PrimBtn from '@comps/PrimBtn'
 
 export default function ContactInputs({ contacts = [], setContacts }) {
   const [newContact, setNewContact] = useState({ type: '' })
@@ -49,24 +50,25 @@ export default function ContactInputs({ contacts = [], setContacts }) {
   const contactType = CONTACT_TYPES.find(
     (contact) => contact.type === newContact.type
   )
-
+  console.log(formatedContacts)
   return (
     <div className={styles.contact_display}>
       <div className={styles.contacts_list}>
-        <h3>Lista de contactos</h3>
+        <h3>{`Lista de contactos`}</h3>
+        {formatedContacts.length === 0 && <em>No hay contactos aún</em>}
         {formatedContacts?.map((contact, i) => (
           <div key={i}>
             <div className={styles.contact_row}>
               <div>
                 <Tooltip text={contact.type.label}>
-                  <p>{contact.type.icon}</p>
+                  <p>{contact.icon}</p>
                 </Tooltip>
               </div>
               <div>
                 <p>{contact.value}</p>
               </div>
               <Tooltip text={'Eliminar'}>
-                <IconBtn onClick={() => handleDeleteContact(contact)}>
+                <IconBtn zoomHover onClick={() => handleDeleteContact(contact)}>
                   <DeleteForeverIcon />
                 </IconBtn>
               </Tooltip>
@@ -88,16 +90,18 @@ export default function ContactInputs({ contacts = [], setContacts }) {
         suffix={newContact?.suffix}
       />
       {numberKeyboard && (
-        <KeyboardNumbers
-          hideDisplay
-          value={newContact.suffix}
-          setValue={(suffix) => setNewContact({ ...newContact, suffix })}
-        />
+        <div className={styles.numbers_keyboard}>
+          <KeyboardNumbers
+            hideDisplay
+            value={newContact.suffix}
+            setValue={(suffix) => setNewContact({ ...newContact, suffix })}
+          />
+        </div>
       )}
       {disabled && <em>{`Maximo ${CONTACTS_MAX} contactos`}</em>}
-      <div className="center">
-        <button
-          className={styles.input_buttom}
+      <div>
+        <PrimBtn
+          color="primary"
           disabled={!newContact.type || disabled}
           onClick={() => {
             addContact()
@@ -105,7 +109,7 @@ export default function ContactInputs({ contacts = [], setContacts }) {
           }}
         >
           Agregar contacto <AddCircleOutlineIcon />
-        </button>
+        </PrimBtn>
       </div>
     </div>
   )
@@ -122,7 +126,7 @@ const InputContact = ({
 }) => {
   return (
     <>
-      <span className={styles.contact_content}>
+      <div className={styles.contact_content}>
         <div className={styles.input_label}>Tipo:</div>
         <select
           className={styles.input_select}
@@ -142,9 +146,9 @@ const InputContact = ({
             </option>
           ))}
         </select>
-      </span>
+      </div>
 
-      <span className={styles.contact_content}>
+      <div className={styles.contact_content}>
         <div className={styles.input_label}>Valor:</div>
         <span className={styles.input_prefix}>
           {prefix}
@@ -157,7 +161,7 @@ const InputContact = ({
             onChange={handleChange}
           />
         </span>
-      </span>
+      </div>
     </>
   )
 }

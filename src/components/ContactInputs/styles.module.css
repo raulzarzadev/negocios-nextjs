@@ -14,16 +14,20 @@
 .input_buttom {
   margin: 1rem;
 }
+.numbers_keyboard{
+  margin-bottom: 1rem;
+}
 
 .contact_content {
   width: 100%;
+  margin: 1rem auto;
 }
 
 .input_select {
   width: 100%;
 }
 
-.input_prevalue{
+.input_prevalue {
   display: grid;
   grid-template-columns: 1fr 1fr;
   text-align: end;
@@ -31,5 +35,5 @@
 }
 
 .input_text {
-  width: 120px;
+  width: 100%;
 }

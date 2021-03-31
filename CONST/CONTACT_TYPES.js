@@ -10,7 +10,7 @@ export const CONTACT_TYPES = [
     type: "ws",
     label: "Whats App",
     icon: <WhatsAppIcon fontSize="default" />,
-    prefix: "52",
+    prefix: "521",
   },
   {
     name: "facebook",
