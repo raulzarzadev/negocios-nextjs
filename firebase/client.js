@@ -12,7 +12,7 @@ const mapUserFromFirebase = (user) => {
 }
 const getFirstConicidence = (snapshot) => {
   // format first coicidence or return []
-  if (snapshot.empty) return { favorites: [] }
+  if (!snapshot || snapshot.empty) return { favorites: [] }
   const firstCoincidence = snapshot?.docs[0]
   return { ...firstCoincidence?.data(), id: firstCoincidence?.id }
 }
@@ -230,18 +230,19 @@ export const fb_getUserActivePublications = (userId) => {
     )
 }
 
+/* ------------------------------------------------------------------------------------------- */
+/*  ---------------------***---------    FAVORITES    ----------***--------------------------*/
+/* ------------------------------------------------------------------------------------------- */
+
 export const fb_addFavorite = async (userId, advertId) => {
   const userFavsList = await db
     .collection('favorites')
     .where('userId', '==', userId)
     .get()
     // Just get the first one
-    .then((snapshot) => {
-      const firstCoincidence = snapshot?.docs[0]
-      return { ...firstCoincidence.data(), id: firstCoincidence?.id }
-    })
-  if (!userFavsList) {
-    await db
+    .then(getFirstConicidence)
+  if (!userFavsList?.favorites?.length) {
+    return await db
       .collection('favorites')
       .add({ userId, favorites: [advertId] })
       .then((docRef) => {
