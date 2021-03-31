@@ -44,20 +44,20 @@ export default function ViewProfile() {
             <div className={styles.action}>
               <L href="/visual-guide">{'Guia Visual'}</L>
             </div>
+            <div className={styles.action}>
+              <L href="/barrios/new">{'Nuevo Barrio'}</L>
+            </div>
           </>
         )}
+        <div className={styles.profile_actions}>
+          <div className={styles.action}>
+            <L href="/adverts/new">{'Nuevo Anuncio'}</L>
+          </div>
+        </div>
         <div className={styles.action}>
           <PrimBtn color="danger" onClick={handleLogOut}>
             {'Salir'}
           </PrimBtn>
-        </div>
-      </div>
-      <div className={styles.profile_actions}>
-        <div className={styles.action}>
-          <L href="/adverts/new">{'Nuevo Anuncio'}</L>
-        </div>
-        <div className={styles.action}>
-          <L href="/barrios/new">{'Nuevo Barrio'}</L>
         </div>
       </div>
       <div>
