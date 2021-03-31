@@ -98,7 +98,7 @@ export default function NewAdForm({ advert = undefined }) {
     e.preventDefault()
     setUploadProgress(1)
     const image = e.target.files[0]
-    console.log(image)
+    console.log({ name: 'name', ...image })
     console.log(
       ImageTools.resize(
         image,
@@ -110,6 +110,7 @@ export default function NewAdForm({ advert = undefined }) {
           console.log(didItResize)
           // didItResize will be true if it managed to resize it, otherwise false (and will return the original file as 'blob')
           console.log(blob)
+
           const task = uploadImage(blob)
           console.log(task)
           setImageToUpload(task)

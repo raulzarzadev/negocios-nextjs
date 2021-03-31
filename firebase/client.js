@@ -1,4 +1,5 @@
 import firebase from 'firebase'
+import { v4 as uuidv4 } from 'uuid'
 
 const firebaseConfig = JSON.parse(process.env.NEXT_PUBLIC_FIREBASE_CONFIG)
 
@@ -333,7 +334,8 @@ export const fb_getActivePublications = () => {
 }
 
 export const uploadImage = (file) => {
-  const ref = firebase.storage().ref(`images/${file.name}`)
+  const imageUniqueId = uuidv4()
+  const ref = firebase.storage().ref(`images/${imageUniqueId}`)
   const task = ref.put(file)
   return task
 }
