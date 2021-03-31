@@ -68,7 +68,7 @@ export default function ContactInputs({ contacts = [], setContacts }) {
                 <p>{contact.value}</p>
               </div>
               <Tooltip text={'Eliminar'}>
-                <IconBtn zoomHover onClick={() => handleDeleteContact(contact)}>
+                <IconBtn zoomhover onClick={() => handleDeleteContact(contact)}>
                   <DeleteForeverIcon />
                 </IconBtn>
               </Tooltip>

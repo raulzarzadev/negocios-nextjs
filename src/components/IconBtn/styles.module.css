@@ -39,6 +39,6 @@
 .button:active {
   background-color: rgba(51, 51, 51, 0.781);
 }
-.button[zoomHover=true] {
+.button[zoomhover=true] {
   border: 2px solid;
 }

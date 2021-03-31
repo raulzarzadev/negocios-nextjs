@@ -333,9 +333,20 @@ export const fb_getActivePublications = () => {
     .then(getFirebaseDocsWithId)
 }
 
-export const uploadImage = (file) => {
+export const fb_uploadImage = (file, metadata = {}) => {
   const imageUniqueId = uuidv4()
   const ref = firebase.storage().ref(`images/${imageUniqueId}`)
-  const task = ref.put(file)
+  const task = ref.put(file, metadata)
   return task
+}
+
+export const fb_deleteImage = (ref) => {
+  console.log(ref)
+  const imageRef = firebase.storage().refFromURL(ref)
+  return imageRef
+    .delete()
+    .then((res) => {
+      return { ok: true, type: 'IMAGE_DELETED' }
+    })
+    .catch((err) => console.log(err))
 }

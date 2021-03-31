@@ -8,7 +8,44 @@
   margin: 2rem 0;
 }
 
-.section_form{
+.section_form {
   text-align: center;
   padding: 4px;
+}
+
+.preview_conteier {
+  margin-top: 1rem;
+}
+
+.previewImage {
+  position: relative;
+  display: flex;
+  margin: 0 auto;
+  width: fit-content;
+  cursor: pointer;
+}
+
+.previewImage > span {
+  display: block;
+  position: absolute;
+  left: calc(50% - 17px);
+  top: calc(50% - 18px);
+  z-index: 1;
+}
+
+.previewImage:hover > span {
+  opacity: 1;
+}
+.previewImage:active > span {
+  transform: translate(0, 2px);
+}
+.previewImage:hover > img {
+  opacity: 0.7;
+}
+
+.previewImage > img {
+  position: relative;
+  border-radius: 8px;
+  width: 50px;
+  height: 50px;
 }

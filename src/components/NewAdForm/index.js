@@ -5,7 +5,8 @@ import Modal from '@comps/Modal'
 import PrimBtn from '@comps/PrimBtn'
 import ProgressBar from '@comps/ProgressBar'
 import SelectLabels from '@comps/SelectLabels'
-import { uploadImage } from 'firebase/client'
+import { DeleteForeverOutlined } from '@material-ui/icons'
+import { fb_deleteImage, fb_uploadImage } from 'firebase/client'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useAds } from 'src/hooks/useAds'
@@ -33,6 +34,7 @@ export default function NewAdForm({ advert = undefined }) {
   const [imageToUpload, setImageToUpload] = useState(null)
   const [imgURL, setImageURL] = useState(null)
   const [uploadProgress, setUploadProgress] = useState(0)
+
   useEffect(() => {
     if (imageToUpload) {
       const onProgress = (e) => {
@@ -54,6 +56,10 @@ export default function NewAdForm({ advert = undefined }) {
       setForm({ ...form, image: imgURL })
     }
   }, [imgURL])
+
+  const handleDeleteImage = (ImageRef) => {
+    return fb_deleteImage(ImageRef)
+  }
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
@@ -110,8 +116,11 @@ export default function NewAdForm({ advert = undefined }) {
           console.log(didItResize)
           // didItResize will be true if it managed to resize it, otherwise false (and will return the original file as 'blob')
           console.log(blob)
-
-          const task = uploadImage(blob)
+          const metadata = {
+            user: 'userId ',
+            createdAt: new Date(),
+          }
+          const task = fb_uploadImage(blob, metadata)
           console.log(task)
           setImageToUpload(task)
           // document.getElementById('preview').src = window.URL.createObjectURL(blob);
@@ -213,6 +222,19 @@ export default function NewAdForm({ advert = undefined }) {
             {console.log(form.image)}
             {!form.image ? 'Sube una Foto' : 'Cambiar Foto'}
           </PrimBtn>
+          {form.image && (
+            <div className={styles.preview_conteier}>
+              <div
+                className={styles.previewImage}
+                onClick={() => handleDeleteImage(form.image)}
+              >
+                <span>
+                  <DeleteForeverOutlined fontSize="large" />
+                </span>
+                <img src={form.image} />
+              </div>
+            </div>
+          )}
           {!(uploadProgress === 100 || uploadProgress === 0) && (
             <ProgressBar progressPorcent={uploadProgress} showPorcent />
           )}
