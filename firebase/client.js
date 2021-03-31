@@ -6,6 +6,15 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig)
 }
 
+/* ------------------------------------------------------------------------------------------- */
+/*  ---------------------***--------- NORMALIZA FIREBASE DOCS ----------***--------------------------*/
+/* ------------------------------------------------------------------------------------------- */
+
+const getFirebaseDocsWithId = ({ docs }) =>
+  docs.map((doc) => {
+    return { id: doc.id, ...doc.data() }
+  })
+
 const mapUserFromFirebase = (user) => {
   const { email, displayName, photoURL } = user
   return { email, name: displayName, image: photoURL, id: user.uid }
@@ -312,14 +321,15 @@ export const fb_listenUserFavorites = (userId, callback) => {
 /* ------------------------------------------------------------------------------------------- */
 
 export const fb_getAllPublications = () => {
+  return db.collection('publications').get().then(getFirebaseDocsWithId)
+}
+
+export const fb_getActivePublications = () => {
   return db
     .collection('publications')
+    .where('active', '==', true)
     .get()
-    .then(({ docs }) =>
-      docs.map((doc) => {
-        return { id: doc.id, ...doc.data() }
-      })
-    )
+    .then(getFirebaseDocsWithId)
 }
 
 export const uploadImage = (file) => {

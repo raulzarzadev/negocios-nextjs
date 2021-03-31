@@ -1,3 +1,20 @@
 .state_list {
   text-align: center;
+  margin: 2rem auto;
+}
+.barrios_quantity{
+  font-size: .8rem;
+  font-weight: 500;
+}
+.ads_quantity {
+  font-size: .6rem;
+  font-weight: 500;
+}
+.state_title {
+  padding: 0.7rem;
+}
+
+.barrio_title {
+  padding: 0.2rem;
+  font-weight: 500;
 }

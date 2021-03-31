@@ -1,9 +1,13 @@
-import { fb_getAllPublications } from "firebase/client";
+import { fb_getAllPublications, fb_getActivePublications } from "firebase/client";
 
 export function usePublications() {
   function getAllPublications() {
     return fb_getAllPublications();
   }
 
-  return { getAllPublications };
+  function getActivePublications(){
+    return fb_getActivePublications()
+  }
+
+  return { getAllPublications, getActivePublications };
 }
