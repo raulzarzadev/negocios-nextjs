@@ -3,23 +3,31 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  width: 100%;
 }
 
 .adverts {
+  width: inherit;
   display: grid;
-  grid-gap: 10px;
-  justify-content: center;
+  grid-gap: var(--space-2);
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
 }
 .advert {
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-@media (min-width: 600px) {
+@media (min-width: 900px) {
   .adverts {
-    grid-template-columns: repeat(2, 1fr);
+    max-width: 900px;
+    margin: 0 auto;
   }
 }
+/*
 @media (min-width: 900px) {
   .adverts {
     grid-template-columns: repeat(3, 1fr);
   }
 }
+ */
