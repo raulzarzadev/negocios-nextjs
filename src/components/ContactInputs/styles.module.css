@@ -1,8 +1,8 @@
 .contact_display {
-  margin: 2rem 0;
+  margin: .5em 0;
 }
 .contacts_list {
-  margin: 2rem 0;
+  margin: 1rem 0;
 }
 .contact_row {
   display: flex;
