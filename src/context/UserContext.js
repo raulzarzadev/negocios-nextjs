@@ -14,10 +14,11 @@ export function UserProvider({ children }) {
   useEffect(() => {
     if (user) {
       fb_listenUserFavorites(user.id, (favorites) => {
-        setFavoritesList(favorites.map((fav) => fav.advertId));
+        setFavoritesList(favorites);
       });
     }
   }, [user]);
+
 
   return (
     <UserContext.Provider value={{ user, setUser, favoritesList }}>

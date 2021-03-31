@@ -6,7 +6,6 @@ import { SvgIcon } from '@material-ui/core'
 import { CHIP_LABELS } from 'CONST/CHIPS_LABELS'
 
 import styles from './styles.module.css'
-import { CONTACT_TYPES } from 'CONST/CONTACT_TYPES'
 import { useState } from 'react'
 import { BtnL, L } from '@comps/L'
 import Modal from '@comps/Modal'
@@ -37,7 +36,7 @@ const defaulAdvert = {
   ],
 }
 
-export default function Advert({ advert = defaulAdvert, showFavorite, admin }) {
+export default function Advert({ advert = defaulAdvert, showFavorite, admin, form=false }) {
   const router = useRouter()
   const {
     labels,
@@ -56,6 +55,7 @@ export default function Advert({ advert = defaulAdvert, showFavorite, admin }) {
     addFavorite,
     removeFavorite,
   } = useAds()
+
 
   const { favoritesList } = useUser()
   const favorite = favoritesList.includes(id)

@@ -2,6 +2,7 @@ import Advert from '@comps/Advert'
 import ColorPicker from '@comps/ColorPicker'
 import ContactInputs from '@comps/ContactInputs'
 import Modal from '@comps/Modal'
+import PrimBtn from '@comps/PrimBtn'
 import ProgressBar from '@comps/ProgressBar'
 import SelectLabels from '@comps/SelectLabels'
 import { uploadImage } from 'firebase/client'
@@ -81,12 +82,12 @@ export default function NewAdForm({ advert = undefined }) {
     } else {
       /* --------------New Advert-------------- */
       addAdvert(form)
-      .then((res) => {
-        setTimeout(() => {
-          router.push('/profile')
-        }, 1000)
-      })
-      .catch(err => console.log(err))
+        .then((res) => {
+          setTimeout(() => {
+            router.push('/profile')
+          }, 1000)
+        })
+        .catch((err) => console.log(err))
     }
   }
   const handleChangeColor = (e) => {
@@ -117,7 +118,6 @@ export default function NewAdForm({ advert = undefined }) {
         }}
       >
         <section className={styles.section_form}>
-          <h4>Contenido</h4>
           {/* IMAGE */}
 
           {/* TITLE AND CONTENT */}
@@ -144,59 +144,68 @@ export default function NewAdForm({ advert = undefined }) {
         {/* CLASIFICATION */}
         <section className={styles.section_form}>
           <h4>Clasificación</h4>
-          <button
+          <PrimBtn
+            color="secondary"
             onClick={(e) => {
               e.preventDefault()
               handleOpenSelectLabels()
             }}
           >
-            Clasifica tu anuncio
-          </button>
+            {!!form?.labels?.length
+              ? 'Editar clasificacón'
+              : 'Clasifica tu anuncio'}
+          </PrimBtn>
         </section>
         {/* CONTACTS */}
         <section className={styles.section_form}>
           <h4>Contactos</h4>
-          <button
+          <PrimBtn
+            color="secondary"
             onClick={(e) => {
               e.preventDefault()
               handleAddContact()
             }}
           >
-            Agrega un contacto
-          </button>
+            {console.log(!!form.contacts.length)}
+            {!!form?.contacts?.length
+              ? 'Editar Contactos'
+              : 'Agregar Contactos'}
+          </PrimBtn>
         </section>
         {/* COLOR */}
         <section className={styles.section_form}>
           <h4>Color</h4>
-          <button
+          <PrimBtn
+            color="secondary"
             onClick={(e) => {
               e.preventDefault()
               handleOpenSelectColor()
             }}
           >
-            Selecciona un color
-          </button>
+            {form.backgroundColor ? 'Cambiar Color' : 'Selecciona un color'}
+          </PrimBtn>
         </section>
         {/* IMAGES */}
         <section className={styles.section_form}>
           <h4>Imagenes</h4>
-          <input
-            type="file"
-            name="images"
-            onChange={handleSelectImage}
-            multiple
-          />
+          <PrimBtn type="file" color="secondary" onChange={handleSelectImage}>
+            {console.log(form.image)}
+          {!form.image ? 'Sube una Foto' : 'Cambiar Foto'}
+          </PrimBtn>
           {!(uploadProgress === 100 || uploadProgress === 0) && (
             <ProgressBar progressPorcent={uploadProgress} showPorcent />
           )}
         </section>
         {/* PREVIEW ADVERT */}
         <section className={styles.section_form}>
-          <Advert advert={form} newForm={true} />
+          <Advert advert={form} form={true} />
         </section>
-        <button disabled={disableButton} type="submit">
+        <div className='flex m-2 p-1'>
+
+        <PrimBtn color="primary" disabled={disableButton} type="submit">
           Guardar
-        </button>
+        </PrimBtn>
+        </div>
       </form>
       <Modal
         title="Clasifica tu anuncio"

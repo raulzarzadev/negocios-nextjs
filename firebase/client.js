@@ -10,6 +10,12 @@ const mapUserFromFirebase = (user) => {
   const { email, displayName, photoURL } = user
   return { email, name: displayName, image: photoURL, id: user.uid }
 }
+const getFirstConicidence = (snapshot) => {
+  // format first coicidence or return []
+  if (snapshot.empty) return { favorites: [] }
+  const firstCoincidence = snapshot?.docs[0]
+  return { ...firstCoincidence?.data(), id: firstCoincidence?.id }
+}
 
 export const onAuthStateChanged = (onChange) => {
   return firebase.auth().onAuthStateChanged((user) => {
@@ -225,33 +231,57 @@ export const fb_getUserActivePublications = (userId) => {
 }
 
 export const fb_addFavorite = async (userId, advertId) => {
-  const favExist = await db
+  const userFavsList = await db
     .collection('favorites')
     .where('userId', '==', userId)
-    .where('advertId', '==', advertId)
     .get()
-    .then(({ empty }) => !empty && true)
-  if (favExist) return { ok: true, type: 'FAVORITE_ALREADY_EXIST' }
-  return db
-    .collection('favorites')
-    .add({ advertId, userId, createdAt: new Date().toISOString() })
-    .then((docRef) => {
-      return { ok: true, type: 'FAVORITE_ADDED', ref: docRef.id }
+    // Just get the first one
+    .then((snapshot) => {
+      const firstCoincidence = snapshot?.docs[0]
+      return { ...firstCoincidence.data(), id: firstCoincidence?.id }
     })
+  if (!userFavsList) {
+    await db
+      .collection('favorites')
+      .add({ userId, favorites: [advertId] })
+      .then((docRef) => {
+        return { ok: true, type: 'FAVORITE_ADDED', ref: docRef.id }
+      })
+  } else if (userFavsList?.favorites?.includes(advertId))
+    return { ok: true, type: 'FAVORITE_ALREADY_EXIST' }
+  else {
+    const list = await db.collection('favorites').doc(userFavsList.id)
+
+    return list
+      .update({
+        favorites: firebase.firestore.FieldValue.arrayUnion(advertId),
+      })
+      .then((res) => {
+        return { ok: true, type: 'FAVORITE_ADDED' }
+      })
+      .catch((err) => {
+        return { ok: true, type: 'ERROR_FAVORITE_ADDED', error: err }
+      })
+  }
 }
 
 export const fb_removeFavorite = async (userId, advertId) => {
   const fav = await db
     .collection('favorites')
     .where('userId', '==', userId)
-    .where('advertId', '==', advertId)
     .get()
-  if (fav.empty) return { ok: false, type: 'FAVORITE_DO_NOT_EXIST' }
-  return fav.docs.forEach((doc) =>
-    doc.ref.delete().then((res) => {
-      return { ok: true, type: 'FAVORITE_REMOVED', ref: doc.id }
+    // Just get the first one
+    .then(getFirstConicidence)
+
+  const list = await db.collection('favorites').doc(fav.id)
+  return list
+    .update({
+      favorites: firebase.firestore.FieldValue.arrayRemove(advertId),
     })
-  )
+    .then((res) => {
+      return { ok: true, type: 'FAVORITE_REMOVED' }
+    })
+    .catch((err) => console.log(err))
 }
 
 export const fb_getUserFavorites = (userId) => {
@@ -270,11 +300,9 @@ export const fb_listenUserFavorites = (userId, callback) => {
   return db
     .collection('favorites')
     .where('userId', '==', userId)
-    .onSnapshot(({ docs }) => {
-      const favoriteList = docs.map((doc) => {
-        return { ...doc.data(), id: doc.id }
-      })
-      callback(favoriteList)
+    .onSnapshot((snapshot) => {
+      const favoriteList = getFirstConicidence(snapshot)
+      callback(favoriteList.favorites)
     })
 }
 

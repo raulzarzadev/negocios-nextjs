@@ -12,8 +12,8 @@ import {
   fb_getUserActivePublications,
   fb_addFavorite,
   fb_removeFavorite,
-  fb_getUserFavorites,
-  fb_listenUserFavorites,
+  /* fb_getUserFavorites,
+  fb_listenUserFavorites, */
   fb_reactivePublishAdvert
 } from "firebase/client";
 import { useEffect, useState } from "react";
@@ -23,15 +23,16 @@ export function useAds() {
   const { user } = useUser();
 
   const [favorites, setFavorites] = useState([]);
-
-  useEffect(() => {
+  
+ /*  useEffect(() => {
     if (user) {
       fb_listenUserFavorites(user.id, (favorites) => {
         formatFavoritesAds(favorites).then(setFavorites);
       });
     }
   }, []);
-
+  console.log(favorites) */
+  
   function getAds() {
     return fb_getAds().then((res) => {
       return res;
@@ -106,17 +107,19 @@ export function useAds() {
   function removeFavorite(advertId) {
     return fb_removeFavorite(user.id, advertId);
   }
-  async function getUserFavorites() {
+  /* async function getUserFavorites() {
     const favList = await fb_getUserFavorites(user.id);
+    console.log(favList)
     const adverts = favList?.map(async (fav) => {
       const advert = await getAdvert(fav.advertId);
       return { ...advert, fav };
     });
+    console.log(adverts)
     return Promise.all(adverts || []).then((res) => {
       return res;
     });
-  }
-  function formatFavoritesAds(favorites) {
+  } */
+  /* function formatFavoritesAds(favorites) {
     const adverts = favorites?.map(async (fav) => {
       const advert = await getAdvert(fav.advertId);
       return { ...advert, fav };
@@ -124,7 +127,7 @@ export function useAds() {
     return Promise.all(adverts || []).then((res) => {
       return res;
     });
-  }
+  } */
   return {
     favorites,
     getAds,
@@ -139,7 +142,7 @@ export function useAds() {
     getUserActiveAds,
     removeFavorite,
     addFavorite,
-    getUserFavorites,
+    // getUserFavorites,
     reactivePublish
   };
 }
