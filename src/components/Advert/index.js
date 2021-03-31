@@ -173,7 +173,7 @@ export default function Advert({ advert = defaulAdvert, showFavorite, admin, for
 
 const ContactLink = ({ contact }) => {
   const hrefOptions = {
-    ws: `https://wa.me/521${contact.value.replace(
+    ws: `https://wa.me/${contact.value.replace(
       / /g,
       ''
     )}?text=Hola,%20te%20encontre%20en%20negociosdelbarrio.com%20y%20quisiera..`,
