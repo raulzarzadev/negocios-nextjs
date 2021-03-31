@@ -9,6 +9,7 @@ import { uploadImage } from 'firebase/client'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useAds } from 'src/hooks/useAds'
+import ImageTools from 'src/utils/ImageTools'
 import styles from './styles.module.css'
 
 export default function NewAdForm({ advert = undefined }) {
@@ -96,8 +97,27 @@ export default function NewAdForm({ advert = undefined }) {
   const handleSelectImage = (e) => {
     e.preventDefault()
     setUploadProgress(1)
-    const task = uploadImage(e.target.files[0])
-    setImageToUpload(task)
+    const image = e.target.files[0]
+    console.log(image)
+    console.log(
+      ImageTools.resize(
+        image,
+        {
+          width: 320, // maximum width
+          height: 240, // maximum height
+        },
+        function (blob, didItResize) {
+          console.log(didItResize)
+          // didItResize will be true if it managed to resize it, otherwise false (and will return the original file as 'blob')
+          console.log(blob)
+          const task = uploadImage(blob)
+          console.log(task)
+          setImageToUpload(task)
+          // document.getElementById('preview').src = window.URL.createObjectURL(blob);
+          // you can also now upload this blob using an XHR.
+        }
+      )
+    )
   }
   const handleSetContacts = (e) => {
     setForm({ ...form, contacts: e })
@@ -190,7 +210,7 @@ export default function NewAdForm({ advert = undefined }) {
           <h4>Imagenes</h4>
           <PrimBtn type="file" color="secondary" onChange={handleSelectImage}>
             {console.log(form.image)}
-          {!form.image ? 'Sube una Foto' : 'Cambiar Foto'}
+            {!form.image ? 'Sube una Foto' : 'Cambiar Foto'}
           </PrimBtn>
           {!(uploadProgress === 100 || uploadProgress === 0) && (
             <ProgressBar progressPorcent={uploadProgress} showPorcent />
@@ -200,11 +220,10 @@ export default function NewAdForm({ advert = undefined }) {
         <section className={styles.section_form}>
           <Advert advert={form} form={true} />
         </section>
-        <div className='flex m-2 p-1'>
-
-        <PrimBtn color="primary" disabled={disableButton} type="submit">
-          Guardar
-        </PrimBtn>
+        <div className="flex m-2 p-1">
+          <PrimBtn color="primary" disabled={disableButton} type="submit">
+            Guardar
+          </PrimBtn>
         </div>
       </form>
       <Modal
