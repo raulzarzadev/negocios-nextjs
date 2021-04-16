@@ -69,7 +69,6 @@ export default function Advert({ advert = defaulAdvert, showFavorite, admin, for
   const [openDelete, setOpenDelete] = useState(false)
   const [openPublish, setOpenPublish] = useState(false)
   const [alert, setAlert]= useState(null)
-  console.log('alert');
   
   const handleOpenDelete = () => {
     setOpenDelete(!openDelete)
@@ -82,10 +81,9 @@ export default function Advert({ advert = defaulAdvert, showFavorite, admin, for
     unpublishAdvert(publicationId)
   }
   const handleAddFavorite = () => {
-    addFavorite(id).then(({type}) => {
-      console.log('type', type);
-      type ==='NOT_USER' && setAlert(true)
-     /*  if(type === 'NOT_USER') return setAlert(<AlertFavs/>) */
+    addFavorite(id).then((res) => {
+      console.log('type', res);
+      res?.type ==='NOT_USER' && setAlert(true)
     })
   }
   
