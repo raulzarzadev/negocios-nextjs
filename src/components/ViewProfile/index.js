@@ -34,32 +34,33 @@ export default function ViewProfile() {
   }, [favoritesList.length])
 
   return (
-    <div className={styles.view_profile}>
-      <div>
+      <div className={styles.view_profile}>
+        <div className={styles.actions}>
         {user?.admin && (
-          <>
-            <div className={styles.action}>
-              <L href="/dashboard">{'Dashboard'}</L>
-            </div>
-            <div className={styles.action}>
-              <L href="/visual-guide">{'Guia Visual'}</L>
-            </div>
-            <div className={styles.action}>
-              <L href="/barrios/new">{'Nuevo Barrio'}</L>
-            </div>
-          </>
+        <div className={styles.action}>
+
+          <L href="/dashboard">
+              <PrimBtn color='secondary'>
+                Dashboard
+              </PrimBtn>
+          </L>
+        </div>
         )}
-        <div className={styles.profile_actions}>
-          <div className={styles.action}>
-            <L href="/adverts/new">{'Nuevo Anuncio'}</L>
-          </div>
+        <div className={styles.action}>
+
+          <L href="/adverts/new">
+            <PrimBtn color='success'>
+              {'Nuevo Anuncio'}
+            </PrimBtn>
+          </L>
         </div>
         <div className={styles.action}>
+
           <PrimBtn color="danger" onClick={handleLogOut}>
             {'Salir'}
           </PrimBtn>
         </div>
-      </div>
+        </div>
       <div>
         <h3>Favoritos Guardados</h3>
         {favorites.length === 0 ? (

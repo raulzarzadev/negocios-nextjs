@@ -142,7 +142,7 @@ export default function Advert({ advert = defaulAdvert, showFavorite, admin, for
           <h5>{title}</h5>
           <p>
 
-            {content?.slice(0, 100)}  dwewed dwe dw ed wed wed we d wed we d wedwedwedwed wedwedwed
+            {content?.slice(0, 100)} 
             <BtnL onClick={() => console.log('show details')}>
               <em> ver mas </em>
             </BtnL>

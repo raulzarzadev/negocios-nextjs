@@ -9,10 +9,14 @@
   align-items: center;
   padding: 8px;
 }
-.action {
-  padding: 4px;
-  margin: 4px;
-  text-align: center;
+.actions {
+  padding: var(--space-1);
+}
+.action{
+  margin: var(--space-1) 0
+}
+.signout{
+  width: 100px;
 }
 
 .user_ads_grid {

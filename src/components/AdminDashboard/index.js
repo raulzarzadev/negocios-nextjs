@@ -33,6 +33,9 @@ export default function AdminDashboard() {
         <Link href='/adverts/new'>
         Nuevo anuncio
         </Link>
+        <div className={styles.action}>
+              <Link href="/barrios/new">{'Nuevo Barrio'}</Link>
+            </div>
         <div>
         </div>
         <div className={styles.dash_table}>
@@ -99,11 +102,11 @@ const AddRow = ({ ad, unpublishAdvert, reactivePublish }) => {
 
         <div className={styles.table_cell}>
           <div className="center">
-            <IconBtn onClick={handleEditRedirect}>
-              <EditIcon fontSize="small" />
+            <IconBtn  onClick={handleEditRedirect}>
+              <EditIcon fontSize="small" style={{color:'#fff'}}/>
             </IconBtn>
             <IconBtn onClick={handleOpenDetailsModal}>
-              <SettingsApplicationsIcon fontSize="small" />
+              <SettingsApplicationsIcon fontSize="small"  style={{color:'#fff'}}/>
             </IconBtn>
           </div>
         </div>
