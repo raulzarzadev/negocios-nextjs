@@ -1,0 +1,22 @@
+
+.button{
+    border: 1px solid var(--white);
+    border-radius: var(--space-1);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+.button[color='primary']{
+    background-color: var(--primary);
+    color: var(--secondary);
+}
+.button[color='secondary']{
+    background-color: var(--secondary);
+   color: var(--primary);
+}
+
+.icon {
+    font-size: 49px;
+}

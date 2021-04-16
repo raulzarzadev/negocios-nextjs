@@ -15,11 +15,9 @@
 .action{
   margin: var(--space-1) 0
 }
-
-.favs {
-  text-align: center;
+.signout{
+  width: 100px;
 }
-
 
 .user_ads_grid {
   display: flex;

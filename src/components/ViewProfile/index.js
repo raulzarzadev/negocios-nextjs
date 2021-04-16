@@ -36,35 +36,26 @@ export default function ViewProfile() {
   return (
       <div className={styles.view_profile}>
         <div className={styles.actions}>
-        {user?.admin && (
-        <div className={styles.action}>
-
-          <L href="/dashboard">
-              <PrimBtn color='secondary'>
-                Dashboard
-              </PrimBtn>
-          </L>
-        </div>
-        )}
-        <div className={styles.action}>
-
-          <L href="/adverts/new">
-            <PrimBtn color='success'>
-              {'Nuevo Anuncio'}
+            {user?.admin && (
+            <div className={styles.action}>
+              <L href="/dashboard">
+                <PrimBtn color='secondary'>
+                  Dashboard
+                </PrimBtn>
+              </L>
+            </div>
+          )}
+          <div className={styles.action}>
+            <PrimBtn color="danger" onClick={handleLogOut}>
+              {'Salir'}
             </PrimBtn>
-          </L>
+          </div>
         </div>
-        <div className={styles.action}>
 
-          <PrimBtn color="danger" onClick={handleLogOut}>
-            {'Salir'}
-          </PrimBtn>
-        </div>
-        </div>
-      <div>
+      <div className={styles.favs}>
         <h3>Favoritos Guardados</h3>
         {favorites.length === 0 ? (
-          <p>No has guardado</p>
+          <p>Aun no has guardado </p>
         ) : (
           <div className={styles.user_ads_grid}>
             {favorites?.map((ad, i) => (
@@ -75,40 +66,6 @@ export default function ViewProfile() {
           </div>
         )}
       </div>
-      <div>
-        <h3>Anuncios creados</h3>
-        {userAds && (
-          <div className={styles.user_ads_grid}>
-            {userAds.map((ad) => (
-              <div key={ad.id} className={styles.grid_item}>
-                <Advert2
-                  advert={ad}
-                  favorite={favoritesList?.includes(ad?.id)}
-                  admin
-                />
-              </div>
-            ))}
-          </div>
-        )}
       </div>
-      <div>
-        <h3>Anuncios Publicados</h3>
-        {publishedAds.length === 0 ? (
-          <p>No has publicado anuncios</p>
-        ) : (
-          <div className={styles.user_ads_grid}>
-            {publishedAds.map((ad, i) => (
-              <div key={`${ad.id}-${i}`} className={styles.grid_item}>
-                <Advert2
-                  advert={ad}
-                  favorite={favoritesList.includes(ad.id)}
-                  admin
-                />
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
   )
 }

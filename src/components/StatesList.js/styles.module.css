@@ -16,11 +16,21 @@
   font-size: .6rem;
   font-weight: 500;
 }
-.state_title {
-  padding: 0.7rem;
-}
 
 .barrio_title {
-  padding: 0.2rem;
   font-weight: 500;
+  font-size: 1.5rem;
+}
+.state_title {
+  font-size: 1rem;
+}
+
+@media (min-width: 600px) {
+  .barrio_title {
+    font-weight: 500;
+    font-size: rem;
+  }
+  .state_title {
+    font-size: 2rem;
+  } 
 }
