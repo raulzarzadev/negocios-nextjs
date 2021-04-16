@@ -31,16 +31,7 @@ export default function SelectLabels({ labels = [], setLabels = {} }) {
 
   return (
     <div className={styles.select_labels}>
-      <div
-       /*  style={{
-          maxWidth: "300px",
-          border: "1px solid black",
-          borderRadius: "16px",
-          padding: "16px",
-          minHeight: "48px",
-          margin: "16px auto",
-        }} */
-      >
+      <div>
         {labelsSelected?.map((chip, i) => (
           <Chip
             key={chip?.key}

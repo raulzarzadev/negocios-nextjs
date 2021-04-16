@@ -2,6 +2,7 @@ import Advert2 from '@comps/Advert2'
 import ColorPicker from '@comps/ColorPicker'
 import ContactInputs from '@comps/ContactInputs'
 import Modal from '@comps/Modal'
+import ModalSelectLabels from '@comps/ModalSelectLabels'
 import PrimBtn from '@comps/PrimBtn'
 import ProgressBar from '@comps/ProgressBar'
 import SelectLabels from '@comps/SelectLabels'
@@ -155,6 +156,7 @@ export default function NewAdForm({ advert = undefined }) {
           <span>
             <p>Titulo:</p>
             <input
+            className={styles.input}
               type="text"
               name="title"
               onChange={handleChange}
@@ -164,6 +166,7 @@ export default function NewAdForm({ advert = undefined }) {
           <span>
             <p>Contenido:</p>
             <textarea
+            className={styles.input}
               type="text"
               name="content"
               onChange={handleChange}
@@ -252,17 +255,23 @@ export default function NewAdForm({ advert = undefined }) {
         </div>
         </section>
       </form>
-      <Modal
+     <ModalSelectLabels 
+        open={selectLabelsModal}
+        handleOpen={handleOpenSelectLabels}
+        labels={form?.labels} 
+        setLabels={handleSetLabels}
+        />
+    {/*  <Modal
         title="Clasifica tu anuncio"
         open={selectLabelsModal}
         handleOpen={handleOpenSelectLabels}
       >
         <SelectLabels labels={form?.labels} setLabels={handleSetLabels} />
-      </Modal>
+      </Modal> */}
       <Modal
+        title="Selecciona un colo de fondo"
         open={selectColorModal}
         handleOpen={handleOpenSelectColor}
-        title="Selecciona un colo de fondo"
       >
         <div>
           <ColorPicker
@@ -272,9 +281,9 @@ export default function NewAdForm({ advert = undefined }) {
         </div>
       </Modal>
       <Modal
+        title="Agrega un contacto"
         open={contactsModal}
         handleOpen={handleAddContact}
-        title="Agrega un contacto"
       >
         <ContactInputs
           contacts={form?.contacts}

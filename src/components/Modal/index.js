@@ -15,8 +15,9 @@ export default function Modal({
       onClick={(e) => {
         e.target.id === "modal-1" && handleOpen();
       }}
+     
     >
-      <div className={styles.modal_dialog}>
+      <div className={styles.modal_dialog} >
         <header className={styles.modal_header}>
           <div className={styles.modal_title}>
             <h5>{title}</h5>

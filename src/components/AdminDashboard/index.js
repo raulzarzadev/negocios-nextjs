@@ -10,6 +10,7 @@ import { usePublications } from 'src/hooks/usePublications'
 import { useRouter } from 'next/router'
 import Link from '@comps/Link'
 import Advert2 from '@comps/Advert2'
+import PrimBtn from '@comps/PrimBtn'
 
 export default function AdminDashboard() {
   const [adverts, setAdverts] = useState([])
@@ -30,12 +31,20 @@ export default function AdminDashboard() {
     <div className={styles.dashboard}>
       <div>
         <h3 className={styles.page_title}>{`Todos los anuncios`}</h3>
-        <Link href='/adverts/new'>
-        Nuevo anuncio
-        </Link>
-        <div className={styles.action}>
-              <Link href="/barrios/new">{'Nuevo Barrio'}</Link>
-            </div>
+          <div className={styles.action}>
+            <Link href='/adverts/new'>
+              <PrimBtn color='secondary'>
+                {`Nuevo anuncio`}
+              </PrimBtn>
+            </Link>
+          </div>
+          <div className={styles.action}>
+            <Link href="/barrios/new">
+              <PrimBtn color='primary'>
+                {'Nuevo Barrio'}            
+              </PrimBtn>
+            </Link>
+        </div>
         <div>
         </div>
         <div className={styles.dash_table}>

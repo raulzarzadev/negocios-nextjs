@@ -1,7 +1,9 @@
 .select_labels{
     text-align: center;
+    height: 100%;
 }
 
 .labels_availables {
-    max-height: 200px;
+    overflow-y: auto;
+    max-height: 70%;
 }
