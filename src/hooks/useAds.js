@@ -101,8 +101,8 @@ export function useAds() {
     
   }
   async function addFavorite(advertId) {
-    if (!user) return await { message: "NOT_USER" };
-    return fb_addFavorite(user.id, advertId);
+   if (!user) return await { ok:false, type: "NOT_USER" };
+    return fb_addFavorite(user.id, advertId)
   }
   function removeFavorite(advertId) {
     return fb_removeFavorite(user.id, advertId);

@@ -17,6 +17,7 @@ import Tooltip from '@comps/Tooltip'
 import { P } from '@comps/P'
 import formatContacts from 'src/utils/formatContacts'
 import { useRouter } from 'next/router'
+import AlertFavs from '@comps/AlertFavs'
 
 const defaulAdvert = {
   backgroundColor:'gray',
@@ -67,7 +68,9 @@ export default function Advert({ advert = defaulAdvert, showFavorite, admin, for
   const contactLinks = formatContacts(contacts)
   const [openDelete, setOpenDelete] = useState(false)
   const [openPublish, setOpenPublish] = useState(false)
-
+  const [alert, setAlert]= useState(null)
+  console.log('alert');
+  
   const handleOpenDelete = () => {
     setOpenDelete(!openDelete)
   }
@@ -79,8 +82,13 @@ export default function Advert({ advert = defaulAdvert, showFavorite, admin, for
     unpublishAdvert(publicationId)
   }
   const handleAddFavorite = () => {
-    addFavorite(id).then((res) => console.log(res))
+    addFavorite(id).then(({type}) => {
+      console.log('type', type);
+      type ==='NOT_USER' && setAlert(true)
+     /*  if(type === 'NOT_USER') return setAlert(<AlertFavs/>) */
+    })
   }
+  
   const handleRemoveFavorite = () => {
     removeFavorite(id).then((res) => console.log(res))
   }
@@ -156,6 +164,7 @@ export default function Advert({ advert = defaulAdvert, showFavorite, admin, for
           ))}
         </div>
         {/* MODALES */}
+        {alert && <AlertFavs open={alert} handleOpen={()=>setAlert(false)}/>}
         <Modal open={openDelete} handleOpen={handleOpenDelete}>
           <div>
             <P>{`Eliminar anuncio`}</P>

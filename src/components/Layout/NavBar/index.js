@@ -2,6 +2,8 @@ import { L } from "@comps/L";
 import { useEffect, useState } from "react";
 import { useUser } from "src/context/UserContext";
 import styles from "./styles.module.css";
+import BookmarkIcon from '@material-ui/icons/Bookmark'
+import { useRouter } from "next/router";
 
 export default function NavBar() {
   const { user } = useUser();
@@ -11,6 +13,9 @@ export default function NavBar() {
       setIsLogin(true);
     } else setIsLogin(false);
   }, [user]);
+
+  const {route} =useRouter()
+  const profilePage = route==='/profile'
 
   return (
     <section className={styles.top_bar}>
@@ -22,6 +27,11 @@ export default function NavBar() {
         </div>
         <menu className={styles.nav_menu}>
           <ul className={styles.nav_menu_list}>
+            {!profilePage && user && <li className={styles.list_item}>
+              <L href="/profile">
+                <BookmarkIcon/>
+              </L>
+            </li>}
             <li className={styles.list_item}>
               <L href="/about">Mas</L>
             </li>
