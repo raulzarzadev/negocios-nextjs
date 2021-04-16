@@ -1,4 +1,4 @@
-import Advert from '@comps/Advert'
+import Advert2 from '@comps/Advert2'
 import ColorPicker from '@comps/ColorPicker'
 import ContactInputs from '@comps/ContactInputs'
 import Modal from '@comps/Modal'
@@ -91,7 +91,8 @@ export default function NewAdForm({ advert = undefined }) {
       addAdvert(form)
         .then((res) => {
           setTimeout(() => {
-            router.push('/profile')
+            router.back()
+            // router.push('/profile')
           }, 1000)
         })
         .catch((err) => console.log(err))
@@ -241,13 +242,15 @@ export default function NewAdForm({ advert = undefined }) {
         </section>
         {/* PREVIEW ADVERT */}
         <section className={styles.section_form}>
-          <Advert advert={form} form={true} />
-        </section>
-        <div className="flex m-2 p-1">
-          <PrimBtn color="primary" disabled={disableButton} type="submit">
+        <div className={styles.preview_advert}>
+          <Advert2 advert={form} form={true} />
+          <div className={styles.button_save}>
+          <PrimBtn color="secondary" disabled={disableButton} type="submit">
             Guardar
           </PrimBtn>
+          </div>
         </div>
+        </section>
       </form>
       <Modal
         title="Clasifica tu anuncio"

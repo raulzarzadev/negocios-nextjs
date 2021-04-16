@@ -1,4 +1,4 @@
-import Advert from '@comps/Advert'
+import Advert2 from '@comps/Advert2'
 import { L } from '@comps/L'
 import PrimBtn from '@comps/PrimBtn'
 import { firebaseLogout } from 'firebase/client'
@@ -68,7 +68,7 @@ export default function ViewProfile() {
           <div className={styles.user_ads_grid}>
             {favorites?.map((ad, i) => (
               <div key={ad?.id} className={styles.grid_item}>
-                <Advert advert={ad} showFavorite={true} />
+                <Advert2 advert={ad} showFavorite={true} />
               </div>
             ))}
           </div>
@@ -80,7 +80,7 @@ export default function ViewProfile() {
           <div className={styles.user_ads_grid}>
             {userAds.map((ad) => (
               <div key={ad.id} className={styles.grid_item}>
-                <Advert
+                <Advert2
                   advert={ad}
                   favorite={favoritesList?.includes(ad?.id)}
                   admin
@@ -98,7 +98,7 @@ export default function ViewProfile() {
           <div className={styles.user_ads_grid}>
             {publishedAds.map((ad, i) => (
               <div key={`${ad.id}-${i}`} className={styles.grid_item}>
-                <Advert
+                <Advert2
                   advert={ad}
                   favorite={favoritesList.includes(ad.id)}
                   admin

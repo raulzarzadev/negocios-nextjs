@@ -3,8 +3,6 @@ import { useRouter } from "next/router";
 import { useAds } from "src/hooks/useAds";
 import AdvertsList from "@comps/AdvertsList";
 import Filter from "@comps/Filter.js";
-import { CHIP_LABELS } from "CONST/CHIPS_LABELS";
-import { useBarrios } from "src/hooks/useBarrios";
 
 export default function Barrio() {
   const { getAdsByBarrio } = useAds();
@@ -45,7 +43,6 @@ export default function Barrio() {
     });
     return filtered;
   };
-  console.log(barrio)
 
   const labelsAvailables = barrio?.ads?.reduce((acc, item) => {
     const labels = [...acc, item.labels].flat().reduce((acc, item) => {

@@ -33,7 +33,7 @@ export default function Filter({ handleSetFilter, labels = [] }) {
           <div
             key={i}
             style={{
-              boxShadow: filtro === label?.label && "1px 1px 1px #000",
+              boxShadow: filtro === label?.label && "1px 1px 1px 1px #fff",
             }}
             className={styles.filter_label}
             onClick={() => {

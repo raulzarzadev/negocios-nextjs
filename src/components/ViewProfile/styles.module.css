@@ -16,15 +16,13 @@
 }
 
 .user_ads_grid {
-  display: grid;
-  gap: 8px;
-  padding: 12px;
-  grid-auto-flow: column;
+  display: flex;
+  gap: var(--space-2);
   overflow: auto;
-  box-shadow: inset 1px 1px 10px 1px;
+
 }
 
 .grid_item {
-  justify-self: center;
-  width: 250px;
+  max-width: 300px;
+ 
 }

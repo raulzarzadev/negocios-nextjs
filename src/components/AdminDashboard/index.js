@@ -1,17 +1,15 @@
 import styles from './styles.module.css'
 import EditIcon from '@material-ui/icons/Edit'
 import SettingsApplicationsIcon from '@material-ui/icons/SettingsApplications'
-import CheckCircleIcon from '@material-ui/icons/CheckCircle'
-import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline'
 import { useEffect, useState } from 'react'
 import { useAds } from 'src/hooks/useAds'
 import Modal from '@comps/Modal'
-import Advert from '@comps/Advert'
 import IconBtn from '@comps/IconBtn'
 import { P } from '@comps/P'
-import Link from 'next/link'
 import { usePublications } from 'src/hooks/usePublications'
 import { useRouter } from 'next/router'
+import Link from '@comps/Link'
+import Advert2 from '@comps/Advert2'
 
 export default function AdminDashboard() {
   const [adverts, setAdverts] = useState([])
@@ -27,12 +25,16 @@ export default function AdminDashboard() {
     const adPublications = publications.filter((pub) => pub.advertId === ad.id)
     return { ...ad, publications: adPublications }
   })
-  console.log(normalizeAds)
 
   return (
     <div className={styles.dashboard}>
       <div>
         <h3 className={styles.page_title}>{`Todos los anuncios`}</h3>
+        <Link href='/adverts/new'>
+        Nuevo anuncio
+        </Link>
+        <div>
+        </div>
         <div className={styles.dash_table}>
           <div className={styles.table_title}>{`Titulo`}</div>
           <div className={styles.table_title}>{`¿Pub?`}</div>
@@ -161,7 +163,7 @@ const AddRow = ({ ad, unpublishAdvert, reactivePublish }) => {
                 )}
               </div>
             </div>
-            <Advert advert={ad} admin />
+            <Advert2 advert={ad} admin />
           </div>
         </Modal>
       </div>
