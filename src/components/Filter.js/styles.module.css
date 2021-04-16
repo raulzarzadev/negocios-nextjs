@@ -3,7 +3,7 @@
   overflow: auto;
   width: 100%;
 
-  background-color: var(--secondary);
+  background-color: var(--primary);
 }
 .filter_labels {
   max-width: 320px;

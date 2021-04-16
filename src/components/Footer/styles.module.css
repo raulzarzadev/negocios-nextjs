@@ -1,0 +1,9 @@
+
+.footer{
+    min-height: 200px;
+    padding: var(--space-1);
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+

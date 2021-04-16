@@ -1,6 +1,7 @@
 import styles from "./styles.module.css";
 import Head from "next/head";
 import NavBar from "./NavBar";
+import Footer from "@comps/Footer";
 
 export default function Layout({ children }) {
   return (
@@ -12,6 +13,7 @@ export default function Layout({ children }) {
       <div className={styles.layout}>
         <NavBar />
         <section className={styles.layout_container}>{children}</section>
+        <Footer/>
       </div>
     </>
   );

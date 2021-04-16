@@ -1,4 +1,12 @@
+.layout {
+  background-color: var(--black);
+  color: var(--white);
+
+}
 .layout_container {
   min-height: 80vh;
   width: 100%;
+
 }
+
+

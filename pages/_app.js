@@ -1,6 +1,6 @@
 import Layout from "@comps/Layout";
 import { UserProvider } from "src/context/UserContext";
-import "./global-styles/globals.css";
+import 'styles/global.css'
 
 function MyApp({ Component, pageProps }) {
   const AppLayout = Layout;
@@ -12,5 +12,6 @@ function MyApp({ Component, pageProps }) {
     </UserProvider>
   );
 }
+
 
 export default MyApp;
