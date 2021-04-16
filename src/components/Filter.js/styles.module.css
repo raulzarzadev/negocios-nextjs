@@ -1,11 +1,11 @@
 .filter_bar {
-  /*   background-color: var(--primary); */
-  margin: 0 auto;
+    background-color: var(--black); 
   overflow: auto;
-  width: 100%;
   position: sticky;
-  top:0
-  
+  top:0;
+  z-index: 1;
+  max-width: 100%;
+  margin: 0 auto;
 }
 .filter_labels {
   max-width: 320px;
@@ -14,10 +14,10 @@
   margin: 0 auto;
 }
 .filter_label {
-  margin: 4px;
+  margin: 0 4px;
   cursor: pointer;
   border-radius: var(--space-2);
-  padding: var(--space-1);
+  padding: 4px;
 }
 .filter_label:hover {
   box-shadow: 1px 1px 1px #fff;
@@ -29,10 +29,17 @@
   width: 180px;
   display: flex;
   justify-content: center;
-  margin: 4px auto;
+  margin: 2px auto;
   border-radius: 100%;
   box-shadow: var(--shadow-in);
-
+  
   font-size: 0.9rem;
   font-weight: 600;
+}
+
+@media (min-width: 600px) {
+  .filter_bar{
+    max-width: 320px;
+  }
+  
 }
