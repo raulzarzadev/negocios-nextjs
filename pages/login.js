@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { useUser } from 'src/context/UserContext'
 
-export default function Login() {
+export default function Login () {
   const router = useRouter()
   const { user } = useUser()
   useEffect(() => {

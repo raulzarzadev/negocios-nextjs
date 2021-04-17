@@ -4,7 +4,7 @@ import { useBarrios } from 'src/hooks/useBarrios'
 import { usePublications } from 'src/hooks/usePublications'
 import normalizeBarriosList from 'src/utils/normalizeBarriosList'
 
-export default function ViewBarrios() {
+export default function ViewBarrios () {
   const { getBarrios } = useBarrios()
   const { getActivePublications } = usePublications()
   const [barrios, setBarrios] = useState([])

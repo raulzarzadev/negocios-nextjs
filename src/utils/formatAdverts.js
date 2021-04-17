@@ -1,3 +1,3 @@
 export default function (ads, barrios) {
-  return { ads, barrios };
+  return { ads, barrios }
 }

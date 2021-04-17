@@ -6,7 +6,7 @@
   width: 100%;
 }
 
-.title{
+.title {
   margin-top: var(--space-2);
 }
 
@@ -20,4 +20,3 @@
 .item {
   max-width: 300px;
 }
- 

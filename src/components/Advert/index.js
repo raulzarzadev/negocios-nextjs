@@ -19,12 +19,12 @@ import formatContacts from 'src/utils/formatContacts'
 import { useRouter } from 'next/router'
 
 const defaulAdvert = {
-  backgroundColor:'gray',
+  backgroundColor: 'gray',
   labels: ['food', 'drink'],
   images: [
     { title: ' deserunt veniam ipsum', url: 'strud ex id voluptate ' },
     { title: ' deserunt veniam ipsum', url: 'strud ex id voluptate ' },
-    { title: ' deserunt veniam ipsum', url: 'strud ex id voluptate ' },
+    { title: ' deserunt veniam ipsum', url: 'strud ex id voluptate ' }
   ],
   title: 'strud ex id voluptate ',
   content:
@@ -32,11 +32,11 @@ const defaulAdvert = {
   contacts: [
     { type: 'ws', value: '55555555555' },
     { type: 'fb', value: '55555555' },
-    { type: 'web', value: '555555555' },
-  ],
+    { type: 'web', value: '555555555' }
+  ]
 }
 
-export default function Advert({ advert = defaulAdvert, showFavorite, admin, form=false }) {
+export default function Advert ({ advert = defaulAdvert, showFavorite, admin, form = false }) {
   const router = useRouter()
   const {
     labels,
@@ -46,16 +46,15 @@ export default function Advert({ advert = defaulAdvert, showFavorite, admin, for
     contacts,
     backgroundColor,
     id,
-    publication,
+    publication
   } = advert
 
   const {
     deleteAdvert,
     unpublishAdvert,
     addFavorite,
-    removeFavorite,
+    removeFavorite
   } = useAds()
-
 
   const { favoritesList } = useUser()
   const favorite = favoritesList.includes(id)
@@ -101,19 +100,21 @@ export default function Advert({ advert = defaulAdvert, showFavorite, admin, for
         <div className={styles.actions}>
           {showFavorite && (
             <div>
-              {favorite ? (
+              {favorite
+                ? (
                 <Tooltip text="Eliminar de favoritos" position="right">
                   <IconBtn onClick={handleRemoveFavorite}>
                     <BookmarkIcon />
                   </IconBtn>
                 </Tooltip>
-              ) : (
+                  )
+                : (
                 <Tooltip text="Agregar a favoritos" position="right">
                   <IconBtn onClick={handleAddFavorite}>
                     <BookmarkBorderIcon />
                   </IconBtn>
                 </Tooltip>
-              )}
+                  )}
             </div>
           )}
           {admin && (
@@ -132,7 +133,7 @@ export default function Advert({ advert = defaulAdvert, showFavorite, admin, for
         <div className={styles.body_images}>
           <div
             style={{
-              backgroundImage: `url(${image || '/logotipo.png'})`,
+              backgroundImage: `url(${image || '/logotipo.png'})`
             }}
             className={styles.image}
           />
@@ -157,7 +158,7 @@ export default function Advert({ advert = defaulAdvert, showFavorite, admin, for
         {/* MODALES */}
         <Modal open={openDelete} handleOpen={handleOpenDelete}>
           <div>
-            <P>{`Eliminar anuncio`}</P>
+            <P>{'Eliminar anuncio'}</P>
             <button onClick={handleDeleteAd}>Eliminar</button>
           </div>
         </Modal>
@@ -176,13 +177,13 @@ const ContactLink = ({ contact }) => {
     ws: `https://wa.me/${contact.value.replace(
       / /g,
       ''
-    )}?text=Hola,%20te%20encontre%20en%20negociosdelbarrio.com%20y%20quisiera..`,
+    )}?text=Hola,%20te%20encontre%20en%20negociosdelbarrio.com%20y%20quisiera..`
   }
 
   return (
     <Tooltip text={contact?.label}>
       <IconBtn>
-        <a href={hrefOptions[contact.type] || contact.value} target="_blank">
+        <a href={hrefOptions[contact.type] || contact.value} target="_blank" rel="noreferrer">
           <SvgIcon fontSize="large">{contact?.icon}</SvgIcon>
         </a>
       </IconBtn>
@@ -195,7 +196,7 @@ const MenuAdminAd = ({
   advertId,
   handleDeleteAd,
   handlePublish,
-  handleUnpublish,
+  handleUnpublish
 }) => {
   const handleOpen = (e) => {
     setOpen(true)
@@ -226,19 +227,21 @@ const MenuAdminAd = ({
                   <li className={styles.menu_item}>Editar</li>
                 </L>
                 <li className={styles.menu_item} onClick={handleDeleteAd}>
-                  {` Eliminar`}
+                  {' Eliminar'}
                 </li>
-                {!!publication ? (
+                {publication
+                  ? (
                   <li
                     className={styles.menu_item}
                     onClick={() => handleUnpublish(publication.id)}
-                  >{`Despublicar`}</li>
-                ) : (
+                  >{'Despublicar'}</li>
+                    )
+                  : (
                   <li
                     className={styles.menu_item}
                     onClick={handlePublish}
-                  >{`Publicar`}</li>
-                )}
+                  >{'Publicar'}</li>
+                    )}
               </ul>
             </div>
           </div>

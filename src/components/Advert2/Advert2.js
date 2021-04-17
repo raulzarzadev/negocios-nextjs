@@ -1,7 +1,7 @@
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder'
 import BookmarkIcon from '@material-ui/icons/Bookmark'
 import MenuIcon from '@material-ui/icons/Menu'
-
+import Image from 'next/image'
 import { SvgIcon } from '@material-ui/core'
 import { CHIP_LABELS } from 'CONST/CHIPS_LABELS'
 
@@ -20,12 +20,12 @@ import { useRouter } from 'next/router'
 import AlertFavs from '@comps/AlertFavs'
 
 const defaulAdvert = {
-  backgroundColor:'gray',
+  backgroundColor: 'gray',
   labels: ['food', 'drink'],
   images: [
     { title: ' deserunt veniam ipsum', url: 'strud ex id voluptate ' },
     { title: ' deserunt veniam ipsum', url: 'strud ex id voluptate ' },
-    { title: ' deserunt veniam ipsum', url: 'strud ex id voluptate ' },
+    { title: ' deserunt veniam ipsum', url: 'strud ex id voluptate ' }
   ],
   title: 'strud ex id voluptate ',
   content:
@@ -33,11 +33,11 @@ const defaulAdvert = {
   contacts: [
     { type: 'ws', value: '55555555555' },
     { type: 'fb', value: '55555555' },
-    { type: 'web', value: '555555555' },
-  ],
+    { type: 'web', value: '555555555' }
+  ]
 }
 
-export default function Advert({ advert = defaulAdvert, showFavorite, admin, form=false }) {
+export default function Advert ({ advert = defaulAdvert, showFavorite, admin, form = false }) {
   const router = useRouter()
   const {
     labels,
@@ -47,16 +47,15 @@ export default function Advert({ advert = defaulAdvert, showFavorite, admin, for
     contacts,
     backgroundColor,
     id,
-    publication,
+    publication
   } = advert
 
   const {
     deleteAdvert,
     unpublishAdvert,
     addFavorite,
-    removeFavorite,
+    removeFavorite
   } = useAds()
-
 
   const { favoritesList } = useUser()
   const favorite = favoritesList.includes(id)
@@ -68,8 +67,8 @@ export default function Advert({ advert = defaulAdvert, showFavorite, admin, for
   const contactLinks = formatContacts(contacts)
   const [openDelete, setOpenDelete] = useState(false)
   const [openPublish, setOpenPublish] = useState(false)
-  const [alert, setAlert]= useState(null)
-  
+  const [alert, setAlert] = useState(null)
+
   const handleOpenDelete = () => {
     setOpenDelete(!openDelete)
   }
@@ -82,11 +81,11 @@ export default function Advert({ advert = defaulAdvert, showFavorite, admin, for
   }
   const handleAddFavorite = () => {
     addFavorite(id).then((res) => {
-      console.log('type', res);
-      res?.type ==='NOT_USER' && setAlert(true)
+      console.log('type', res)
+      res?.type === 'NOT_USER' && setAlert(true)
     })
   }
-  
+
   const handleRemoveFavorite = () => {
     removeFavorite(id).then((res) => console.log(res))
   }
@@ -107,19 +106,21 @@ export default function Advert({ advert = defaulAdvert, showFavorite, admin, for
         <div className={styles.actions}>
           {showFavorite && (
             <div>
-              {favorite ? (
+              {favorite
+                ? (
                 <Tooltip text="Eliminar de favoritos" position="right">
                   <IconBtn onClick={handleRemoveFavorite}>
                     <BookmarkIcon />
                   </IconBtn>
                 </Tooltip>
-              ) : (
+                  )
+                : (
                 <Tooltip text="Agregar a favoritos" position="right">
                   <IconBtn onClick={handleAddFavorite}>
                     <BookmarkBorderIcon />
                   </IconBtn>
                 </Tooltip>
-              )}
+                  )}
             </div>
           )}
           {admin && (
@@ -136,19 +137,20 @@ export default function Advert({ advert = defaulAdvert, showFavorite, admin, for
       <section className={styles.body}>
         {/* ---------------------------------IMAGE---------------------------------- */}
         <div className={styles.body_images}>
-          <div
+         {/*  <div
             style={{
-              backgroundImage: `url(${image || '/logotipo.png'})`,
+              backgroundImage: `url(${image || '/logotipo.png'})`
             }}
             className={styles.image}
-          />
+          /> */}
+          <Image src={`${image || '/lotipo.png'}`} width='100%' height='100%'/>
         </div>
         {/* ---------------------------------IMAGE---------------------------------- */}
         <div className={styles.body_content}>
           <h5>{title}</h5>
           <p>
 
-            {content?.slice(0, 100)} 
+            {content?.slice(0, 100)}
             <BtnL onClick={() => console.log('show details')}>
               <em> ver mas </em>
             </BtnL>
@@ -162,10 +164,10 @@ export default function Advert({ advert = defaulAdvert, showFavorite, admin, for
           ))}
         </div>
         {/* MODALES */}
-        {alert && <AlertFavs open={alert} handleOpen={()=>setAlert(false)}/>}
+        {alert && <AlertFavs open={alert} handleOpen={() => setAlert(false)}/>}
         <Modal open={openDelete} handleOpen={handleOpenDelete}>
           <div>
-            <P>{`Eliminar anuncio`}</P>
+            <P>{'Eliminar anuncio'}</P>
             <button onClick={handleDeleteAd}>Eliminar</button>
           </div>
         </Modal>
@@ -184,13 +186,13 @@ const ContactLink = ({ contact }) => {
     ws: `https://wa.me/${contact.value.replace(
       / /g,
       ''
-    )}?text=Hola,%20te%20encontre%20en%20negociosdelbarrio.com%20y%20quisiera..`,
+    )}?text=Hola,%20te%20encontre%20en%20negociosdelbarrio.com%20y%20quisiera..`
   }
 
   return (
     <Tooltip text={contact?.label}>
       <IconBtn>
-        <a href={hrefOptions[contact.type] || contact.value} target="_blank">
+        <a href={hrefOptions[contact.type] || contact.value} target="_blank" rel="noreferrer">
           <SvgIcon fontSize="large">{contact?.icon}</SvgIcon>
         </a>
       </IconBtn>
@@ -203,7 +205,7 @@ const MenuAdminAd = ({
   advertId,
   handleDeleteAd,
   handlePublish,
-  handleUnpublish,
+  handleUnpublish
 }) => {
   const handleOpen = (e) => {
     setOpen(true)
@@ -234,19 +236,21 @@ const MenuAdminAd = ({
                   <li className={styles.menu_item}>Editar</li>
                 </L>
                 <li className={styles.menu_item} onClick={handleDeleteAd}>
-                  {` Eliminar`}
+                  {' Eliminar'}
                 </li>
-                {!!publication ? (
+                {publication
+                  ? (
                   <li
                     className={styles.menu_item}
                     onClick={() => handleUnpublish(publication.id)}
-                  >{`Despublicar`}</li>
-                ) : (
+                  >{'Despublicar'}</li>
+                    )
+                  : (
                   <li
                     className={styles.menu_item}
                     onClick={handlePublish}
-                  >{`Publicar`}</li>
-                )}
+                  >{'Publicar'}</li>
+                    )}
               </ul>
             </div>
           </div>

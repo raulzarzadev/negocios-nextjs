@@ -9,10 +9,10 @@ import EditIcon from '@material-ui/icons/Edit'
 import SettingsApplicationsIcon from '@material-ui/icons/SettingsApplications'
 import ModalAdminAdvert from '@comps/ModalAdminAdvert'
 
-export default function  AdvertRow ({ ad }) {
+export default function AdvertRow ({ ad }) {
   const router = useRouter()
   const [openDetails, setOpenDetails] = useState(false)
-  
+
   const handleOpenDetailsModal = () => {
     setOpenDetails(!openDetails)
   }
@@ -40,11 +40,11 @@ export default function  AdvertRow ({ ad }) {
 
         <div className={s.table_cell}>
           <div className="center">
-            <IconBtn  onClick={handleEditRedirect}>
-              <EditIcon fontSize="small" style={{color:'#fff'}}/>
+            <IconBtn onClick={handleEditRedirect}>
+              <EditIcon fontSize="small" style={{ color: '#fff' }}/>
             </IconBtn>
             <IconBtn onClick={handleOpenDetailsModal}>
-              <SettingsApplicationsIcon fontSize="small"  style={{color:'#fff'}}/>
+              <SettingsApplicationsIcon fontSize="small" style={{ color: '#fff' }}/>
             </IconBtn>
           </div>
         </div>
@@ -53,6 +53,3 @@ export default function  AdvertRow ({ ad }) {
     </>
   )
 }
-
-
-

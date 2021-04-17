@@ -1,21 +1,21 @@
-import { L } from "@comps/L";
-import { useEffect, useState } from "react";
-import { useUser } from "src/context/UserContext";
-import styles from "./styles.module.css";
+import { L } from '@comps/L'
+import { useEffect, useState } from 'react'
+import { useUser } from 'src/context/UserContext'
+import styles from './styles.module.css'
 import BookmarkIcon from '@material-ui/icons/Bookmark'
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router'
 
-export default function NavBar() {
-  const { user } = useUser();
-  const [isLogin, setIsLogin] = useState();
+export default function NavBar () {
+  const { user } = useUser()
+  const [isLogin, setIsLogin] = useState()
   useEffect(() => {
     if (user) {
-      setIsLogin(true);
-    } else setIsLogin(false);
-  }, [user]);
+      setIsLogin(true)
+    } else setIsLogin(false)
+  }, [user])
 
-  const {route} =useRouter()
-  const profilePage = route==='/profile'
+  const { route } = useRouter()
+  const profilePage = route === '/profile'
 
   return (
     <section className={styles.top_bar}>
@@ -54,5 +54,5 @@ export default function NavBar() {
         </menu>
       </nav>
     </section>
-  );
+  )
 }

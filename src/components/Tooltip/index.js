@@ -1,6 +1,6 @@
-import styles from "./styles.module.css";
+import styles from './styles.module.css'
 
-export default function Tooltip({ text = "tooltip", children, position }) {
+export default function Tooltip ({ text = 'tooltip', children, position }) {
   return (
     <div className={styles.tooltip}>
       <span className={styles.tooltiptext} position={position}>
@@ -8,5 +8,5 @@ export default function Tooltip({ text = "tooltip", children, position }) {
       </span>
       {children}
     </div>
-  );
+  )
 }

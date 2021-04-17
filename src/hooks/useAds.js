@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import {
   fb_addAdvert,
   fb_getAds,
@@ -13,16 +14,13 @@ import {
   fb_addFavorite,
   fb_removeFavorite,
   fb_reactivePublishAdvert
-} from "firebase/client";
-import { useEffect, useState } from "react";
-import { useUser } from "src/context/UserContext";
+} from 'firebase/client'
+import { useUser } from 'src/context/UserContext'
 
-export function useAds() {
-  const { user } = useUser();
+export function useAds () {
+  const { user } = useUser()
 
-  const [favorites, setFavorites] = useState([]);
-  
- /*  useEffect(() => {
+  /*  useEffect(() => {
     if (user) {
       fb_listenUserFavorites(user.id, (favorites) => {
         formatFavoritesAds(favorites).then(setFavorites);
@@ -30,49 +28,49 @@ export function useAds() {
     }
   }, []);
   console.log(favorites) */
-  
-  function getAds() {
+
+  function getAds () {
     return fb_getAds().then((res) => {
-      return res;
-    });
+      return res
+    })
   }
-  async function getAdsByBarrio(barrio) {
-    const barrioDetails = await fb_getBarrio(barrio);
-    const activePublications = await fb_getBarrioActivePublications(barrio);
+  async function getAdsByBarrio (barrio) {
+    const barrioDetails = await fb_getBarrio(barrio)
+    const activePublications = await fb_getBarrioActivePublications(barrio)
     const adverts = activePublications.map(async (publication) => {
-      const advert = await getAdvert(publication.advertId);
-      return { ...advert, publication };
-    });
+      const advert = await getAdvert(publication.advertId)
+      return { ...advert, publication }
+    })
     return Promise.all(adverts).then((res) => {
-      return { ...barrioDetails, ads: res };
-    });
+      return { ...barrioDetails, ads: res }
+    })
   }
 
-  function getUserAds() {
+  function getUserAds () {
     return fb_getUserAds(user.id).then((res) => {
-      return res;
-    });
+      return res
+    })
   }
 
-  async function getUserActiveAds() {
-    const activePublications = await fb_getUserActivePublications(user.id);
+  async function getUserActiveAds () {
+    const activePublications = await fb_getUserActivePublications(user.id)
     const adverts = activePublications?.map(async (publication) => {
-      const advert = await getAdvert(publication.advertId);
-      return { ...advert, publication };
-    });
+      const advert = await getAdvert(publication.advertId)
+      return { ...advert, publication }
+    })
     return Promise.all(adverts || []).then((res) => {
-      return res;
-    });
+      return res
+    })
   }
 
-  function getAdvert(id) {
-    return fb_getAdvertById(id).then((res) => res);
+  function getAdvert (id) {
+    return fb_getAdvertById(id).then((res) => res)
   }
-  function editAdvert(id, advert) {
-    return fb_editAdvert(id, advert).then((res) => res);
+  function editAdvert (id, advert) {
+    return fb_editAdvert(id, advert).then((res) => res)
   }
-  function addAdvert(form) {
-    const { title, content, backgroundColor, contacts, labels, image } = form;
+  function addAdvert (form) {
+    const { title, content, backgroundColor, contacts, labels, image } = form
     return fb_addAdvert({
       userId: user.id,
       title,
@@ -80,34 +78,32 @@ export function useAds() {
       backgroundColor,
       contacts,
       labels,
-      image,
-    }).then((res) => res);
+      image
+    }).then((res) => res)
   }
-  function deleteAdvert(id) {
-    return fb_deleteAdvert(id).then((res) => res);
+  function deleteAdvert (id) {
+    return fb_deleteAdvert(id).then((res) => res)
   }
-  function publishAdvert(publication) {
+  function publishAdvert (publication) {
     return fb_publishAdvert({ userId: user.id, ...publication }).then((res) =>
       console.log(res)
-    );
+    )
   }
-  function unpublishAdvert(publishId) {
-    return fb_unpublishAdvert(publishId).then((res) => console.log(res));
+  function unpublishAdvert (publishId) {
+    return fb_unpublishAdvert(publishId).then((res) => console.log(res))
   }
-  function reactivePublish(publishId) {
-    return fb_reactivePublishAdvert(publishId).then((res) => console.log(res));
-    
+  function reactivePublish (publishId) {
+    return fb_reactivePublishAdvert(publishId).then((res) => console.log(res))
   }
-  async function addFavorite(advertId) {
-   if (!user) return await { ok:false, type: "NOT_USER" };
+  async function addFavorite (advertId) {
+    if (!user) return await { ok: false, type: 'NOT_USER' }
     return fb_addFavorite(user.id, advertId)
   }
-  function removeFavorite(advertId) {
-    return fb_removeFavorite(user.id, advertId);
+  function removeFavorite (advertId) {
+    return fb_removeFavorite(user.id, advertId)
   }
-  
+
   return {
-    favorites,
     getAds,
     getAdsByBarrio,
     getUserAds,
@@ -121,5 +117,5 @@ export function useAds() {
     removeFavorite,
     addFavorite,
     reactivePublish
-  };
+  }
 }

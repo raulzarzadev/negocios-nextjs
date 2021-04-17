@@ -5,21 +5,21 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import styles from './styles.module.css'
 
-export default function NewBarrioForm() {
+export default function NewBarrioForm () {
   const router = useRouter()
   const STATES = ESTADOS_LABEL_MX
 
   const [form, setForm] = useState({
     state: 'AGU',
     barrio: '',
-    shortName: '',
+    shortName: ''
   })
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
   const handleSubmit = (form) => {
     addBarrio(form).then((res) => {
-      router.push(`/profile`)
+      router.push('/profile')
       console.log(res)
     })
     setLoading(true)

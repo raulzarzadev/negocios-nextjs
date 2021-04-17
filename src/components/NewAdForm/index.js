@@ -5,16 +5,17 @@ import Modal from '@comps/Modal'
 import ModalSelectLabels from '@comps/ModalSelectLabels'
 import PrimBtn from '@comps/PrimBtn'
 import ProgressBar from '@comps/ProgressBar'
-import SelectLabels from '@comps/SelectLabels'
 import { DeleteForeverOutlined } from '@material-ui/icons'
-import { fb_deleteImage, fb_uploadImage } from 'firebase/client'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useAds } from 'src/hooks/useAds'
 import ImageTools from 'src/utils/ImageTools'
 import styles from './styles.module.css'
+// TODO use hook to move this varables
+// eslint-disable-next-line camelcase
+import { fb_deleteImage, fb_uploadImage } from 'firebase/client'
 
-export default function NewAdForm({ advert = undefined }) {
+export default function NewAdForm ({ advert = undefined }) {
   const router = useRouter()
   const [form, setForm] = useState({
     content: '',
@@ -22,7 +23,7 @@ export default function NewAdForm({ advert = undefined }) {
     backgroundColor: '',
     contacts: [],
     image: '',
-    labels: [],
+    labels: []
   })
   const { addAdvert, editAdvert } = useAds()
   useEffect(() => {
@@ -112,7 +113,7 @@ export default function NewAdForm({ advert = undefined }) {
         image,
         {
           width: 320, // maximum width
-          height: 240, // maximum height
+          height: 240 // maximum height
         },
         function (blob, didItResize) {
           console.log(didItResize)
@@ -120,7 +121,7 @@ export default function NewAdForm({ advert = undefined }) {
           console.log(blob)
           const metadata = {
             user: 'userId ',
-            createdAt: new Date(),
+            createdAt: new Date()
           }
           const task = fb_uploadImage(blob, metadata)
           console.log(task)
@@ -138,7 +139,7 @@ export default function NewAdForm({ advert = undefined }) {
     setForm({ ...form, labels: e })
   }
 
-  const disableButton = !!!form?.title
+  const disableButton = !form?.title
   return (
     <div className={styles.form_container}>
       <h3>Nuevo Anuncio</h3>
@@ -185,7 +186,7 @@ export default function NewAdForm({ advert = undefined }) {
               handleOpenSelectLabels()
             }}
           >
-            {!!form?.labels?.length
+            {form?.labels?.length
               ? 'Editar clasificacón'
               : 'Clasifica tu anuncio'}
           </PrimBtn>
@@ -201,7 +202,7 @@ export default function NewAdForm({ advert = undefined }) {
             }}
           >
             {console.log(!!form.contacts.length)}
-            {!!form?.contacts?.length
+            {form?.contacts?.length
               ? 'Editar Contactos'
               : 'Agregar Contactos'}
           </PrimBtn>
@@ -255,10 +256,10 @@ export default function NewAdForm({ advert = undefined }) {
         </div>
         </section>
       </form>
-     <ModalSelectLabels 
+     <ModalSelectLabels
         open={selectLabelsModal}
         handleOpen={handleOpenSelectLabels}
-        labels={form?.labels} 
+        labels={form?.labels}
         setLabels={handleSetLabels}
         />
     {/*  <Modal

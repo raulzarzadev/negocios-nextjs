@@ -1,63 +1,63 @@
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import { useAds } from "src/hooks/useAds";
-import AdvertsList from "@comps/AdvertsList";
-import Filter from "@comps/Filter.js";
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import { useAds } from 'src/hooks/useAds'
+import AdvertsList from '@comps/AdvertsList'
+import Filter from '@comps/Filter.js'
 
-export default function Barrio() {
-  const { getAdsByBarrio } = useAds();
-  const router = useRouter();
+export default function Barrio () {
+  const { getAdsByBarrio } = useAds()
+  const router = useRouter()
 
-  const [barrio, setBarrio] = useState(undefined);
+  const [barrio, setBarrio] = useState(undefined)
 
   const {
-    query: { barrioName },
-  } = router;
+    query: { barrioName }
+  } = router
 
   useEffect(() => {
     if (barrioName) {
-      getAdsByBarrio(barrioName).then(setBarrio);
+      getAdsByBarrio(barrioName).then(setBarrio)
     }
-  }, [barrioName]);
+  }, [barrioName])
 
-  const [adverts, setAdverts] = useState(barrio?.ads || []);
+  const [adverts, setAdverts] = useState(barrio?.ads || [])
 
-  const [filter, setFilter] = useState("Todos");
-
-  useEffect(() => {
-    setAdverts(barrio?.ads);
-  }, [barrio]);
+  const [filter, setFilter] = useState('Todos')
 
   useEffect(() => {
-    if (filter === "Todos") return setAdverts(barrio?.ads);
-    setAdverts(filterAdsByLable);
-  }, [filter]);
+    setAdverts(barrio?.ads)
+  }, [barrio])
+
+  useEffect(() => {
+    if (filter === 'Todos') return setAdverts(barrio?.ads)
+    setAdverts(filterAdsByLable)
+  }, [filter])
 
   const handleSetFilter = (filter) => {
-    setFilter(filter);
-  };
+    setFilter(filter)
+  }
 
   const filterAdsByLable = () => {
     const filtered = barrio?.ads?.filter((ad) => {
-      return ad.labels.includes(filter);
-    });
-    return filtered;
-  };
+      return ad.labels.includes(filter)
+    })
+    return filtered
+  }
 
   const labelsAvailables = barrio?.ads?.reduce((acc, item) => {
     const labels = [...acc, item.labels].flat().reduce((acc, item) => {
-      if (acc.includes(item)) return acc;
-      return [...acc, item];
-    }, []);
+      if (acc.includes(item)) return acc
+      return [...acc, item]
+    }, [])
 
-    return labels;
-  }, []);
+    return labels
+  }, [])
 
-  if (barrio === undefined) return "Cargando...";
+  if (barrio === undefined) return 'Cargando...'
   return (
     <>
       <Filter labels={labelsAvailables} handleSetFilter={handleSetFilter} />
-      <AdvertsList barrio={barrio} adverts={adverts}  />
+      <AdvertsList barrio={barrio} adverts={adverts} />
     </>
-  );
+  )
 }

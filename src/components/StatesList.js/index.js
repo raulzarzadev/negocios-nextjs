@@ -1,8 +1,7 @@
-import { L } from '@comps/L'
 import Link from '@comps/Link'
 import styles from './styles.module.css'
 
-export default function StateList({ statesList = [], publications = [] }) {
+export default function StateList ({ statesList = [], publications = [] }) {
   return (
     <div className={styles.state_list}>
       {statesList.map((state) => (
@@ -15,8 +14,8 @@ export default function StateList({ statesList = [], publications = [] }) {
             >{` (${state.barrios?.length} Barrios)`}</em>
           {state?.barrios?.map((barrio, i) => (
             <div key={i} className={styles.link}>
-              <Link  href={barrio.shortName}>
-                  <h2  className={styles.barrio_title}>
+              <Link href={barrio.shortName}>
+                  <h2 className={styles.barrio_title}>
                     {`${barrio.name}`}
                   </h2>
                     <em className={styles.ads_quantity}>{` (${

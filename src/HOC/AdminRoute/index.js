@@ -2,7 +2,7 @@ import { useUser } from 'src/context/UserContext'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
-export default function AdminRoute({ Component, ...res }) {
+export default function AdminRoute ({ Component, ...res }) {
   const router = useRouter()
   const { user } = useUser()
   const [userData, setUserData] = useState(undefined)

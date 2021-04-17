@@ -1,8 +1,8 @@
 import styles from './styles.module.css'
 import PropTypes from 'prop-types'
 
-export default function PrimBtn({ type, children, onChange, ...rest }) {
-  if (type === 'file')
+export default function PrimBtn ({ type, children, onChange, ...rest }) {
+  if (type === 'file') {
     return (
       <label className={styles.button} {...rest}>
         {children}
@@ -15,6 +15,7 @@ export default function PrimBtn({ type, children, onChange, ...rest }) {
         />
       </label>
     )
+  }
   return (
     <button {...rest} className={styles.button}>
       {children}
@@ -27,9 +28,9 @@ PrimBtn.propTypes = {
     'secondary',
     'danger',
     'warning',
-    'success',
+    'success'
   ]).isRequired,
   onChange: PropTypes.func,
   children: PropTypes.node,
-  type: PropTypes.string,
+  type: PropTypes.string
 }

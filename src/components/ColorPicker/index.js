@@ -1,19 +1,19 @@
-import { Typography } from "@material-ui/core";
-import React from "react";
-//import ColorLensIcon from "@material-ui/icons/ColorLens";
-import { CirclePicker as Picker } from "react-color";
+import { Typography } from '@material-ui/core'
+import React from 'react'
+// import ColorLensIcon from "@material-ui/icons/ColorLens";
+import { CirclePicker as Picker } from 'react-color'
 
-export default function ColorPicker({ color, setColor }) {
+export default function ColorPicker ({ color, setColor }) {
   const handleOnChageComplete = (e) => {
-    setColor(e.hex);
-  };
+    setColor(e.hex)
+  }
   return (
     <>
       <Typography variant="h5">Color</Typography>
       <div>
         <em>Selecciona un color de fondo</em>
       </div>
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
         <Picker
           id="raised-button-color"
           color={color}
@@ -27,5 +27,5 @@ export default function ColorPicker({ color, setColor }) {
         </label>
       </div>
     </>
-  );
+  )
 }

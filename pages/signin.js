@@ -1,5 +1,5 @@
-import SingMenu from "@comps/SingMenu";
+import SingMenu from '@comps/SingMenu'
 
-export default function SingIn() {
-  return <SingMenu />;
+export default function SingIn () {
+  return <SingMenu />
 }

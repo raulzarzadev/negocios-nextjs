@@ -1,5 +1,5 @@
-import About from "@comps/About";
+import About from '@comps/About'
 
-export default function AboutPage() {
-  return <About />;
+export default function AboutPage () {
+  return <About />
 }

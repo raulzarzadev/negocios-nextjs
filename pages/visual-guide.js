@@ -1,7 +1,7 @@
-import VisualGuide from "@comps/VisualGuide";
+import VisualGuide from '@comps/VisualGuide'
 
-export default function VisualGuidePage() {
-    return (
+export default function VisualGuidePage () {
+  return (
         <VisualGuide/>
-    )
+  )
 }

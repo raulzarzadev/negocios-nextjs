@@ -1,21 +1,21 @@
-import React from "react";
-import styles from "./styles.module.css";
+import React from 'react'
+import styles from './styles.module.css'
 
-export default function Modal({
-  title = "Modal title",
+export default function Modal ({
+  title = 'Modal title',
   open,
   handleOpen = () => {},
-  children,
+  children
 }) {
   return (
     <div
       className={styles.modal}
       id="modal-1"
-      style={{ display: !open && "none" }}
+      style={{ display: !open && 'none' }}
       onClick={(e) => {
-        e.target.id === "modal-1" && handleOpen();
+        e.target.id === 'modal-1' && handleOpen()
       }}
-     
+
     >
       <div className={styles.modal_dialog} >
         <header className={styles.modal_header}>
@@ -25,8 +25,8 @@ export default function Modal({
           <button
             className={styles.modal_button_close}
             onClick={(e) => {
-              e.preventDefault();
-              handleOpen();
+              e.preventDefault()
+              handleOpen()
             }}
           >
             X
@@ -36,5 +36,5 @@ export default function Modal({
         <footer className={styles.modal_footer}></footer>
       </div>
     </div>
-  );
+  )
 }

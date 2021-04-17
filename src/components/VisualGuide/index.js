@@ -4,7 +4,7 @@ import { BtnL, ExternalL, L } from '@comps/L'
 import PrimBtn from '@comps/PrimBtn'
 import styles from './styles.module.css'
 
-export default function VisualGuide() {
+export default function VisualGuide () {
   return (
     <div className={styles.grid}>
       <div className={styles.cell}>
@@ -34,11 +34,11 @@ export default function VisualGuide() {
       <div className={styles.cell}>
         <PrimBtn color="success">Success</PrimBtn>
       </div>
-      
+
       <div className={styles.cell}>
         <Advert />
       </div>
-      
+
     </div>
   )
 }

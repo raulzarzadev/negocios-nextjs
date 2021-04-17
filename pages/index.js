@@ -1,5 +1,5 @@
-import ViewBarrios from "@comps/ViewBarrios";
+import ViewBarrios from '@comps/ViewBarrios'
 
-export default function Home() {
-  return <ViewBarrios />;
+export default function Home () {
+  return <ViewBarrios />
 }

@@ -8,23 +8,24 @@ import { useAds } from 'src/hooks/useAds'
 
 import styles from './styles.module.css'
 
-export default function ViewProfile() {
-  const { getUserAds, getUserActiveAds, getAdvert } = useAds()
+export default function ViewProfile () {
+  const { getAdvert } = useAds()
   const { favoritesList, user } = useUser()
 
   const handleLogOut = () => {
     firebaseLogout()
   }
-
+  /*
   const [userAds, setUserAds] = useState()
 
   useEffect(() => {
     getUserAds().then((res) => setUserAds(res))
-  }, [])
-  const [publishedAds, setPublishedAds] = useState([])
+  }, []) */
+
+  /*  const [publishedAds, setPublishedAds] = useState([])
   useEffect(() => {
     getUserActiveAds().then(setPublishedAds)
-  }, [])
+  }, []) */
 
   const [favorites, setFavorites] = useState([])
   useEffect(() => {
@@ -44,7 +45,7 @@ export default function ViewProfile() {
                 </PrimBtn>
               </L>
             </div>
-          )}
+            )}
           <div className={styles.action}>
             <PrimBtn color="danger" onClick={handleLogOut}>
               {'Salir'}
@@ -54,9 +55,11 @@ export default function ViewProfile() {
 
       <div className={styles.favs}>
         <h3>Favoritos Guardados</h3>
-        {favorites.length === 0 ? (
+        {favorites.length === 0
+          ? (
           <p>Aun no has guardado </p>
-        ) : (
+            )
+          : (
           <div className={styles.user_ads_grid}>
             {favorites?.map((ad, i) => (
               <div key={ad?.id} className={styles.grid_item}>
@@ -64,7 +67,7 @@ export default function ViewProfile() {
               </div>
             ))}
           </div>
-        )}
+            )}
       </div>
       </div>
   )

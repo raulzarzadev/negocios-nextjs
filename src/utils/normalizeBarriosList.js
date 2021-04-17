@@ -1,6 +1,6 @@
 import { ESTADOS_LABEL_MX } from 'CONST/ESTADOS_MX'
 
-export default function normalizeBarriosList(barrios) {
+export default function normalizeBarriosList (barrios) {
   const auxArr = []
   const STATES = ESTADOS_LABEL_MX
   return barrios?.reduce((acc, curr) => {

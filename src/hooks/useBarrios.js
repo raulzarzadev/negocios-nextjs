@@ -1,18 +1,19 @@
-import { fb_getBarrios } from "firebase/client";
-import { useEffect, useState } from "react";
+/* eslint-disable camelcase */
+
+import { fb_getBarrios } from 'firebase/client'
 
 // TODO agregar SWR
 
-export function useBarrios() {
-  function getBarrios() {
+export function useBarrios () {
+  function getBarrios () {
     return fb_getBarrios().then((res) => {
-      return res;
-    });
+      return res
+    })
   }
 
-/*   function getAdsPublishedByBarrio(barrio) {
+  /*   function getAdsPublishedByBarrio(barrio) {
     return fb_getBarrioPublications(barrio);
   } */
 
-  return { getBarrios };
+  return { getBarrios }
 }

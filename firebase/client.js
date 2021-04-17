@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import firebase from 'firebase'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -8,7 +9,7 @@ if (!firebase.apps.length) {
 }
 
 /* ------------------------------------------------------------------------------------------- */
-/*  ---------------------***--------- NORMALIZA FIREBASE DOCS ----------***--------------------------*/
+/*  ---------------------***--------- NORMALIZA FIREBASE DOCS ----------***-------------------------- */
 /* ------------------------------------------------------------------------------------------- */
 
 const getFirebaseDocsWithId = ({ docs }) =>
@@ -21,7 +22,6 @@ const mapUserFromFirebase = (user) => {
   return { email, name: displayName, image: photoURL, id: user.uid }
 }
 
-
 export const onAuthStateChanged = (onChange) => {
   return firebase.auth().onAuthStateChanged((user) => {
     if (user) {
@@ -32,8 +32,8 @@ export const onAuthStateChanged = (onChange) => {
   })
 }
 
-const formatRespose=(ok, type, data = null, error=null)=>{
-  return { ok, type, data, error}
+const formatRespose = (ok, type, data = null, error = null) => {
+  return { ok, type, data, error }
 }
 
 export const loginWithGoogle = () => {
@@ -53,10 +53,10 @@ export const firebaseLogout = () => {
 }
 
 /* ------------------------------------------------------------------------------------------- */
-/*  ---------------------***---------FIREBASE DATA BASE ----------***--------------------------*/
+/*  ---------------------***---------FIREBASE DATA BASE ----------***-------------------------- */
 /* ------------------------------------------------------------------------------------------- */
 
-var db = firebase.firestore()
+const db = firebase.firestore()
 
 /* -------------------- */
 /* ---------USERS------ */
@@ -92,7 +92,7 @@ export const addBarrio = ({ name, state, shortName }) => {
     .set({
       name,
       state,
-      shortName,
+      shortName
     })
     .then((docRef) => {
       return { ok: true, type: 'BARRIO_CREATED', ref: docRef.id }
@@ -118,7 +118,7 @@ export const fb_addAdvert = (advert) => {
     .collection('adverts')
     .add({
       ...advert,
-      createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
+      createdAt: firebase.firestore.Timestamp.fromDate(new Date())
     })
     .then((docRef) => {
       return { ok: true, type: 'AD_CREATED', ref: docRef.id }
@@ -240,24 +240,34 @@ export const fb_getUserActivePublications = (userId) => {
 }
 
 /* ------------------------------------------------------------------------------------------- */
-/*  ---------------------***---------    FAVORITES    ----------***--------------------------*/
+/*  ---------------------***---------    FAVORITES    ----------***-------------------------- */
 /* ------------------------------------------------------------------------------------------- */
 
 export const fb_addFavorite = async (userId, advertId) => {
-
   // check if favorite user list exist
   const favoritesList = await db.collection('favorites').doc(userId).get()
-  
-  if(favoritesList.exists) {
+
+  if (favoritesList.exists) {
     // if exist UPDATE favorite array
-    return await db.collection('favorites').doc(userId).update({
-      favorites: firebase.firestore.FieldValue.arrayUnion(advertId),
-    }).then(()=>formatRespose(true, 'FAVORITE_ADDED' ))
+    return await db
+      .collection('favorites')
+      .doc(userId)
+      .update({
+        favorites: firebase.firestore.FieldValue.arrayUnion(advertId)
+      })
+      .then(() => formatRespose(true, 'FAVORITE_ADDED'))
   } else {
-    // if not exist CREATE a favorite list 
-    return await db.collection('favorites').doc(userId).set({favorites:[advertId]}).then(() => {return {
-      ok: true, type: 'FAVORITE_LIST_CREATED'
-    }} )
+    // if not exist CREATE a favorite list
+    return await db
+      .collection('favorites')
+      .doc(userId)
+      .set({ favorites: [advertId] })
+      .then(() => {
+        return {
+          ok: true,
+          type: 'FAVORITE_LIST_CREATED'
+        }
+      })
   }
 }
 
@@ -266,26 +276,25 @@ export const fb_removeFavorite = async (userId, advertId) => {
     .collection('favorites')
     .doc(userId)
     .update({
-         favorites: firebase.firestore.FieldValue.arrayRemove(advertId),
-       })
-    .then(() => formatRespose(true, 'FAVORITE_REMOVED' )) 
-  } 
-
+      favorites: firebase.firestore.FieldValue.arrayRemove(advertId)
+    })
+    .then(() => formatRespose(true, 'FAVORITE_REMOVED'))
+}
 
 export const fb_listenUserFavorites = (userId, callback) => {
   return db
     .collection('favorites')
     .doc(userId)
     .onSnapshot((snapshot) => {
-      if(!snapshot.exists) return callback([])
-      const {favorites} = snapshot.data()
+      const emtyArrayIfFavoritesListNotExist = []
+      if (!snapshot.exists) return callback(emtyArrayIfFavoritesListNotExist)
+      const { favorites } = snapshot.data()
       callback(favorites)
-    
     })
 }
 
 /* ------------------------------------------------------------------------------------------- */
-/*  ---------------------***---------    PUBLICATIONS    ----------***--------------------------*/
+/*  ---------------------***---------    PUBLICATIONS    ----------***-------------------------- */
 /* ------------------------------------------------------------------------------------------- */
 
 export const fb_getAllPublications = () => {

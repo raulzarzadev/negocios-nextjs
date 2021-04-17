@@ -1,56 +1,56 @@
-import Modal from "@comps/Modal";
-import React, { useEffect, useState } from "react";
-import { useAds } from "src/hooks/useAds";
-import { useBarrios } from "src/hooks/useBarrios";
-import normalizeBarriosList from "src/utils/normalizeBarriosList";
+import Modal from '@comps/Modal'
+import React, { useEffect, useState } from 'react'
+import { useAds } from 'src/hooks/useAds'
+import { useBarrios } from 'src/hooks/useBarrios'
+import normalizeBarriosList from 'src/utils/normalizeBarriosList'
 
-export default function ModalPubish({ open, handleOpen, advertId }) {
-  const [barrios, setBarrios] = useState();
-  const { getBarrios } = useBarrios();
-  const { publishAdvert } = useAds();
+export default function ModalPubish ({ open, handleOpen, advertId }) {
+  const [barrios, setBarrios] = useState()
+  const { getBarrios } = useBarrios()
+  const { publishAdvert } = useAds()
   const [form, setForm] = useState({
-    barrio: "",
-    duration: "6_months",
-  });
+    barrio: '',
+    duration: '6_months'
+  })
 
   useEffect(() => {
-    getBarrios().then((res) => setBarrios(normalizeBarriosList(res)));
-  }, []);
+    getBarrios().then((res) => setBarrios(normalizeBarriosList(res)))
+  }, [])
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+    setForm({ ...form, [e.target.name]: e.target.value })
+  }
 
   const handleSubmit = (form) => {
     const periods = {
-      "1_month": 1,
-      "3_months": 3,
-      "6_months": 6,
-      "1_year": 12,
-    };
-    const today = new Date();
-    console.log(today.getMonth() + periods[form.duration]);
-    const publishStart = today.toISOString();
+      '1_month': 1,
+      '3_months': 3,
+      '6_months': 6,
+      '1_year': 12
+    }
+    const today = new Date()
+    console.log(today.getMonth() + periods[form.duration])
+    const publishStart = today.toISOString()
     const publishEnds = new Date(
       today.setMonth(today.getMonth() + periods[form.duration])
-    ).toISOString();
+    ).toISOString()
     const publication = {
       advertId,
       barrioId: form?.barrio,
       publishEnds,
       publishStart,
-      active: true,
-    };
+      active: true
+    }
     publishAdvert(publication).then((res) => {
-      setMessage({ type: "success", message: "Publicado" });
+      setMessage({ type: 'success', message: 'Publicado' })
       setTimeout(() => {
-        setForm({ ...form, barrio: "" });
-        setMessage(null);
-      }, 500);
-    });
-  };
-  const [message, setMessage] = useState(null);
-  const isValid = !!!form.barrio || !!!form.duration;
+        setForm({ ...form, barrio: '' })
+        setMessage(null)
+      }, 500)
+    })
+  }
+  const [message, setMessage] = useState(null)
+  const isValid = !form.barrio || !form.duration
 
   return (
     <Modal open={open} handleOpen={handleOpen} title="Publicar ">
@@ -60,11 +60,11 @@ export default function ModalPubish({ open, handleOpen, advertId }) {
         }}
       > */}
       <div>
-        {`Publicar en: `}
+        {'Publicar en: '}
         <select onChange={handleChange} name="barrio" value={form?.barrio}>
           {barrios?.map((state) => (
             <React.Fragment key={state.label}>
-              <option value="">{`Selecciona`}</option>
+              <option value="">{'Selecciona'}</option>
               <optgroup label={state.label}>
                 {state.barrios.map((barrio) => (
                   <option key={barrio?.id} value={barrio.id}>
@@ -77,35 +77,38 @@ export default function ModalPubish({ open, handleOpen, advertId }) {
         </select>
         <div>
           <label>
-            {`Publicar por : `}
+            {'Publicar por : '}
             <select
               onChange={handleChange}
               name="duration"
               value={form?.duration}
             >
-              <option value="1_month">{`1 mes`} </option>
-              <option value="3_months">{`3 meses`} </option>
-              <option value="6_months">{`6 meses`}</option>
-              <option value="1_year">{`1 año `}</option>
+              <option value="1_month">{'1 mes'} </option>
+              <option value="3_months">{'3 meses'} </option>
+              <option value="6_months">{'6 meses'}</option>
+              <option value="1_year">{'1 año '}</option>
             </select>
           </label>
         </div>
         {/* Select barrio */}
         {/* Select tiempo de duración */}
-        {message ? (
-          message.message
-        ) : (
+        {message
+          ? (
+              message.message
+            )
+          : (
           <button
             onClick={(e) => {
-              e.preventDefault(), handleSubmit(form);
+              e.preventDefault()
+              handleSubmit(form)
             }}
             disabled={isValid}
           >
             Publicar
           </button>
-        )}
+            )}
       </div>
       {/* </form> */}
     </Modal>
-  );
+  )
 }

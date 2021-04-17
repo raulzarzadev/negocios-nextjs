@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import styles from './styles.module.css'
 
-export default function KeyboardNumbers({ value, setValue, hideDisplay }) {
+export default function KeyboardNumbers ({ value, setValue, hideDisplay }) {
   const [number, setNumber] = useState(null)
 
   useEffect(() => {

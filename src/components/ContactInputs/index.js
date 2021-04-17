@@ -9,10 +9,10 @@ import formatContacts from 'src/utils/formatContacts'
 import KeyboardNumbers from '@comps/keyboardNumbers'
 import PrimBtn from '@comps/PrimBtn'
 
-export default function ContactInputs({ contacts = [], setContacts }) {
+export default function ContactInputs ({ contacts = [], setContacts }) {
   const [newContact, setNewContact] = useState({ type: '' })
-  const [placeholder, setPlaceholder] = useState('')
-  const [defaultValue, setDefaultValue] = useState('')
+  const [placeholder] = useState('')
+  const [defaultValue] = useState('')
   const CONTACTS_MAX = 5
 
   const addContact = () => {
@@ -21,8 +21,8 @@ export default function ContactInputs({ contacts = [], setContacts }) {
       {
         ...newContact,
         value: `${contactType?.prefix}${newContact?.suffix}`,
-        prefix: contactType?.prefix,
-      },
+        prefix: contactType?.prefix
+      }
     ])
   }
   const handleDeleteContact = (contact) => {
@@ -54,7 +54,7 @@ export default function ContactInputs({ contacts = [], setContacts }) {
   return (
     <div className={styles.contact_display}>
       <div className={styles.contacts_list}>
-        <h3>{`Lista de contactos`}</h3>
+        <h3>{'Lista de contactos'}</h3>
         {formatedContacts.length === 0 && <em>No hay contactos aún</em>}
         {formatedContacts?.map((contact, i) => (
           <div key={i}>
@@ -122,7 +122,7 @@ const InputContact = ({
   disabled,
   numberKeyboard,
   prefix,
-  suffix,
+  suffix
 }) => {
   return (
     <>
@@ -131,7 +131,7 @@ const InputContact = ({
         <select
           className={styles.input_select}
           disabled={disabled}
-          name={`type`}
+          name={'type'}
           value={type || ''}
           placeholder={'Tipo'}
           options={CONTACT_TYPES}
@@ -156,7 +156,7 @@ const InputContact = ({
             className={styles.input_text}
             disabled={disabled || numberKeyboard}
             placeholder={placeholder}
-            name={`suffix`}
+            name={'suffix'}
             value={suffix || ''}
             onChange={handleChange}
           />
