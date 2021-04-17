@@ -10,9 +10,9 @@ export function useBarrios() {
     });
   }
 
-  function getAdsPublishedByBarrio(barrio) {
+/*   function getAdsPublishedByBarrio(barrio) {
     return fb_getBarrioPublications(barrio);
-  }
+  } */
 
-  return { getBarrios, getAdsPublishedByBarrio };
+  return { getBarrios };
 }

@@ -10,19 +10,23 @@
   text-align: center;
   margin: 1rem 0;
 }
+
 .table_title {
   padding: 4px;
   font-weight: 600;
 }
+
 .table_cell {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .dash_table {
   display: grid;
   grid-template-columns: 1fr 100px 100px;
 }
+
 .dash_row {
   display: grid;
   grid-template-columns: 1fr 100px 100px;
@@ -64,4 +68,22 @@
 }
 .action{
   margin: 1rem 0;
+}
+
+.barrios_count{
+  font-size: 1rem;
+  font-weight: 400;
+}
+.barrio_row {
+  display: flex;
+  width: 50%;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+.barrio_icons{
+  display: flex;
+}
+
+.barrio_icon{
+  margin: 0 0.5rem; 
 }

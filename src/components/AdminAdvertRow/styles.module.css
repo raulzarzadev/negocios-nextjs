@@ -1,0 +1,81 @@
+
+dash_row
+table_cell
+publications
+publicaciones_barrio
+  .table_title {
+    padding: 4px;
+    font-weight: 600;
+  }
+  
+  .table_cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .dash_table {
+    display: grid;
+    grid-template-columns: 1fr 100px 100px;
+  }
+  
+  .dash_row {
+    display: grid;
+    grid-template-columns: 1fr 100px 100px;
+  }
+  
+  .publications {
+    font-size: 0.7rem;
+    white-space: nowrap;
+  }
+  
+  .modal_advert {
+    display: flex;
+    flex-direction: column;
+    height: 300px;
+    align-items: center;
+  }
+  .modal_options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* -------------------------------------------- */
+  
+  .details {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
+    text-align: center;
+  }
+  .public_details_cell {
+    padding: 4px;
+    min-width: 4rem;
+    border: 1px solid;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    text-align: center;
+  }
+  .action{
+    margin: 1rem 0;
+  }
+  
+  .barrios_count{
+    font-size: 1rem;
+    font-weight: 400;
+  }
+  .barrio_row {
+    display: flex;
+    width: 50%;
+    justify-content: space-between;
+    margin: 0 auto;
+  }
+  .barrio_icons{
+    display: flex;
+  }
+  
+  .barrio_icon{
+    margin: 0 0.5rem; 
+  }
