@@ -12,13 +12,12 @@ import AdminBarrioRow from '@comps/AdminBarrioRow'
 export default function AdminDashboard () {
   const [states, setStates] = useState()
   const [adverts, setAdverts] = useState([])
-  const [publications, setPublications] = useState([])
-  const { getAds, unpublishAdvert, reactivePublish } = useAds()
+  const { getAds } = useAds()
   const { getBarrios } = useBarrios()
-  const { getAllPublications } = usePublications()
+  const { publications } = usePublications()
+
   useEffect(() => {
     getAds().then(setAdverts)
-    getAllPublications().then(setPublications)
   }, [])
 
   useEffect(() => {
@@ -26,7 +25,7 @@ export default function AdminDashboard () {
   }, [])
 
   const normalizeAds = adverts.map((ad) => {
-    const adPublications = publications.filter((pub) => pub.advertId === ad.id)
+    const adPublications = publications?.filter((pub) => pub.advertId === ad.id)
     return { ...ad, publications: adPublications }
   })
 
@@ -53,8 +52,6 @@ export default function AdminDashboard () {
           <AdminAdvertRow
             key={ad.id}
             ad={ad}
-            unpublishAdvert={unpublishAdvert}
-            reactivePublish={reactivePublish}
           />
         ))}
         <h3 className={styles.page_title}>{'Barrios'}</h3>

@@ -20,15 +20,6 @@ import { useUser } from 'src/context/UserContext'
 export function useAds () {
   const { user } = useUser()
 
-  /*  useEffect(() => {
-    if (user) {
-      fb_listenUserFavorites(user.id, (favorites) => {
-        formatFavoritesAds(favorites).then(setFavorites);
-      });
-    }
-  }, []);
-  console.log(favorites) */
-
   function getAds () {
     return fb_getAds().then((res) => {
       return res
@@ -90,10 +81,12 @@ export function useAds () {
     )
   }
   function unpublishAdvert (publishId) {
-    return fb_unpublishAdvert(publishId).then((res) => console.log(res))
+    console.log('puId', publishId)
+
+    return fb_unpublishAdvert(publishId)
   }
   function reactivePublish (publishId) {
-    return fb_reactivePublishAdvert(publishId).then((res) => console.log(res))
+    return fb_reactivePublishAdvert(publishId)
   }
   async function addFavorite (advertId) {
     if (!user) return await { ok: false, type: 'NOT_USER' }

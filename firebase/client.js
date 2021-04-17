@@ -2,7 +2,19 @@
 import firebase from 'firebase'
 import { v4 as uuidv4 } from 'uuid'
 
-const firebaseConfig = JSON.parse(process.env.NEXT_PUBLIC_FIREBASE_CONFIG)
+const firebaseConfig = JSON.parse(
+  process.env.NEXT_PUBLIC_FIREBASE_CONFIG
+)
+
+const formatResponse = (
+  code,
+  ok,
+  type,
+  data = null,
+  error = null
+) => {
+  return { code, ok, type, data, error }
+}
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig)
@@ -19,7 +31,12 @@ const getFirebaseDocsWithId = ({ docs }) =>
 
 const mapUserFromFirebase = (user) => {
   const { email, displayName, photoURL } = user
-  return { email, name: displayName, image: photoURL, id: user.uid }
+  return {
+    email,
+    name: displayName,
+    image: photoURL,
+    id: user.uid
+  }
 }
 
 export const onAuthStateChanged = (onChange) => {
@@ -32,7 +49,12 @@ export const onAuthStateChanged = (onChange) => {
   })
 }
 
-const formatRespose = (ok, type, data = null, error = null) => {
+const formatRespose = (
+  ok,
+  type,
+  data = null,
+  error = null
+) => {
   return { ok, type, data, error }
 }
 
@@ -95,7 +117,11 @@ export const addBarrio = ({ name, state, shortName }) => {
       shortName
     })
     .then((docRef) => {
-      return { ok: true, type: 'BARRIO_CREATED', ref: docRef.id }
+      return {
+        ok: true,
+        type: 'BARRIO_CREATED',
+        ref: docRef.id
+      }
     })
     .catch((error) => {
       console.error('Error adding document: ', error)
@@ -118,10 +144,16 @@ export const fb_addAdvert = (advert) => {
     .collection('adverts')
     .add({
       ...advert,
-      createdAt: firebase.firestore.Timestamp.fromDate(new Date())
+      createdAt: firebase.firestore.Timestamp.fromDate(
+        new Date()
+      )
     })
     .then((docRef) => {
-      return { ok: true, type: 'AD_CREATED', ref: docRef.id }
+      return {
+        ok: true,
+        type: 'AD_CREATED',
+        ref: docRef.id
+      }
     })
     .catch((error) => {
       console.error('Error adding document: ', error)
@@ -198,14 +230,20 @@ export const fb_publishAdvert = (publication) => {
     .collection('publications')
     .add(publication)
     .then((docRef) => {
-      return { ok: true, type: 'PUBLICATION_CREATED', ref: docRef.id }
+      return {
+        ok: true,
+        type: 'PUBLICATION_CREATED',
+        ref: docRef.id
+      }
     })
     .catch((error) => {
       console.error('Error adding document: ', error)
     })
 }
 
-export const fb_getBarrioActivePublications = async (barrio) => {
+export const fb_getBarrioActivePublications = async (
+  barrio
+) => {
   return db
     .collection('publications')
     .where('barrioId', '==', barrio)
@@ -219,11 +257,33 @@ export const fb_getBarrioActivePublications = async (barrio) => {
 }
 
 export const fb_unpublishAdvert = (id) => {
-  return db.collection('publications').doc(id).update({ active: false })
+  console.log('id', id)
+
+  return db
+    .collection('publications')
+    .doc(id)
+    .update({ active: false })
+    .then((res) => formatResponse(200, true, 'UNPUBLISHED'))
+    .catch((err) =>
+      formatResponse(
+        400,
+        false,
+        'UNPUBLISH_ERROR',
+        null,
+        err
+      )
+    )
 }
 
 export const fb_reactivePublishAdvert = (id) => {
-  return db.collection('publications').doc(id).update({ active: true })
+  return db
+    .collection('publications')
+    .doc(id)
+    .update({ active: true })
+    .then((res) => formatResponse(200, true, 'REPUBLISHED'))
+    .catch((err) =>
+      formatResponse(400, false, 'REPUBLISH_ERROR', null, err)
+    )
 }
 
 export const fb_getUserActivePublications = (userId) => {
@@ -245,7 +305,10 @@ export const fb_getUserActivePublications = (userId) => {
 
 export const fb_addFavorite = async (userId, advertId) => {
   // check if favorite user list exist
-  const favoritesList = await db.collection('favorites').doc(userId).get()
+  const favoritesList = await db
+    .collection('favorites')
+    .doc(userId)
+    .get()
 
   if (favoritesList.exists) {
     // if exist UPDATE favorite array
@@ -253,7 +316,9 @@ export const fb_addFavorite = async (userId, advertId) => {
       .collection('favorites')
       .doc(userId)
       .update({
-        favorites: firebase.firestore.FieldValue.arrayUnion(advertId)
+        favorites: firebase.firestore.FieldValue.arrayUnion(
+          advertId
+        )
       })
       .then(() => formatRespose(true, 'FAVORITE_ADDED'))
   } else {
@@ -271,23 +336,31 @@ export const fb_addFavorite = async (userId, advertId) => {
   }
 }
 
-export const fb_removeFavorite = async (userId, advertId) => {
+export const fb_removeFavorite = async (
+  userId,
+  advertId
+) => {
   return await db
     .collection('favorites')
     .doc(userId)
     .update({
-      favorites: firebase.firestore.FieldValue.arrayRemove(advertId)
+      favorites: firebase.firestore.FieldValue.arrayRemove(
+        advertId
+      )
     })
     .then(() => formatRespose(true, 'FAVORITE_REMOVED'))
 }
 
-export const fb_listenUserFavorites = (userId, callback) => {
+export const fb_listenUserFavorites = (
+  userId,
+  callback
+) => {
   return db
     .collection('favorites')
     .doc(userId)
     .onSnapshot((snapshot) => {
       const emtyArrayIfFavoritesListNotExist = []
-      if (!snapshot.exists) return callback(emtyArrayIfFavoritesListNotExist)
+      if (!snapshot.exists) { return callback(emtyArrayIfFavoritesListNotExist) }
       const { favorites } = snapshot.data()
       callback(favorites)
     })
@@ -298,7 +371,10 @@ export const fb_listenUserFavorites = (userId, callback) => {
 /* ------------------------------------------------------------------------------------------- */
 
 export const fb_getAllPublications = () => {
-  return db.collection('publications').get().then(getFirebaseDocsWithId)
+  return db
+    .collection('publications')
+    .get()
+    .then(getFirebaseDocsWithId)
 }
 
 export const fb_getActivePublications = () => {
@@ -309,9 +385,27 @@ export const fb_getActivePublications = () => {
     .then(getFirebaseDocsWithId)
 }
 
+export const fb_listenPublications = async (cb) => {
+  return await db
+    .collection('publications')
+    .onSnapshot((snapshot) => {
+      const publications = snapshot.docs.map((doc) => {
+        return { id: doc.id, ...doc.data() }
+      }
+      )
+      cb(publications)
+    })
+}
+
+/* ------------------------------------------------------------------------------------------- */
+/*  ---------------------***---------    IMAGES MANAGE    ----------***-------------------------- */
+/* ------------------------------------------------------------------------------------------- */
+
 export const fb_uploadImage = (file, metadata = {}) => {
   const imageUniqueId = uuidv4()
-  const ref = firebase.storage().ref(`images/${imageUniqueId}`)
+  const ref = firebase
+    .storage()
+    .ref(`images/${imageUniqueId}`)
   const task = ref.put(file, metadata)
   return task
 }

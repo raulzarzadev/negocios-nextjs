@@ -95,10 +95,17 @@ export default function Advert ({ advert = defaulAdvert, showFavorite, admin, fo
   }
 
   return (
-    <div style={{ backgroundColor }} className={styles.advert}>
+    <div
+      style={{ backgroundColor }}
+      className={styles.advert}
+    >
       <header className={styles.header}>
         {chips?.map((chip, i) => (
-          <Tooltip key={i} text={chip?.label} position="left">
+          <Tooltip
+            key={i}
+            text={chip?.label}
+            position="left"
+          >
             <SvgIcon>{chip?.icon}</SvgIcon>
           </Tooltip>
         ))}
@@ -108,14 +115,20 @@ export default function Advert ({ advert = defaulAdvert, showFavorite, admin, fo
             <div>
               {favorite
                 ? (
-                <Tooltip text="Eliminar de favoritos" position="right">
+                <Tooltip
+                  text="Eliminar de favoritos"
+                  position="right"
+                >
                   <IconBtn onClick={handleRemoveFavorite}>
                     <BookmarkIcon />
                   </IconBtn>
                 </Tooltip>
                   )
                 : (
-                <Tooltip text="Agregar a favoritos" position="right">
+                <Tooltip
+                  text="Agregar a favoritos"
+                  position="right"
+                >
                   <IconBtn onClick={handleAddFavorite}>
                     <BookmarkBorderIcon />
                   </IconBtn>
@@ -136,22 +149,28 @@ export default function Advert ({ advert = defaulAdvert, showFavorite, admin, fo
       </header>
       <section className={styles.body}>
         {/* ---------------------------------IMAGE---------------------------------- */}
-        <div className={styles.body_images}>
-         {/*  <div
-            style={{
-              backgroundImage: `url(${image || '/logotipo.png'})`
-            }}
-            className={styles.image}
-          /> */}
-          <Image src={`${image || '/lotipo.png'}`} width='100%' height='100%'/>
+        <div
+          style={{
+            position: 'relative',
+            width: '100%',
+            height: '180px'
+          }}
+        >
+          <Image
+          alt={title}
+            src={`${image || '/lotipo.png'}`}
+            layout="fill"
+            objectFit="cover"
+          />
         </div>
         {/* ---------------------------------IMAGE---------------------------------- */}
         <div className={styles.body_content}>
           <h5>{title}</h5>
           <p>
-
             {content?.slice(0, 100)}
-            <BtnL onClick={() => console.log('show details')}>
+            <BtnL
+              onClick={() => console.log('show details')}
+            >
               <em> ver mas </em>
             </BtnL>
           </p>
@@ -164,11 +183,21 @@ export default function Advert ({ advert = defaulAdvert, showFavorite, admin, fo
           ))}
         </div>
         {/* MODALES */}
-        {alert && <AlertFavs open={alert} handleOpen={() => setAlert(false)}/>}
-        <Modal open={openDelete} handleOpen={handleOpenDelete}>
+        {alert && (
+          <AlertFavs
+            open={alert}
+            handleOpen={() => setAlert(false)}
+          />
+        )}
+        <Modal
+          open={openDelete}
+          handleOpen={handleOpenDelete}
+        >
           <div>
             <P>{'Eliminar anuncio'}</P>
-            <button onClick={handleDeleteAd}>Eliminar</button>
+            <button onClick={handleDeleteAd}>
+              Eliminar
+            </button>
           </div>
         </Modal>
         <ModalPubish

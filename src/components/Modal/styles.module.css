@@ -34,7 +34,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 8px;
- /*  box-shadow: 0.1px -5px 8px; */
+  box-shadow: 1px 1px 5px  #000;
+  z-index: 1;
 }
 .modal_title {
   width: 80%;

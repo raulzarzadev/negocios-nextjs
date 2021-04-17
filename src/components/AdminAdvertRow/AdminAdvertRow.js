@@ -49,7 +49,7 @@ export default function AdvertRow ({ ad }) {
           </div>
         </div>
         <ModalAdminAdvert open={openDetails} handleOpen={handleOpenDetailsModal} advert={ad}/>
-         </div>
+        </div>
     </>
   )
 }
