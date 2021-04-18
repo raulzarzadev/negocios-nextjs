@@ -4,7 +4,7 @@ import styles from './styles.module.css'
 
 export default function AdvertsList ({ barrio = undefined, adverts }) {
   const { user } = useUser()
-  console.log('user', user.admin)
+  console.log('admin', user.admin)
 
   return (
     <div className={styles.barrio}>

@@ -27,14 +27,14 @@ export function useAds () {
   }
   async function getAdsByBarrio (barrio) {
     const barrioDetails = await fb_getBarrio(barrio)
+    const advertDetail = async (id) => await fb_getAdvertById(id)
     const activePublications = await fb_getBarrioActivePublications(barrio)
-    const adverts = activePublications.map(async (publication) => {
-      const advert = await getAdvert(publication.advertId)
-      return { ...advert, publication }
-    })
-    return Promise.all(adverts).then((res) => {
-      return { ...barrioDetails, ads: res }
-    })
+    const adverts = []
+    for (const publication of activePublications) {
+      const advert = await advertDetail(publication.advertId)
+      if (advert) adverts.push({ publication, ...advert })
+    }
+    return { ...barrioDetails, ads: adverts }
   }
 
   function getUserAds () {
