@@ -28,7 +28,7 @@ export default function StateList ({ statesList = [] }) {
     </Head>
       <div className={s.state_list}>
         <div className={s.location}>
-          <Switch label="Ubicacón" disabled />
+          <Switch label="Ubicacón" disabled name='location-active'/>
         </div>
         <div className={s.select_content}>
           <select

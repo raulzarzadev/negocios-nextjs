@@ -1,10 +1,10 @@
 import styles from './styles.module.css'
 import Link from 'next/link'
 import PropTypes from 'prop-types'
-export function L ({ href, children, style }) {
+export function L ({ href, children, style, name = 'link' }) {
   return (
     <Link href={href}>
-      <a className={styles.link} style={style}>
+      <a className={styles.link} style={style} name={name}>
         {children}
       </a>
     </Link>
