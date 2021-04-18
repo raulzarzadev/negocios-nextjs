@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { useAds } from 'src/hooks/useAds'
 import AdvertsList from '@comps/AdvertsList'
 import Filter from '@comps/Filter.js'
+import Head from 'next/head'
 
 export default function Barrio () {
   const { getAdsByBarrio } = useAds()
@@ -56,6 +57,11 @@ export default function Barrio () {
   if (barrio === undefined) return 'Cargando...'
   return (
     <>
+    <Head>
+      <title>
+        Barrio - {barrio.name}
+      </title>
+    </Head>
       <Filter labels={labelsAvailables} handleSetFilter={handleSetFilter} />
       <AdvertsList barrio={barrio} adverts={adverts} />
     </>
