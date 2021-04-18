@@ -8,6 +8,7 @@
   display: flex;
   justify-content: flex-end;
   margin-top: 1rem;
+  padding-right: 4px;
 }
 .select_content select {
   width: 50%;
