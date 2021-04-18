@@ -39,7 +39,7 @@ export default function ViewProfile () {
         <div className={styles.actions}>
             {user?.admin && (
             <div className={styles.action}>
-              <L href="/dashboard">
+              <L href="/dashboard" >
                 <PrimBtn color='secondary'>
                   Dashboard
                 </PrimBtn>
