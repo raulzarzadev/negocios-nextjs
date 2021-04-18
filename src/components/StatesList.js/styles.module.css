@@ -1,36 +1,44 @@
-.state_list {
-  text-align: center;
-  margin: 2rem auto;
+.location{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: .5rem;
 }
-.link{
-  padding: var(--space-1);
+.select_content{
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
 }
+.select_content select {
+  width: 50%;
+  border: 0;
+  background-color: var(--primary);
+  color: var(--white);
+  border-radius: 4px;
+  text-align: end;
+}
+
+.select option {
+  background-color: var(--primary);
+}
+
+.barrios {
+  padding: 1rem;
+}
+
+.link {
+  background-color: var(--primary);
+  margin: 1rem 0;
+  padding: .1rem;
+  border-radius: .3rem;
+}
+
 .link:hover{
-  background-color: var(--primary-light);
-}
-.barrios_quantity{
-  font-size: .8rem;
-  font-weight: 500;
-}
-.ads_quantity {
-  font-size: .6rem;
-  font-weight: 500;
+  background-color: transparent;
 }
 
-.barrio_title {
-  font-weight: 500;
-  font-size: 1.5rem;
-}
-.state_title {
-  font-size: 1rem;
-}
-
-@media (min-width: 600px) {
-  .barrio_title {
-    font-weight: 500;
-    font-size: rem;
-  }
-  .state_title {
-    font-size: 2rem;
-  } 
+@media (min-width:600px) {
+  .barrios{
+    padding: 0 6rem;
+  }  
 }

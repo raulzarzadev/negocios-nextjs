@@ -73,6 +73,8 @@ export function useAds () {
     }).then((res) => res)
   }
   function deleteAdvert (id) {
+    // TODO deactive all publications about it
+
     return fb_deleteAdvert(id).then((res) => res)
   }
   function publishAdvert (publication) {

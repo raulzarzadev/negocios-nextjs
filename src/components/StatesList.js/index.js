@@ -1,32 +1,59 @@
 import Link from '@comps/Link'
-import styles from './styles.module.css'
+import Switch from '@comps/Switch'
+import { useEffect, useState } from 'react'
+import s from './styles.module.css'
 
 export default function StateList ({ statesList = [], publications = [] }) {
+  const [stateSelected, setStateSelected] = useState('')
+  const [barrios, setBarrios] = useState([])
+
+  const handleChange = (e) => {
+    setStateSelected(e.target.value)
+  }
+
+  useEffect(() => {
+    const state = statesList.find(
+      ({ tag }) => tag === stateSelected
+    )
+    if (state) {
+      setBarrios(state.barrios)
+    }
+  }, [stateSelected])
+
   return (
-    <div className={styles.state_list}>
-      {statesList.map((state) => (
-        <div key={state.name} className={styles.state}>
-          <h1 className={styles.state_title}>
-            {`${state?.name}`}
-          </h1>
-            <em
-              className={styles.barrios_quantity}
-            >{` (${state.barrios?.length} Barrios)`}</em>
-          {state?.barrios?.map((barrio, i) => (
-            <div key={i} className={styles.link}>
-              <Link href={barrio.shortName}>
-                  <h2 className={styles.barrio_title}>
-                    {`${barrio.name}`}
-                  </h2>
-                    <em className={styles.ads_quantity}>{` (${
-                      publications?.filter((pub) => pub?.barrioId === barrio?.shortName)
-                      .length
-                    } Ads)`}</em>
-                </Link>
-              </div>
+    <div className={s.state_list}>
+      <div className={s.location}>
+        <Switch label="Ubicacón" disabled/>
+      </div>
+      <div className={s.select_content}>
+        <select
+          className={s.select}
+          onChange={handleChange}
+        >
+          <option value="" unselectable>
+            {'Selecciona un Estado'}
+          </option>
+          {statesList.map((state) => (
+            <option value={state.tag} key={state.label}>
+              {state.label}
+            </option>
           ))}
+        </select>
+      </div>
+      <div className={s.barrios}>
+        <h5>
+          Barrios
+        </h5>
+      {barrios?.map((barrio, i) => (
+        <div key={i} className={s.link}>
+          <Link href={barrio.shortName}>
+            <h4 className={s.barrio_title}>
+              {`${barrio.name}`}
+            </h4>
+          </Link>
         </div>
       ))}
+      </div>
     </div>
   )
 }
