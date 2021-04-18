@@ -10,6 +10,7 @@ export default function Layout ({ children }) {
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0,  user-scalable=0'/>
+        <link rel ='icon' href='icon.ico'></link>
       </Head>
       <div className={styles.layout}>
         <NavBar />
