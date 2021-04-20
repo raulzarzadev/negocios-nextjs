@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import s from './styles.module.css'
 
 export default function StateList ({ statesList = [] }) {
-  const [stateSelected, setStateSelected] = useState('')
+  const [stateSelected, setStateSelected] = useState('BCS')
   const [barrios, setBarrios] = useState([])
 
   const handleChange = (e) => {
@@ -34,6 +34,7 @@ export default function StateList ({ statesList = [] }) {
           <select
             className={s.select}
             onChange={handleChange}
+            value={stateSelected}
           >
             <option value="" unselectable='true'>
               {'Selecciona un Estado'}
