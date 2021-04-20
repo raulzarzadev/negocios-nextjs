@@ -33,17 +33,19 @@ export default function NavBar () {
           <ul className={styles.nav_menu_list}>
             {!profilePage && user && (
               <li className={styles.list_item}>
-                <L href="/profile">
+                <L href="/profile" arialLabel="Tu Perfil">
                   <BookmarkIcon />
                 </L>
               </li>
             )}
             <li className={styles.list_item}>
-              <L href="/about">Mas</L>
+              <L href="/about" arialLabel="Acerca de negociosdelbarrio.com">
+                Acerca de
+              </L>
             </li>
             {isLogin && (
               <li className={styles.list_item}>
-                <L href="/profile">
+                <L href="/profile" arialLabel="Tu Perfil">
                   <div
                     className={styles.avatar}
                     style={{

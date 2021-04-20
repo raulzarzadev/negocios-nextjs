@@ -1,10 +1,14 @@
 import styles from './styles.module.css'
 import Link from 'next/link'
 import PropTypes from 'prop-types'
-export function L ({ href, children, style, name = 'link' }) {
+export function L ({ href, children, style, arialLabel }) {
   return (
     <Link href={href}>
-      <a className={styles.link} style={style} name={name}>
+      <a
+        className={styles.link}
+        style={style}
+        aria-label={arialLabel}
+      >
         {children}
       </a>
     </Link>
