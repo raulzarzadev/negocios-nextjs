@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import s from './styles.module.css'
 
 export default function StateList ({ statesList = [] }) {
-  const [stateSelected, setStateSelected] = useState('BCS')
+  const [stateSelected, setStateSelected] = useState('')
   const [barrios, setBarrios] = useState([])
 
   const handleChange = (e) => {
@@ -18,6 +18,8 @@ export default function StateList ({ statesList = [] }) {
     )
     if (state) {
       setBarrios(state.barrios)
+    } else if (stateSelected === '') {
+      setStateSelected('BCS')
     }
   }, [stateSelected])
 

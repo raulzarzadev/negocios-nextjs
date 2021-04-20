@@ -9,6 +9,7 @@
   justify-content: flex-end;
   margin-top: 1rem;
   padding-right: 4px;
+  text-align: end;
 }
 .select_content select {
   width: 50%;
@@ -17,6 +18,10 @@
   color: var(--white);
   border-radius: 4px;
   text-align: end;
+  -webkit-appearance: none;
+  padding: 8px;
+  font-size: 1.5rem;
+
 }
 
 .select option {
