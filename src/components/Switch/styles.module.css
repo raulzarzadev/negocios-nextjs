@@ -5,6 +5,9 @@
 }
 .switch_content .label {
   margin: 0 4px;
+  position: absolute;
+  left: 100%;
+  top: 2px;
 }
 /* The switch - the box around the slider */
 .switch {
