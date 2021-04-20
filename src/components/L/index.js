@@ -6,7 +6,6 @@ export function L ({ href, children, style, name = 'link' }) {
     <Link href={href}>
       <a className={styles.link} style={style} name={name}>
         {children}
-
       </a>
     </Link>
   )

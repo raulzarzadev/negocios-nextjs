@@ -35,7 +35,7 @@ export default function StateList ({ statesList = [] }) {
             className={s.select}
             onChange={handleChange}
           >
-            <option value="" unselectable>
+            <option value="" unselectable='true'>
               {'Selecciona un Estado'}
             </option>
             {statesList.map((state) => (

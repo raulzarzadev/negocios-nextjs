@@ -22,16 +22,22 @@ export default function NavBar () {
       <nav className={styles.nav}>
         <div className={styles.nav_logo}>
           <L href="/">
-            <img className={styles.nav_image} src="/logotipo.png" alt="logo" />
+            <img
+              className={styles.nav_image}
+              src="/logotipo.png"
+              alt="logo"
+            />
           </L>
         </div>
         <menu className={styles.nav_menu}>
           <ul className={styles.nav_menu_list}>
-            {!profilePage && user && <li className={styles.list_item}>
-              <L href="/profile">
-                <BookmarkIcon/>
-              </L>
-            </li>}
+            {!profilePage && user && (
+              <li className={styles.list_item}>
+                <L href="/profile">
+                  <BookmarkIcon />
+                </L>
+              </li>
+            )}
             <li className={styles.list_item}>
               <L href="/about">Mas</L>
             </li>
@@ -40,7 +46,9 @@ export default function NavBar () {
                 <L href="/profile">
                   <div
                     className={styles.avatar}
-                    style={{ backgroundImage: `url(${user?.image})` }}
+                    style={{
+                      backgroundImage: `url(${user?.image})`
+                    }}
                   />
                 </L>
               </li>
