@@ -11,7 +11,7 @@
     justify-content: space-between;
     width: 90%;
     margin: 0 auto;
-    flex-wrap: wrap;
+    flex-direction: column;
 }
 
 .select_input {
@@ -32,7 +32,9 @@
 
 .contact_row {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    width: 70%;
+    margin: 0 auto;
 }
 
 .text_input {
@@ -41,6 +43,10 @@
     background-color: var(--primary);
     border: none;
     padding: 4px;
+}
+
+.text_input:disabled{
+    opacity: .5;
 }
 
 

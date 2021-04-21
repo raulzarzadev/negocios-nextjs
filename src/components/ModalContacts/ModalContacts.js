@@ -18,6 +18,7 @@ export default function ModalContacts ({ title, open, handleOpen, contacts = [],
     sufix: '',
     prefix: ''
   })
+  const formatedContacts = formatContacts(contacts)
 
   const _handleChange = (e) => {
     _setForm({
@@ -25,8 +26,6 @@ export default function ModalContacts ({ title, open, handleOpen, contacts = [],
       [e.target.name]: e.target.value
     })
   }
-  console.log('_form', _form)
-  console.log('contacts', contacts)
 
   const _handleAddContact = () => {
     setContacts([...contacts, { ..._form, value: `${_form?.prefix}${_form?.sufix}` }])
@@ -38,11 +37,13 @@ export default function ModalContacts ({ title, open, handleOpen, contacts = [],
   }, [_form?.type])
 
   useEffect(() => {
-    const contactType = CONTACT_TYPES.find(({ type }) => type === _form?.type)
-    _setForm({ ..._form, prefix: contactType?.prefix || '' })
+    const typeContactSelected = CONTACT_TYPES.find(({ type }) => type === _form?.type)
+    _setForm({
+      ..._form,
+      prefix: typeContactSelected?.prefix || ''
+    })
   }, [_form?.type])
 
-  const formatedContacts = formatContacts(contacts)
   const handleDeleteContact = (contact) => {
     const reduced = contacts.reduce((acc, curr) => {
       if (
@@ -55,6 +56,13 @@ export default function ModalContacts ({ title, open, handleOpen, contacts = [],
     }, [])
     setContacts(reduced)
   }
+
+  /* .-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'*, */
+  /*           Form validation            */
+  /* .-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'rz */
+  const sufixIsValid = !!_form?.sufix
+  const selectIsValid = !!_form?.type
+  const isValid = selectIsValid && sufixIsValid
 
   return (
     <Modal
@@ -71,30 +79,29 @@ export default function ModalContacts ({ title, open, handleOpen, contacts = [],
           )}
           {formatedContacts?.map((contact, i) => (
             <div key={i} className={s.contact_row}>
-                <div>
-                  <Tooltip text={contact.type.label}>
-                    <p>{contact.icon}</p>
-                  </Tooltip>
-                </div>
-                <div>
-                  <p>{contact.value}</p>
-                </div>
-                <Tooltip text={'Eliminar'}>
-                  <IconBtn
-                    zoomhover
-                    onClick={() =>
-                      handleDeleteContact(contact)
-                    }
-                  >
-                    <AiTwotoneDelete />
-                  </IconBtn>
+              <div>
+                <Tooltip text={contact.type.label}>
+                  <p>{contact.icon}</p>
                 </Tooltip>
+              </div>
+              <div>
+                <p>{contact.value}</p>
+              </div>
+              <Tooltip text={'Eliminar'}>
+                <IconBtn
+                  zoomhover
+                  onClick={() =>
+                    handleDeleteContact(contact)
+                  }
+                >
+                  <AiTwotoneDelete />
+                </IconBtn>
+              </Tooltip>
             </div>
           ))}
         </div>
         <div className={s.contact_input}>
           {/* select type */}
-
           <select
             value={_form?.type || ''}
             name="type"
@@ -110,20 +117,24 @@ export default function ModalContacts ({ title, open, handleOpen, contacts = [],
               </option>
             ))}
           </select>
+          <div style={{ display: 'flex' }}>
+
           {/* display sufix */}
           <div className={s.prefix}>{_form?.prefix}</div>
           {/* input value */}
           <input
-          type={_numberKeyboard ? 'tel' : 'text'}
+            type={_numberKeyboard ? 'tel' : 'text'}
             className={s.text_input}
             value={_form?.sufix || ''}
             name="sufix"
             onChange={_handleChange}
-          />
+            disabled={!selectIsValid}
+            />
+            </div>
         </div>
         <span className={s.add_contact}>
           <em>Agregar contacto</em>
-          <IconBtn onClick={_handleAddContact}>
+          <IconBtn onClick={_handleAddContact} disabled={!isValid}>
             <AiFillPlusCircle />
           </IconBtn>
         </span>

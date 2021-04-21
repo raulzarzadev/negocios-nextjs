@@ -1,6 +1,5 @@
 import Advert2 from '@comps/Advert2'
 import ColorPicker from '@comps/ColorPicker'
-import ContactInputs from '@comps/ContactInputs'
 import Modal from '@comps/Modal'
 import ModalSelectLabels from '@comps/ModalSelectLabels'
 import PrimBtn from '@comps/PrimBtn'
