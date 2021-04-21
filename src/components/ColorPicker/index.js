@@ -7,16 +7,42 @@ export default function ColorPicker ({ color, setColor }) {
   const handleOnChageComplete = (e) => {
     setColor(e.hex)
   }
+  const colorsAvailable = [
+    '#1E63E3', // light blue
+    '#2DABFA', // light blue
+    '#1ECBE3', // light blue
+    '#E38D0B', // light blue - green
+    '#76B2FB',
+    '#756BE3',
+    '#CD81FA',
+    '#E36BBB',
+    '#FF8C80',
+    '#FA9A75', // geen ling
+    '#E3CD96', // geen ling
+    '#E36E10', // geen ling
+    '#FFA71A',
+    '#E30B1E',
+    '#FAA61A',
+    '#E36E0B',
+    '#E30B53',
+    '#000000'
+  ]
   return (
     <>
       <Typography variant="h5">Color</Typography>
       <div>
         <em>Selecciona un color de fondo</em>
       </div>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center'
+        }}
+      >
         <Picker
           id="raised-button-color"
           color={color}
+          colors={colorsAvailable}
           name="backgroundColor"
           onChangeComplete={handleOnChageComplete}
         />

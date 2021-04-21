@@ -1,7 +1,6 @@
 import Advert2 from '@comps/Advert2'
 import ColorPicker from '@comps/ColorPicker'
 import Modal from '@comps/Modal'
-import ModalSelectLabels from '@comps/ModalSelectLabels'
 import PrimBtn from '@comps/PrimBtn'
 import ProgressBar from '@comps/ProgressBar'
 import { DeleteForeverOutlined } from '@material-ui/icons'
@@ -10,10 +9,13 @@ import { useEffect, useState } from 'react'
 import { useAds } from 'src/hooks/useAds'
 import ImageTools from 'src/utils/ImageTools'
 import styles from './styles.module.css'
+import ModalContacts from '@comps/ModalContacts'
+import ModalSelectLabels from '@comps/ModalSelectLabels'
+
 // TODO use hook to move this varables
 // eslint-disable-next-line camelcase
 import { fb_deleteImage, fb_uploadImage } from 'firebase/client'
-import ModalContacts from '@comps/ModalContacts'
+import ModalColorPicker from '@comps/ModalColorPicker'
 
 export default function NewAdForm ({ advert = undefined }) {
   const router = useRouter()
@@ -279,25 +281,12 @@ export default function NewAdForm ({ advert = undefined }) {
         labels={form?.labels}
         setLabels={handleSetLabels}
       />
-      {/*  <Modal
-        title="Clasifica tu anuncio"
-        open={selectLabelsModal}
-        handleOpen={handleOpenSelectLabels}
-      >
-        <SelectLabels labels={form?.labels} setLabels={handleSetLabels} />
-      </Modal> */}
-      <Modal
-        title="Selecciona un colo de fondo"
+      <ModalColorPicker
         open={selectColorModal}
         handleOpen={handleOpenSelectColor}
-      >
-        <div>
-          <ColorPicker
-            color={form?.backgroundColor}
-            setColor={handleChangeColor}
-          />
-        </div>
-      </Modal>
+        color={form?.backgroundColor}
+        setColor={handleChangeColor}
+      />
       <ModalContacts
         title="Agregar Contacto"
         open={contactsModal}
