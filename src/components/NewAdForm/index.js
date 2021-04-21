@@ -14,6 +14,7 @@ import styles from './styles.module.css'
 // TODO use hook to move this varables
 // eslint-disable-next-line camelcase
 import { fb_deleteImage, fb_uploadImage } from 'firebase/client'
+import ModalContacts from '@comps/ModalContacts'
 
 export default function NewAdForm ({ advert = undefined }) {
   const router = useRouter()
@@ -157,7 +158,7 @@ export default function NewAdForm ({ advert = undefined }) {
           <span>
             <p>Titulo:</p>
             <input
-            className={styles.input}
+              className={styles.input}
               type="text"
               name="title"
               onChange={handleChange}
@@ -167,7 +168,7 @@ export default function NewAdForm ({ advert = undefined }) {
           <span>
             <p>Contenido:</p>
             <textarea
-            className={styles.input}
+              className={styles.input}
               type="text"
               name="content"
               onChange={handleChange}
@@ -217,13 +218,19 @@ export default function NewAdForm ({ advert = undefined }) {
               handleOpenSelectColor()
             }}
           >
-            {form.backgroundColor ? 'Cambiar Color' : 'Selecciona un color'}
+            {form.backgroundColor
+              ? 'Cambiar Color'
+              : 'Selecciona un color'}
           </PrimBtn>
         </section>
         {/* IMAGES */}
         <section className={styles.section_form}>
           <h4>Imagenes</h4>
-          <PrimBtn type="file" color="secondary" onChange={handleSelectImage}>
+          <PrimBtn
+            type="file"
+            color="secondary"
+            onChange={handleSelectImage}
+          >
             {console.log(form.image)}
             {!form.image ? 'Sube una Foto' : 'Cambiar Foto'}
           </PrimBtn>
@@ -231,7 +238,9 @@ export default function NewAdForm ({ advert = undefined }) {
             <div className={styles.preview_conteier}>
               <div
                 className={styles.previewImage}
-                onClick={() => handleDeleteImage(form.image)}
+                onClick={() =>
+                  handleDeleteImage(form.image)
+                }
               >
                 <span>
                   <DeleteForeverOutlined fontSize="large" />
@@ -240,29 +249,38 @@ export default function NewAdForm ({ advert = undefined }) {
               </div>
             </div>
           )}
-          {!(uploadProgress === 100 || uploadProgress === 0) && (
-            <ProgressBar progressPorcent={uploadProgress} showPorcent />
+          {!(
+            uploadProgress === 100 || uploadProgress === 0
+          ) && (
+            <ProgressBar
+              progressPorcent={uploadProgress}
+              showPorcent
+            />
           )}
         </section>
         {/* PREVIEW ADVERT */}
         <section className={styles.section_form}>
-        <div className={styles.preview_advert}>
-          <Advert2 advert={form} form={true} />
-          <div className={styles.button_save}>
-          <PrimBtn color="secondary" disabled={disableButton} type="submit">
-            Guardar
-          </PrimBtn>
+          <div className={styles.preview_advert}>
+            <Advert2 advert={form} form={true} />
+            <div className={styles.button_save}>
+              <PrimBtn
+                color="secondary"
+                disabled={disableButton}
+                type="submit"
+              >
+                Guardar
+              </PrimBtn>
+            </div>
           </div>
-        </div>
         </section>
       </form>
-     <ModalSelectLabels
+      <ModalSelectLabels
         open={selectLabelsModal}
         handleOpen={handleOpenSelectLabels}
         labels={form?.labels}
         setLabels={handleSetLabels}
-        />
-    {/*  <Modal
+      />
+      {/*  <Modal
         title="Clasifica tu anuncio"
         open={selectLabelsModal}
         handleOpen={handleOpenSelectLabels}
@@ -281,16 +299,13 @@ export default function NewAdForm ({ advert = undefined }) {
           />
         </div>
       </Modal>
-      <Modal
-        title="Agrega un contacto"
+      <ModalContacts
+        title="Agregar Contacto"
         open={contactsModal}
         handleOpen={handleAddContact}
-      >
-        <ContactInputs
-          contacts={form?.contacts}
-          setContacts={handleSetContacts}
-        />
-      </Modal>
+        contacts={form?.contacts}
+        setContacts={handleSetContacts}
+      />
     </div>
   )
 }

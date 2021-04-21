@@ -1,0 +1,47 @@
+.add{
+    width: 100%;
+}
+.add_contact {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.contact_input {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+
+.select_input {
+    background-color: transparent;
+    background-color: var(--primary);
+    padding: 4px;
+}
+
+.select_input option {
+    background-color: var(--primary);
+}
+
+.prefix {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact_row {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.text_input {
+    width: 100%;
+    background-color: transparent;
+    background-color: var(--primary);
+    border: none;
+    padding: 4px;
+}
+
+
+

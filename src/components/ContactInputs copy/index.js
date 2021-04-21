@@ -50,11 +50,11 @@ export default function ContactInputs ({ contacts = [], setContacts }) {
   const contactType = CONTACT_TYPES.find(
     (contact) => contact.type === newContact.type
   )
-  console.log(formatedContacts)
+
   return (
     <div className={styles.contact_display}>
       <div className={styles.contacts_list}>
-        <h3>{'Lista de contactos'}</h3>
+        <h4>{'Lista de contactos'}</h4>
         {formatedContacts.length === 0 && <em>No hay contactos aún</em>}
         {formatedContacts?.map((contact, i) => (
           <div key={i}>
@@ -77,7 +77,7 @@ export default function ContactInputs ({ contacts = [], setContacts }) {
         ))}
       </div>
 
-      <h3>Nuevo contacto</h3>
+      <h4>Nuevo contacto</h4>
 
       <InputContact
         disabled={disabled}
@@ -93,7 +93,7 @@ export default function ContactInputs ({ contacts = [], setContacts }) {
       {disabled && <em>{`Maximo ${CONTACTS_MAX} contactos`}</em>}
       <div>
         <PrimBtn
-          color="primary"
+          color="secondary"
           disabled={!newContact.type || disabled}
           onClick={() => {
             addContact()
@@ -121,7 +121,6 @@ const InputContact = ({
       <div className={styles.contact_content}>
         <div className={styles.input_label}>Tipo:</div>
         <select
-        type={numberKeyboard && 'tel'}
           className={styles.input_select}
           disabled={disabled}
           name={'type'}
@@ -146,7 +145,7 @@ const InputContact = ({
         <span className={styles.input_prefix}>
           {prefix}
           <input
-          type='tel'
+            type={numberKeyboard ? 'tel' : 'text'}
             className={styles.input_text}
             // disabled={disabled || numberKeyboard}
             placeholder={placeholder}

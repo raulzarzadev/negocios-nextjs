@@ -212,7 +212,7 @@ export default function Advert ({ advert = defaulAdvert, showFavorite, admin, fo
 
 const ContactLink = ({ contact }) => {
   const hrefOptions = {
-    ws: `https://wa.me/${contact.value.replace(
+    ws: `https://wa.me/${contact?.value.replace(
       / /g,
       ''
     )}?text=Hola,%20te%20encontre%20en%20negociosdelbarrio.com%20y%20quisiera..`
@@ -221,7 +221,7 @@ const ContactLink = ({ contact }) => {
   return (
     <Tooltip text={contact?.label}>
       <IconBtn>
-        <a href={hrefOptions[contact.type] || contact.value} target="_blank" rel="noreferrer">
+        <a href={hrefOptions[contact?.type] || contact?.value} target="_blank" rel="noreferrer">
           <SvgIcon fontSize="large">{contact?.icon}</SvgIcon>
         </a>
       </IconBtn>
