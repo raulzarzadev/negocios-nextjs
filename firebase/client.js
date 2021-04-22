@@ -139,7 +139,6 @@ export const fb_getBarrio = (barrio) => {
 }
 
 export const fb_addAdvert = (advert) => {
-  console.log(advert)
   return db
     .collection('adverts')
     .add({
@@ -157,6 +156,7 @@ export const fb_addAdvert = (advert) => {
     })
     .catch((error) => {
       console.error('Error adding document: ', error)
+      return error
     })
 }
 
@@ -212,8 +212,9 @@ export const fb_editAdvert = (id, advert) => {
   const ad = db.collection('adverts').doc(id)
   return ad
     .update(advert)
-    .then((res) => res)
-    .catch((err) => console.log(err))
+    .then((res) => console.log('res', res)
+    )
+    .catch((err) => console.log('wrr', err))
 }
 
 export const fb_deleteAdvert = (id) => {

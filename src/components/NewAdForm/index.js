@@ -86,6 +86,7 @@ export default function NewAdForm ({ advert = undefined }) {
     /* --------------Edit Advert-------------- */
     if (advert?.id) {
       editAdvert(advert.id, form).then((res) => {
+        console.log('res', res)
         setTimeout(() => {
           router.push('/profile')
         }, 1000)
@@ -94,12 +95,14 @@ export default function NewAdForm ({ advert = undefined }) {
       /* --------------New Advert-------------- */
       addAdvert(form)
         .then((res) => {
+          // TODO add check ok box
+          console.log('res', res)
+
           setTimeout(() => {
             router.back()
             // router.push('/profile')
           }, 1000)
         })
-        .catch((err) => console.log(err))
     }
   }
   const handleChangeColor = (e) => {
@@ -203,7 +206,6 @@ export default function NewAdForm ({ advert = undefined }) {
               handleAddContact()
             }}
           >
-            {console.log(!!form.contacts.length)}
             {form?.contacts?.length
               ? 'Editar Contactos'
               : 'Agregar Contactos'}
@@ -232,7 +234,6 @@ export default function NewAdForm ({ advert = undefined }) {
             color="secondary"
             onChange={handleSelectImage}
           >
-            {console.log(form.image)}
             {!form.image ? 'Sube una Foto' : 'Cambiar Foto'}
           </PrimBtn>
           {form.image && (

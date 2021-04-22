@@ -21,6 +21,7 @@ export default function AdvertRow ({ ad }) {
   }
 
   const { title, publications } = ad
+
   return (
     <>
       <div className={s.dash_row} key={ad.id}>
@@ -29,9 +30,9 @@ export default function AdvertRow ({ ad }) {
         </div>
         <div className={s.table_cell}>
           <div className={s.publications}>
-            Publicaciones: <strong>{publications.length}</strong>
-            {publications.map(({ barrioId }) => (
-              <div key={barrioId} className={s.publicaciones_barrio}>
+            {publications.map(({ barrioId, active }) => (
+              <div key={barrioId} className={s.publications_barrio}
+              style={{ backgroundColor: active && 'green' }} >
                 {barrioId}
               </div>
             ))}

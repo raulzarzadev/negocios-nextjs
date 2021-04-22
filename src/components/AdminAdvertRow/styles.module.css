@@ -1,8 +1,5 @@
 
-dash_row
-table_cell
-publications
-publicaciones_barrio
+
   .table_title {
     padding: 4px;
     font-weight: 600;
@@ -22,12 +19,28 @@ publicaciones_barrio
   .dash_row {
     display: grid;
     grid-template-columns: 1fr 100px 100px;
+    background-color: var(--primary);
+    margin: 1rem 0;
+    padding: var(--space-1);
+    border-radius: var(--space-1);
   }
   
   .publications {
     font-size: 0.7rem;
     white-space: nowrap;
   }
+
+  .publications_barrio {
+    padding: 4px;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: red;
+  }
+ 
   
   .modal_advert {
     display: flex;

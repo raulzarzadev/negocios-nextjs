@@ -55,10 +55,10 @@ export function useAds () {
   }
 
   function getAdvert (id) {
-    return fb_getAdvertById(id).then((res) => res)
+    return fb_getAdvertById(id)
   }
   function editAdvert (id, advert) {
-    return fb_editAdvert(id, advert).then((res) => res)
+    return fb_editAdvert(id, advert)
   }
   function addAdvert (form) {
     const { title, content, backgroundColor, contacts, labels, image } = form
@@ -70,7 +70,7 @@ export function useAds () {
       contacts,
       labels,
       image
-    }).then((res) => res)
+    })
   }
   function deleteAdvert (id) {
     // TODO deactive all publications about it
