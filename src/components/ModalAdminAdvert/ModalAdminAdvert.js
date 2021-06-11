@@ -4,10 +4,15 @@ import { useAds } from 'src/hooks/useAds'
 import isGoodTime from 'src/utils/isGoodTime'
 import s from './styles.module.css'
 
-export default function ModalAdminAdvert ({ open, handleOpen, advert }) {
+export default function ModalAdminAdvert ({
+  open,
+  handleOpen,
+  advert
+}) {
   const { unpublishAdvert, reactivePublish } = useAds()
   const handleUnpublish = (publicationId) => {
-    unpublishAdvert(publicationId).then(res => console.log(res)
+    unpublishAdvert(publicationId).then((res) =>
+      console.log(res)
     )
   }
   const handleReactivePublish = (publicationId) => {
@@ -17,7 +22,7 @@ export default function ModalAdminAdvert ({ open, handleOpen, advert }) {
   }
 
   const { publications } = advert
-  
+
   const activesPublications = publications.filter(
     ({ active, publishEnds }) => {
       const { onTime } = isGoodTime(publishEnds)
@@ -31,12 +36,14 @@ export default function ModalAdminAdvert ({ open, handleOpen, advert }) {
       return finshOn < todayIs
     }
   )
-  
+
   const handleRepublish = () => {
     // TODO republish
     console.log('TODO republish?')
   }
-  const pausedPublications = publications.filter(({ active }) => !active)
+  const pausedPublications = publications.filter(
+    ({ active }) => !active
+  )
 
   return (
     <Modal
@@ -75,3 +82,36 @@ export default function ModalAdminAdvert ({ open, handleOpen, advert }) {
     </Modal>
   )
 }
+
+const PublicationType = ({
+  publications = [],
+  color,
+  changePublicationStatus,
+  title
+}) => (
+  <div>
+    {`${title} ${publications.length}`}
+    <div style={{ display: 'flex' }}>
+      {publications?.map(
+        ({ id, barrioId, publishEnds }) => (
+          <div
+            onClick={() => changePublicationStatus(id)}
+            key={id}
+            style={{
+              minWidth: 70,
+              margin: '4px',
+              minHeight: 20,
+              border: '1px solid',
+              backgroundColor: color,
+              display: 'flex',
+              flexDirection: 'column'
+            }}
+          >
+            <div>{barrioId}</div>
+            <div>{isGoodTime(publishEnds).fromNow}</div>
+          </div>
+        )
+      )}
+    </div>
+  </div>
+)
