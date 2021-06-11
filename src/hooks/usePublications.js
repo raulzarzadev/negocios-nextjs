@@ -3,7 +3,8 @@
 import {
   fb_getAllPublications,
   fb_getActivePublications,
-  fb_listenPublications
+  fb_listenPublications,
+  fb_getAdvertPublications
 } from 'firebase/client'
 import { useEffect, useState } from 'react'
 
@@ -21,6 +22,10 @@ export function usePublications () {
     return fb_getActivePublications()
   }
 
+  function getAdvertPublications (advertId) {
+    return fb_getAdvertPublications(advertId)
+  }
+
   function listenPublications () {
     return fb_listenPublications(function (res) {
       setPublications(res)
@@ -30,6 +35,7 @@ export function usePublications () {
   return {
     getAllPublications,
     getActivePublications,
+    getAdvertPublications,
     publications
   }
 }

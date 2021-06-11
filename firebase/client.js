@@ -212,8 +212,7 @@ export const fb_editAdvert = (id, advert) => {
   const ad = db.collection('adverts').doc(id)
   return ad
     .update(advert)
-    .then((res) => console.log('res', res)
-    )
+    .then((res) => console.log('res', res))
     .catch((err) => console.log('wrr', err))
 }
 
@@ -283,7 +282,13 @@ export const fb_reactivePublishAdvert = (id) => {
     .update({ active: true })
     .then((res) => formatResponse(200, true, 'REPUBLISHED'))
     .catch((err) =>
-      formatResponse(400, false, 'REPUBLISH_ERROR', null, err)
+      formatResponse(
+        400,
+        false,
+        'REPUBLISH_ERROR',
+        null,
+        err
+      )
     )
 }
 
@@ -361,7 +366,9 @@ export const fb_listenUserFavorites = (
     .doc(userId)
     .onSnapshot((snapshot) => {
       const emtyArrayIfFavoritesListNotExist = []
-      if (!snapshot.exists) { return callback(emtyArrayIfFavoritesListNotExist) }
+      if (!snapshot.exists) {
+        return callback(emtyArrayIfFavoritesListNotExist)
+      }
       const { favorites } = snapshot.data()
       callback(favorites)
     })
@@ -387,15 +394,23 @@ export const fb_getActivePublications = () => {
 }
 
 export const fb_listenPublications = async (cb) => {
-  return await db
+  return db
     .collection('publications')
     .onSnapshot((snapshot) => {
       const publications = snapshot.docs.map((doc) => {
         return { id: doc.id, ...doc.data() }
-      }
-      )
+      })
       cb(publications)
     })
+}
+export const fb_getAdvertPublications = async (
+  advertId
+) => {
+  const result = await db
+    .collection('publications')
+    .where('advertId', '==', advertId)
+    .get()
+  return getFirebaseDocsWithId(result)
 }
 
 /* ------------------------------------------------------------------------------------------- */

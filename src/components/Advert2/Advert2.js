@@ -18,14 +18,24 @@ import { P } from '@comps/P'
 import formatContacts from 'src/utils/formatContacts'
 import { useRouter } from 'next/router'
 import AlertFavs from '@comps/AlertFavs'
+import { EditIcon, SettingsIcon } from 'src/utils/Icons'
 
 const defaulAdvert = {
   backgroundColor: 'gray',
   labels: ['food', 'drink'],
   images: [
-    { title: ' deserunt veniam ipsum', url: 'strud ex id voluptate ' },
-    { title: ' deserunt veniam ipsum', url: 'strud ex id voluptate ' },
-    { title: ' deserunt veniam ipsum', url: 'strud ex id voluptate ' }
+    {
+      title: ' deserunt veniam ipsum',
+      url: 'strud ex id voluptate '
+    },
+    {
+      title: ' deserunt veniam ipsum',
+      url: 'strud ex id voluptate '
+    },
+    {
+      title: ' deserunt veniam ipsum',
+      url: 'strud ex id voluptate '
+    }
   ],
   title: 'strud ex id voluptate ',
   content:
@@ -37,7 +47,12 @@ const defaulAdvert = {
   ]
 }
 
-export default function Advert ({ advert = defaulAdvert, showFavorite, admin, form = false }) {
+export default function Advert ({
+  advert = defaulAdvert,
+  showFavorite,
+  admin,
+  form = false
+}) {
   const router = useRouter()
   const {
     labels,
@@ -157,7 +172,7 @@ export default function Advert ({ advert = defaulAdvert, showFavorite, admin, fo
           }}
         >
           <Image
-          alt={title}
+            alt={title}
             src={`${image || '/lotipo.png'}`}
             layout="fill"
             objectFit="cover"
@@ -168,11 +183,11 @@ export default function Advert ({ advert = defaulAdvert, showFavorite, admin, fo
           <h5>{title}</h5>
           <p>
             {content?.slice(0, 100)}
-            <BtnL
+            {/* <BtnL
               onClick={() => console.log('show details')}
             >
               <em> ver mas </em>
-            </BtnL>
+            </BtnL> */}
           </p>
         </div>
       </section>
@@ -221,14 +236,21 @@ const ContactLink = ({ contact }) => {
   return (
     <Tooltip text={contact?.label}>
       <IconBtn>
-        <a href={hrefOptions[contact?.type] || contact?.value} target="_blank" rel="noreferrer">
-          <SvgIcon fontSize="large">{contact?.icon}</SvgIcon>
+        <a
+          href={
+            hrefOptions[contact?.type] || contact?.value
+          }
+          target="_blank"
+          rel="noreferrer"
+        >
+          <SvgIcon fontSize="large">
+            {contact?.icon}
+          </SvgIcon>
         </a>
       </IconBtn>
     </Tooltip>
   )
 }
-
 const MenuAdminAd = ({
   publication,
   advertId,
@@ -236,6 +258,8 @@ const MenuAdminAd = ({
   handlePublish,
   handleUnpublish
 }) => {
+  console.log('publication', publication)
+
   const handleOpen = (e) => {
     setOpen(true)
   }
@@ -247,44 +271,9 @@ const MenuAdminAd = ({
   const [open, setOpen] = useState(false)
   return (
     <>
-      <IconBtn
-        onClick={handleOpen}
-        className={styles.open_buttom}
-        id="menu-desplegable"
-      >
-        <MenuIcon />
-        {open && (
-          <div
-            className={styles.menu_continer}
-            id="modal-container"
-            onClick={handleClose}
-          >
-            <div className={styles.menu}>
-              <ul className={styles.menu_list}>
-                <L href={`/adverts/edit/${advertId}`}>
-                  <li className={styles.menu_item}>Editar</li>
-                </L>
-                <li className={styles.menu_item} onClick={handleDeleteAd}>
-                  {' Eliminar'}
-                </li>
-                {publication
-                  ? (
-                  <li
-                    className={styles.menu_item}
-                    onClick={() => handleUnpublish(publication.id)}
-                  >{'Despublicar'}</li>
-                    )
-                  : (
-                  <li
-                    className={styles.menu_item}
-                    onClick={handlePublish}
-                  >{'Publicar'}</li>
-                    )}
-              </ul>
-            </div>
-          </div>
-        )}
-      </IconBtn>
+      <L href={`/adverts/${advertId}`}>
+        <SettingsIcon />
+      </L>
     </>
   )
 }
