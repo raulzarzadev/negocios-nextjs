@@ -1,15 +1,12 @@
 import AdvertDetails from '@comps/AdvertDetails/AdvertDetails'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import PrivateRoute from 'src/HOC/PrivateRoute'
 import { useAds } from 'src/hooks/useAds'
 
 export default function EditAdvert () {
   const [advert, setAdvert] = useState(undefined)
   const router = useRouter()
   const { getAdvert } = useAds()
-
-  
 
   useEffect(() => {
     const {
@@ -20,6 +17,6 @@ export default function EditAdvert () {
     }
   }, [router])
   return (
-    <PrivateRoute Component={AdvertDetails} advert={advert} />
+    <AdvertDetails advert={advert} />
   )
 }

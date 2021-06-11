@@ -8,15 +8,19 @@ import isGoodTime from 'src/utils/isGoodTime'
 import s from './styles.module.css'
 
 export default function AdvertDetails ({ advert }) {
-  const {
-    user: { admin }
-  } = useUser()
+  if (!advert) return 'Cargando ...'
+
+  const { user } = useUser()
+
+  const admin = user?.admin
+  console.log('admin', admin)
+
   const { getAdvertPublications } = usePublications()
   const [publications, setPublications] = useState([])
 
   useEffect(() => {
     getAdvertPublications(advert?.id).then(setPublications)
-  }, [publications])
+  }, [])
 
   const { unpublishAdvert, reactivePublish } = useAds()
   const handleUnpublish = (publicationId) => {
@@ -56,8 +60,6 @@ export default function AdvertDetails ({ advert }) {
   const handleOpenPublish = () => {
     setModalPublish(!modalPublish)
   }
-
-  if (!advert) return 'Cargando ...'
 
   return (
     <div className={s.advert_details}>

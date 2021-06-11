@@ -183,11 +183,9 @@ export default function Advert ({
           <h5>{title}</h5>
           <p>
             {content?.slice(0, 100)}
-            {/* <BtnL
-              onClick={() => console.log('show details')}
-            >
-              <em> ver mas </em>
-            </BtnL> */}
+            <L href={`/adverts/${advert?.id}`}>
+              <em> ... ver mas </em>
+            </L>
           </p>
         </div>
       </section>
