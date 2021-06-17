@@ -35,9 +35,9 @@ export default function NewAdForm ({ advert = undefined }) {
   }, [advert])
 
   /* --------------MANAGE IMAGE----------------- */
-  const [imageToUpload, setImageToUpload] = useState(null)
   const [imgURL, setImageURL] = useState(null)
   const [uploadProgress, setUploadProgress] = useState(0)
+  const [imageToUpload, setImageToUpload] = useState(null)
 
   useEffect(() => {
     if (imageToUpload) {
@@ -108,6 +108,7 @@ export default function NewAdForm ({ advert = undefined }) {
   const handleChangeColor = (e) => {
     setForm({ ...form, backgroundColor: e })
   }
+
   const handleSelectImage = (e) => {
     e.preventDefault()
     setUploadProgress(1)
