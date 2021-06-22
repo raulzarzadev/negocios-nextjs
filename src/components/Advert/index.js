@@ -22,9 +22,18 @@ const defaulAdvert = {
   backgroundColor: 'gray',
   labels: ['food', 'drink'],
   images: [
-    { title: ' deserunt veniam ipsum', url: 'strud ex id voluptate ' },
-    { title: ' deserunt veniam ipsum', url: 'strud ex id voluptate ' },
-    { title: ' deserunt veniam ipsum', url: 'strud ex id voluptate ' }
+    {
+      title: ' deserunt veniam ipsum',
+      url: 'strud ex id voluptate '
+    },
+    {
+      title: ' deserunt veniam ipsum',
+      url: 'strud ex id voluptate '
+    },
+    {
+      title: ' deserunt veniam ipsum',
+      url: 'strud ex id voluptate '
+    }
   ],
   title: 'strud ex id voluptate ',
   content:
@@ -36,7 +45,12 @@ const defaulAdvert = {
   ]
 }
 
-export default function Advert ({ advert = defaulAdvert, showFavorite, admin, form = false }) {
+export default function Advert ({
+  advert = defaulAdvert,
+  showFavorite,
+  admin,
+  form = false
+}) {
   const router = useRouter()
   const {
     labels,
@@ -89,10 +103,17 @@ export default function Advert ({ advert = defaulAdvert, showFavorite, admin, fo
   }
 
   return (
-    <div style={{ backgroundColor }} className={styles.advert}>
+    <div
+      style={{ backgroundColor }}
+      className={styles.advert}
+    >
       <header className={styles.header}>
         {chips?.map((chip, i) => (
-          <Tooltip key={i} text={chip?.label} position="left">
+          <Tooltip
+            key={i}
+            text={chip?.label}
+            position="left"
+          >
             <SvgIcon>{chip?.icon}</SvgIcon>
           </Tooltip>
         ))}
@@ -102,14 +123,20 @@ export default function Advert ({ advert = defaulAdvert, showFavorite, admin, fo
             <div>
               {favorite
                 ? (
-                <Tooltip text="Eliminar de favoritos" position="right">
+                <Tooltip
+                  text="Eliminar de favoritos"
+                  position="right"
+                >
                   <IconBtn onClick={handleRemoveFavorite}>
                     <BookmarkIcon />
                   </IconBtn>
                 </Tooltip>
                   )
                 : (
-                <Tooltip text="Agregar a favoritos" position="right">
+                <Tooltip
+                  text="Agregar a favoritos"
+                  position="right"
+                >
                   <IconBtn onClick={handleAddFavorite}>
                     <BookmarkBorderIcon />
                   </IconBtn>
@@ -133,7 +160,9 @@ export default function Advert ({ advert = defaulAdvert, showFavorite, admin, fo
         <div className={styles.body_images}>
           <div
             style={{
-              backgroundImage: `url(${image || '/logotipo.png'})`
+              backgroundImage: `url(${
+                image || '/logotipo.png'
+              })`
             }}
             className={styles.image}
           />
@@ -142,10 +171,10 @@ export default function Advert ({ advert = defaulAdvert, showFavorite, admin, fo
         <div className={styles.body_content}>
           <h4>{title}</h4>
           <P size="small">
-            {content?.slice(0, 100)}
-            <BtnL onClick={() => console.log('show details')}>
+            <pre>{content}</pre>
+            {/*  <BtnL onClick={() => console.log('show details')}>
               <em> ver mas </em>
-            </BtnL>
+            </BtnL> */}
           </P>
         </div>
       </section>
@@ -156,10 +185,15 @@ export default function Advert ({ advert = defaulAdvert, showFavorite, admin, fo
           ))}
         </div>
         {/* MODALES */}
-        <Modal open={openDelete} handleOpen={handleOpenDelete}>
+        <Modal
+          open={openDelete}
+          handleOpen={handleOpenDelete}
+        >
           <div>
             <P>{'Eliminar anuncio'}</P>
-            <button onClick={handleDeleteAd}>Eliminar</button>
+            <button onClick={handleDeleteAd}>
+              Eliminar
+            </button>
           </div>
         </Modal>
         <ModalPubish
@@ -183,8 +217,14 @@ const ContactLink = ({ contact }) => {
   return (
     <Tooltip text={contact?.label}>
       <IconBtn>
-        <a href={hrefOptions[contact.type] || contact.value} target="_blank" rel="noreferrer">
-          <SvgIcon fontSize="large">{contact?.icon}</SvgIcon>
+        <a
+          href={hrefOptions[contact.type] || contact.value}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <SvgIcon fontSize="large">
+            {contact?.icon}
+          </SvgIcon>
         </a>
       </IconBtn>
     </Tooltip>
@@ -224,23 +264,34 @@ const MenuAdminAd = ({
             <div className={styles.menu}>
               <ul className={styles.menu_list}>
                 <L href={`/adverts/edit/${advertId}`}>
-                  <li className={styles.menu_item}>Editar</li>
+                  <li className={styles.menu_item}>
+                    Editar
+                  </li>
                 </L>
-                <li className={styles.menu_item} onClick={handleDeleteAd}>
+                <li
+                  className={styles.menu_item}
+                  onClick={handleDeleteAd}
+                >
                   {' Eliminar'}
                 </li>
                 {publication
                   ? (
                   <li
                     className={styles.menu_item}
-                    onClick={() => handleUnpublish(publication.id)}
-                  >{'Despublicar'}</li>
+                    onClick={() =>
+                      handleUnpublish(publication.id)
+                    }
+                  >
+                    {'Despublicar'}
+                  </li>
                     )
                   : (
                   <li
                     className={styles.menu_item}
                     onClick={handlePublish}
-                  >{'Publicar'}</li>
+                  >
+                    {'Publicar'}
+                  </li>
                     )}
               </ul>
             </div>

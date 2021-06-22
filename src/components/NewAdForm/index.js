@@ -10,7 +10,10 @@ import styles from './styles.module.css'
 
 // TODO use hook to move this varables
 // eslint-disable-next-line camelcase
-import { fb_deleteImage, fb_uploadImage } from 'firebase/client'
+import {
+  fb_deleteImage,
+  fb_uploadImage
+} from 'firebase/client'
 import ICONS from 'src/utils/Icons2'
 import ModalColorPicker from '@comps/Modals/ModalColorPicker'
 import ModalContacts from '@comps/Modals/ModalContacts'
@@ -42,16 +45,25 @@ export default function NewAdForm ({ advert = undefined }) {
   useEffect(() => {
     if (imageToUpload) {
       const onProgress = (e) => {
-        const progress = (e.bytesTransferred / e.totalBytes).toFixed(1) * 100
+        const progress =
+          (e.bytesTransferred / e.totalBytes).toFixed(1) *
+          100
         setUploadProgress(progress)
         console.log('progess', progress + '%')
       }
       const onError = (e) => console.log('error', e)
       const onComplete = (e) => {
-        imageToUpload.snapshot.ref.getDownloadURL().then(setImageURL)
+        imageToUpload.snapshot.ref
+          .getDownloadURL()
+          .then(setImageURL)
         console.log('complete', e)
       }
-      imageToUpload.on('state_change', onProgress, onError, onComplete)
+      imageToUpload.on(
+        'state_change',
+        onProgress,
+        onError,
+        onComplete
+      )
     }
   }, [imageToUpload])
 
@@ -69,8 +81,13 @@ export default function NewAdForm ({ advert = undefined }) {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
-  const [selectLabelsModal, setSelectLabelsModal] = useState(false)
-  const [selectColorModal, setSelectColorModal] = useState(false)
+  const [
+    selectLabelsModal,
+    setSelectLabelsModal
+  ] = useState(false)
+  const [selectColorModal, setSelectColorModal] = useState(
+    false
+  )
   const handleOpenSelectColor = () => {
     setSelectColorModal(!selectColorModal)
   }
@@ -93,16 +110,15 @@ export default function NewAdForm ({ advert = undefined }) {
       })
     } else {
       /* --------------New Advert-------------- */
-      addAdvert(form)
-        .then((res) => {
-          // TODO add check ok box
-          console.log('res', res)
+      addAdvert(form).then((res) => {
+        // TODO add check ok box
+        console.log('res', res)
 
-          setTimeout(() => {
-            router.back()
-            // router.push('/profile')
-          }, 1000)
-        })
+        setTimeout(() => {
+          router.back()
+          // router.push('/profile')
+        }, 1000)
+      })
     }
   }
   const handleChangeColor = (e) => {
@@ -197,12 +213,12 @@ export default function NewAdForm ({ advert = undefined }) {
               e.preventDefault()
               handleOpenSelectLabels()
             }}
-            >
+          >
             {'Clasificacón'}
             <ICONS.ClassBy size={IconSize} />
           </PrimBtn>
         </section>
-            {/* UBICACIÓN */}
+        {/* UBICACIÓN */}
         <section className={styles.section_form}>
           <PrimBtn
             color="secondary"
@@ -274,22 +290,22 @@ export default function NewAdForm ({ advert = undefined }) {
             />
           )}
         </section>
-        {/* PREVIEW ADVERT */}
-        <section className={styles.section_form}>
-          <div className={styles.preview_advert}>
-            <Advert2 advert={form} form={true} />
-            <div className={styles.button_save}>
-              <PrimBtn
-                color="secondary"
-                disabled={disableButton}
-                type="submit"
-              >
-                Guardar
-              </PrimBtn>
-            </div>
+          <div className={styles.button_save}>
+            <PrimBtn
+              color="primary"
+              disabled={disableButton}
+              type="submit"
+            >
+              Guardar
+            </PrimBtn>
           </div>
-        </section>
       </form>
+      {/* PREVIEW ADVERT */}
+      <section className={styles.section_form}>
+        <div className={styles.preview_advert}>
+          <Advert2 advert={form} form={true} />
+        </div>
+      </section>
       <ModalSelectLocation
         open={locationModal}
         handleOpen={handleOpenLocation}

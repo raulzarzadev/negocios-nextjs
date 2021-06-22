@@ -1,7 +1,7 @@
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder'
 import BookmarkIcon from '@material-ui/icons/Bookmark'
 import Image from 'next/image'
-import { SvgIcon } from '@material-ui/core'
+import { Icon, SvgIcon } from '@material-ui/core'
 import { CHIP_LABELS } from 'CONST/CHIPS_LABELS'
 
 import styles from './styles.module.css'
@@ -18,6 +18,7 @@ import { useRouter } from 'next/router'
 import { SettingsIcon } from 'src/utils/Icons'
 import AlertFavs from '@comps/Modals/AlertFavs'
 import ModalPubish from '@comps/Modals/ModalPublish'
+import ICONS from 'src/utils/Icons2'
 
 const defaulAdvert = {
   backgroundColor: 'gray',
@@ -61,7 +62,8 @@ export default function Advert ({
     contacts,
     backgroundColor,
     id,
-    publication
+    publication,
+    location
   } = advert
 
   const {
@@ -190,6 +192,10 @@ export default function Advert ({
       </section>
       <footer className={styles.footer}>
         <div className={styles.contacts}>
+          {location && <a href={location} target='_blank' rel="noreferrer">
+            <ICONS.Location/>
+            </a>
+            }
           {contactLinks?.map((contact, i) => (
             <ContactLink contact={contact} key={i} />
           ))}
