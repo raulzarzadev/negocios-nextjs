@@ -1,5 +1,5 @@
 
-import Modal from '@comps/Modal'
+import Modal from '@comps/Modals/Modal'
 import SelectLabels from '@comps/SelectLabels'
 import s from './styles.module.css'
 

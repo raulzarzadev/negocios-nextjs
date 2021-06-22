@@ -8,15 +8,15 @@ import { CHIP_LABELS } from 'CONST/CHIPS_LABELS'
 import styles from './styles.module.css'
 import { useState } from 'react'
 import { BtnL, L } from '@comps/L'
-import Modal from '@comps/Modal'
+import Modal from '@comps/Modals/Modal'
 import { useAds } from 'src/hooks/useAds'
-import ModalPubish from '@comps/ModalPublish'
 import { useUser } from 'src/context/UserContext'
 import IconBtn from '@comps/IconBtn'
 import Tooltip from '@comps/Tooltip'
 import { P } from '@comps/P'
 import formatContacts from 'src/utils/formatContacts'
 import { useRouter } from 'next/router'
+import ModalPubish from '@comps/Modals/ModalPublish'
 
 const defaulAdvert = {
   backgroundColor: 'gray',

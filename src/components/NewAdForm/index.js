@@ -1,6 +1,4 @@
 import Advert2 from '@comps/Advert2'
-import ColorPicker from '@comps/ColorPicker'
-import Modal from '@comps/Modal'
 import PrimBtn from '@comps/PrimBtn'
 import ProgressBar from '@comps/ProgressBar'
 import { DeleteForeverOutlined } from '@material-ui/icons'
@@ -9,13 +7,15 @@ import { useEffect, useState } from 'react'
 import { useAds } from 'src/hooks/useAds'
 import ImageTools from 'src/utils/ImageTools'
 import styles from './styles.module.css'
-import ModalContacts from '@comps/ModalContacts'
-import ModalSelectLabels from '@comps/ModalSelectLabels'
 
 // TODO use hook to move this varables
 // eslint-disable-next-line camelcase
 import { fb_deleteImage, fb_uploadImage } from 'firebase/client'
-import ModalColorPicker from '@comps/ModalColorPicker'
+import ICONS from 'src/utils/Icons2'
+import ModalColorPicker from '@comps/Modals/ModalColorPicker'
+import ModalContacts from '@comps/Modals/ModalContacts'
+import ModalSelectLocation from '@comps/Modals/ModalSelectLocation'
+import ModalSelectLabels from '@comps/Modals/ModalSelectLabels'
 
 export default function NewAdForm ({ advert = undefined }) {
   const router = useRouter()
@@ -145,7 +145,14 @@ export default function NewAdForm ({ advert = undefined }) {
     setForm({ ...form, labels: e })
   }
 
+  const [locationModal, setLocationModal] = useState(false)
+
+  const handleOpenLocation = () => {
+    setLocationModal(!locationModal)
+  }
+
   const disableButton = !form?.title
+  const IconSize = '1.5rem'
   return (
     <div className={styles.form_container}>
       <h3>Nuevo Anuncio</h3>
@@ -184,22 +191,32 @@ export default function NewAdForm ({ advert = undefined }) {
         </section>
         {/* CLASIFICATION */}
         <section className={styles.section_form}>
-          <h4>Clasificación</h4>
           <PrimBtn
             color="secondary"
             onClick={(e) => {
               e.preventDefault()
               handleOpenSelectLabels()
             }}
+            >
+            {'Clasificacón'}
+            <ICONS.ClassBy size={IconSize} />
+          </PrimBtn>
+        </section>
+            {/* UBICACIÓN */}
+        <section className={styles.section_form}>
+          <PrimBtn
+            color="secondary"
+            onClick={(e) => {
+              e.preventDefault()
+              handleOpenLocation()
+            }}
           >
-            {form?.labels?.length
-              ? 'Editar clasificacón'
-              : 'Clasifica tu anuncio'}
+            {'Ubicación'}
+            <ICONS.Location size={IconSize} />
           </PrimBtn>
         </section>
         {/* CONTACTS */}
         <section className={styles.section_form}>
-          <h4>Contactos</h4>
           <PrimBtn
             color="secondary"
             onClick={(e) => {
@@ -207,14 +224,11 @@ export default function NewAdForm ({ advert = undefined }) {
               handleAddContact()
             }}
           >
-            {form?.contacts?.length
-              ? 'Editar Contactos'
-              : 'Agregar Contactos'}
+            {'Contactos '} <ICONS.Contacs size={IconSize} />
           </PrimBtn>
         </section>
         {/* COLOR */}
         <section className={styles.section_form}>
-          <h4>Color</h4>
           <PrimBtn
             color="secondary"
             onClick={(e) => {
@@ -222,20 +236,19 @@ export default function NewAdForm ({ advert = undefined }) {
               handleOpenSelectColor()
             }}
           >
-            {form.backgroundColor
-              ? 'Cambiar Color'
-              : 'Selecciona un color'}
+            {'Fondo '}
+            <ICONS.Color size={IconSize} />
           </PrimBtn>
         </section>
         {/* IMAGES */}
         <section className={styles.section_form}>
-          <h4>Imagenes</h4>
           <PrimBtn
             type="file"
             color="secondary"
             onChange={handleSelectImage}
           >
-            {!form.image ? 'Sube una Foto' : 'Cambiar Foto'}
+            {'Imagenes '}
+            <ICONS.Images size={IconSize} />
           </PrimBtn>
           {form.image && (
             <div className={styles.preview_conteier}>
@@ -277,6 +290,14 @@ export default function NewAdForm ({ advert = undefined }) {
           </div>
         </section>
       </form>
+      <ModalSelectLocation
+        open={locationModal}
+        handleOpen={handleOpenLocation}
+        location={form?.location}
+        setLocation={(location) =>
+          setForm({ ...form, location })
+        }
+      />
       <ModalSelectLabels
         open={selectLabelsModal}
         handleOpen={handleOpenSelectLabels}

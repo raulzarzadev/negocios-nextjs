@@ -1,18 +1,21 @@
 .button {
-  display: block;
+  display: flex;
   overflow: hidden;
   padding: var(--space-1);
   position: relative;
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
-  font-size: var(--font-button-1);
+  font-size: var(--font-md);
   width: 100%;
   transition: 0.3s;
   cursor: pointer;
   border-radius: var(--space-1);
   border: none;
   box-shadow: var(--shadow-1);
+  color:#fff;
+  justify-content: space-evenly;
+  align-items: center;
   
 }
 .button[color='primary'] {

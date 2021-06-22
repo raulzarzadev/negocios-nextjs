@@ -1,5 +1,5 @@
 
-import Modal from '@comps/Modal'
+import Modal from '@comps/Modals/Modal'
 import s from './styles.module.css'
 import {
   AiFillPlusCircle,

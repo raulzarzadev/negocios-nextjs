@@ -1,5 +1,5 @@
 import Advert2 from '@comps/Advert2'
-import Modal from '@comps/Modal'
+import Modal from '@comps/Modals/Modal'
 import { useAds } from 'src/hooks/useAds'
 import isGoodTime from 'src/utils/isGoodTime'
 import s from './styles.module.css'

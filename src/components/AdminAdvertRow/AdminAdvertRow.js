@@ -7,7 +7,7 @@ import s from './styles.module.css'
 
 import EditIcon from '@material-ui/icons/Edit'
 import SettingsApplicationsIcon from '@material-ui/icons/SettingsApplications'
-import ModalAdminAdvert from '@comps/ModalAdminAdvert'
+import ModalAdminAdvert from '@comps/Modals/ModalAdminAdvert'
 
 export default function AdvertRow ({ ad }) {
   const router = useRouter()

@@ -1,4 +1,4 @@
-import Modal from '@comps/Modal'
+import Modal from '@comps/Modals/Modal'
 import React, { useEffect, useState } from 'react'
 import { useAds } from 'src/hooks/useAds'
 import { useBarrios } from 'src/hooks/useBarrios'

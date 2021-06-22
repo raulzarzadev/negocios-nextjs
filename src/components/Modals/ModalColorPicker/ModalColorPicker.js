@@ -1,7 +1,6 @@
 
 import ColorPicker from '@comps/ColorPicker'
-import Modal from '@comps/Modal'
-import s from './styles.module.css'
+import Modal from '@comps/Modals/Modal'
 
 export default function ModalColorPicker ({ open, handleOpen, color, setColor }) {
   return (

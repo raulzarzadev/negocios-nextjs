@@ -1,5 +1,4 @@
 import Link from '@comps/Link'
-import Switch from '@comps/Switch'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import s from './styles.module.css'
@@ -29,9 +28,9 @@ export default function StateList ({ statesList = [] }) {
       <title>Barrios - {stateSelected || 'Home'}</title>
     </Head>
       <div className={s.state_list}>
-        <div className={s.location}>
+        {/* <div className={s.location}>
           <Switch label="Ubicacón" disabled name='location-active'/>
-        </div>
+        </div> */}
         <div className={s.select_content}>
           <select
             className={s.select}
