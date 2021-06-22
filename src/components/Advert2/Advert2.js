@@ -51,6 +51,7 @@ export default function Advert ({
   advert = defaulAdvert,
   showFavorite,
   admin,
+  edit,
   form = false
 }) {
   const router = useRouter()
@@ -135,9 +136,9 @@ export default function Advert ({
                   text="Eliminar de favoritos"
                   position="right"
                 >
-                  <IconBtn onClick={handleRemoveFavorite}>
+                  <div onClick={handleRemoveFavorite}>
                     <BookmarkIcon />
-                  </IconBtn>
+                  </div>
                 </Tooltip>
                   )
                 : (
@@ -145,13 +146,14 @@ export default function Advert ({
                   text="Agregar a favoritos"
                   position="right"
                 >
-                  <IconBtn onClick={handleAddFavorite}>
+                  <div onClick={handleAddFavorite}>
                     <BookmarkBorderIcon />
-                  </IconBtn>
+                  </div>
                 </Tooltip>
                   )}
             </div>
           )}
+          {edit && <L href={`/adverts/edit/${id}`}><ICONS.Edit/></L>}
           {admin && (
             <MenuAdminAd
               publication={publication}
@@ -182,18 +184,16 @@ export default function Advert ({
         {/* ---------------------------------IMAGE---------------------------------- */}
         <div className={styles.body_content}>
           <h5>{title}</h5>
-          <p>
-            {content?.slice(0, 100)}
-            <L href={`/adverts/${advert?.id}`}>
-              <em> ... ver mas </em>
-            </L>
-          </p>
+          <pre className={styles.pre}>
+            {content}
+
+          </pre>
         </div>
       </section>
       <footer className={styles.footer}>
         <div className={styles.contacts}>
           {location && <a href={location} target='_blank' rel="noreferrer">
-            <ICONS.Location/>
+            <ICONS.Location size='2rem'/>
             </a>
             }
           {contactLinks?.map((contact, i) => (
@@ -238,7 +238,6 @@ const ContactLink = ({ contact }) => {
 
   return (
     <Tooltip text={contact?.label}>
-      <IconBtn>
         <a
           href={
             hrefOptions[contact?.type] || contact?.value
@@ -250,7 +249,6 @@ const ContactLink = ({ contact }) => {
             {contact?.icon}
           </SvgIcon>
         </a>
-      </IconBtn>
     </Tooltip>
   )
 }

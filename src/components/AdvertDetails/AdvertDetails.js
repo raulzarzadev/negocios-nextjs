@@ -101,8 +101,8 @@ export default function AdvertDetails ({ advert }) {
           ))}
         </div>
       )}
-      <div>
-        <Advert advert={advert} />
+      <div className={s.adverts}>
+        <Advert edit advert={advert} />
       </div>
     </div>
   )

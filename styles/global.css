@@ -56,15 +56,15 @@ p {
 /* .-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'rz */
 
 :root {
-    --primary:#003049;
-    --primary-light:#0171ad;
+    --primary:#597a24;
+    --primary-light:#bbda4e;
     --secondary:#f77f00;
     --danger: #d62828;
     --warning:#fcbf49;
     --success: #fcdf39;
     --white: #fff;
-    --black:#000;
-    --white: #fff;
+    --black:rgb(238, 238, 238);
+    --white: rgb(53, 24, 24);
 
     --space-1: 8px;
     --space-2: 16px;

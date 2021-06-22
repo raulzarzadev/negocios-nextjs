@@ -6,11 +6,11 @@
   min-width: 300px;
   max-width: 100%;
   margin-top: 2rem;
-  border: 1px solid var(--white);
   box-shadow: var(--shadow-in), var(--shadow-1);
+  border-radius: 8px;
 }
 .header {
-  padding: 0 4px;
+  padding: 8px 4px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -53,12 +53,12 @@
   justify-content: space-evenly;
   align-items: center;
 }
-
+/* 
 @media (min-width: 600px) {
   .advert {
     border-radius: 1rem;
   }
-}
+} */
 
 /* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
 /* ------------------  Advert Menu ---------------- */
@@ -94,4 +94,9 @@
 }
 .menu_item:hover {
   box-shadow: var(--shadow-1);
+}
+
+.pre {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  white-space: pre-wrap;
 }
