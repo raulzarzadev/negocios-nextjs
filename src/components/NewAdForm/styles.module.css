@@ -6,12 +6,21 @@
   min-height: 70vh;
   padding: 4px;
   margin: 2rem 0;
+  width: 100%;
+  max-width: 350px;
+  margin: 0 auto;
 }
 
-.input {
+.input_title {
   width: 100%;
 }
+.input_content {
+  width: 100%;
+  resize: none;
+  
+}
 .section_form {
+  width: 100%;
   text-align: center;
   padding: 4px;
 }
@@ -55,6 +64,7 @@
 
 .preview_advert{
   width: 300px;
+  margin: 0 auto;
 }
 
 .button_save{

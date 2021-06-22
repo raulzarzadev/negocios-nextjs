@@ -5,7 +5,7 @@ export default function Footer () {
   return (
     <footer className={s.footer}>
       <span>
-        Una app desarrollada por <Link href="https://raulzarza.com">RZ</Link>
+        Una app de <Link href="https://raulzarza.com">RZ</Link>
       </span>
     </footer>
   )

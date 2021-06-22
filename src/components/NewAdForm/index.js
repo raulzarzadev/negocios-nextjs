@@ -170,40 +170,38 @@ export default function NewAdForm ({ advert = undefined }) {
   const disableButton = !form?.title
   const IconSize = '1.5rem'
   return (
-    <div className={styles.form_container}>
-      <h3>Nuevo Anuncio</h3>
+    <div >
       {/* NEW ADVERT */}
       <form
         onSubmit={(e) => {
           e.preventDefault()
           handleSubmit(form)
         }}
-      >
+        className={styles.form_container}
+        >
+        <h3>Nuevo Anuncio</h3>
         <section className={styles.section_form}>
           {/* IMAGE */}
 
           {/* TITLE AND CONTENT */}
-          <span>
             <p>Titulo:</p>
             <input
-              className={styles.input}
+              className={styles.input_title}
               type="text"
               name="title"
               onChange={handleChange}
               value={form?.title || ''}
             />
-          </span>
-          <span>
+
             <p>Contenido:</p>
             <textarea
-              className={styles.input}
+              className={styles.input_content}
               type="text"
               name="content"
               onChange={handleChange}
-              rows={3}
               value={form?.content || ''}
+              rows={5}
             />
-          </span>
         </section>
         {/* CLASIFICATION */}
         <section className={styles.section_form}>
@@ -301,10 +299,8 @@ export default function NewAdForm ({ advert = undefined }) {
           </div>
       </form>
       {/* PREVIEW ADVERT */}
-      <section className={styles.section_form}>
-        <div className={styles.preview_advert}>
+      <section className={styles.preview_advert}>
           <Advert2 advert={form} form={true} />
-        </div>
       </section>
       <ModalSelectLocation
         open={locationModal}

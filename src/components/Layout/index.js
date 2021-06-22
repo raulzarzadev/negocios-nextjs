@@ -1,7 +1,7 @@
 import styles from './styles.module.css'
 import Head from 'next/head'
 import NavBar from './NavBar'
-import Footer from '@comps/Footer'
+import Footer from '@comps/Layout/Footer'
 
 export default function Layout ({ children }) {
   return (
