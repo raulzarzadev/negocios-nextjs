@@ -8,7 +8,7 @@ export default function ColorPicker ({ color, setColor }) {
     setColor(e.hex)
   }
   const colorsAvailable = [
-    ' rgba(0, 0, 0, .0)', // light blue
+    '   ', // light blue
     '#000000',
     '#ffffff',
     '#2DABFA', // light blue

@@ -5,13 +5,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-}ct
+}
 .contact_input {
     display: flex;
     justify-content: space-between;
     width: 90%;
     margin: 0 auto;
-    flex-direction: column;
 }
 
 .select_input {
@@ -20,7 +19,7 @@
     padding: 4px;
 }
 
-.select_input option {
+.select_icon option {
     background-color: var(--primary);
 }
 
