@@ -8,7 +8,9 @@ export default function ColorPicker ({ color, setColor }) {
     setColor(e.hex)
   }
   const colorsAvailable = [
-    '#1E63E3', // light blue
+    ' rgba(0, 0, 0, .0)', // light blue
+    '#000000',
+    '#ffffff',
     '#2DABFA', // light blue
     '#1ECBE3', // light blue
     '#E38D0B', // light blue - green
@@ -24,8 +26,7 @@ export default function ColorPicker ({ color, setColor }) {
     '#E30B1E',
     '#FAA61A',
     '#E36E0B',
-    '#E30B53',
-    '#000000'
+    '#E30B53'
   ]
   return (
     <>

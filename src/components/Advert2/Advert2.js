@@ -113,7 +113,7 @@ export default function Advert ({
 
   return (
     <div
-      style={{ backgroundColor }}
+      // style={{ backgroundColor }}
       className={styles.advert}
     >
       <header className={styles.header}>
