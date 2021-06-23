@@ -233,7 +233,8 @@ const ContactLink = ({ contact }) => {
     ws: `https://wa.me/${contact?.value.replace(
       / /g,
       ''
-    )}?text=Hola,%20te%20encontre%20en%20negociosdelbarrio.com%20y%20quisiera..`
+    )}?text=Hola,%20te%20encontre%20en%20negociosdelbarrio.com%20y%20quisiera..`,
+    tel: 'tel:+52'
   }
 
   return (
