@@ -30,7 +30,7 @@
     white-space: nowrap;
   }
 
-  .publications_barrio {
+  .publication {
     padding: 4px;
     border-radius: 50%;
     width: 25px;
@@ -38,8 +38,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: red;
   }
+  .publication[publication='active']{
+    background-color: var(--success);
+  }
+  .publication[publication='not-active']{
+    background-color: var(--danger);
+  }
+  .publication[publication='not-published']{
+     background-color: var(--black);
+  }
+
  
   
   .modal_advert {

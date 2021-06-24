@@ -8,14 +8,17 @@ export default function EditAdvert () {
   const router = useRouter()
   const { getAdvert } = useAds()
 
+  const {
+    query: { id }
+  } = router
+  console.log('id', id)
+
   useEffect(() => {
-    const {
-      query: { id }
-    } = router
     if (id) {
       getAdvert(id).then(setAdvert)
     }
-  }, [router])
+  }, [id])
+
   return (
     <AdvertDetails advert={advert} />
   )

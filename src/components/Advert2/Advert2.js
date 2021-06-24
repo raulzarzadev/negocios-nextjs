@@ -10,7 +10,6 @@ import { L } from '@comps/L'
 import Modal from '@comps/Modals/Modal'
 import { useAds } from 'src/hooks/useAds'
 import { useUser } from 'src/context/UserContext'
-import IconBtn from '@comps/IconBtn'
 import Tooltip from '@comps/Tooltip'
 import { P } from '@comps/P'
 import formatContacts from 'src/utils/formatContacts'
@@ -260,8 +259,6 @@ const MenuAdminAd = ({
   handlePublish,
   handleUnpublish
 }) => {
-  console.log('publication', publication)
-
   const handleOpen = (e) => {
     setOpen(true)
   }

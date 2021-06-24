@@ -1,14 +1,8 @@
-import Advert2 from '@comps/Advert2'
-import Modal from '@comps/Modals/Modal'
 import { useAds } from 'src/hooks/useAds'
 import isGoodTime from 'src/utils/isGoodTime'
 import s from './styles.module.css'
 
-export default function ModalAdminAdvert ({
-  open,
-  handleOpen,
-  advert
-}) {
+export default function AdminPublicationsAdvert ({ publications }) {
   const { unpublishAdvert, reactivePublish } = useAds()
   const handleUnpublish = (publicationId) => {
     unpublishAdvert(publicationId).then((res) =>
@@ -21,15 +15,13 @@ export default function ModalAdminAdvert ({
     )
   }
 
-  const { publications } = advert
-
-  const activesPublications = publications.filter(
+  const activesPublications = publications?.filter(
     ({ active, publishEnds }) => {
       const { onTime } = isGoodTime(publishEnds)
       return active && onTime
     }
   )
-  const finishedPublications = publications.filter(
+  const finishedPublications = publications?.filter(
     ({ publishEnds }) => {
       const finshOn = new Date(publishEnds).getTime()
       const todayIs = new Date().getTime()
@@ -38,48 +30,38 @@ export default function ModalAdminAdvert ({
   )
 
   const handleRepublish = () => {
-    // TODO republish
     console.log('TODO republish?')
   }
-  const pausedPublications = publications.filter(
+  const pausedPublications = publications?.filter(
     ({ active }) => !active
   )
 
   return (
-    <Modal
-      title="Configuraciones de anuncio"
-      open={open}
-      handleOpen={handleOpen}
-    >
-      <div className={s.modal_advert}>
-        <div className={s.modal_options}>
-          Publicaciones
-          <div className={s.details}>
-            <PublicationType
-              title="Activas"
-              publications={activesPublications}
-              color="green"
-              changePublicationStatus={handleUnpublish}
-            />
-            <PublicationType
-              title="Pausadas"
-              publications={pausedPublications}
-              color="red"
-              changePublicationStatus={
-                handleReactivePublish
-              }
-            />
-            <PublicationType
-              title="Terminadas"
-              publications={finishedPublications}
-              color="black"
-              changePublicationStatus={handleRepublish}
-            />
-          </div>
+    <div className={s.modal_advert}>
+      <div className={s.modal_options}>
+        Publicaciones
+        <div className={s.details}>
+          <PublicationType
+            title="Activas"
+            publications={activesPublications}
+            color="green"
+            changePublicationStatus={handleUnpublish}
+          />
+          <PublicationType
+            title="Pausadas"
+            publications={pausedPublications}
+            color="red"
+            changePublicationStatus={handleReactivePublish}
+          />
+          <PublicationType
+            title="Terminadas"
+            publications={finishedPublications}
+            color="black"
+            changePublicationStatus={handleRepublish}
+          />
         </div>
-        <Advert2 advert={advert} admin />
       </div>
-    </Modal>
+    </div>
   )
 }
 
