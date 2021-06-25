@@ -1,9 +1,9 @@
 import { L } from '@comps/L'
 import { useEffect, useState } from 'react'
-import { useUser } from 'src/context/UserContext'
 import styles from './styles.module.css'
 import BookmarkIcon from '@material-ui/icons/Bookmark'
 import { useRouter } from 'next/router'
+import useUser from 'src/context/UserContext'
 
 export default function NavBar () {
   const { user } = useUser()

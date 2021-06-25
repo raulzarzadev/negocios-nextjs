@@ -15,7 +15,7 @@ import {
   fb_removeFavorite,
   fb_reactivePublishAdvert
 } from 'firebase/client'
-import { useUser } from 'src/context/UserContext'
+import useUser from 'src/context/UserContext'
 
 export function useAds () {
   const { user } = useUser()

@@ -1,7 +1,7 @@
 import ButtonGoogle from '@comps/ButtonGoogle'
 import Modal from '@comps/Modals/Modal'
 import { loginWithGoogle } from 'firebase/client'
-import { useUser } from 'src/context/UserContext'
+import useUser from 'src/context/UserContext'
 import s from './styles.module.css'
 
 export default function AlertFavs ({ open, handleOpen }) {

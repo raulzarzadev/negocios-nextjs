@@ -134,8 +134,8 @@ export default function NewAdForm ({ advert = undefined }) {
       ImageTools.resize(
         image,
         {
-          width: 320, // maximum width
-          height: 240 // maximum height
+          width: 640, // maximum width
+          height: 880 // maximum height
         },
         function (blob, didItResize) {
           console.log(didItResize)

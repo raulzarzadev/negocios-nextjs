@@ -1,4 +1,4 @@
-import { useUser } from 'src/context/UserContext'
+import useUser from 'src/context/UserContext'
 
 export default function SingMenu () {
   const user = useUser()

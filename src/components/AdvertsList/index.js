@@ -1,11 +1,10 @@
 import Advert2 from '@comps/Advert2'
-import { useUser } from 'src/context/UserContext'
+import useUser from 'src/context/UserContext'
 import styles from './styles.module.css'
 
 export default function AdvertsList ({ barrio = undefined, adverts }) {
   const { user } = useUser()
   console.log('admin', user?.admin)
-
   return (
     <div className={styles.barrio}>
       <h2 className={styles.title}>{barrio?.name}</h2>

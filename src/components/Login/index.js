@@ -1,6 +1,6 @@
 import ButtonGoogle from '@comps/ButtonGoogle'
 import { loginWithGoogle } from 'firebase/client'
-import { useUser } from 'src/context/UserContext'
+import useUser from 'src/context/UserContext'
 import styles from './styles.module.css'
 
 export default function LoginView () {

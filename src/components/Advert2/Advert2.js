@@ -9,7 +9,7 @@ import { useState } from 'react'
 import { L } from '@comps/L'
 import Modal from '@comps/Modals/Modal'
 import { useAds } from 'src/hooks/useAds'
-import { useUser } from 'src/context/UserContext'
+import useUser from 'src/context/UserContext'
 import Tooltip from '@comps/Tooltip'
 import { P } from '@comps/P'
 import formatContacts from 'src/utils/formatContacts'
@@ -152,7 +152,11 @@ export default function Advert ({
                   )}
             </div>
           )}
-          {edit && <L href={`/adverts/edit/${id}`}><ICONS.Edit/></L>}
+          {edit && (
+            <L href={`/adverts/edit/${id}`}>
+              <ICONS.Edit />
+            </L>
+          )}
           {admin && (
             <MenuAdminAd
               publication={publication}
@@ -178,23 +182,27 @@ export default function Advert ({
             src={`${image || '/lotipo.png'}`}
             layout="fill"
             objectFit="cover"
+            placeholder="blur"
+            blurDataURL={`${image || '/lotipo.png'}`}
           />
         </div>
         {/* ---------------------------------IMAGE---------------------------------- */}
         <div className={styles.body_content}>
           <h5>{title}</h5>
-          <pre className={styles.pre}>
-            {content}
-
-          </pre>
+          <pre className={styles.pre}>{content}</pre>
         </div>
       </section>
       <footer className={styles.footer}>
         <div className={styles.contacts}>
-          {location && <a href={location} target='_blank' rel="noreferrer">
-            <ICONS.Location size='2rem'/>
+          {location && (
+            <a
+              href={location}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <ICONS.Location size="2rem" />
             </a>
-            }
+          )}
           {contactLinks?.map((contact, i) => (
             <ContactLink contact={contact} key={i} />
           ))}

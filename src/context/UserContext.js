@@ -1,6 +1,14 @@
 /* eslint-disable camelcase */
-import { fb_listenUserFavorites, onAuthStateChanged } from 'firebase/client'
-import { createContext, useContext, useEffect, useState } from 'react'
+import {
+  fb_listenUserFavorites,
+  onAuthStateChanged
+} from 'firebase/client'
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState
+} from 'react'
 
 const UserContext = createContext()
 
@@ -21,10 +29,14 @@ export function UserProvider ({ children }) {
   }, [user])
 
   return (
-    <UserContext.Provider value={{ user, setUser, favoritesList }}>
+    <UserContext.Provider
+      value={{ user, setUser, favoritesList }}
+    >
       {children}
     </UserContext.Provider>
   )
 }
 
-export const useUser = () => useContext(UserContext)
+const useUser = () => useContext(UserContext)
+
+export default useUser
