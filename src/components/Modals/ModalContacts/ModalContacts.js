@@ -9,7 +9,6 @@ import { useEffect, useState } from 'react'
 import IconBtn from '@comps/IconBtn'
 import formatContacts from 'src/utils/formatContacts'
 import Tooltip from '@comps/Tooltip'
-import Icons2 from 'src/utils/Icons2'
 
 export default function ModalContacts ({
   title,

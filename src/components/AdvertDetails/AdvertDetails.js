@@ -3,9 +3,7 @@ import Advert from '@comps/Advert2'
 import ModalPubish from '@comps/Modals/ModalPublish'
 import { useEffect, useState } from 'react'
 import useUser from 'src/context/UserContext'
-import { useAds } from 'src/hooks/useAds'
 import { usePublications } from 'src/hooks/usePublications'
-import isGoodTime from 'src/utils/isGoodTime'
 import s from './styles.module.css'
 
 export default function AdvertDetails ({ advert }) {
@@ -57,36 +55,3 @@ export default function AdvertDetails ({ advert }) {
     </div>
   )
 }
-
-const PublicationType = ({
-  publications = [],
-  color,
-  changePublicationStatus,
-  title
-}) => (
-  <div>
-    {`${title} ${publications.length}`}
-    <div style={{ display: 'flex' }}>
-      {publications?.map(
-        ({ id, barrioId, publishEnds }) => (
-          <div
-            onClick={() => changePublicationStatus(id)}
-            key={id}
-            style={{
-              minWidth: 70,
-              margin: '4px',
-              minHeight: 20,
-              border: '1px solid',
-              backgroundColor: color,
-              display: 'flex',
-              flexDirection: 'column'
-            }}
-          >
-            <div>{barrioId}</div>
-            <div>{isGoodTime(publishEnds).fromNow}</div>
-          </div>
-        )
-      )}
-    </div>
-  </div>
-)

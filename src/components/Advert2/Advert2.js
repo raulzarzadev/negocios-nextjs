@@ -1,7 +1,7 @@
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder'
 import BookmarkIcon from '@material-ui/icons/Bookmark'
 import Image from 'next/image'
-import { Icon, SvgIcon } from '@material-ui/core'
+import { SvgIcon } from '@material-ui/core'
 import { CHIP_LABELS } from 'CONST/CHIPS_LABELS'
 
 import styles from './styles.module.css'
@@ -50,8 +50,8 @@ export default function Advert ({
   advert = defaulAdvert,
   showFavorite,
   admin,
-  edit,
-  form = false
+  edit
+  // form = false
 }) {
   const router = useRouter()
   const {
@@ -60,15 +60,15 @@ export default function Advert ({
     title,
     content,
     contacts,
-    backgroundColor,
+    // backgroundColor,
     id,
-    publication,
+    // publication,
     location
   } = advert
 
   const {
     deleteAdvert,
-    unpublishAdvert,
+    // unpublishAdvert,
     addFavorite,
     removeFavorite
   } = useAds()
@@ -92,9 +92,6 @@ export default function Advert ({
     setOpenPublish(!openPublish)
   }
 
-  const handleUnpublish = (publicationId) => {
-    unpublishAdvert(publicationId)
-  }
   const handleAddFavorite = () => {
     addFavorite(id).then((res) => {
       console.log('type', res)
@@ -158,13 +155,9 @@ export default function Advert ({
             </L>
           )}
           {admin && (
-            <MenuAdminAd
-              publication={publication}
-              advertId={id}
-              handleDeleteAd={handleOpenDelete}
-              handlePublish={handleOpenPublish}
-              handleUnpublish={handleUnpublish}
-            />
+            <L href={`/adverts/${id}`}>
+              <SettingsIcon />
+            </L>
           )}
         </div>
       </header>
@@ -246,41 +239,13 @@ const ContactLink = ({ contact }) => {
 
   return (
     <Tooltip text={contact?.label}>
-        <a
-          href={
-            hrefOptions[contact?.type] || contact?.value
-          }
-          target="_blank"
-          rel="noreferrer"
-        >
-          <SvgIcon fontSize="large">
-            {contact?.icon}
-          </SvgIcon>
-        </a>
+      <a
+        href={hrefOptions[contact?.type] || contact?.value}
+        target="_blank"
+        rel="noreferrer"
+      >
+        <SvgIcon fontSize="large">{contact?.icon}</SvgIcon>
+      </a>
     </Tooltip>
-  )
-}
-const MenuAdminAd = ({
-  publication,
-  advertId,
-  handleDeleteAd,
-  handlePublish,
-  handleUnpublish
-}) => {
-  const handleOpen = (e) => {
-    setOpen(true)
-  }
-  const handleClose = (e) => {
-    e.stopPropagation()
-    e.target.id !== 'menu-container' && setOpen(false)
-  }
-
-  const [open, setOpen] = useState(false)
-  return (
-    <>
-      <L href={`/adverts/${advertId}`}>
-        <SettingsIcon />
-      </L>
-    </>
   )
 }

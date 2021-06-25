@@ -9,9 +9,10 @@ import ImageTools from 'src/utils/ImageTools'
 import styles from './styles.module.css'
 
 // TODO use hook to move this varables
-// eslint-disable-next-line camelcase
 import {
+  // eslint-disable-next-line camelcase
   fb_deleteImage,
+  // eslint-disable-next-line camelcase
   fb_uploadImage
 } from 'firebase/client'
 import ICONS from 'src/utils/Icons2'

@@ -7,7 +7,7 @@ import { CHIP_LABELS } from 'CONST/CHIPS_LABELS'
 
 import styles from './styles.module.css'
 import { useState } from 'react'
-import { BtnL, L } from '@comps/L'
+import { L } from '@comps/L'
 import Modal from '@comps/Modals/Modal'
 import { useAds } from 'src/hooks/useAds'
 import useUser from 'src/context/UserContext'

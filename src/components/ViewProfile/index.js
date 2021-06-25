@@ -8,7 +8,7 @@ import { useAds } from 'src/hooks/useAds'
 
 import styles from './styles.module.css'
 
-export default function ViewProfile() {
+export default function ViewProfile () {
   const { getAdvert } = useAds()
   const { favoritesList, user } = useUser()
 
@@ -53,9 +53,11 @@ export default function ViewProfile() {
 
       <div className={styles.favs}>
         <h3>Favoritos Guardados</h3>
-        {favorites.length === 0 ? (
+        {favorites.length === 0
+          ? (
           <p>Aun no has guardado </p>
-        ) : (
+            )
+          : (
           <div className={styles.user_ads_grid}>
             {favorites?.map((ad, i) => (
               <div
@@ -66,7 +68,7 @@ export default function ViewProfile() {
               </div>
             ))}
           </div>
-        )}
+            )}
       </div>
     </div>
   )
