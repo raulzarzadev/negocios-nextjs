@@ -37,6 +37,6 @@ export function UserProvider ({ children }) {
   )
 }
 
-const useUser = () => useContext(UserContext)
+function useUser () { return useContext(UserContext) }
 
 export default useUser
