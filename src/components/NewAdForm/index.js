@@ -15,7 +15,7 @@ import {
   // eslint-disable-next-line camelcase
   fb_uploadImage
 } from 'firebase/client'
-import ICONS from 'src/utils/Icons2'
+import ICONS from 'src/utils/ICONS'
 import ModalColorPicker from '@comps/Modals/ModalColorPicker'
 import ModalContacts from '@comps/Modals/ModalContacts'
 import ModalSelectLocation from '@comps/Modals/ModalSelectLocation'

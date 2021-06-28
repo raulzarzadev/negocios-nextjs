@@ -1,3 +1,4 @@
+import ICONS from 'src/utils/ICONS'
 import Modal from '../Modal'
 import s from './styles.module.css'
 
@@ -26,7 +27,7 @@ export default function ModalSelectLocation ({
             target="_blank"
             rel="noreferrer"
           >
-            Visita google Maps
+            <ICONS.AddLocation fontSize='2rem'/>
           </a>
         </div>
         <div>
@@ -38,6 +39,9 @@ export default function ModalSelectLocation ({
                 rel="noreferrer"
               >
                 Actual Ubicación
+               <div style={{ fontSize: '.5rem' }}>
+                  {location}
+                 </div>
               </a>
             </>
           )}

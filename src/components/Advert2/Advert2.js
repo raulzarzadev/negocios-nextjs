@@ -14,10 +14,9 @@ import Tooltip from '@comps/Tooltip'
 import { P } from '@comps/P'
 import formatContacts from 'src/utils/formatContacts'
 import { useRouter } from 'next/router'
-import { SettingsIcon } from 'src/utils/Icons'
 import AlertFavs from '@comps/Modals/AlertFavs'
 import ModalPubish from '@comps/Modals/ModalPublish'
-import ICONS from 'src/utils/Icons2'
+import ICONS from 'src/utils/ICONS'
 
 const defaulAdvert = {
   backgroundColor: 'gray',
@@ -156,7 +155,7 @@ export default function Advert ({
           )}
           {admin && (
             <L href={`/adverts/${id}`}>
-              <SettingsIcon />
+              <ICONS.Settings />
             </L>
           )}
         </div>
@@ -229,11 +228,12 @@ export default function Advert ({
 }
 
 const ContactLink = ({ contact }) => {
+  const wstext = 'Hola, vi tu anuncio en negociosdelbarrio.com. Quisiera...'
   const hrefOptions = {
     ws: `https://wa.me/${contact?.value.replace(
       / /g,
       ''
-    )}?text=Hola,%20te%20encontre%20en%20negociosdelbarrio.com%20y%20quisiera..`,
+    )}?text=${wstext}`,
     tel: `tel:+52${contact.value}`
   }
 

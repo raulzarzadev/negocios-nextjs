@@ -18,17 +18,18 @@ import SportsEsportsIcon from '@material-ui/icons/SportsEsports'
 import EmailIcon from '@material-ui/icons/Email'
 import HotelIcon from '@material-ui/icons/Hotel'
 import AirportShuttleIcon from '@material-ui/icons/AirportShuttle'
+import ICONS from 'src/utils/ICONS'
 
 export const CHIP_LABELS = [
   {
     key: 'food',
     label: 'Comida',
-    icon: <RestaurantIcon />
+    icon: <ICONS.Restaurant />
   },
   {
     key: 'drink',
     label: 'Bebidas',
-    icon: <LocalBarIcon />
+    icon: <ICONS.Bar />
   },
   {
     key: 'mom',
@@ -99,6 +100,16 @@ export const CHIP_LABELS = [
     key: 'videogames',
     label: 'Entretenimiento',
     icon: <SportsEsportsIcon />
+  },
+  {
+    key: 'beach',
+    label: 'Playa',
+    icon: <ICONS.Beach />
+  },
+  {
+    key: 'boat',
+    label: 'Botes',
+    icon: <ICONS.Boat />
   },
   {
     key: 'email',
