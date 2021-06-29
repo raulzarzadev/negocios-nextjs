@@ -130,29 +130,25 @@ export default function NewAdForm ({ advert = undefined }) {
     e.preventDefault()
     setUploadProgress(1)
     const image = e.target.files[0]
-    console.log({ name: 'name', ...image })
-    console.log(
-      ImageTools.resize(
-        image,
-        {
-          width: 640, // maximum width
-          height: 880 // maximum height
-        },
-        function (blob, didItResize) {
-          console.log(didItResize)
-          // didItResize will be true if it managed to resize it, otherwise false (and will return the original file as 'blob')
-          console.log(blob)
-          const metadata = {
-            user: 'userId ',
-            createdAt: new Date()
-          }
-          const task = fb_uploadImage(blob, metadata)
-          console.log(task)
-          setImageToUpload(task)
-          // document.getElementById('preview').src = window.URL.createObjectURL(blob);
-          // you can also now upload this blob using an XHR.
+    ImageTools.resize(
+      image,
+      {
+        width: 640, // maximum width
+        height: 880 // maximum height
+      },
+      function (blob, didItResize) {
+        // console.log(didItResize)
+        // didItResize will be true if it managed to resize it, otherwise false (and will return the original file as 'blob')
+        // console.log(blob)
+        const metadata = {
+          user: 'userId ',
+          createdAt: new Date()
         }
-      )
+        const task = fb_uploadImage(blob, metadata)
+        setImageToUpload(task)
+        // document.getElementById('preview').src = window.URL.createObjectURL(blob);
+        // you can also now upload this blob using an XHR.
+      }
     )
   }
   const handleSetContacts = (e) => {
@@ -169,9 +165,8 @@ export default function NewAdForm ({ advert = undefined }) {
   }
 
   const disableButton = !form?.title
-  const IconSize = '1.5rem'
   return (
-    <div >
+    <div>
       {/* NEW ADVERT */}
       <form
         onSubmit={(e) => {
@@ -179,30 +174,30 @@ export default function NewAdForm ({ advert = undefined }) {
           handleSubmit(form)
         }}
         className={styles.form_container}
-        >
+      >
         <h3>Nuevo Anuncio</h3>
         <section className={styles.section_form}>
           {/* IMAGE */}
 
           {/* TITLE AND CONTENT */}
-            <p>Titulo:</p>
-            <input
-              className={styles.input_title}
-              type="text"
-              name="title"
-              onChange={handleChange}
-              value={form?.title || ''}
-            />
+          <p>Titulo:</p>
+          <input
+            className={styles.input_title}
+            type="text"
+            name="title"
+            onChange={handleChange}
+            value={form?.title || ''}
+          />
 
-            <p>Contenido:</p>
-            <textarea
-              className={styles.input_content}
-              type="text"
-              name="content"
-              onChange={handleChange}
-              value={form?.content || ''}
-              rows={5}
-            />
+          <p>Contenido:</p>
+          <textarea
+            className={styles.input_content}
+            type="text"
+            name="content"
+            onChange={handleChange}
+            value={form?.content || ''}
+            rows={5}
+          />
         </section>
         {/* CLASIFICATION */}
         <section className={styles.section_form}>
@@ -214,7 +209,7 @@ export default function NewAdForm ({ advert = undefined }) {
             }}
           >
             {'Clasificacón'}
-            <ICONS.ClassBy size={IconSize} />
+            <ICONS.ClassBy />
           </PrimBtn>
         </section>
         {/* UBICACIÓN */}
@@ -227,7 +222,7 @@ export default function NewAdForm ({ advert = undefined }) {
             }}
           >
             {'Ubicación'}
-            <ICONS.Location size={IconSize} />
+            <ICONS.Location />
           </PrimBtn>
         </section>
         {/* CONTACTS */}
@@ -239,7 +234,7 @@ export default function NewAdForm ({ advert = undefined }) {
               handleAddContact()
             }}
           >
-            {'Contactos '} <ICONS.Contacs size={IconSize} />
+            {'Contactos '} <ICONS.Contacs />
           </PrimBtn>
         </section>
         {/* COLOR */}
@@ -252,7 +247,7 @@ export default function NewAdForm ({ advert = undefined }) {
             }}
           >
             {'Fondo '}
-            <ICONS.Color size={IconSize} />
+            <ICONS.Color />
           </PrimBtn>
         </section>
         {/* IMAGES */}
@@ -262,10 +257,16 @@ export default function NewAdForm ({ advert = undefined }) {
             color="secondary"
             onChange={handleSelectImage}
           >
-            {'Imagenes '}
-            <ICONS.Images size={IconSize} />
+            {'Imagenes'}
+            {uploadProgress === 100 || form.image
+              ? (
+              <ICONS.EditImage />
+                )
+              : (
+              <ICONS.AddImage />
+                )}
           </PrimBtn>
-          {form.image && (
+          {/*  {form.image && (
             <div className={styles.preview_conteier}>
               <div
                 className={styles.previewImage}
@@ -279,30 +280,34 @@ export default function NewAdForm ({ advert = undefined }) {
                 <img src={form.image} />
               </div>
             </div>
-          )}
-          {!(
+          )} */}
+          {/* {!(
             uploadProgress === 100 || uploadProgress === 0
           ) && (
             <ProgressBar
               progressPorcent={uploadProgress}
               showPorcent
             />
-          )}
+          )} */}
+          {/* PREVIEW ADVERT */}
+          <section className={styles.preview_advert}>
+            <Advert2 advert={form} form={true} />
+          </section>
         </section>
-          <div className={styles.button_save}>
-            <PrimBtn
-              color="primary"
-              disabled={disableButton}
-              type="submit"
-            >
-              Guardar
-            </PrimBtn>
-          </div>
+
+        <div className={styles.button_save}>
+          <PrimBtn
+            color="primary"
+            disabled={disableButton}
+            type="submit"
+            style={{ width: 250 }}
+          >
+            Guardar
+            <ICONS.Save/>
+          </PrimBtn>
+        </div>
       </form>
-      {/* PREVIEW ADVERT */}
-      <section className={styles.preview_advert}>
-          <Advert2 advert={form} form={true} />
-      </section>
+
       <ModalSelectLocation
         open={locationModal}
         handleOpen={handleOpenLocation}
