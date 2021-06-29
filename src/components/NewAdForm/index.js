@@ -106,8 +106,8 @@ export default function NewAdForm ({ advert = undefined }) {
       editAdvert(advert.id, form).then((res) => {
         console.log('res', res)
         setTimeout(() => {
-          router.push('/profile')
-        }, 1000)
+          router.back()
+        }, 400)
       })
     } else {
       /* --------------New Advert-------------- */
