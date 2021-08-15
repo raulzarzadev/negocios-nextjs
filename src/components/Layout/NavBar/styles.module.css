@@ -1,5 +1,4 @@
 .top_bar {
-  background-color: var(--primary);
   position: sticky;
   top: 0;
   right: 0;
@@ -9,6 +8,7 @@
   align-items: center;
   justify-content: space-between;
   z-index: 1;
+  box-shadow: 1px 1px 16px rgb(0, 0, 0,0.1);
 }
 
 .nav {

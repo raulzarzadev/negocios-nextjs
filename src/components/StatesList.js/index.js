@@ -7,8 +7,8 @@ export default function StateList ({ statesList = [] }) {
   const [stateSelected, setStateSelected] = useState('')
   const [barrios, setBarrios] = useState([])
 
-  const handleChange = (e) => {
-    setStateSelected(e.target.value)
+  const handleChangeSate = (tag) => {
+    setStateSelected(tag)
   }
 
   useEffect(() => {
@@ -24,15 +24,23 @@ export default function StateList ({ statesList = [] }) {
 
   return (
     <>
-    <Head>
-      <title>Barrios - {stateSelected || 'Home'}</title>
-    </Head>
+      <Head>
+        <title>Barrios - {stateSelected || 'Home'}</title>
+      </Head>
       <div className={s.state_list}>
         {/* <div className={s.location}>
           <Switch label="Ubicacón" disabled name='location-active'/>
         </div> */}
         <div className={s.select_content}>
-          <select
+          {statesList.map((state) => (
+            <h4
+              onClick={() => handleChangeSate(state.tag)}
+              key={state.label}
+            >
+              {state.label}
+            </h4>
+          ))}
+          {/* <select
             className={s.select}
             onChange={handleChange}
             value={stateSelected}
@@ -45,18 +53,24 @@ export default function StateList ({ statesList = [] }) {
                 {state.label}
               </option>
             ))}
-          </select>
+          </select> */}
         </div>
         <div className={s.barrios}>
-          <h5>Barrios</h5>
           {barrios?.map((barrio, i) => (
-            <div key={i} className={s.link}>
-              <Link href={barrio.shortName}>
+            <Link key={i} href={barrio.shortName}>
+              <div className={s.barrio}>
+                <div
+                  className={s.link}
+                  style={{
+                    backgroundImage:
+                      'url(https://i.pinimg.com/originals/6a/a3/cf/6aa3cf588c7a6527610455c9c8d38837.jpg)'
+                  }}
+                ></div>
                 <h4 className={s.barrio_title}>
                   {`${barrio.name}`}
                 </h4>
-              </Link>
-            </div>
+              </div>
+            </Link>
           ))}
         </div>
       </div>

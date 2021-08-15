@@ -24,7 +24,7 @@ export default function NavBar () {
           <L href="/">
             <img
               className={styles.nav_image}
-              src="/logotipo.png"
+              src="/logo-black.png"
               alt="logo"
             />
           </L>
