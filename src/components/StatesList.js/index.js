@@ -57,8 +57,8 @@ export default function StateList ({ statesList = [] }) {
         </div>
         <div className={s.barrios}>
           {barrios?.map((barrio, i) => (
-            <Link key={i} href={barrio.shortName}>
-              <div className={s.barrio}>
+            <div key={i} className={s.barrio}>
+              <Link href={barrio.shortName}>
                 <div
                   className={s.link}
                   style={{
@@ -69,8 +69,8 @@ export default function StateList ({ statesList = [] }) {
                 <h4 className={s.barrio_title}>
                   {`${barrio.name}`}
                 </h4>
-              </div>
-            </Link>
+              </Link>
+            </div>
           ))}
         </div>
       </div>
