@@ -116,7 +116,7 @@ export default function Advert ({
           <Tooltip
             key={i}
             text={chip?.label}
-            position="left" 
+            position="left"
           >
             <SvgIcon>{chip?.icon}</SvgIcon>
           </Tooltip>
@@ -149,8 +149,8 @@ export default function Advert ({
             </div>
           )}
           {edit && (
-              <L href={`/adverts/edit/${id}`}>
-                <ICONS.Edit />
+            <L href={`/adverts/edit/${id}`}>
+              <ICONS.Edit />
             </L>
           )}
           {admin && (
@@ -228,7 +228,8 @@ export default function Advert ({
 }
 
 const ContactLink = ({ contact }) => {
-  const wstext = 'Hola, vi tu anuncio en negociosdelbarrio.com. Quisiera...'
+  const wstext =
+    'Hola, vi tu anuncio en negociosdelbarrio.com. Quisiera...'
   const hrefOptions = {
     ws: `https://wa.me/${contact?.value.replace(
       / /g,

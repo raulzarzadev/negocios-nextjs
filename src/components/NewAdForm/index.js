@@ -1,7 +1,5 @@
 import Advert2 from '@comps/Advert2'
 import PrimBtn from '@comps/PrimBtn'
-import ProgressBar from '@comps/ProgressBar'
-import { DeleteForeverOutlined } from '@material-ui/icons'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useAds } from 'src/hooks/useAds'
@@ -11,7 +9,7 @@ import styles from './styles.module.css'
 // TODO use hook to move this varables
 import {
   // eslint-disable-next-line camelcase
-  fb_deleteImage,
+  // fb_deleteImage,
   // eslint-disable-next-line camelcase
   fb_uploadImage
 } from 'firebase/client'
@@ -74,9 +72,9 @@ export default function NewAdForm ({ advert = undefined }) {
     }
   }, [imgURL])
 
-  const handleDeleteImage = (ImageRef) => {
+  /* const handleDeleteImage = (ImageRef) => {
     return fb_deleteImage(ImageRef)
-  }
+  } */
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
