@@ -13,6 +13,7 @@ import {
 const UserContext = createContext()
 
 export function UserProvider ({ children }) {
+  UserProvider.displayName = 'UserProvider'
   const [user, setUser] = useState(undefined)
   const [favoritesList, setFavoritesList] = useState([])
 

@@ -34,7 +34,7 @@
 }
 
 .tooltip .tooltiptext[position="right"] {
-  left: -100px;
+  right: -100px;
 }
 .tooltip .tooltiptext[position="left"] {
   left: 50px;

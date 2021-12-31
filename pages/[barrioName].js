@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useAds } from 'src/hooks/useAds'
 import AdvertsList from '@comps/AdvertsList'
-import Filter from '@comps/Filter.js'
+import Filter from '@comps/Filter/index.js'
 import Head from 'next/head'
 
 export default function Barrio () {
@@ -23,14 +23,14 @@ export default function Barrio () {
 
   const [adverts, setAdverts] = useState(barrio?.ads || [])
 
-  const [filter, setFilter] = useState('Todos')
+  const [filter, setFilter] = useState('all')
 
   useEffect(() => {
     setAdverts(barrio?.ads)
   }, [barrio])
 
   useEffect(() => {
-    if (filter === 'Todos') return setAdverts(barrio?.ads)
+    if (filter === 'all') return setAdverts(barrio?.ads)
     setAdverts(filterAdsByLable)
   }, [filter])
 
@@ -45,25 +45,36 @@ export default function Barrio () {
     return filtered
   }
 
-  const labelsAvailables = barrio?.ads?.reduce((acc, item) => {
-    const labels = [...acc, item.labels].flat().reduce((acc, item) => {
-      if (acc.includes(item)) return acc
-      return [...acc, item]
-    }, [])
+  const labelsAvailables = barrio?.ads?.reduce(
+    (acc, item) => {
+      const labels = [...acc, item.labels]
+        .flat()
+        .reduce((acc, item) => {
+          if (acc.includes(item)) return acc
+          return [...acc, item]
+        }, [])
 
-    return labels
-  }, [])
+      return labels
+    },
+    []
+  )
 
   if (barrio === undefined) return 'Cargando...'
   return (
     <>
-    <Head>
-      <title>
-        Barrio - {barrio.name}
-      </title>
-    </Head>
-      <Filter labels={labelsAvailables} handleSetFilter={handleSetFilter} />
-      <AdvertsList barrio={barrio} adverts={adverts} />
+      <Head>
+        <title>Barrio - {barrio.name}</title>
+      </Head>
+      <Filter
+        labels={labelsAvailables}
+        handleSetFilter={handleSetFilter}
+      />
+      <AdvertsList
+        barrio={barrio}
+        adverts={adverts}
+        filter={filter}
+        handleSetFilter={handleSetFilter}
+      />
     </>
   )
 }

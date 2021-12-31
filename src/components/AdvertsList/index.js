@@ -1,23 +1,30 @@
-import Advert2 from '@comps/Advert2'
-import useUser from 'src/context/UserContext'
-import styles from './styles.module.css'
-
-export default function AdvertsList ({ barrio = undefined, adverts }) {
-  const { user } = useUser()
-  console.log('admin', user?.admin)
+import Advert from '@comps/Advert.v3'
+let render = 0
+export default function AdvertsList ({
+  barrio = undefined,
+  adverts,
+  filter,
+  handleSetFilter
+}) {
   return (
-    <div className={styles.barrio}>
-      <h2 className={styles.title}>{barrio?.name}</h2>
-      <span>
-        <em>{`${barrio.shortName} - ${barrio.state} - ads (${barrio?.ads?.length})`}</em>
-      </span>
-      <div className={styles.grid}>
+    <div className={''}>
+      <div className={'text-center'}>
+        <span>
+          <em>{`${barrio.name} - ${barrio.state} - ads (${barrio?.ads?.length})`}</em>
+        </span>
+      </div>
+      <div className={' grid sm:grid-cols-2  lg:grid-cols-3 max-w-4xl mx-auto gap-4 sm:p-4 lg:gap-8 place-content-center'}>
         {adverts?.map((ad, i) => (
-          <div key={i} className={styles.item}>
-            <Advert2 advert={ad} showFavorite admin={user?.admin}/>
-          </div>
+          <Advert
+            key={i}
+            advert={ad}
+            showFavorite
+            filter={ filter }
+            handleSetFilter={handleSetFilter}
+          />
         ))}
       </div>
+      {console.log('render++', render++)}
     </div>
   )
 }
