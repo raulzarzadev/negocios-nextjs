@@ -65,10 +65,14 @@ export default function Barrio () {
       <Head>
         <title>Barrio - {barrio.name}</title>
       </Head>
-      <Filter
-        labels={labelsAvailables}
-        handleSetFilter={handleSetFilter}
-      />
+      <div className="sticky top-0 right-0 left-0 bg-white z-10">
+        <Filter
+          labels={labelsAvailables}
+          handleSetFilter={handleSetFilter}
+          barrioTitle={true}
+          barrio={barrio}
+        />
+      </div>
       <AdvertsList
         barrio={barrio}
         adverts={adverts}

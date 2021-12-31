@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import { CHIP_LABELS } from 'CONST/CHIPS_LABELS'
 import FilterChip from './FilterChip'
+import BarrioTitle from '@comps/BarrioTitle'
 
 export default function Filter ({
   handleSetFilter,
-  labels = []
+  labels = [],
+  barrioTitle = false,
+  barrio
 }) {
   const formatedLabels = labels.map((label) =>
     CHIP_LABELS.find((chip) => chip.key === label)
@@ -17,32 +20,35 @@ export default function Filter ({
   }
 
   return (
-    <div
-      className={
-        'border-2   grid grid-flow-col overflow-x-auto gap-2 p-2 snap-x'
-      }
-    >
-      <FilterChip
-        label={{
-          label: 'Todos',
-          key: 'all'
-        }}
-        selected={filter === 'all'}
-        onClick={() => {
-          handleChangeFilter('all')
-        }}
-      />
-
-      {formatedLabels?.map((label, i) => (
+    <div>
+      <div
+        className={
+          'border-2   grid grid-flow-col overflow-x-auto gap-2 p-2 snap-x'
+        }
+      >
         <FilterChip
-          key={i}
-          label={label}
-          selected={filter === label.key}
+          label={{
+            label: 'Todos',
+            key: 'all'
+          }}
+          selected={filter === 'all'}
           onClick={() => {
-            handleChangeFilter(label?.key)
+            handleChangeFilter('all')
           }}
         />
-      ))}
+
+        {formatedLabels?.map((label, i) => (
+          <FilterChip
+            key={i}
+            label={label}
+            selected={filter === label.key}
+            onClick={() => {
+              handleChangeFilter(label?.key)
+            }}
+          />
+        ))}
+      </div>
+      {barrioTitle && <BarrioTitle barrio={barrio} />}
     </div>
   )
 }

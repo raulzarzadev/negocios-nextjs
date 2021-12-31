@@ -69,7 +69,7 @@ export default function Advert ({
     // publication,
     location
   } = advert
-
+  console.log('advert', advert)
   const {
     deleteAdvert,
     // unpublishAdvert,
@@ -113,7 +113,7 @@ export default function Advert ({
   return (
     <div
       className={
-        'flex flex-col justify-between w-full  max-w-sm  mt-2 shadow-lg rounded-lg'
+        'grid w-full  max-w-sm  mt-2 shadow-lg rounded-lg'
       }
     >
       <header
@@ -121,7 +121,7 @@ export default function Advert ({
           'px-1 py-1 flex justify-between items-center w-full'
         }
       >
-        <div className="flex flex-wrap justify-start gap-0.5">
+        <div className="flex flex-wrap justify-start gap-0.5 h-14">
           {chips?.map((chip, i) => (
             <FilterChip
               key={i}
@@ -170,7 +170,7 @@ export default function Advert ({
           )}
         </div>
       </header>
-      <section className={''}>
+      <section className={'w-full'}>
         {/* ---------------------------------IMAGE---------------------------------- */}
         <div className="relative w-full aspect-video ">
           <Image
@@ -183,11 +183,12 @@ export default function Advert ({
           />
         </div>
         {/* ---------------------------------TITLE---------------------------------- */}
-        <div className={'p-1'}>
-          <h5 className="text-center font-bold">{title}</h5>
+        <div className={'px-1'}>
+          <h5 className="text-start font-bold ">{title}</h5>
+          <VisitsSecction />
           <pre
             className={
-              'whitespace-pre-wrap font-sans text-sm  '
+              'whitespace-pre-wrap font-sans text-sm  h-16 overflow-y-auto'
             }
           >
             {content}
@@ -195,7 +196,7 @@ export default function Advert ({
         </div>
       </section>
       <footer
-        className={'flex justify-center items-center'}
+        className={'flex justify-center items-center h-16'}
       >
         <div
           className={
@@ -264,5 +265,27 @@ const ContactLink = ({ contact }) => {
         <SvgIcon fontSize="large">{contact?.icon}</SvgIcon>
       </a>
     </Tooltip>
+  )
+}
+
+const VisitsSecction = () => {
+  return (
+    <div className="flex justify-between h-8">
+      <div>
+        <span className="flex text-sm">
+          <ICONS.DoneArrow
+            className="mx-1 filter "
+            size={'1.2rem'}
+          />
+          Visitas 3,121
+        </span>
+      </div>
+      <div>
+        <span className="flex text-sm">
+          <ICONS.Coment className="mx-1" size={'1.2rem'} />
+          Comentarios 243
+        </span>
+      </div>
+    </div>
   )
 }

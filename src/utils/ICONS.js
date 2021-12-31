@@ -28,7 +28,9 @@ import {
   MdDirectionsBoat,
   MdLocalParking,
   MdLocationOn,
-  MdCheckCircle
+  MdCheckCircle,
+  MdOutlineDoneOutline,
+  MdOutlineTextsms,
 } from 'react-icons/md'
 import { SiGooglemaps } from 'react-icons/si'
 import {
@@ -37,80 +39,108 @@ import {
   RiImageEditFill
 } from 'react-icons/ri'
 
-const size = '1.9rem'
+const defaultSize = '1.5rem'
 
 export default {
-  Edit: ({ ...rest }) => (
-    <AiFillEdit {...rest} size={size} />
+  Coment: ({ size, ...rest }) => (
+    <MdOutlineTextsms
+      {...rest}
+      size={size ?? defaultSize}
+    />
   ),
-  Settings: ({ ...rest }) => (
-    <AiFillSetting {...rest} size={size} />
+  DoneArrow: ({ size, ...rest }) => (
+    <MdOutlineDoneOutline
+      {...rest}
+      size={size ?? defaultSize}
+    />
   ),
-  Contacs: ({ ...rest }) => (
-    <AiFillContacts {...rest} size={size} />
+  Edit: ({ size, ...rest }) => (
+    <AiFillEdit {...rest} size={size ?? defaultSize} />
   ),
-  ClassBy: ({ ...rest }) => (
-    <MdClass {...rest} size={size} />
+  Settings: ({ size, ...rest }) => (
+    <AiFillSetting {...rest} size={size ?? defaultSize} />
   ),
-  Loading: ({ ...rest }) => (
-    <AiOutlineLoading3Quarters {...rest} size={size} />
+  Contacs: ({ size, ...rest }) => (
+    <AiFillContacts {...rest} size={size ?? defaultSize} />
   ),
-  Checked: ({ ...rest }) => (
-    <MdCheckCircle {...rest} size={size} />
+  ClassBy: ({ size, ...rest }) => (
+    <MdClass {...rest} size={size ?? defaultSize} />
   ),
-  Save: ({ ...rest }) => (
-    <AiFillSave {...rest} size={size} />
+  Loading: ({ size, ...rest }) => (
+    <AiOutlineLoading3Quarters
+      {...rest}
+      size={size ?? defaultSize}
+    />
+  ),
+  Checked: ({ size, ...rest }) => (
+    <MdCheckCircle {...rest} size={size ?? defaultSize} />
+  ),
+  Save: ({ size, ...rest }) => (
+    <AiFillSave {...rest} size={size ?? defaultSize} />
   ),
   /* .-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'*, */
   /*           IMAGES            */
   /* .-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'rz */
 
-  Images: ({ ...rest }) => (
-    <RiImage2Fill size={size} {...rest} />
+  Images: ({ size, ...rest }) => (
+    <RiImage2Fill size={size ?? defaultSize} {...rest} />
   ),
-  AddImage: ({ ...rest }) => (
-    <RiImageAddFill size={size} {...rest} />
+  AddImage: ({ size, ...rest }) => (
+    <RiImageAddFill size={size ?? defaultSize} {...rest} />
   ),
-  EditImage: ({ ...rest }) => (
-    <RiImageEditFill {...rest} size={size} />
+  EditImage: ({ size, ...rest }) => (
+    <RiImageEditFill {...rest} size={size ?? defaultSize} />
   ),
   /* .-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'*, */
   /*           CHIPS            */
   /* .-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'rz */
 
-  Color: ({ ...rest }) => (
-    <AiOutlineBgColors {...rest} size={size} />
+  Color: ({ size, ...rest }) => (
+    <AiOutlineBgColors
+      {...rest}
+      size={size ?? defaultSize}
+    />
   ),
-  Location: ({ ...rest }) => (
-    <SiGooglemaps {...rest} size={size} />
+  Location: ({ size, ...rest }) => (
+    <SiGooglemaps {...rest} size={size ?? defaultSize} />
   ),
-  AddLocation: ({ ...rest }) => (
-    <MdAddLocation {...rest} size={size} />
+  AddLocation: ({ size, ...rest }) => (
+    <MdAddLocation {...rest} size={size ?? defaultSize} />
   ),
-  Restaurant: ({ ...rest }) => (
-    <MdRestaurantMenu {...rest} size={size} />
+  Restaurant: ({ size, ...rest }) => (
+    <MdRestaurantMenu
+      {...rest}
+      size={size ?? defaultSize}
+    />
   ),
-  Beach: ({ ...rest }) => (
-    <MdBeachAccess {...rest} size={size} />
+  Beach: ({ size, ...rest }) => (
+    <MdBeachAccess {...rest} size={size ?? defaultSize} />
   ),
-  Swim: ({ ...rest }) => <MdPool {...rest} size={size} />,
-  Pet: ({ ...rest }) => <MdPets {...rest} size={size} />,
-  Water: ({ ...rest }) => (
-    <MdLocalDrink {...rest} size={size} />
+  Swim: ({ size, ...rest }) => (
+    <MdPool {...rest} size={size ?? defaultSize} />
   ),
-  Bar: ({ ...rest }) => (
-    <MdLocalBar {...rest} size={size} />
+  Pet: ({ size, ...rest }) => (
+    <MdPets {...rest} size={size ?? defaultSize} />
   ),
-  Coffe: ({ ...rest }) => (
-    <MdLocalCafe {...rest} size={size} />
+  Water: ({ size, ...rest }) => (
+    <MdLocalDrink {...rest} size={size ?? defaultSize} />
   ),
-  Bed: ({ ...rest }) => (
-    <MdLocalHotel {...rest} size={size} />
+  Bar: ({ size, ...rest }) => (
+    <MdLocalBar {...rest} size={size ?? defaultSize} />
   ),
-  Boat: ({ ...rest }) => (
-    <MdDirectionsBoat {...rest} size={size} />
+  Coffe: ({ size, ...rest }) => (
+    <MdLocalCafe {...rest} size={size ?? defaultSize} />
   ),
-  Parking: ({ ...rest }) => (
-    <MdLocalParking {...rest} size={size} />
+  Bed: ({ size, ...rest }) => (
+    <MdLocalHotel {...rest} size={size ?? defaultSize} />
+  ),
+  Boat: ({ size, ...rest }) => (
+    <MdDirectionsBoat
+      {...rest}
+      size={size ?? defaultSize}
+    />
+  ),
+  Parking: ({ size, ...rest }) => (
+    <MdLocalParking {...rest} size={size ?? defaultSize} />
   )
 }
