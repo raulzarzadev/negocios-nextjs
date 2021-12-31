@@ -113,32 +113,26 @@ export default function Advert ({
   return (
     <div
       className={
-        'flex flex-col justify-between w-full mt-2 mx-auto shadow-lg rounded-lg'
+        'flex flex-col justify-between w-full  max-w-sm  mt-2 shadow-lg rounded-lg'
       }
     >
       <header
         className={
-          'px-2 py-1 flex justify-between items-center  w-full'
+          'px-1 py-1 flex justify-between items-center w-full'
         }
       >
-        <div className="   ">
-          <div className=" flex flex-wrap justify-start gap-0.5 px-1">
-            {chips?.map((chip, i) => (
-              <FilterChip
-                key={i}
-                label={chip}
-                selected={filter === chip.key}
-                onClick={ () => handleSetFilter(chip.key) }
-              />
-            ))}
-          </div>
+        <div className="flex flex-wrap justify-start gap-0.5">
+          {chips?.map((chip, i) => (
+            <FilterChip
+              key={i}
+              label={chip}
+              selected={filter === chip.key}
+              onClick={() => handleSetFilter(chip.key)}
+            />
+          ))}
         </div>
 
-        <div
-          className={
-            ' flex items-center w-min max-w-1/3 '
-          }
-        >
+        <div className={' flex items-center '}>
           {showFavorite && (
             <div>
               {favorite
@@ -169,7 +163,7 @@ export default function Advert ({
               <ICONS.Edit />
             </L>
           )}
-          { isAdmin && (
+          {isAdmin && (
             <L href={`/adverts/${id}`}>
               <ICONS.Settings />
             </L>
@@ -178,7 +172,16 @@ export default function Advert ({
       </header>
       <section className={''}>
         {/* ---------------------------------IMAGE---------------------------------- */}
-        <div className="relative w-full aspect-video "></div>
+        <div className="relative w-full aspect-video ">
+          <Image
+            alt={title}
+            src={`${image || '/lotipo.png'}`}
+            layout="fill"
+            objectFit="cover"
+            placeholder="blur"
+            blurDataURL={`${image || '/lotipo.png'}`}
+          />
+        </div>
         {/* ---------------------------------TITLE---------------------------------- */}
         <div className={'p-1'}>
           <h5 className="text-center font-bold">{title}</h5>
