@@ -12,7 +12,6 @@ import Tooltip from '@comps/Tooltip'
 import { P } from '@comps/P'
 import formatContacts from 'src/utils/formatContacts'
 import { useRouter } from 'next/router'
-import AlertFavs from '@comps/Modals/AlertFavs'
 import ModalPubish from '@comps/Modals/ModalPublish'
 import ICONS from 'src/utils/ICONS'
 import FilterChip from '@comps/Filter/FilterChip'
@@ -70,14 +69,7 @@ export default function Advert ({
     location
   } = advert
 
-  const {
-    deleteAdvert,
-    // unpublishAdvert,
-    addFavorite,
-    removeFavorite
-  } = useAds()
-
-  const favorite = favoritesList.includes(id)
+  const { deleteAdvert } = useAds()
 
   const chips = labels?.map((label) =>
     CHIP_LABELS.find((chip) => chip.key === label)
@@ -86,24 +78,12 @@ export default function Advert ({
   const contactLinks = formatContacts(contacts)
   const [openDelete, setOpenDelete] = useState(false)
   const [openPublish, setOpenPublish] = useState(false)
-  const [alert, setAlert] = useState(null)
 
   const handleOpenDelete = () => {
     setOpenDelete(!openDelete)
   }
   const handleOpenPublish = () => {
     setOpenPublish(!openPublish)
-  }
-
-  const handleAddFavorite = () => {
-    addFavorite(id).then((res) => {
-      console.log('type', res)
-      res?.type === 'NOT_USER' && setAlert(true)
-    })
-  }
-
-  const handleRemoveFavorite = () => {
-    removeFavorite(id).then((res) => console.log(res))
   }
 
   const handleDeleteAd = () => {
@@ -134,29 +114,10 @@ export default function Advert ({
 
         <div className={' flex items-center '}>
           {showFavorite && (
-            <div>
-              {favorite
-                ? (
-                <Tooltip
-                  text="Eliminar de favoritos"
-                  position="right"
-                >
-                  <div onClick={handleRemoveFavorite}>
-                    <BookmarkIcon />
-                  </div>
-                </Tooltip>
-                  )
-                : (
-                <Tooltip
-                  text="Agregar a favoritos"
-                  position="right"
-                >
-                  <div onClick={handleAddFavorite}>
-                    <BookmarkBorderIcon />
-                  </div>
-                </Tooltip>
-                  )}
-            </div>
+            <FavoriteLabel
+              isFavorite={favoritesList.includes(id)}
+              advertId={id}
+            />
           )}
           {edit && (
             <L href={`/adverts/edit/${id}`}>
@@ -217,12 +178,7 @@ export default function Advert ({
           ))}
         </div>
         {/* MODALES */}
-        {alert && (
-          <AlertFavs
-            open={alert}
-            handleOpen={() => setAlert(false)}
-          />
-        )}
+
         <Modal
           open={openDelete}
           handleOpen={handleOpenDelete}
@@ -265,6 +221,69 @@ const ContactLink = ({ contact }) => {
         <SvgIcon fontSize="large">{contact?.icon}</SvgIcon>
       </a>
     </Tooltip>
+  )
+}
+
+const FavoriteLabel = ({ isFavorite, advertId }) => {
+  const { addFavorite, removeFavorite } = useAds()
+
+  const handleAddFavorite = () => {
+    addFavorite(advertId).then((res) => {
+      console.log('type', res)
+      res?.type === 'NOT_USER' && handleOpenNotUser()
+    })
+  }
+
+  const handleRemoveFavorite = () => {
+    removeFavorite(advertId).then((res) => console.log(res))
+  }
+
+  const [openNotUser, setOpenNotUser] = useState()
+  const handleOpenNotUser = () => {
+    setOpenNotUser(!openNotUser)
+  }
+  return (
+    <div>
+      <div>
+        {isFavorite
+          ? (
+          <Tooltip
+            text="Eliminar de favoritos"
+            position="right"
+          >
+            <div onClick={handleRemoveFavorite}>
+              <BookmarkIcon />
+            </div>
+          </Tooltip>
+            )
+          : (
+          <Tooltip
+            text="Agregar a favoritos"
+            position="right"
+          >
+            <div onClick={handleAddFavorite}>
+              <BookmarkBorderIcon />
+            </div>
+          </Tooltip>
+            )}
+      </div>
+      <Modal
+        open={openNotUser}
+        handleOpen={handleOpenNotUser}
+        title="Usuario sin registro"
+        otraprop="propeidd ds dad adasd ads sadad"
+      >
+        <div className=''>
+          <h4>Usuario sin registro</h4>
+          <div>
+            <em>
+              Necesitas estar registrado para guardar
+              favoritos
+            </em>
+          </div>
+        </div>
+      </Modal>
+    </div>
   )
 }
 
