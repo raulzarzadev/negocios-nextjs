@@ -69,7 +69,7 @@ export default function Advert ({
     // publication,
     location
   } = advert
-  console.log('advert', advert)
+
   const {
     deleteAdvert,
     // unpublishAdvert,
@@ -277,13 +277,13 @@ const VisitsSecction = () => {
             className="mx-1 filter "
             size={'1.2rem'}
           />
-          Visitas 3,121
+          Visitas 0
         </span>
       </div>
       <div>
         <span className="flex text-sm">
           <ICONS.Coment className="mx-1" size={'1.2rem'} />
-          Comentarios 243
+          Comentarios 0
         </span>
       </div>
     </div>
