@@ -271,9 +271,18 @@ const FavoriteLabel = ({ isFavorite, advertId }) => {
         open={openNotUser}
         handleOpen={handleOpenNotUser}
         title="Usuario sin registro"
-        otraprop="propeidd ds dad adasd ads sadad"
+        footerAcctions={
+          <button
+            onClick={(e) => {
+              router.push('/login')
+            }}
+            className="btn btn-primary"
+          >
+            Ingresar
+          </button>
+        }
       >
-        <div className=''>
+        <div className="">
           <h4>Usuario sin registro</h4>
           <div>
             <em>

@@ -1,66 +1,93 @@
 import { Chip } from '@material-ui/core'
 import { CHIP_LABELS } from 'CONST/CHIPS_LABELS'
 import { useEffect, useState } from 'react'
-import styles from './styles.module.css'
 
-export default function SelectLabels ({ labels = [], setLabels = {} }) {
-  const LIMIT_LABLES_SELECTED = 5
-  const [labelsSelected, setLabelsSelected] = useState(labels || [])
-  const handleRemoveChip = (chipKey) => () => {
-    const filteredLabels = labels?.filter((label) => label !== chipKey)
-    setLabels(filteredLabels)
-  }
+export default function SelectLabels ({
+  labels = [],
+  setLabels = {},
+  selectableLabelsLimit = 5
+}) {
+  const [_labelsSelected, _setLabelsSelected] = useState([])
+  const [_labelsAvailable, _setLabelsAvailable] = useState(
+    []
+  )
 
   const hanldeAddChip = (chipKey) => {
-    setLabels([...labels, chipKey])
+    _setLabelsSelected([..._labelsSelected, chipKey])
+  }
+
+  const handleRemoveChip = (chipKey) => () => {
+    const filteredLabels = _labelsSelected?.filter(
+      (label) => label !== chipKey
+    )
+    _setLabelsSelected(filteredLabels)
   }
 
   useEffect(() => {
-    setLabelsSelected(
-      labels?.map((label) => CHIP_LABELS.find((chip) => chip?.key === label))
-    )
-  }, [labels.length])
-
-  const [chipsDisplay, setChipDisplay] = useState([])
-  useEffect(() => {
     const chipsFiltered = CHIP_LABELS.filter(
-      (chip) => !labels.includes(chip.key)
+      (chip) =>
+        !_labelsSelected.includes(chip.key) && chip.key
     )
-    setChipDisplay(chipsFiltered)
-  }, [labels.length])
+
+    _setLabelsAvailable(chipsFiltered.map(({ key }) => key))
+  }, [_labelsSelected])
+
+  useEffect(() => {
+    setLabels(_labelsSelected)
+  }, [_labelsSelected])
+
+  useEffect(() => {
+    if (labels) {
+      _setLabelsSelected(labels)
+    }
+  }, [])
 
   return (
-    <div className={styles.select_labels}>
+    <div className={'styles.select_labels'}>
       <div>
-        {labelsSelected?.map((chip, i) => (
-          <Chip
+        {_labelsSelected?.map((chip, i) => (
+          <LabelChip
+            chip={chip}
             key={chip?.key}
-            style={{ margin: '4px' }}
-            icon={chip?.icon}
-            color={chip?.color || 'primary'}
-            label={chip?.label}
-            size="small"
-            onDelete={handleRemoveChip(chip?.key)}
+            handleDelete={handleRemoveChip(chip)}
           />
         ))}
       </div>
-      <em>Max {LIMIT_LABLES_SELECTED} etiquetas</em>
-      <div className={styles.labels_availables}>
-        {chipsDisplay.map((chip) => {
+      <em>Max {selectableLabelsLimit} etiquetas</em>
+      <div className={'styles.labels_availables'}>
+        {_labelsAvailable.map((chip) => {
           return (
-            <Chip
-              key={chip?.key}
-              disabled={labelsSelected?.length >= LIMIT_LABLES_SELECTED}
-              style={{ margin: '4px' }}
-              icon={chip?.icon}
-              color={chip?.color || 'primary'}
-              label={chip?.label}
-              size="small"
-              onClick={() => hanldeAddChip(chip?.key)}
+            <LabelChip
+              key={chip}
+              chip={chip}
+              disabled={
+                _labelsSelected?.length >=
+                selectableLabelsLimit
+              }
+              onClick={() => hanldeAddChip(chip)}
             />
           )
         })}
       </div>
     </div>
+  )
+}
+
+const LabelChip = ({ chip, handleDelete, ...rest }) => {
+  const formatChip = (chip) => {
+    return CHIP_LABELS.find(({ key }) => key === chip)
+  }
+  const formatedChip = formatChip(chip)
+
+  return (
+    <Chip
+      style={{ margin: '4px' }}
+      icon={formatedChip?.icon}
+      color={formatedChip?.color || 'primary'}
+      label={formatedChip?.label}
+      size="small"
+      onDelete={handleDelete}
+      {...rest}
+    />
   )
 }

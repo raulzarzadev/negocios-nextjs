@@ -1,4 +1,4 @@
-import Advert2 from '@comps/Advert2'
+import Advert from '@comps/Advert.v3'
 import { L } from '@comps/L'
 import PrimBtn from '@comps/PrimBtn'
 import { firebaseLogout } from 'firebase/client'
@@ -64,7 +64,7 @@ export default function ViewProfile () {
                 key={ad?.id}
                 className={styles.grid_item}
               >
-                <Advert2 advert={ad} showFavorite={true} />
+                <Advert advert={ad} showFavorite={true} />
               </div>
             ))}
           </div>

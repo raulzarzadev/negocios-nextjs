@@ -1,5 +1,5 @@
 import AdminPublicationsAdvert from '@comps/AdminPublicationsAdvert'
-import Advert from '@comps/Advert2'
+import Advert from '@comps/Advert.v3'
 import ModalPubish from '@comps/Modals/ModalPublish'
 import { useEffect, useState } from 'react'
 import useUser from 'src/context/UserContext'

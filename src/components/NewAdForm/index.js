@@ -1,4 +1,3 @@
-import Advert2 from '@comps/Advert2'
 import PrimBtn from '@comps/PrimBtn'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
@@ -18,6 +17,7 @@ import ModalColorPicker from '@comps/Modals/ModalColorPicker'
 import ModalContacts from '@comps/Modals/ModalContacts'
 import ModalSelectLocation from '@comps/Modals/ModalSelectLocation'
 import ModalSelectLabels from '@comps/Modals/ModalSelectLabels'
+import Advert from '@comps/Advert.v3'
 
 export default function NewAdForm ({ advert = undefined }) {
   const router = useRouter()
@@ -289,7 +289,7 @@ export default function NewAdForm ({ advert = undefined }) {
           )} */}
           {/* PREVIEW ADVERT */}
           <section className={styles.preview_advert}>
-            <Advert2 advert={form} form={true} />
+            <Advert advert={form} form={true} />
           </section>
         </section>
 

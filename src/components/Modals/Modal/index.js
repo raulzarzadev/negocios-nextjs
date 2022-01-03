@@ -1,11 +1,12 @@
 import router, { Router } from 'next/router'
 import React from 'react'
 
-export default function Modal ({
+export default function Modal({
   title = 'Modal title',
   open,
   handleOpen = () => {},
-  children
+  children,
+  footerAcctions
 }) {
   return (
     <div
@@ -49,14 +50,7 @@ export default function Modal ({
           {children}
         </section>
         <footer className="modal-action">
-          <button
-            onClick={(e) => {
-              router.push('/login')
-            }}
-            className="btn btn-primary"
-          >
-            Ingresar
-          </button>
+          {footerAcctions}
         </footer>
       </div>
     </div>

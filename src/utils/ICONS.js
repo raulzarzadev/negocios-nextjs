@@ -30,14 +30,19 @@ import {
   MdLocationOn,
   MdCheckCircle,
   MdOutlineDoneOutline,
-  MdOutlineTextsms,
+  MdOutlineTextsms
 } from 'react-icons/md'
-import { SiGooglemaps } from 'react-icons/si'
 import {
   RiImageAddFill,
   RiImage2Fill,
   RiImageEditFill
 } from 'react-icons/ri'
+import {
+  SiGooglemaps,
+  SiWhatsapp,
+  SiFacebook,
+  SiInstagram
+} from 'react-icons/si'
 
 const defaultSize = '1.5rem'
 
@@ -142,5 +147,19 @@ export default {
   ),
   Parking: ({ size, ...rest }) => (
     <MdLocalParking {...rest} size={size ?? defaultSize} />
+  ),
+
+  /* .-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'*, */
+  //           BRANDS
+  /* .-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'rz */
+
+  Whatsapp: ({ size, ...rest }) => (
+    <SiWhatsapp {...rest} size={size ?? defaultSize} />
+  ),
+  Facebook: ({ size, ...rest }) => (
+    <SiFacebook {...rest} size={size ?? defaultSize} />
+  ),
+  Instagram: ({ size, ...rest }) => (
+    <SiInstagram {...rest} size={size ?? defaultSize} />
   )
 }
