@@ -12,7 +12,10 @@ export default function Select ({
           <span className="label-text">{label}</span>
         </label>
       )}
-      <select className="select select-bordered w-full">
+      <select
+        className="select select-bordered w-full"
+        {...rest}
+      >
         {placeholder && (
           <option disabled="disabled" selected="selected">
             {placeholder}

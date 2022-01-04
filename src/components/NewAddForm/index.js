@@ -5,8 +5,11 @@ import TextIcon from '@comps/Inputs/TextIcon'
 import Modal from '@comps/Modals/Modal'
 import SelectLabels from '@comps/SelectLabels'
 import { TextRotateVerticalOutlined } from '@material-ui/icons'
+import { addDays } from 'date-fns'
 import { fb_getBarrios } from 'firebase/client'
+import { datesToFirebaseFromat } from 'firebase/firebase-helpers'
 import { useEffect, useState } from 'react'
+import { useAds } from 'src/hooks/useAds'
 import ICONS from 'src/utils/ICONS'
 import normalizeBarriosList from 'src/utils/normalizeBarriosList'
 
@@ -134,34 +137,84 @@ const Step3 = ({ form }) => {
 }
 
 const Step4 = ({ form }) => {
+  const { publishAdvert } = useAds()
+
+  const [_form, _setForm] = useState({})
   const [barrios, setBarrios] = useState()
+  const DAYS_MONTH = 30
   const TIMES = [
-    { value: '1_month', label: '1 mes' },
-    { value: '3_months', label: '3 meses' },
-    { value: '6_months', label: '6 meses' },
-    { value: '1_year', label: '1 año' }
+    { value: DAYS_MONTH * 1, label: '1 mes' },
+    { value: DAYS_MONTH * 3, label: '3 meses' },
+    { value: DAYS_MONTH * 6, label: '6 meses' },
+    { value: DAYS_MONTH * 12, label: '1 año' }
   ]
   useEffect(() => {
     fb_getBarrios().then((res) =>
       setBarrios(normalizeBarriosList(res))
     )
   }, [])
-  console.log('barrios', barrios)
+  const handleChange = (e) => {
+    _setForm({ ..._form, [e.target.name]: e.target.value })
+  }
+  console.log('_form', _form)
+
+  const handleSubmit = (form) => {
+    console.log(' form.period', form.period)
+    const startAt = new Date()
+    const finishAt = addDays(startAt, form?.period)
+
+    const period = {
+      time: form.period,
+      startAt: startAt,
+      finishAt: finishAt
+    }
+    const dates = datesToFirebaseFromat({
+      document: { ...form, period }
+    })
+    console.log('dates', dates)
+
+    const publication = {
+      // advertId,
+      // barrioId: form?.barrio,
+      // publishEnds,
+      // publishStart,
+      // active: true
+    }
+    console.log('publication', period)
+    /*
+    publishAdvert(publication).then((res) => {
+      console.log('res', res)
+    }) */
+  }
   return (
     <div>
       <h3>Publicar</h3>
-      <div className="grid gap-2 ">
-        <Select
-          label={'Barrio'}
-          placeholder={'Barrios'}
-          options={barrios}
-        />
-        <Select
-          options={TIMES}
-          label={'Tiempo '}
-          placeholder={'Tiempo'}
-        />
-      </div>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault()
+          handleSubmit(_form)
+        }}
+      >
+        <div className="grid gap-2 ">
+          <Select
+            label={'Barrio'}
+            placeholder={'Barrios'}
+            options={barrios}
+            onChange={handleChange}
+            name="barrio"
+          />
+          <Select
+            options={TIMES}
+            label={'Tiempo '}
+            placeholder={'Tiempo'}
+            onChange={handleChange}
+            name="period"
+          />
+          <button className="btn btn-primary mx-auto my-2">
+            Guardar
+          </button>
+        </div>
+      </form>
     </div>
   )
 }
