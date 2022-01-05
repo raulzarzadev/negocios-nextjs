@@ -4,7 +4,6 @@ import Textarea from '@comps/Inputs/Textarea'
 import TextIcon from '@comps/Inputs/TextIcon'
 import Modal from '@comps/Modals/Modal'
 import SelectLabels from '@comps/SelectLabels'
-import { TextRotateVerticalOutlined } from '@material-ui/icons'
 import { addDays } from 'date-fns'
 import { fb_getBarrios } from 'firebase/client'
 import { datesToFirebaseFromat } from 'firebase/firebase-helpers'
@@ -164,7 +163,7 @@ const Step4 = ({ form }) => {
     const finishAt = addDays(startAt, form?.period)
 
     const period = {
-      time: form.period,
+      days: form.period,
       startAt: startAt,
       finishAt: finishAt
     }

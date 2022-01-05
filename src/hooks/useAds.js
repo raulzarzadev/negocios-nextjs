@@ -27,11 +27,16 @@ export function useAds () {
   }
   async function getAdsByBarrio (barrio) {
     const barrioDetails = await fb_getBarrio(barrio)
-    const advertDetail = async (id) => await fb_getAdvertById(id)
-    const activePublications = await fb_getBarrioActivePublications(barrio)
+    const advertDetail = async (id) =>
+      await fb_getAdvertById(id)
+    const activePublications = await fb_getBarrioActivePublications(
+      barrio
+    )
     const adverts = []
     for (const publication of activePublications) {
-      const advert = await advertDetail(publication.advertId)
+      const advert = await advertDetail(
+        publication.advertId
+      )
       if (advert) adverts.push({ publication, ...advert })
     }
     return { ...barrioDetails, ads: adverts }
@@ -44,11 +49,15 @@ export function useAds () {
   }
 
   async function getUserActiveAds () {
-    const activePublications = await fb_getUserActivePublications(user.id)
-    const adverts = activePublications?.map(async (publication) => {
-      const advert = await getAdvert(publication.advertId)
-      return { ...advert, publication }
-    })
+    const activePublications = await fb_getUserActivePublications(
+      user.id
+    )
+    const adverts = activePublications?.map(
+      async (publication) => {
+        const advert = await getAdvert(publication.advertId)
+        return { ...advert, publication }
+      }
+    )
     return Promise.all(adverts || []).then((res) => {
       return res
     })
@@ -61,7 +70,14 @@ export function useAds () {
     return fb_editAdvert(id, advert)
   }
   function addAdvert (form) {
-    const { title, content, backgroundColor, contacts, labels, image } = form
+    const {
+      title,
+      content,
+      backgroundColor,
+      contacts,
+      labels,
+      image
+    } = form
     return fb_addAdvert({
       userId: user.id,
       title,
@@ -74,13 +90,13 @@ export function useAds () {
   }
   function deleteAdvert (id) {
     // TODO deactive all publications about it
-
     return fb_deleteAdvert(id).then((res) => res)
   }
   function publishAdvert (publication) {
-    return fb_publishAdvert({ userId: user.id, ...publication }).then((res) =>
-      console.log(res)
-    )
+    return fb_publishAdvert({
+      userId: user.id,
+      ...publication
+    }).then((res) => console.log(res))
   }
   function unpublishAdvert (publishId) {
     console.log('puId', publishId)

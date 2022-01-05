@@ -48,7 +48,7 @@ export default function SelectLabels ({
         {_labelsSelected?.map((chip, i) => (
           <LabelChip
             chip={chip}
-            key={chip?.key}
+            key={chip}
             handleDelete={handleRemoveChip(chip)}
           />
         ))}

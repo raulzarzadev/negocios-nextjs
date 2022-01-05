@@ -1,7 +1,6 @@
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder'
 import BookmarkIcon from '@material-ui/icons/Bookmark'
 import Image from 'next/image'
-import { SvgIcon } from '@material-ui/core'
 import { CHIP_LABELS } from 'CONST/CHIPS_LABELS'
 import { useEffect, useState } from 'react'
 import { L } from '@comps/L'
@@ -217,14 +216,16 @@ const ContactLink = ({ contact }) => {
         href={hrefOptions[contact?.type] || contact?.value}
         target="_blank"
         rel="noreferrer"
+        className=""
       >
-        <SvgIcon fontSize="large">{contact?.icon}</SvgIcon>
+        <div className=" p-1">{contact?.icon}</div>
       </a>
     </Tooltip>
   )
 }
 
 const FavoriteLabel = ({ isFavorite, advertId }) => {
+  const router = useRouter()
   const { addFavorite, removeFavorite } = useAds()
 
   const handleAddFavorite = () => {

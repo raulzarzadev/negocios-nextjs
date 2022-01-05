@@ -1,43 +1,39 @@
-import WhatsAppIcon from '@material-ui/icons/WhatsApp'
-import CallIcon from '@material-ui/icons/Call'
-import FacebookIcon from '@material-ui/icons/Facebook'
-import LanguageIcon from '@material-ui/icons/Language'
-import InstagramIcon from '@material-ui/icons/Instagram'
+import ICONS from 'src/utils/ICONS'
 
 export const CONTACT_TYPES = [
   {
     name: 'Whatsapp',
     type: 'ws',
     label: 'Whats App',
-    icon: <WhatsAppIcon fontSize="default" />,
+    icon: <ICONS.Whatsapp size="2rem" />,
     prefix: '521'
   },
   {
     name: 'facebook',
     type: 'fb',
     label: 'Facebook',
-    icon: <FacebookIcon fontSize="default" />,
+    icon: <ICONS.Facebook size="2rem" />,
     prefix: 'https://facebook.com/'
   },
   {
     name: 'instagram',
     type: 'in',
     label: 'Instagram',
-    icon: <InstagramIcon fontSize="default" />,
+    icon: <ICONS.Instagram size="2rem" />,
     prefix: 'https://instagram.com/'
   },
   {
     name: 'webpage',
     type: 'web',
     label: 'Web',
-    icon: <LanguageIcon fontSize="default" />,
+    icon: <ICONS.Water size="2rem" />,
     prefix: 'https://'
   },
   {
     name: 'tel',
     type: 'tel',
     label: 'Fijo',
-    icon: <CallIcon fontSize="default" />,
+    icon: <ICONS.Phone size="2rem" />,
     prefix: ''
   }
 ]

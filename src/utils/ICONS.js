@@ -30,7 +30,8 @@ import {
   MdLocationOn,
   MdCheckCircle,
   MdOutlineDoneOutline,
-  MdOutlineTextsms
+  MdOutlineTextsms,
+  MdPhone
 } from 'react-icons/md'
 import {
   RiImageAddFill,
@@ -147,6 +148,9 @@ export default {
   ),
   Parking: ({ size, ...rest }) => (
     <MdLocalParking {...rest} size={size ?? defaultSize} />
+  ),
+  Phone: ({ size, ...rest }) => (
+    <MdPhone {...rest} size={size ?? defaultSize} />
   ),
 
   /* .-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'*, */

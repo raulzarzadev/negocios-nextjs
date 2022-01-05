@@ -6,7 +6,13 @@ module.exports = {
   theme: {
     extend: {}
   },
-  plugins: [
-    require('daisyui')
-  ]
+  plugins: [require('daisyui')],
+  daisyui: {
+    styled: true,
+    themes: ['retro', 'cupcake', 'emerald'],
+    base: true,
+    utils: true,
+    logs: true,
+    rtl: false
+  }
 }
