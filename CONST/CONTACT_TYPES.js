@@ -2,13 +2,15 @@ import ICONS from 'src/utils/ICONS'
 
 export const CONTACT_TYPES = [
   {
+    id: 'whatsapp',
     name: 'Whatsapp',
     type: 'ws',
-    label: 'Whats App',
+    label: 'Whatsapp',
     icon: <ICONS.Whatsapp size="2rem" />,
     prefix: '521'
   },
   {
+    id: 'facebook',
     name: 'facebook',
     type: 'fb',
     label: 'Facebook',
@@ -16,6 +18,7 @@ export const CONTACT_TYPES = [
     prefix: 'https://facebook.com/'
   },
   {
+    id: 'instagram',
     name: 'instagram',
     type: 'in',
     label: 'Instagram',
@@ -23,6 +26,7 @@ export const CONTACT_TYPES = [
     prefix: 'https://instagram.com/'
   },
   {
+    id: 'webpage',
     name: 'webpage',
     type: 'web',
     label: 'Web',
@@ -30,6 +34,7 @@ export const CONTACT_TYPES = [
     prefix: 'https://'
   },
   {
+    id: 'phone',
     name: 'tel',
     type: 'tel',
     label: 'Fijo',

@@ -73,7 +73,6 @@ export default function Advert ({
   const chips = labels?.map((label) =>
     CHIP_LABELS.find((chip) => chip.key === label)
   )
-
   const contactLinks = formatContacts(contacts)
   const [openDelete, setOpenDelete] = useState(false)
   const [openPublish, setOpenPublish] = useState(false)
@@ -203,10 +202,9 @@ const ContactLink = ({ contact }) => {
   const wstext =
     'Hola, vi tu anuncio en negociosdelbarrio.com. Quisiera...'
   const hrefOptions = {
-    ws: `https://wa.me/${contact?.value.replace(
-      / /g,
-      ''
-    )}?text=${wstext}`,
+    ws: `https://wa.me/${
+      contact.prefix
+    }${contact?.value.replace(/ /g, '')}?text=${wstext}`,
     tel: `tel:+52${contact.value}`
   }
 

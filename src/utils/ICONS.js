@@ -13,7 +13,8 @@ import {
   AiFillContacts,
   AiOutlineLoading3Quarters,
   AiFillCaretLeft,
-  AiFillCaretRight
+  AiFillCaretRight,
+  AiFillSave
 } from 'react-icons/ai'
 import {
   MdAddLocation,
@@ -32,7 +33,8 @@ import {
   MdCheckCircle,
   MdOutlineDoneOutline,
   MdOutlineTextsms,
-  MdPhone
+  MdPhone,
+  MdAdd
 } from 'react-icons/md'
 import {
   RiImageAddFill,
@@ -158,6 +160,10 @@ export default {
       {...rest}
       size={size ?? defaultSize}
     />
+  ),
+
+  Plus: ({ size, ...rest }) => (
+    <MdAdd {...rest} size={size ?? defaultSize} />
   ),
   ArrowLeft: ({ size, ...rest }) => (
     <AiFillCaretLeft {...rest} size={size ?? defaultSize} />

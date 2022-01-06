@@ -1,4 +1,3 @@
-import router, { Router } from 'next/router'
 import React from 'react'
 
 export default function Modal ({
@@ -47,7 +46,7 @@ export default function Modal ({
           </button>
         </header>
         <section
-          className={'h-44 grid place-content-center'}
+          className={'min-h-44 grid place-content-center'}
         >
           {children}
         </section>

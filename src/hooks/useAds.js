@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+import { fbAddAdvert, fbEditAdvert } from 'firebase/adverts'
 import {
   fb_addAdvert,
   fb_getAds,
@@ -29,9 +30,8 @@ export function useAds () {
     const barrioDetails = await fb_getBarrio(barrio)
     const advertDetail = async (id) =>
       await fb_getAdvertById(id)
-    const activePublications = await fb_getBarrioActivePublications(
-      barrio
-    )
+    const activePublications =
+      await fb_getBarrioActivePublications(barrio)
     const adverts = []
     for (const publication of activePublications) {
       const advert = await advertDetail(
@@ -49,9 +49,8 @@ export function useAds () {
   }
 
   async function getUserActiveAds () {
-    const activePublications = await fb_getUserActivePublications(
-      user.id
-    )
+    const activePublications =
+      await fb_getUserActivePublications(user.id)
     const adverts = activePublications?.map(
       async (publication) => {
         const advert = await getAdvert(publication.advertId)
@@ -66,26 +65,17 @@ export function useAds () {
   function getAdvert (id) {
     return fb_getAdvertById(id)
   }
+
   function editAdvert (id, advert) {
-    return fb_editAdvert(id, advert)
+    return fbEditAdvert(id, advert)
   }
   function addAdvert (form) {
-    const {
-      title,
-      content,
-      backgroundColor,
-      contacts,
-      labels,
-      image
-    } = form
-    return fb_addAdvert({
-      userId: user.id,
-      title,
-      content,
-      backgroundColor,
-      contacts,
-      labels,
-      image
+    return fbAddAdvert({
+      advert: {
+        userId: user.id,
+        createdAt: new Date(),
+        ...form
+      }
     })
   }
   function deleteAdvert (id) {

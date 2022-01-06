@@ -7,15 +7,16 @@ import SelectLabels from '@comps/SelectLabels'
 import { addDays } from 'date-fns'
 import { fb_getBarrios } from 'firebase/client'
 import { datesToFirebaseFromat } from 'firebase/firebase-helpers'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useAds } from 'src/hooks/useAds'
 import ICONS from 'src/utils/ICONS'
 import normalizeBarriosList from 'src/utils/normalizeBarriosList'
+import router from 'next/router'
 
 export default function AdvertForm ({ advert = null }) {
+  console.log('advert', advert)
   const [step, setStep] = useState(0)
   const [form, setForm] = useState({})
-  console.log('advert', useAds)
   const { addAdvert, editAdvert } = useAds()
   useEffect(() => {
     if (advert) {
@@ -35,23 +36,23 @@ export default function AdvertForm ({ advert = null }) {
     step > 0 && setStep(step - 1)
   }
 
+  console.log('form', form)
+
   const handleSubmit = () => {
     /* --------------Edit Advert-------------- */
-    if (advert?.id) {
+    if (form?.id) {
       editAdvert(advert.id, form).then((res) => {
         console.log('res', res)
-        setTimeout(() => {
-          router.back()
-        }, 400)
       })
     } else {
       /* --------------New Advert-------------- */
-      addAdvert(form).then((res) => {
+      addAdvert(form).then(({ res }) => {
         // TODO add check ok box
         console.log('res', res)
 
         setTimeout(() => {
-          router.back()
+          router.push(`/adverts/edit/${res.id}`)
+          // router.back()
           // router.push('/profile')
         }, 1000)
       })
@@ -118,7 +119,13 @@ export default function AdvertForm ({ advert = null }) {
             <Step4 form={form} setForm={setForm} />
           )}
           <div className="text-center">
-            <button className="btn" onClick={handleSubmit}>
+            <button
+              className="btn"
+              onClick={(e) => {
+                e.preventDefault()
+                handleSubmit()
+              }}
+            >
               Guardar
             </button>
           </div>
@@ -128,10 +135,6 @@ export default function AdvertForm ({ advert = null }) {
   )
 }
 const Step1 = ({ form = {}, setForm = () => {} }) => {
-  const [openImages, setOpenImages] = useState()
-  const handleOpenImages = () => {
-    setOpenImages(!openImages)
-  }
   const handleChange = ({ target }) => {
     setForm({ ...form, [target?.name]: target?.value })
   }
@@ -140,51 +143,85 @@ const Step1 = ({ form = {}, setForm = () => {} }) => {
       <Text
         label={'Titulo'}
         onChange={handleChange}
-        value={form?.title}
+        value={form?.title ?? ''}
         name={'title'}
       />
       <Textarea
         onChange={handleChange}
-        value={form?.resume}
+        value={form?.resume ?? ''}
         label={'Resumen'}
         name={'resume'}
       />
       <Textarea
         rows={4}
         onChange={handleChange}
-        label={'Descripción'}
-        name={'description'}
-        value={form?.description}
+        label={'Contenido'}
+        name={'content'}
+        value={form?.content ?? ''}
       />
-      <div className="flex justify-center p-3">
-        <button
-          className="btn btn-primary btn-sm"
-          onClick={handleOpenImages}
-        >
-          {' '}
-          Imagenes
-        </button>
-        <Modal
-          open={openImages}
-          handleOpen={handleOpenImages}
-          title="Imagenes"
-        >
-          <div className="grid grid-cols-3 gap-4 ">
-            <div className="border-dashed border-2 border-gray-600 rounded-lg h-16 w-16"></div>
-            <div className=" border-2 border-gray-600 rounded-lg h-16 w-16"></div>
-            <div className=" border-2 border-gray-600 rounded-lg h-16 w-16"></div>
-            <div className=" border-2 border-gray-600 rounded-lg h-16 w-16"></div>
-            <div className=" border-2 border-gray-600 rounded-lg h-16 w-16"></div>
-            <div className="  border-2 border-gray-600 rounded-lg h-16 w-16"></div>
-          </div>
-        </Modal>
-        {/*   <input
-          className="file:btn file:btn-sm file:btn-primary"
-          type={'file'}
-          multiple="true"
-          accept=".png, .jpg, .jpeg"
-        /> */}
-      </div>
+      <ImagesModal
+        images={form?.images}
+        setImages={(images) => setForm({ ...form, images })}
+        advertId={form.id}
+      />
+    </div>
+  )
+}
+
+const ImagesModal = ({ images, setImages, advertId }) => {
+  const [openImages, setOpenImages] = useState()
+  const handleOpenImages = () => {
+    setOpenImages(!openImages)
+  }
+  const [previewImages, setPreviewImage] = []
+
+  const handleChange = () => {
+    const files = []
+    for (const file of fileRef.current.files) {
+      const objectUrl = URL.createObjectURL(file)
+      files.push(objectUrl)
+    }
+    setPreviewImage(files)
+  }
+  const fileRef = useRef()
+  const [alreadySaved, setAlreadySaved] = useState(false)
+  useEffect(() => {
+    if (advertId) setAlreadySaved(true)
+  }, [advertId])
+  return (
+    <div className="flex w-full p-2 ">
+      <button
+        disabled={!alreadySaved}
+        className="btn btn-primary btn-sm"
+        onClick={handleOpenImages}
+      >
+        {' '}
+        Imagenes
+      </button>
+      <Modal
+        open={openImages}
+        handleOpen={handleOpenImages}
+        title="Imagenes"
+      >
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 ">
+          <label className="border-dashed border-2 cursor-pointer border-gray-600 rounded-lg place-content-center grid h-32 w-32 shadow-lg shadow-slate-400 hover:shadow-md">
+            <ICONS.Plus size="3rem" />
+            <input
+              ref={fileRef}
+              onChange={handleChange}
+              className="hidden file:border-dashed file:border-2 file:cursor-pointer file:border-gray-600 file:rounded-lg file:place-content-center file:grid file:h-16 file:w-16 file:shadow-lg file:shadow-slate-400 file:hover:shadow-md"
+              type={'file'}
+              multiple
+            />
+          </label>
+
+          {/*   <div className=" border-2 border-gray-600 rounded-lg h-32 w-32"></div>
+          <div className=" border-2 border-gray-600 rounded-lg h-32 w-32"></div>
+          <div className=" border-2 border-gray-600 rounded-lg h-32 w-32"></div>
+          <div className=" border-2 border-gray-600 rounded-lg h-32 w-32"></div>
+          <div className="  border-2 border-gray-600 rounded-lg h-32 w-32"></div> */}
+        </div>
+      </Modal>
     </div>
   )
 }
@@ -193,7 +230,7 @@ const Step2 = ({ form = {}, setForm = () => {} }) => {
   return (
     <div>
       <SelectLabels
-        labels={[]}
+        labels={form.labels}
         setLabels={(labels) => {
           setForm({ ...form, labels })
         }}
@@ -212,6 +249,7 @@ const Step3 = ({ form = {}, setForm = () => {} }) => {
       }
     })
   }
+  const contacts = form.contacts
   return (
     <div>
       <div className="grid gap-2 ">
@@ -221,6 +259,7 @@ const Step3 = ({ form = {}, setForm = () => {} }) => {
           icon={<ICONS.Whatsapp />}
           onChange={handleChange}
           name={'whatsapp'}
+          value={contacts?.whatsapp}
         />
         <TextIcon
           placeholder={'Instagram'}
@@ -228,6 +267,7 @@ const Step3 = ({ form = {}, setForm = () => {} }) => {
           icon={<ICONS.Instagram />}
           onChange={handleChange}
           name={'instagram'}
+          value={contacts?.instagram}
         />
         <TextIcon
           placeholder={'Facebook'}
@@ -235,6 +275,7 @@ const Step3 = ({ form = {}, setForm = () => {} }) => {
           icon={<ICONS.Facebook />}
           onChange={handleChange}
           name={'facebook'}
+          value={contacts?.facebook}
         />
       </div>
     </div>

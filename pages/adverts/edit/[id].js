@@ -1,4 +1,4 @@
-import NewAdForm from '@comps/NewAdForm'
+import AdvertForm from '@comps/AdvertForm'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import PrivateRoute from 'src/HOC/PrivateRoute'
@@ -9,15 +9,16 @@ export default function EditAdvert () {
   const router = useRouter()
   const { getAdvert } = useAds()
 
+  const {
+    query: { id }
+  } = router
+
   useEffect(() => {
-    const {
-      query: { id }
-    } = router
     if (id) {
       getAdvert(id).then(setAdvert)
     }
-  }, [router])
+  }, [id])
   return (
-    <PrivateRoute Component={NewAdForm} advert={advert} />
+    <PrivateRoute Component={AdvertForm} advert={advert} />
   )
 }

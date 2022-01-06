@@ -55,51 +55,42 @@ export const normalizeDocs = (docs = []) =>
   docs?.map((doc) => normalizeDoc(doc))
 
 export const datesToFirebaseFromat = ({
-  document = {}
+  document = null
 }) => {
-  // TODO hace tiempo lei que la recursividad era mala idea, creo entender por que, pero me parece útil en algunos casos como este.
-
-  // Esta funcion recibe un paramentro 'document' que puede o no tener las propiedades listadas en DATE_FIELDS.
-  // Al mismo tiempo puede o no tener objetos que a su ves pueden o no contener mas campos de tipo DATE_FIELDS.
-  // La tarea de esta funcion es transformar estos campos en formato date de firebase sin importartar lo andiados que estén
-  // una funcion recursiva parece ser una buena opcion.
-  // los campos pueden estar dentro de un objeto. Pero el objeto puede estar dentro de un array
   const AUX_DOCUMENT = {}
   const DATE_FIELDS = [
     'birth',
     'date',
-    'createAt',
+    'createdAt',
     'updatedAt',
     'finishAt',
     'startAt',
     'registryDate'
   ]
-  // verifica si es un objeto
+  if (!document) return 'no document'
   if (typeof document !== 'object') {
     return 'is not an object'
   }
-  // iterar objeto
   Object.keys(document).forEach((key) => {
     AUX_DOCUMENT[key] = document[key]
 
-    if (typeof document[key] === 'object') {
-      // si un key es un objeto, iterar objeto
-      // si tiene keys date parsear a firebaseDate
-      // crea objeto completo mas las keys parseadas y retornalo
+    if (DATE_FIELDS.includes(key)) {
+      AUX_DOCUMENT[key] = new Date(
+        AUX_DOCUMENT[key]
+      ).toString()
+    }
 
-      // O HAZLO RECURSIVO
+    if (typeof document[key] === 'object') {
+      // HAZLO RECURSIVO
       AUX_DOCUMENT[key] = datesToFirebaseFromat({
         document: document[key]
       })
     }
-
     if (DATE_FIELDS.includes(key)) {
-      // si key es date parsear a firebaseDate y sobreescribir key
       const aux = dateToFirebaseFormat(document[key])
       AUX_DOCUMENT[key] = aux
     }
   })
-  // reenviar el objeto compelto
   return AUX_DOCUMENT
 }
 
