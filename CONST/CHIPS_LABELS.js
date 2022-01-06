@@ -1,5 +1,3 @@
-import RestaurantIcon from '@material-ui/icons/Restaurant'
-import LocalBarIcon from '@material-ui/icons/LocalBar'
 import ChildFriendlyIcon from '@material-ui/icons/ChildFriendly'
 import HomeWorkIcon from '@material-ui/icons/HomeWork'
 import HealingIcon from '@material-ui/icons/Healing'

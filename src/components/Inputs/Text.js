@@ -11,7 +11,7 @@ export default function Text ({
         </label>
       )}
       <input
-        className={`${className} input  `}
+        className={`${className} input w-full  `}
         type="text"
         {...rest}
       />

@@ -6,7 +6,7 @@ export default function Select ({
   ...rest
 }) {
   return (
-    <div className="form-control w-full max-w-xs">
+    <div className="form-control w-full ">
       {label && (
         <label className="label">
           <span className="label-text">{label}</span>
@@ -14,10 +14,11 @@ export default function Select ({
       )}
       <select
         className="select select-bordered w-full"
+        defaultValue={' '}
         {...rest}
       >
         {placeholder && (
-          <option disabled="disabled" selected="selected">
+          <option disabled="disabled" value={' '}>
             {placeholder}
           </option>
         )}

@@ -12,7 +12,8 @@ import {
   AiOutlineBgColors,
   AiFillContacts,
   AiOutlineLoading3Quarters,
-  AiFillSave
+  AiFillCaretLeft,
+  AiFillCaretRight
 } from 'react-icons/ai'
 import {
   MdAddLocation,
@@ -151,6 +152,15 @@ export default {
   ),
   Phone: ({ size, ...rest }) => (
     <MdPhone {...rest} size={size ?? defaultSize} />
+  ),
+  ArrowRight: ({ size, ...rest }) => (
+    <AiFillCaretRight
+      {...rest}
+      size={size ?? defaultSize}
+    />
+  ),
+  ArrowLeft: ({ size, ...rest }) => (
+    <AiFillCaretLeft {...rest} size={size ?? defaultSize} />
   ),
 
   /* .-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'*, */

@@ -1,7 +1,7 @@
 import router, { Router } from 'next/router'
 import React from 'react'
 
-export default function Modal({
+export default function Modal ({
   title = 'Modal title',
   open,
   handleOpen = () => {},
@@ -10,14 +10,16 @@ export default function Modal({
 }) {
   return (
     <div
-      className={'modal modal-open'}
+      className={`${
+        open ? 'flex' : 'hidden'
+      } modal modal-open `}
       id="modal-1"
-      style={{ display: !open && 'none' }}
+      //  style={{ display: !open && 'none' }}
       onClick={(e) => {
         e.target.id === 'modal-1' && handleOpen()
       }}
     >
-      <div className="modal-box bg-slate-100 p-3">
+      <div className="modal-box bg-slate-100 p-3 ">
         <header className={'flex justify-between'}>
           <div className={'w-[80%] text-center'}>
             <h5>{title}</h5>
