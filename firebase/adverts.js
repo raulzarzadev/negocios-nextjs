@@ -1,4 +1,6 @@
 import { db } from './client'
+import firebase from 'firebase'
+import 'firebase/firestore'
 import {
   datesToFirebaseFromat,
   formatResponse
@@ -26,5 +28,39 @@ export const fbEditAdvert = async (id, advert) => {
     )
     .catch((err) =>
       formatResponse(false, 'ADVERT_EDITED_ERROR', err)
+    )
+}
+
+export const fbAdvertAddImage = async (
+  advertId,
+  ImageUrl
+) => {
+  return await db
+    .collection('adverts')
+    .doc(advertId)
+    .update({
+      images:
+        firebase.firestore.FieldValue.arrayUnion(ImageUrl)
+    })
+    .then((res) => formatResponse(true, 'IMAGE_ADDED', res))
+    .catch((err) =>
+      formatResponse(false, 'IMAGE_ADDED_ERROR', err)
+    )
+}
+
+export const fbAdvertRemoveImage = async (
+  advertId,
+  ImageUrl
+) => {
+  return await db
+    .collection('adverts')
+    .doc(advertId)
+    .update({
+      images:
+        firebase.firestore.FieldValue.arrayRemove(ImageUrl)
+    })
+    .then((res) => formatResponse(true, 'IMAGE_REMOVED', res))
+    .catch((err) =>
+      formatResponse(false, 'IMAGE_REMOVED_ERROR', err)
     )
 }

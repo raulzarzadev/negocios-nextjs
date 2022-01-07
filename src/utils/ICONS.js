@@ -34,7 +34,9 @@ import {
   MdOutlineDoneOutline,
   MdOutlineTextsms,
   MdPhone,
-  MdAdd
+  MdAdd,
+  MdClose,
+  MdDeleteForever
 } from 'react-icons/md'
 import {
   RiImageAddFill,
@@ -168,7 +170,12 @@ export default {
   ArrowLeft: ({ size, ...rest }) => (
     <AiFillCaretLeft {...rest} size={size ?? defaultSize} />
   ),
-
+  Close: ({ size, ...rest }) => (
+    <MdClose {...rest} size={size ?? defaultSize} />
+  ),
+  Delete: ({ size, ...rest }) => (
+    <MdDeleteForever {...rest} size={size ?? defaultSize} />
+  ),
   /* .-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'*, */
   //           BRANDS
   /* .-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'rz */

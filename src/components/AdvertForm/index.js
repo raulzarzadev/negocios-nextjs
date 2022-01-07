@@ -12,9 +12,17 @@ import { useAds } from 'src/hooks/useAds'
 import ICONS from 'src/utils/ICONS'
 import normalizeBarriosList from 'src/utils/normalizeBarriosList'
 import router from 'next/router'
+import Image from 'next/image'
+import {
+  fbDeleteImage,
+  fbUploadImage
+} from 'firebase/images'
+import {
+  fbAdvertAddImage,
+  fbAdvertRemoveImage
+} from 'firebase/adverts'
 
 export default function AdvertForm ({ advert = null }) {
-  console.log('advert', advert)
   const [step, setStep] = useState(0)
   const [form, setForm] = useState({})
   const { addAdvert, editAdvert } = useAds()
@@ -35,9 +43,6 @@ export default function AdvertForm ({ advert = null }) {
   const subStep = () => {
     step > 0 && setStep(step - 1)
   }
-
-  console.log('form', form)
-
   const handleSubmit = () => {
     /* --------------Edit Advert-------------- */
     if (form?.id) {
@@ -168,26 +173,70 @@ const Step1 = ({ form = {}, setForm = () => {} }) => {
   )
 }
 
-const ImagesModal = ({ images, setImages, advertId }) => {
-  const [openImages, setOpenImages] = useState()
+const ImagesModal = ({
+  images = [],
+  setImages = () => {},
+  advertId = ''
+}) => {
+  const [openImagesModal, setOpenImages] = useState()
   const handleOpenImages = () => {
-    setOpenImages(!openImages)
+    setOpenImages(!openImagesModal)
   }
-  const [previewImages, setPreviewImage] = []
 
-  const handleChange = () => {
-    const files = []
+  useEffect(() => {
+    if (images?.length) _setImages(images)
+  }, [images])
+
+  const [_images, _setImages] = useState([])
+  const [imageProgress, setImageProgress] = useState(false)
+  const handleChange = async () => {
+    setImageProgress(1)
     for (const file of fileRef.current.files) {
-      const objectUrl = URL.createObjectURL(file)
-      files.push(objectUrl)
+      const imageUpladed = await fbUploadImage(
+        file,
+        ({ progress }) => {
+          console.log('progress', progress)
+          setImageProgress(20)
+        }
+      ).then((res) => {
+        setImageProgress(50)
+        console.log('res', res)
+        return res
+      })
+      await fbAdvertAddImage(
+        advertId,
+        imageUpladed.downloadURL
+      ).then((res) => {
+        setImageProgress(75)
+        console.log('res', res)
+        return res
+      })
+      _setImages([..._images, imageUpladed.downloadURL])
+      setImageProgress(0)
     }
-    setPreviewImage(files)
+    setImageProgress(0)
   }
   const fileRef = useRef()
   const [alreadySaved, setAlreadySaved] = useState(false)
+
   useEffect(() => {
     if (advertId) setAlreadySaved(true)
   }, [advertId])
+
+  const handleDeleteImage = async (url) => {
+    await fbDeleteImage(url).then((res) =>
+      console.log('res', res)
+    )
+    await fbAdvertRemoveImage(advertId, url).then((res) =>
+      console.log('res', res)
+    )
+
+    const imageIndex = _images.indexOf(url)
+    _images.splice(imageIndex, 1)
+    _setImages([..._images])
+  }
+  console.log('_images', _images)
+
   return (
     <div className="flex w-full p-2 ">
       <button
@@ -199,29 +248,62 @@ const ImagesModal = ({ images, setImages, advertId }) => {
         Imagenes
       </button>
       <Modal
-        open={openImages}
+        open={openImagesModal}
         handleOpen={handleOpenImages}
         title="Imagenes"
       >
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 ">
+          <div className="col-span-full">
+            {!!imageProgress && (
+              <progress
+                className="progress"
+                value={imageProgress}
+                max={100}
+              ></progress>
+            )}
+          </div>
           <label className="border-dashed border-2 cursor-pointer border-gray-600 rounded-lg place-content-center grid h-32 w-32 shadow-lg shadow-slate-400 hover:shadow-md">
             <ICONS.Plus size="3rem" />
             <input
+              accept="image/png, image/jpeg"
               ref={fileRef}
               onChange={handleChange}
               className="hidden file:border-dashed file:border-2 file:cursor-pointer file:border-gray-600 file:rounded-lg file:place-content-center file:grid file:h-16 file:w-16 file:shadow-lg file:shadow-slate-400 file:hover:shadow-md"
               type={'file'}
-              multiple
             />
           </label>
-
-          {/*   <div className=" border-2 border-gray-600 rounded-lg h-32 w-32"></div>
-          <div className=" border-2 border-gray-600 rounded-lg h-32 w-32"></div>
-          <div className=" border-2 border-gray-600 rounded-lg h-32 w-32"></div>
-          <div className=" border-2 border-gray-600 rounded-lg h-32 w-32"></div>
-          <div className="  border-2 border-gray-600 rounded-lg h-32 w-32"></div> */}
+          {_images.map((url, i) => (
+            <ImageContainer
+              key={i}
+              url={url}
+              handleDeleteImage={handleDeleteImage}
+              // handleDeletePreview={handleDeletePreview}
+            />
+          ))}
         </div>
       </Modal>
+    </div>
+  )
+}
+
+const ImageContainer = ({ url, handleDeleteImage }) => {
+  return (
+    <div key={url} className="relative  h-32 w-32 ">
+      <Image
+        placeholder="blur"
+        blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVR42mP8/5+hnoEIwDiqkL4KAcT9GO0U4BxoAAAAAElFTkSuQmCC"
+        src={url}
+        objectFit="cover"
+        layout="fill"
+      />
+      <div className="absolute top-0 bottom-0 left-0 group hover:bg-white hover:bg-opacity-30 right-0 grid place-content-center  text-white">
+        <button
+          onClick={() => handleDeleteImage(url)}
+          className="p-1 opacity-40 group-hover:opacity-100 active:text-secondary "
+        >
+          <ICONS.Delete />
+        </button>
+      </div>
     </div>
   )
 }
