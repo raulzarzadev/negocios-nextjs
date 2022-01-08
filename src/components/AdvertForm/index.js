@@ -65,7 +65,6 @@ export default function AdvertForm ({ advert = null }) {
       })
     }
   }
-  console.log('advert', advert)
   if (!advert) return 'Cargando...'
 
   return (

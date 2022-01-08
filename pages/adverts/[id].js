@@ -11,7 +11,6 @@ export default function EditAdvert () {
   const {
     query: { id }
   } = router
-  console.log('id', id)
 
   useEffect(() => {
     if (id) {
