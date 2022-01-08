@@ -1,4 +1,4 @@
-import Advert from '@comps/Advert'
+import Advert from '@comps/Advert.v3'
 import IconBtn from '@comps/IconBtn'
 import { BtnL, ExternalL, L } from '@comps/L'
 import PrimBtn from '@comps/PrimBtn'
