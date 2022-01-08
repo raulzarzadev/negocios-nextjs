@@ -32,6 +32,7 @@ const DEFAULT_ADVERT = {
       url: 'strud ex id voluptate '
     }
   ],
+  image: [],
   title: 'strud ex id voluptate ',
   content:
     'Irure minim esse nostrud ex id voluptate deserunt veniam ipsum ut reprehenderit.',
@@ -88,10 +89,16 @@ export default function Advert ({
     deleteAdvert(id).then((res) => router.reload())
   }
 
+  const mainImage = Array.isArray(advert?.image)
+    ? advert?.image[advert?.image?.length - 1]
+    : advert?.image
+  const ImagesList = advert?.images
+  console.log('advert', advert)
+  console.log('mainImage', mainImage)
   return (
     <div
       className={
-        'grid w-full  max-w-sm  mt-2 shadow-lg rounded-lg'
+        'grid mt-2 shadow-lg rounded-lg  max-w-[320px]'
       }
     >
       <header
@@ -129,17 +136,58 @@ export default function Advert ({
           )}
         </div>
       </header>
-      <section className={'w-full'}>
+      {/* TODO doing carrucel  */}
+      <section className={''}>
         {/* ---------------------------------IMAGE---------------------------------- */}
-        <div className="relative w-full aspect-video ">
-          <Image
-            alt={title}
-            src={`${image || '/lotipo.png'}`}
-            layout="fill"
-            objectFit="cover"
-            placeholder="blur"
-            blurDataURL={`${image || '/lotipo.png'}`}
-          />
+        <div className=" aspect-video relative group">
+          {ImagesList.length && (
+            <>
+              <button
+                disabled
+                className="absolute top-0 bottom-0 group-hover:bg-slate-300  group-hover:bg-opacity-60 left-0 z-50"
+              >
+                <ICONS.ArrowLeft />
+              </button>
+              <button
+                disabled
+                className="absolute top-0 bottom-0 group-hover:bg-slate-300 group-hover:bg-opacity-60 right-0 z-50"
+              >
+                <ICONS.ArrowRight />
+              </button>
+            </>
+          )}
+          <div className="carousel w-full h-full overflow-x-auto  ">
+            {mainImage && (
+              <div className="carousel-item w-full h-full">
+                <div className="relative w-full h-full  ">
+                  <Image
+                    src={mainImage}
+                    layout="fill"
+                    objectFit="cover"
+                    placeholder="blur"
+                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVR42mP8/5+hnoEIwDiqkL4KAcT9GO0U4BxoAAAAAElFTkSuQmCC"
+                  />
+                </div>
+              </div>
+            )}
+
+            {ImagesList?.map((image) => (
+              <div
+                key={image}
+                className="carousel-item w-full h-full"
+              >
+                <div className="relative w-full h-full ">
+                  <Image
+                    src={image}
+                    layout="fill"
+                    objectFit="cover"
+                    placeholder="blur"
+                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVR42mP8/5+hnoEIwDiqkL4KAcT9GO0U4BxoAAAAAElFTkSuQmCC"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
         {/* ---------------------------------TITLE---------------------------------- */}
         <div className={'px-1'}>

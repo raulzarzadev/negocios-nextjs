@@ -63,6 +63,8 @@ export default function AdvertForm ({ advert = null }) {
       })
     }
   }
+  if (!advert) return 'Cargando...'
+  console.log('advert', advert)
 
   return (
     <div className="relative">
@@ -164,6 +166,11 @@ const Step1 = ({ form = {}, setForm = () => {} }) => {
         name={'content'}
         value={form?.content ?? ''}
       />
+      <ImageModal
+        image={form?.image}
+        setImage={(image) => setForm({ ...form, image })}
+        advertId={form.id}
+      />
       <ImagesModal
         images={form?.images}
         setImages={(images) => setForm({ ...form, images })}
@@ -173,6 +180,112 @@ const Step1 = ({ form = {}, setForm = () => {} }) => {
   )
 }
 
+const ImageModal = ({
+  image = [],
+  setImage = () => {},
+  advertId = ''
+}) => {
+  console.log('image', image)
+  useEffect(() => {
+    if (image.length) _setImage(image)
+  }, [image])
+
+  const [_image, _setImage] = useState([])
+  const [imageProgress, setImageProgress] = useState(false)
+  const handleChange = async () => {
+    setImageProgress(1)
+    for (const file of fileRef.current.files) {
+      const imageUpladed = await fbUploadImage(
+        file,
+        ({ progress }) => {
+          console.log('progress', progress)
+          setImageProgress(20)
+        }
+      ).then((res) => {
+        setImageProgress(50)
+        console.log('res', res)
+        return res
+      })
+      await fbAdvertAddImage(
+        advertId,
+        imageUpladed.downloadURL,
+        { mainImage: true }
+      ).then((res) => {
+        setImageProgress(75)
+        console.log('res', res)
+        return res
+      })
+      _setImage([..._image, imageUpladed.downloadURL])
+      setImage([..._image, imageUpladed.downloadURL])
+      setImageProgress(0)
+    }
+    setImageProgress(0)
+  }
+  const fileRef = useRef()
+  const [alreadySaved, setAlreadySaved] = useState(false)
+
+  useEffect(() => {
+    if (advertId) setAlreadySaved(true)
+  }, [advertId])
+
+  const handleDeleteImage = async (url) => {
+    await fbDeleteImage(url).then((res) =>
+      console.log('res', res)
+    )
+    await fbAdvertRemoveImage(advertId, url, {
+      mainImage: true
+    }).then((res) => console.log('res', res))
+
+    const imageIndex = _image.indexOf(url)
+    _image.splice(imageIndex, 1)
+    _setImage([..._image])
+    setImage([..._image])
+  }
+  console.log('_image', _image)
+
+  return (
+    <div className="flex w-full p-2 ">
+      <div className=" ">
+        <div className="col-span-full">
+          {!!imageProgress && (
+            <progress
+              className="progress"
+              value={imageProgress}
+              max={100}
+            ></progress>
+          )}
+        </div>
+        <div className="">
+          <label
+            style={{
+              backgroundImage: `url(${
+                _image[_image?.length - 1]
+              })`
+            }}
+            className="bg-cover border-dashed border-2 cursor-pointer border-gray-600 rounded-lg place-content-center grid h-32 w-32 shadow-lg shadow-slate-400 hover:shadow-md "
+          >
+            Imagen <ICONS.Plus size="3rem" />
+            <input
+              accept="image/png, image/jpeg"
+              ref={fileRef}
+              onChange={handleChange}
+              className="hidden file:border-dashed file:border-2 file:cursor-pointer file:border-gray-600 file:rounded-lg file:place-content-center file:grid file:h-16 file:w-16 file:shadow-lg file:shadow-slate-400 file:hover:shadow-md"
+              type={'file'}
+            />
+          </label>
+        </div>
+        {/* {_images.map((url, i) => (
+            <ImageContainer
+              key={i}
+              url={url}
+              handleDeleteImage={handleDeleteImage}
+              // handleDeletePreview={handleDeletePreview}
+            />
+          ))} */}
+      </div>
+    </div>
+  )
+}
 const ImagesModal = ({
   images = [],
   setImages = () => {},
@@ -212,6 +325,7 @@ const ImagesModal = ({
         return res
       })
       _setImages([..._images, imageUpladed.downloadURL])
+      setImages([..._images, imageUpladed.downloadURL])
       setImageProgress(0)
     }
     setImageProgress(0)
@@ -234,6 +348,7 @@ const ImagesModal = ({
     const imageIndex = _images.indexOf(url)
     _images.splice(imageIndex, 1)
     _setImages([..._images])
+    setImages([..._images])
   }
   console.log('_images', _images)
 
@@ -245,7 +360,7 @@ const ImagesModal = ({
         onClick={handleOpenImages}
       >
         {' '}
-        Imagenes
+        Mas imagenes
       </button>
       <Modal
         open={openImagesModal}
@@ -296,7 +411,7 @@ const ImageContainer = ({ url, handleDeleteImage }) => {
         objectFit="cover"
         layout="fill"
       />
-      <div className="absolute top-0 bottom-0 left-0 group hover:bg-white hover:bg-opacity-30 right-0 grid place-content-center  text-white">
+      <div className="absolute top-0 bottom-0 left-0 group hover:bg-gray-600 hover:bg-opacity-30 right-0 grid place-content-center  text-white">
         <button
           onClick={() => handleDeleteImage(url)}
           className="p-1 opacity-40 group-hover:opacity-100 active:text-secondary "
