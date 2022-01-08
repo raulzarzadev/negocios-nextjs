@@ -6,7 +6,7 @@ export const CONTACT_TYPES = [
     name: 'Whatsapp',
     type: 'ws',
     label: 'Whatsapp',
-    icon: <ICONS.Whatsapp size="2rem" />,
+    icon: <ICONS.Whatsapp size="1.7rem" />,
     prefix: '521'
   },
   {
@@ -14,7 +14,7 @@ export const CONTACT_TYPES = [
     name: 'facebook',
     type: 'fb',
     label: 'Facebook',
-    icon: <ICONS.Facebook size="2rem" />,
+    icon: <ICONS.Facebook size="1.7rem" />,
     prefix: 'https://facebook.com/'
   },
   {
@@ -22,7 +22,7 @@ export const CONTACT_TYPES = [
     name: 'instagram',
     type: 'in',
     label: 'Instagram',
-    icon: <ICONS.Instagram size="2rem" />,
+    icon: <ICONS.Instagram size="1.7rem" />,
     prefix: 'https://instagram.com/'
   },
   {
@@ -30,7 +30,7 @@ export const CONTACT_TYPES = [
     name: 'webpage',
     type: 'web',
     label: 'Web',
-    icon: <ICONS.Water size="2rem" />,
+    icon: <ICONS.Water size="1.7rem" />,
     prefix: 'https://'
   },
   {
@@ -38,7 +38,7 @@ export const CONTACT_TYPES = [
     name: 'tel',
     type: 'tel',
     label: 'Fijo',
-    icon: <ICONS.Phone size="2rem" />,
+    icon: <ICONS.Phone size="1.7rem" />,
     prefix: ''
   }
 ]

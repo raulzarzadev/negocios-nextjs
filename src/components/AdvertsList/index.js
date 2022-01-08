@@ -1,6 +1,4 @@
 import Advert from '@comps/Advert.v3'
-import BarrioTitle from '@comps/BarrioTitle'
-let render = 0
 export default function AdvertsList ({
   barrio = undefined,
   adverts,
@@ -9,7 +7,7 @@ export default function AdvertsList ({
 }) {
   return (
     <div className={''}>
-      
+
       <div
         className={
           ' grid sm:grid-cols-2  lg:grid-cols-3 max-w-4xl mx-auto gap-4 sm:p-4 lg:gap-8 place-content-center'
@@ -25,7 +23,6 @@ export default function AdvertsList ({
           />
         ))}
       </div>
-      {console.log('render++', render++)}
     </div>
   )
 }

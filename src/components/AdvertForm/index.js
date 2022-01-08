@@ -21,6 +21,8 @@ import {
   fbAdvertAddImage,
   fbAdvertRemoveImage
 } from 'firebase/adverts'
+import formatContacts from 'src/utils/formatContacts'
+import { CONTACT_TYPES } from 'CONST/CONTACT_TYPES'
 
 export default function AdvertForm ({ advert = null }) {
   const [step, setStep] = useState(0)
@@ -34,8 +36,8 @@ export default function AdvertForm ({ advert = null }) {
   const STEPS = [
     { title: 'Informacion' },
     { title: 'Clasificación' },
-    { title: 'Contactos' },
-    { title: 'Publicar' }
+    { title: 'Contactos' }
+    /* { title: 'Publicar' } */
   ]
   const addStep = () => {
     step < STEPS.length && setStep(step + 1)
@@ -64,7 +66,6 @@ export default function AdvertForm ({ advert = null }) {
     }
   }
   if (!advert) return 'Cargando...'
-  console.log('advert', advert)
 
   return (
     <div className="relative">
@@ -185,7 +186,6 @@ const ImageModal = ({
   setImage = () => {},
   advertId = ''
 }) => {
-  console.log('image', image)
   useEffect(() => {
     if (image.length) _setImage(image)
   }, [image])
@@ -241,7 +241,6 @@ const ImageModal = ({
     _setImage([..._image])
     setImage([..._image])
   }
-  console.log('_image', _image)
 
   return (
     <div className="flex w-full p-2 ">
@@ -350,7 +349,6 @@ const ImagesModal = ({
     _setImages([..._images])
     setImages([..._images])
   }
-  console.log('_images', _images)
 
   return (
     <div className="flex w-full p-2 ">
@@ -446,11 +444,29 @@ const Step3 = ({ form = {}, setForm = () => {} }) => {
       }
     })
   }
+  console.log('form', form)
   const contacts = form.contacts
+  console.log('contacts', contacts)
+  console.log('formatContac', formatContacts(contacts))
+  const formatedContacts = formatContacts(contacts)
+  const contactsDisplay = CONTACT_TYPES
   return (
     <div>
       <div className="grid gap-2 ">
-        <TextIcon
+        {contactsDisplay.map((contact) => (
+          <TextIcon
+            key={contact.id}
+            placeholder={contact.label}
+            className={''}
+            icon={contact.icon}
+            onChange={handleChange}
+            name={contact.id}
+            value={formatedContacts.find(
+              ({ id }) => id === contact.id
+            )?.value}
+          />
+        ))}
+        {/*  <TextIcon
           placeholder="Whatsapp"
           className={'input-sm'}
           icon={<ICONS.Whatsapp />}
@@ -473,7 +489,7 @@ const Step3 = ({ form = {}, setForm = () => {} }) => {
           onChange={handleChange}
           name={'facebook'}
           value={contacts?.facebook}
-        />
+        /> */}
       </div>
     </div>
   )
@@ -497,7 +513,6 @@ const Step4 = ({ form = {}, setForm = () => {} }) => {
   const handleChange = ({ target }) => {
     _setForm({ ..._form, [target.name]: target.value })
   }
-  console.log('_form', _form)
 
   const handleSubmit = (form) => {
     console.log(' form.period', form.period)
@@ -512,7 +527,6 @@ const Step4 = ({ form = {}, setForm = () => {} }) => {
     const dates = datesToFirebaseFromat({
       document: { ...form, period }
     })
-    console.log('dates', dates)
 
     const publication = {
       // advertId,

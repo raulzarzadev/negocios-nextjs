@@ -93,8 +93,6 @@ export default function Advert ({
     ? advert?.image[advert?.image?.length - 1]
     : advert?.image
   const ImagesList = advert?.images
-  console.log('advert', advert)
-  console.log('mainImage', mainImage)
   return (
     <div
       className={
@@ -140,7 +138,7 @@ export default function Advert ({
       <section className={''}>
         {/* ---------------------------------IMAGE---------------------------------- */}
         <div className=" aspect-video relative group">
-          {ImagesList.length && (
+          {ImagesList?.length && (
             <>
               <button
                 disabled

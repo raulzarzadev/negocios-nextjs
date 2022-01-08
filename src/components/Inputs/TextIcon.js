@@ -12,7 +12,7 @@ export default function TextIcon ({
         </label>
       )}
       <label className="input-group">
-        <span className="w-[20%] text-white bg-primary">{icon}</span>
+        <span className="w-[20%] text-white bg-primary flex ">{icon}</span>
         <input
           className={`${className} input w-[80%] `}
           type="text"
