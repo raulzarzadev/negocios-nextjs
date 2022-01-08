@@ -65,6 +65,7 @@ export default function AdvertForm ({ advert = null }) {
       })
     }
   }
+  console.log('advert', advert)
   if (!advert) return 'Cargando...'
 
   return (
@@ -187,7 +188,11 @@ const ImageModal = ({
   advertId = ''
 }) => {
   useEffect(() => {
-    if (image.length) _setImage(image)
+    const mainImage = Array.isArray(image)
+      ? image[image?.length - 1]
+      : image
+
+    if (image.length) _setImage([mainImage])
   }, [image])
 
   const [_image, _setImage] = useState([])
@@ -446,7 +451,6 @@ const Step3 = ({ form = {}, setForm = () => {} }) => {
   }
   const contacts = form.contacts
   const formatedContacts = formatContacts(contacts)
-  console.log('formatedContacts', formatedContacts)
   const contactsDisplay = CONTACT_TYPES
   return (
     <div>
@@ -462,7 +466,7 @@ const Step3 = ({ form = {}, setForm = () => {} }) => {
             value={
               formatedContacts.find(
                 ({ id }) => id === contact.id
-              )?.value
+              )?.value || ''
             }
           />
         ))}

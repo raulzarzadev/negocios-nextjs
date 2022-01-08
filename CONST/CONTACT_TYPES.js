@@ -40,5 +40,13 @@ export const CONTACT_TYPES = [
     label: 'Fijo',
     icon: <ICONS.Phone size="1.7rem" />,
     prefix: ''
+  },
+  {
+    id: 'location',
+    name: 'location',
+    type: 'loc',
+    label: 'Ubicación',
+    icon: <ICONS.Location size="1.7rem" />,
+    prefix: ''
   }
 ]

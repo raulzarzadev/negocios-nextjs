@@ -64,9 +64,9 @@ export default function Advert ({
     content,
     contacts,
     // backgroundColor,
-    id,
+    id
     // publication,
-    location
+    // location
   } = advert
   const { deleteAdvert } = useAds()
 
@@ -102,7 +102,7 @@ export default function Advert ({
           'px-1 py-1 flex justify-between items-center w-full'
         }
       >
-        <div className="flex flex-wrap justify-start gap-0.5 h-14">
+        <div className="flex flex-wrap justify-start gap-0.5 h-14 overflow-y-auto">
           {chips?.map((chip, i) => (
             <FilterChip
               key={i}
@@ -206,7 +206,7 @@ export default function Advert ({
             'w-[90%] flex justify-evenly items-center'
           }
         >
-          {location && (
+         {/*  {location && (
             <a
               href={location}
               target="_blank"
@@ -214,7 +214,7 @@ export default function Advert ({
             >
               <ICONS.Location size="2rem" />
             </a>
-          )}
+          )} */}
           <ContactsSection contacts={contacts} />
           {/*  {contactLinks?.map((contact, i) => (
             <ContactLink contact={contact} key={i} />
@@ -246,7 +246,7 @@ export default function Advert ({
 const ContactsSection = ({ contacts }) => {
   const formatedContacts = formatContacts(contacts)
   return (
-    <div>
+    <div className='flex justify-evenly w-full'>
       {formatedContacts.map((contact, i) => (
         <ContactLink key={i} contact={contact} />
       ))}
@@ -263,7 +263,7 @@ const ContactLink = ({ contact }) => {
       contact.prefix
     }${contact?.value?.replace(/\n/g, '')}?text=${wstext}`,
 
-    tel: `tel:+52${contact.value}`
+    tel: `tel:52${contact.value}`
   }
 
   return (
