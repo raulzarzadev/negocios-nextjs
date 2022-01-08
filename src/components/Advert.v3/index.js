@@ -68,13 +68,11 @@ export default function Advert ({
     // publication,
     location
   } = advert
-
   const { deleteAdvert } = useAds()
 
   const chips = labels?.map((label) =>
     CHIP_LABELS.find((chip) => chip.key === label)
   )
-  const contactLinks = formatContacts(contacts)
   const [openDelete, setOpenDelete] = useState(false)
   const [openPublish, setOpenPublish] = useState(false)
 
@@ -217,9 +215,10 @@ export default function Advert ({
               <ICONS.Location size="2rem" />
             </a>
           )}
-          {contactLinks?.map((contact, i) => (
+          <ContactsSection contacts={contacts} />
+          {/*  {contactLinks?.map((contact, i) => (
             <ContactLink contact={contact} key={i} />
-          ))}
+          ))} */}
         </div>
         {/* MODALES */}
 
@@ -244,18 +243,31 @@ export default function Advert ({
   )
 }
 
+const ContactsSection = ({ contacts }) => {
+  const formatedContacts = formatContacts(contacts)
+  return (
+    <div>
+      {formatedContacts.map((contact, i) => (
+        <ContactLink key={i} contact={contact} />
+      ))}
+    </div>
+  )
+}
+
 const ContactLink = ({ contact }) => {
+  // console.log('contact.value', contact.value)
   const wstext =
     'Hola, vi tu anuncio en negociosdelbarrio.com. Quisiera...'
   const hrefOptions = {
     ws: `https://wa.me/${
       contact.prefix
-    }${contact?.value.replace(/ /g, '')}?text=${wstext}`,
+    }${contact?.value?.replace(/\n/g, '')}?text=${wstext}`,
+
     tel: `tel:+52${contact.value}`
   }
 
   return (
-    <Tooltip text={contact?.label}>
+    <>
       <a
         href={hrefOptions[contact?.type] || contact?.value}
         target="_blank"
@@ -264,7 +276,7 @@ const ContactLink = ({ contact }) => {
       >
         <div className=" p-1">{contact?.icon}</div>
       </a>
-    </Tooltip>
+    </>
   )
 }
 

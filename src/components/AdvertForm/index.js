@@ -444,11 +444,9 @@ const Step3 = ({ form = {}, setForm = () => {} }) => {
       }
     })
   }
-  console.log('form', form)
   const contacts = form.contacts
-  console.log('contacts', contacts)
-  console.log('formatContac', formatContacts(contacts))
   const formatedContacts = formatContacts(contacts)
+  console.log('formatedContacts', formatedContacts)
   const contactsDisplay = CONTACT_TYPES
   return (
     <div>
