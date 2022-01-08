@@ -1,9 +1,8 @@
-import styles from './styles.module.css'
 
 export default function Tooltip ({
   text = 'tooltip',
-  children,
-  position = 'right' || 'left'
+  children
+  // position = 'right' || 'left'
 }) {
   return (
     <div className={'relative group'}>

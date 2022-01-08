@@ -1,4 +1,4 @@
-export default function BarrioTitle({ barrio }) {
+export default function BarrioTitle ({ barrio }) {
   return (
     <div className={'text-center'}>
       <span>

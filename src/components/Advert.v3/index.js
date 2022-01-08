@@ -59,7 +59,7 @@ export default function Advert ({
   const router = useRouter()
   const {
     labels,
-    image,
+
     title,
     content,
     contacts,

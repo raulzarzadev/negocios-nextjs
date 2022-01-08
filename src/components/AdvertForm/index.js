@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import Select from '@comps/Inputs/Select'
 import Text from '@comps/Inputs/Text'
 import Textarea from '@comps/Inputs/Textarea'
@@ -6,7 +7,6 @@ import Modal from '@comps/Modals/Modal'
 import SelectLabels from '@comps/SelectLabels'
 import { addDays } from 'date-fns'
 import { fb_getBarrios } from 'firebase/client'
-import { datesToFirebaseFromat } from 'firebase/firebase-helpers'
 import { useEffect, useRef, useState } from 'react'
 import { useAds } from 'src/hooks/useAds'
 import ICONS from 'src/utils/ICONS'
@@ -223,11 +223,11 @@ const ImageModal = ({
   }
   const fileRef = useRef()
   const [alreadySaved, setAlreadySaved] = useState(false)
-
+  console.log('alreadySaved', alreadySaved)
   useEffect(() => {
     if (advertId) setAlreadySaved(true)
   }, [advertId])
-
+  /*
   const handleDeleteImage = async (url) => {
     await fbDeleteImage(url).then((res) =>
       console.log('res', res)
@@ -240,7 +240,7 @@ const ImageModal = ({
     _image.splice(imageIndex, 1)
     _setImage([..._image])
     setImage([..._image])
-  }
+  } */
 
   return (
     <div className="flex w-full p-2 ">
@@ -461,9 +461,11 @@ const Step3 = ({ form = {}, setForm = () => {} }) => {
             icon={contact.icon}
             onChange={handleChange}
             name={contact.id}
-            value={formatedContacts.find(
-              ({ id }) => id === contact.id
-            )?.value}
+            value={
+              formatedContacts.find(
+                ({ id }) => id === contact.id
+              )?.value
+            }
           />
         ))}
         {/*  <TextIcon
@@ -524,7 +526,7 @@ const Step4 = ({ form = {}, setForm = () => {} }) => {
       startAt: startAt,
       finishAt: finishAt
     }
-    const dates = datesToFirebaseFromat({
+    /* const dates = datesToFirebaseFromat({
       document: { ...form, period }
     })
 
@@ -534,7 +536,7 @@ const Step4 = ({ form = {}, setForm = () => {} }) => {
       // publishEnds,
       // publishStart,
       // active: true
-    }
+    } */
     console.log('publication', period)
     /*
     publishAdvert(publication).then((res) => {
