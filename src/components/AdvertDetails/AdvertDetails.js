@@ -19,10 +19,8 @@ export default function AdvertDetails ({ advert }) {
   }
 
   const { publications } = usePublications()
-  const [
-    advertPulications,
-    setAdvertPublications
-  ] = useState()
+  const [advertPulications, setAdvertPublications] =
+    useState()
   useEffect(() => {
     setAdvertPublications(
       publications?.filter(
@@ -32,24 +30,32 @@ export default function AdvertDetails ({ advert }) {
   }, [publications])
 
   return (
-    <div className={s.advert_details}>
+    <div className="">
       {admin && (
-        <div className={s.publications}>
-          <h3>Publicar</h3>
-          <button onClick={handleOpenPublish}>
+        <div className="">
+          <h3 className="text-xl font-bold text-center">
             Publicar
-          </button>
+          </h3>
+
+          <AdminPublicationsAdvert
+            publications={advertPulications}
+          />
+          <div className='py-2 flex w-full justify-center'>
+            <button
+              className="btn btn-primary  "
+              onClick={handleOpenPublish}
+            >
+              Publicar
+            </button>
+          </div>
           <ModalPubish
             open={modalPublish}
             handleOpen={handleOpenPublish}
             advertId={advert.id}
           />
-          <AdminPublicationsAdvert
-            publications={advertPulications}
-          />
         </div>
       )}
-      <div className={s.adverts}>
+      <div className="">
         <Advert edit advert={advert} />
       </div>
     </div>

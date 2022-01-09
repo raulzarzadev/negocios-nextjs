@@ -2,7 +2,9 @@ import { useAds } from 'src/hooks/useAds'
 import isGoodTime from 'src/utils/isGoodTime'
 import s from './styles.module.css'
 
-export default function AdminPublicationsAdvert ({ publications }) {
+export default function AdminPublicationsAdvert ({
+  publications
+}) {
   const { unpublishAdvert, reactivePublish } = useAds()
   const handleUnpublish = (publicationId) => {
     unpublishAdvert(publicationId).then((res) =>
@@ -37,10 +39,12 @@ export default function AdminPublicationsAdvert ({ publications }) {
   )
 
   return (
-    <div className={s.modal_advert}>
-      <div className={s.modal_options}>
-        Publicaciones
-        <div className={s.details}>
+    <div className='border border-black w-full'>
+      <div className=''>
+        <h4 className="text-lg font-bold my-1">
+          Publicaciones
+        </h4>
+        <div className='grid grid-flow-col place-content-center grid-cols-3 px-2 gap-2'>
           <PublicationType
             title="Activas"
             publications={activesPublications}
@@ -71,9 +75,9 @@ const PublicationType = ({
   changePublicationStatus,
   title
 }) => (
-  <div>
+  <div className='text-center'>
     {`${title} ${publications.length}`}
-    <div style={{ display: 'flex' }}>
+    <div className='flex '>
       {publications?.map(
         ({ id, barrioId, publishEnds }) => (
           <div
