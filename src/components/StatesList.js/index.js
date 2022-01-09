@@ -31,7 +31,10 @@ export default function StateList ({ statesList = [] }) {
         {/* <div className={s.location}>
           <Switch label="Ubicacón" disabled name='location-active'/>
         </div> */}
-        <div className={s.select_content}>
+        <div className="text-center">
+          <h3 className="font-bold text-4xl mt-4">
+            Negocios del barrio
+          </h3>
           {statesList.map((state) => (
             <h4
               onClick={() => handleChangeSate(state.tag)}
