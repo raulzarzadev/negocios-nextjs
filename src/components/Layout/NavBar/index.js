@@ -4,6 +4,7 @@ import styles from './styles.module.css'
 import BookmarkIcon from '@material-ui/icons/Bookmark'
 import { useRouter } from 'next/router'
 import useUser from 'src/context/UserContext'
+import ICONS from 'src/utils/ICONS'
 
 export default function NavBar () {
   const { user } = useUser()
@@ -18,7 +19,11 @@ export default function NavBar () {
   const profilePage = route === '/profile'
 
   return (
-    <section className={' top-0 right-0 left-0 min-h-[54px] flex justify-between items-center shadow-sm z-10 bg-white'}>
+    <section
+      className={
+        ' top-0 right-0 left-0 min-h-[54px] flex justify-between items-center shadow-sm z-10 bg-white'
+      }
+    >
       {/* .top_bar {
   position: sticky;
   top: 0;
@@ -51,14 +56,32 @@ export default function NavBar () {
                 </L>
               </li>
             )}
-            <li className={styles.list_item}>
+            <li className="self-center flex justify-center items-center">
+              <div className="dropdown dropdown-end ">
+                <div
+                  tabIndex="0"
+                  className="btn btn-circle btn-ghost btn-xs flex"
+                >
+                  <ICONS.Lang size={'1rem '} />
+                </div>
+                <ul
+                  tabIndex="0"
+                  className="p-2 shadow menu dropdown-content  rounded-box min-w-min bg-info compact"
+                >
+                  <li>
+                    <a>Español</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            {/* <li c>
               <L
                 href="/about"
                 arialLabel="Acerca de negociosdelbarrio.com"
               >
                 Acerca de
               </L>
-            </li>
+            </li> */}
             {isLogin && (
               <li className={styles.list_item}>
                 <L href="/profile" arialLabel="Tu Perfil">

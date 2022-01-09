@@ -47,7 +47,8 @@ import {
   SiGooglemaps,
   SiWhatsapp,
   SiFacebook,
-  SiInstagram
+  SiInstagram,
+  SiGoogletranslate
 } from 'react-icons/si'
 
 const defaultSize = '1.5rem'
@@ -188,5 +189,11 @@ export default {
   ),
   Instagram: ({ size, ...rest }) => (
     <SiInstagram {...rest} size={size ?? defaultSize} />
+  ),
+  Lang: ({ size, ...rest }) => (
+    <SiGoogletranslate
+      {...rest}
+      size={size ?? defaultSize}
+    />
   )
 }
