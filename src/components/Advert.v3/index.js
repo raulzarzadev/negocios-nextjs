@@ -132,10 +132,9 @@ export default function Advert ({
           )}
         </div>
       </header>
-      {/* TODO doing carrucel  */}
       <section className={''}>
         {/* ---------------------------------IMAGE---------------------------------- */}
-        <div className=" aspect-video relative group">
+        <div className=" aspect-video relative group ">
           {ImagesList?.length && (
             <>
               <button
@@ -152,7 +151,7 @@ export default function Advert ({
               </button>
             </>
           )}
-          <div className="carousel w-full h-full overflow-x-auto  ">
+          <div className="carousel w-full  overflow-x-auto h-48 ">
             {mainImage && (
               <div className="carousel-item w-full h-full">
                 <div className="relative w-full h-full  ">
