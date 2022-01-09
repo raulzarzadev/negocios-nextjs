@@ -26,6 +26,8 @@ export function UserProvider ({ children }) {
       fb_listenUserFavorites(user.id, (favorites) => {
         setFavoritesList(favorites)
       })
+    } else {
+      setUser(null)
     }
   }, [user])
 
@@ -38,6 +40,8 @@ export function UserProvider ({ children }) {
   )
 }
 
-function useUser () { return useContext(UserContext) }
+function useUser () {
+  return useContext(UserContext)
+}
 
 export default useUser

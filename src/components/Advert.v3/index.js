@@ -102,14 +102,15 @@ export default function Advert ({
           'px-1 py-1 flex justify-between items-center w-full'
         }
       >
-        <div className="flex flex-wrap justify-start gap-0.5 h-14 overflow-y-auto">
+        <div className="h-16 flex flex-wrap justify-start overflow-y-auto snap-y ">
           {chips?.map((chip, i) => (
-            <FilterChip
-              key={i}
-              label={chip}
-              selected={filter === chip.key}
-              onClick={() => handleSetFilter(chip.key)}
-            />
+            <div key={i} className='m-0.5 snap-start'>
+              <FilterChip
+                label={chip}
+                selected={filter === chip.key}
+                onClick={() => handleSetFilter(chip.key)}
+              />
+            </div>
           ))}
         </div>
 
@@ -205,7 +206,7 @@ export default function Advert ({
             'w-[90%] flex justify-evenly items-center'
           }
         >
-         {/*  {location && (
+          {/*  {location && (
             <a
               href={location}
               target="_blank"
@@ -245,7 +246,7 @@ export default function Advert ({
 const ContactsSection = ({ contacts }) => {
   const formatedContacts = formatContacts(contacts)
   return (
-    <div className='flex justify-evenly w-full'>
+    <div className="flex justify-evenly w-full">
       {formatedContacts.map((contact, i) => (
         <ContactLink key={i} contact={contact} />
       ))}

@@ -7,8 +7,8 @@ const FilterChip = ({
   return (
     <button
       className={` ${
-        selected && ' border-gray- border-4  '
-      } cursor-pointer  hover:border-opacity-25 w-min border snap-start border-slate-600  rounded-full whitespace-nowrap flex justify-center items-center px-2`}
+        selected && ' border-slate-700  shadow-none '
+      } cursor-pointer  border-opacity-100 w-min border-2 shadow-md snap-start   rounded-full whitespace-nowrap flex justify-center items-center px-2`}
       onClick={onClick}
     >
       {justIcon ? label?.icon : label?.label}
