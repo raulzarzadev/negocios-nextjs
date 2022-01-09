@@ -1,13 +1,13 @@
 import AdminPublicationsAdvert from '@comps/AdminPublicationsAdvert'
 import Advert from '@comps/Advert.v3'
+import Loading from '@comps/Loading'
 import ModalPubish from '@comps/Modals/ModalPublish'
 import { useEffect, useState } from 'react'
 import useUser from 'src/context/UserContext'
 import { usePublications } from 'src/hooks/usePublications'
-import s from './styles.module.css'
 
 export default function AdvertDetails ({ advert }) {
-  if (!advert) return 'Cargando ...'
+  if (!advert) return <Loading size="lg" />
 
   const { user } = useUser()
   const admin = user?.admin
@@ -40,7 +40,7 @@ export default function AdvertDetails ({ advert }) {
           <AdminPublicationsAdvert
             publications={advertPulications}
           />
-          <div className='py-2 flex w-full justify-center'>
+          <div className="py-2 flex w-full justify-center">
             <button
               className="btn btn-primary  "
               onClick={handleOpenPublish}

@@ -1,8 +1,12 @@
 import useUser from 'src/context/UserContext'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import Loading from '@comps/Loading'
 
-export default function PrivateRoute ({ Component, ...res }) {
+export default function PrivateRoute ({
+  Component,
+  ...res
+}) {
   const router = useRouter()
   const { user } = useUser()
   const [userData, setUserData] = useState(undefined)
@@ -17,7 +21,7 @@ export default function PrivateRoute ({ Component, ...res }) {
     if (user === null) router.replace('/')
   }, [user])
 
-  if (loading) return 'Cargando ...'
+  if (loading) return <Loading size="lg" />
 
   return <Component {...res} user={userData} />
 }

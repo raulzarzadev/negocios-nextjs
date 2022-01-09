@@ -23,6 +23,7 @@ import {
 } from 'firebase/adverts'
 import formatContacts from 'src/utils/formatContacts'
 import { CONTACT_TYPES } from 'CONST/CONTACT_TYPES'
+import Loading from '@comps/Loading'
 
 export default function AdvertForm ({ advert = null }) {
   const [step, setStep] = useState(0)
@@ -65,7 +66,7 @@ export default function AdvertForm ({ advert = null }) {
       })
     }
   }
-  if (!advert) return 'Cargando...'
+  if (!advert) return <Loading size="lg" />
 
   return (
     <div className="relative">

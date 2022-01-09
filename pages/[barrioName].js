@@ -4,6 +4,7 @@ import { useAds } from 'src/hooks/useAds'
 import AdvertsList from '@comps/AdvertsList'
 import Filter from '@comps/Filter/index.js'
 import Head from 'next/head'
+import Loading from '@comps/Loading'
 
 export default function Barrio () {
   const { getAdsByBarrio } = useAds()
@@ -59,7 +60,7 @@ export default function Barrio () {
     []
   )
 
-  if (barrio === undefined) return 'Cargando...'
+  if (barrio === undefined) return <Loading size='lg'/>
   return (
     <>
       <Head>

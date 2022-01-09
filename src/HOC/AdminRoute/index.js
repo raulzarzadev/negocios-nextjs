@@ -1,8 +1,9 @@
 import useUser from 'src/context/UserContext'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import Loading from '@comps/Loading'
 
-export default function AdminRoute ({ Component, ...res }) {
+export default function AdminRoute({ Component, ...res }) {
   const router = useRouter()
   const { user } = useUser()
   const [userData, setUserData] = useState(undefined)
@@ -16,7 +17,7 @@ export default function AdminRoute ({ Component, ...res }) {
     if (!user?.admin) router.replace('/profile')
   }, [user])
 
-  if (loading) return 'Cargando ...'
+  if (loading) return <Loading size="lg" />
 
   return <Component {...res} user={userData} />
 }

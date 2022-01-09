@@ -1,3 +1,4 @@
+import Loading from '@comps/Loading'
 import StateList from '@comps/StatesList.js'
 import { useEffect, useState } from 'react'
 import { useBarrios } from 'src/hooks/useBarrios'
@@ -16,7 +17,7 @@ export default function ViewBarrios () {
     })
   }, [])
 
-  if (loading) return 'Cargando...'
+  if (loading) return <Loading size="lg" />
 
   return <StateList statesList={barrios}/>
 }

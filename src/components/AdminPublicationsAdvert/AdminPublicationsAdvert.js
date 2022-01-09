@@ -1,6 +1,5 @@
 import { useAds } from 'src/hooks/useAds'
 import isGoodTime from 'src/utils/isGoodTime'
-import s from './styles.module.css'
 
 export default function AdminPublicationsAdvert ({
   publications
