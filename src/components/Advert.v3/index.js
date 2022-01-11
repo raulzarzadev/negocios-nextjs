@@ -104,7 +104,7 @@ export default function Advert ({
       >
         <div className="h-16 flex flex-wrap justify-start overflow-y-auto snap-y ">
           {chips?.map((chip, i) => (
-            <div key={i} className='m-0.5 snap-start'>
+            <div key={i} className="m-0.4 snap-start">
               <FilterChip
                 label={chip}
                 selected={filter === chip.key}
@@ -187,7 +187,14 @@ export default function Advert ({
         </div>
         {/* ---------------------------------TITLE---------------------------------- */}
         <div className={'px-1'}>
-          <h5 className="text-start font-bold ">{title}</h5>
+          <div className="flex justify-between">
+            <h5 className="text-start font-bold ">
+              {title}
+            </h5>
+            <div>
+              <RatingSection />
+            </div>
+          </div>
           <VisitsSecction />
           <pre
             className={
@@ -239,6 +246,75 @@ export default function Advert ({
           advertId={id}
         />
       </footer>
+    </div>
+  )
+}
+
+const RatingSection = ({ value = 4, setValue }) => {
+  const handleChangeRating = ({ target }) => {
+    console.log('value', target.id)
+  }
+
+  const [disabled, setDisabled] = useState(true)
+
+  return (
+    <div
+      className={`rating rating-sm gap-0.5 py-1  ${
+        disabled && 'opacity-40'
+      }`}
+    >
+      <input
+        disabled={disabled}
+        id="1"
+        type="radio"
+        name="rating-2"
+        className={`
+        bg-primary
+        mask mask-star-2  
+        `}
+        onChange={handleChangeRating}
+      />
+      <input
+        disabled={disabled}
+        id="2"
+        type="radio"
+        name="rating-2"
+        className={`
+        bg-primary
+        mask mask-star-2  
+        `}
+        onChange={handleChangeRating}
+      />
+      <input
+        disabled={disabled}
+        id="3"
+        type="radio"
+        name="rating-2"
+        className={`
+        bg-primary
+        mask mask-star-2    `}
+        onChange={handleChangeRating}
+      />
+      <input
+        disabled={disabled}
+        id="4"
+        type="radio"
+        name="rating-2"
+        className={`
+        bg-primary
+        mask mask-star-2  `}
+        onChange={handleChangeRating}
+      />
+      <input
+        disabled={disabled}
+        id="5"
+        type="radio"
+        name="rating-2"
+        className={`
+        bg-primary
+        mask mask-star-2  s `}
+        onChange={handleChangeRating}
+      />
     </div>
   )
 }
