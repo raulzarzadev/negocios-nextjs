@@ -3,8 +3,20 @@ import firebase from 'firebase'
 import 'firebase/firestore'
 import {
   datesToFirebaseFromat,
-  formatResponse
+  formatResponse,
+  normalizeDoc
 } from './firebase-helpers'
+
+export const fbGetAdvert = async ({ id = '' }) => {
+  return await db
+    .collection('adverts')
+    .doc(id)
+    .get()
+    .then(normalizeDoc)
+    .catch((err) =>
+      formatResponse(false, 'GET_ADVERT_ERROR', err)
+    )
+}
 
 export const fbAddAdvert = async ({ advert = {} }) => {
   return await db

@@ -5,6 +5,8 @@ https://react-icons.github.io/react-icons/icons?name=md
 https://react-icons.github.io/react-icons/icons?name=si
 
  */
+import { BookmarkBorder, BookmarkBorderOutlined, Bookmarks } from '@material-ui/icons'
+import Bookmark from '@material-ui/icons/Bookmark'
 import {
   AiFillEdit,
   AiFillSetting,
@@ -176,6 +178,12 @@ export default {
   ),
   Delete: ({ size, ...rest }) => (
     <MdDeleteForever {...rest} size={size ?? defaultSize} />
+  ),
+  FillBook: ({ size, ...rest }) => (
+    <Bookmark {...rest} size={size ?? defaultSize} />
+  ),
+  EmptyBook: ({ size, ...rest }) => (
+    <BookmarkBorder {...rest} size={size ?? defaultSize} />
   ),
   /* .-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'*, */
   //           BRANDS

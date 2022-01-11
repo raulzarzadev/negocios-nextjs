@@ -2,11 +2,15 @@ import firebase from 'firebase'
 import { doc } from 'prettier'
 import { func } from 'prop-types'
 
-export const formatResponse = (ok, type, res) => {
+export const formatResponse = (
+  ok = false,
+  type = 'TYPE',
+  res = {}
+) => {
   return { type, ok, res }
 }
 export const normalizeDoc = (doc) => {
-  if (!doc?.exists) return null // The document  not exist
+  if (!doc?.exists) return 'DOCUMENT_NOT_EXIST' // The document  not exist
   const data = doc.data()
   const id = doc.id
 

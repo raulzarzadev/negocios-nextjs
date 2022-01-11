@@ -60,7 +60,7 @@ export default function Barrio () {
     []
   )
 
-  if (barrio === undefined) return <Loading size='lg'/>
+  if (barrio === undefined) return <Loading size="lg" />
   return (
     <>
       <Head>

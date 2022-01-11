@@ -1,5 +1,9 @@
 /* eslint-disable camelcase */
-import { fbAddAdvert, fbEditAdvert } from 'firebase/adverts'
+import {
+  fbAddAdvert,
+  fbEditAdvert,
+  fbGetAdvert
+} from 'firebase/adverts'
 import {
   fb_addAdvert,
   fb_getAds,
@@ -63,7 +67,7 @@ export function useAds () {
   }
 
   function getAdvert (id) {
-    return fb_getAdvertById(id)
+    return fbGetAdvert({ id })
   }
 
   function editAdvert (id, advert) {

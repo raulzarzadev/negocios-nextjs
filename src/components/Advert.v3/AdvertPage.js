@@ -1,25 +1,13 @@
-import Image from 'next/image'
-import { CHIP_LABELS } from 'CONST/CHIPS_LABELS'
-import { useEffect, useState } from 'react'
-import { L } from '@comps/L'
-import useUser from 'src/context/UserContext'
-import ICONS from 'src/utils/ICONS'
-import FilterChip from '@comps/Filter/FilterChip'
-import ContactsSection from './ContactsSection'
-import RatingSection from './RatingSection'
 import DEFAULT_INFO from './DEFAULT_INFO'
-import FavoriteLabel from './FavoriteLabel'
-import VisitsSecction from './VisitSection'
-import Link from 'next/link'
 
-export default function Advert ({
+export default function AdvertPage ({
   advert = DEFAULT_INFO,
   showFavorite,
   edit,
   filter,
   handleSetFilter
   // form = false
-}) {
+}) {{
   const { user, favoritesList } = useUser()
   const [isAdmin, setIsAdmin] = useState(false)
   useEffect(() => {
@@ -49,7 +37,7 @@ export default function Advert ({
   return (
     <div
       className={
-        'grid mt-2 shadow-lg rounded-lg  max-w-[320px]'
+        'grid  '
       }
     >
       <header
@@ -73,7 +61,7 @@ export default function Advert ({
           {showFavorite && (
             <FavoriteLabel
               isFavorite={favoritesList.includes(id)}
-              advertId={id}
+              advertId={id} 
             />
           )}
           {edit && (

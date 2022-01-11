@@ -6,6 +6,7 @@ import {
   fb_listenPublications,
   fb_getAdvertPublications
 } from 'firebase/client'
+import { fbGetPublication } from 'firebase/publications'
 import { useEffect, useState } from 'react'
 
 export function usePublications () {
@@ -31,11 +32,15 @@ export function usePublications () {
       setPublications(res)
     })
   }
+  function getPublication ({ id }) {
+    return fbGetPublication({ id })
+  }
 
   return {
     getAllPublications,
     getActivePublications,
     getAdvertPublications,
+    getPublication,
     publications
   }
 }
