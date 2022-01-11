@@ -1,4 +1,16 @@
+import FilterChip from '@comps/Filter/FilterChip'
+import { L } from '@comps/L'
+import { Link } from '@material-ui/core'
+import { CHIP_LABELS } from 'CONST/CHIPS_LABELS'
+import Image from 'next/image'
+import { useEffect, useState } from 'react'
+import useUser from 'src/context/UserContext'
+import ICONS from 'src/utils/ICONS'
+import ContactsSection from './ContactsSection'
 import DEFAULT_INFO from './DEFAULT_INFO'
+import FavoriteLabel from './FavoriteLabel'
+import RatingSection from './RatingSection'
+import VisitsSecction from './VisitSection'
 
 export default function AdvertPage ({
   advert = DEFAULT_INFO,
@@ -7,7 +19,7 @@ export default function AdvertPage ({
   filter,
   handleSetFilter
   // form = false
-}) {{
+}) {
   const { user, favoritesList } = useUser()
   const [isAdmin, setIsAdmin] = useState(false)
   useEffect(() => {
@@ -35,11 +47,7 @@ export default function AdvertPage ({
     : advert?.image
   const ImagesList = advert?.images
   return (
-    <div
-      className={
-        'grid  '
-      }
-    >
+    <div className={'grid max-w-md mx-auto '}>
       <header
         className={
           'px-1 py-1 flex justify-between items-center w-full'
@@ -61,7 +69,7 @@ export default function AdvertPage ({
           {showFavorite && (
             <FavoriteLabel
               isFavorite={favoritesList.includes(id)}
-              advertId={id} 
+              advertId={id}
             />
           )}
           {edit && (

@@ -1,4 +1,4 @@
-import Advert from '@comps/Advert.v3'
+import AdvertPage from '@comps/Advert.v3/AdvertPage'
 import Loading from '@comps/Loading'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
@@ -19,7 +19,7 @@ export default function PublicationDetails () {
   if (!advert) return <Loading />
   return (
     <div className="">
-      <Advert advert={advert} />
+      <AdvertPage advert={advert} />
     </div>
   )
 }
