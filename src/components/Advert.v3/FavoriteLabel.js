@@ -1,13 +1,10 @@
 import LoginModal from '@comps/Modals/LoginModal'
-import Modal from '@comps/Modals/Modal'
 import Tooltip from '@comps/Tooltip'
-import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useAds } from 'src/hooks/useAds'
 import ICONS from 'src/utils/ICONS'
 
 const FavoriteLabel = ({ isFavorite, advertId }) => {
-  const router = useRouter()
   const { addFavorite, removeFavorite } = useAds()
 
   const handleAddFavorite = () => {

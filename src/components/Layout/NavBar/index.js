@@ -1,13 +1,12 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-new */
 import { L } from '@comps/L'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './styles.module.css'
 import BookmarkIcon from '@material-ui/icons/Bookmark'
 import { useRouter } from 'next/router'
 import useUser from 'src/context/UserContext'
 import ICONS from 'src/utils/ICONS'
-import Head from 'next/head'
 
 export default function NavBar () {
   const { user } = useUser()

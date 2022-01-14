@@ -33,11 +33,11 @@ function AdvertPage ({
     content,
     contacts,
     // backgroundColor,
-    id,
+    id
     // publication,
     // location
-    publication,
-    resume
+    // publication,
+    // resume
   } = advert
 
   const chips = labels?.map((label) =>

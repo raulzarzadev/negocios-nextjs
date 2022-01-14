@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 import useUser from 'src/context/UserContext'
 import { usePublications } from 'src/hooks/usePublications'
 
-export default function AdvertDetails({ advert }) {
+export default function AdvertDetails ({ advert }) {
   if (!advert) return <Loading size="lg" />
 
   const { user } = useUser()

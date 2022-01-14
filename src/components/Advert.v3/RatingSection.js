@@ -5,7 +5,7 @@ const RatingSection = ({ value = 4, setValue }) => {
     console.log('value', target.id)
   }
 
-  const [disabled, setDisabled] = useState(true)
+  const [disabled] = useState(true)
 
   return (
     <div

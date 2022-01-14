@@ -1,12 +1,11 @@
 import Textarea from '@comps/Inputs/Textarea'
 import BottomModal from '@comps/Modals/BottomModal'
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
 import ICONS from 'src/utils/ICONS'
-import AdvertContext from '../../context/AdvertContext'
 import addComment, {
   deleteComment,
   hiddeComent,
