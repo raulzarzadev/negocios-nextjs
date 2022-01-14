@@ -37,7 +37,6 @@ export default function Advert ({
     // location
     publication
   } = advert
-  console.log('publication', publication)
   const chips = labels?.map((label) =>
     CHIP_LABELS.find((chip) => chip.key === label)
   )
@@ -161,7 +160,7 @@ export default function Advert ({
           </div>
           <VisitsSecction
             comments={advert?.comments}
-            advertId={advert?.id}
+            advertId={ advert?.id }
           />
           <pre
             className={

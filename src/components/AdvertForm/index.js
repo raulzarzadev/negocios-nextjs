@@ -25,7 +25,12 @@ import formatContacts from 'src/utils/formatContacts'
 import { CONTACT_TYPES } from 'CONST/CONTACT_TYPES'
 import Loading from '@comps/Loading'
 
-export default function AdvertForm ({ advert = null }) {
+export default function AdvertForm ({
+  advert = null,
+  loading = false
+}) {
+  if (loading) return <Loading size="lg" />
+
   const [step, setStep] = useState(0)
   const [form, setForm] = useState({})
   const { addAdvert, editAdvert } = useAds()
@@ -66,7 +71,6 @@ export default function AdvertForm ({ advert = null }) {
       })
     }
   }
-  if (!advert) return <Loading size="lg" />
 
   return (
     <div className="relative">

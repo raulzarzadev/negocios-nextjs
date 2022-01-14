@@ -15,6 +15,9 @@ export default function PublicationDetails () {
         setAdvert(res)
       })
     }
+    return () => {
+      setAdvert(undefined)
+    }
   }, [advertId])
   const [advert, setAdvert] = useState(undefined)
   if (!advert) return <Loading />

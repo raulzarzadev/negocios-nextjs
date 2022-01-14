@@ -1,6 +1,6 @@
 import Textarea from '@comps/Inputs/Textarea'
 import BottomModal from '@comps/Modals/BottomModal'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
@@ -71,7 +71,8 @@ const CommentsModal = ({
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    reset
   } = useForm({
     resolver: yupResolver(schema)
   })
@@ -84,6 +85,9 @@ const CommentsModal = ({
         ...data,
         author: { name: user?.name, id: user?.id }
       }
+    }).then((res) => {
+      console.log('res', res)
+      reset()
     })
   }
 
@@ -103,19 +107,25 @@ const CommentsModal = ({
           <Comment key={comment} commentId={comment} />
         ))}
       </div>
-
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Textarea
-          label={'Mi opinion:'}
-          error={errors?.comment?.message}
-          {...register('comment')}
-        ></Textarea>
-        <div className="flex w-full justify-end mt-4">
-          <button className="btn btn-primary btn-sm ">
-            Comentar
-          </button>
-        </div>
-      </form>
+      <div>
+        {!comments?.length && (
+          <div className="py-4">
+            <div>Aún sin comentarios</div>
+          </div>
+        )}
+      </div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Textarea
+            label={'Mi opinion:'}
+            error={errors?.comment?.message}
+            {...register('comment')}
+          ></Textarea>
+          <div className="flex w-full justify-end mt-4">
+            <button className="btn btn-primary btn-sm ">
+              Comentar
+            </button>
+          </div>
+        </form>
       <LoginModal
         open={openLoginModal}
         handleOpen={handleOpenLoginModal}

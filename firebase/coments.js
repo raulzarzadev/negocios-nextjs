@@ -7,7 +7,6 @@ export default async function addComment ({
   advertId,
   comment
 }) {
-  console.log('advertId', advertId)
   const DEFAULT_OPTIONS = {
     createdAt: new Date(),
     visible: true
