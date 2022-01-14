@@ -1,6 +1,6 @@
 import Textarea from '@comps/Inputs/Textarea'
 import BottomModal from '@comps/Modals/BottomModal'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
