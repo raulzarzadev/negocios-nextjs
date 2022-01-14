@@ -148,7 +148,10 @@ function AdvertPage ({
               <RatingSection />
             </div>
           </div>
-          <VisitsSecction />
+          <VisitsSecction
+            advertId={advert.id}
+            comments={advert.comments}
+          />
           <div
             className={
               'w-[90%] flex justify-evenly items-center'

@@ -154,7 +154,7 @@ const Comment = ({ commentId }) => {
         />
       )}
       <div>
-        {comment?.visible && (
+        {comment?.visible && !user?.admin && (
           <div>
             <div className="flex justify-between">
               <h3 className="font-bold text-sm">
