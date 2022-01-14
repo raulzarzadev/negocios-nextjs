@@ -5,7 +5,11 @@ https://react-icons.github.io/react-icons/icons?name=md
 https://react-icons.github.io/react-icons/icons?name=si
 
  */
-import { BookmarkBorder, BookmarkBorderOutlined, Bookmarks } from '@material-ui/icons'
+import {
+  BookmarkBorder,
+  BookmarkBorderOutlined,
+  Bookmarks
+} from '@material-ui/icons'
 import Bookmark from '@material-ui/icons/Bookmark'
 import {
   AiFillEdit,
@@ -16,7 +20,9 @@ import {
   AiOutlineLoading3Quarters,
   AiFillCaretLeft,
   AiFillCaretRight,
-  AiFillSave
+  AiFillSave,
+  AiFillEye,
+  AiFillEyeInvisible
 } from 'react-icons/ai'
 import {
   MdAddLocation,
@@ -184,6 +190,16 @@ export default {
   ),
   EmptyBook: ({ size, ...rest }) => (
     <BookmarkBorder {...rest} size={size ?? defaultSize} />
+  ),
+
+  OpenEye: ({ size, ...rest }) => (
+    <AiFillEye {...rest} size={size ?? defaultSize} />
+  ),
+  CloseEye: ({ size, ...rest }) => (
+    <AiFillEyeInvisible
+      {...rest}
+      size={size ?? defaultSize}
+    />
   ),
   /* .-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'*, */
   //           BRANDS

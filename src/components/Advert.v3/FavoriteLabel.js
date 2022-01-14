@@ -1,3 +1,4 @@
+import LoginModal from '@comps/Modals/LoginModal'
 import Modal from '@comps/Modals/Modal'
 import Tooltip from '@comps/Tooltip'
 import { useRouter } from 'next/router'
@@ -49,31 +50,10 @@ const FavoriteLabel = ({ isFavorite, advertId }) => {
           </Tooltip>
             )}
       </div>
-      <Modal
+      <LoginModal
         open={openNotUser}
         handleOpen={handleOpenNotUser}
-        title="Usuario sin registro"
-        footerAcctions={
-          <button
-            onClick={(e) => {
-              router.push('/login')
-            }}
-            className="btn btn-primary"
-          >
-            Ingresar
-          </button>
-        }
-      >
-        <div className="">
-          <h4>Usuario sin registro</h4>
-          <div>
-            <em>
-              Necesitas estar registrado para guardar
-              favoritos
-            </em>
-          </div>
-        </div>
-      </Modal>
+      />
     </div>
   )
 }

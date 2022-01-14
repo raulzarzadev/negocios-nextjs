@@ -1,19 +1,17 @@
 import FilterChip from '@comps/Filter/FilterChip'
 import { L } from '@comps/L'
-import { Link } from '@material-ui/core'
 import { CHIP_LABELS } from 'CONST/CHIPS_LABELS'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
+import AdvertContext from 'src/context/AdvertContext'
 import useUser from 'src/context/UserContext'
 import ICONS from 'src/utils/ICONS'
 import ContactsSection from './ContactsSection'
-import DEFAULT_INFO from './DEFAULT_INFO'
 import FavoriteLabel from './FavoriteLabel'
 import RatingSection from './RatingSection'
 import VisitsSecction from './VisitSection'
 
-export default function AdvertPage ({
-  advert = DEFAULT_INFO,
+function AdvertPage ({
   showFavorite,
   edit,
   filter,
@@ -22,6 +20,9 @@ export default function AdvertPage ({
 }) {
   const { user, favoritesList } = useUser()
   const [isAdmin, setIsAdmin] = useState(false)
+
+  const advert = useContext(AdvertContext)
+
   useEffect(() => {
     if (user?.admin) setIsAdmin(true)
   }, [user])
@@ -35,9 +36,10 @@ export default function AdvertPage ({
     id,
     // publication,
     // location
-    publication
+    publication,
+    resume
   } = advert
-  console.log('publication', publication)
+
   const chips = labels?.map((label) =>
     CHIP_LABELS.find((chip) => chip.key === label)
   )
@@ -103,7 +105,7 @@ export default function AdvertPage ({
               </button>
             </>
           )}
-          <div className="carousel w-full  overflow-x-auto h-48 ">
+          <div className="carousel w-full  overflow-x-auto aspect-video  ">
             {mainImage && (
               <div className="carousel-item w-full h-full">
                 <div className="relative w-full h-full  ">
@@ -138,15 +140,6 @@ export default function AdvertPage ({
         </div>
         {/* ---------------------------------TITLE---------------------------------- */}
         <div className={'px-1'}>
-          <div className="text-right">
-            <Link
-              href={`/${publication?.barrioId}/${publication?.advertId}`}
-            >
-              <a className="text-sm font-bold opacity-50 ">
-                ver mas
-              </a>
-            </Link>
-          </div>
           <div className="flex justify-between">
             <h5 className="text-start font-bold ">
               {title}
@@ -156,9 +149,16 @@ export default function AdvertPage ({
             </div>
           </div>
           <VisitsSecction />
+          <div
+            className={
+              'w-[90%] flex justify-evenly items-center'
+            }
+          >
+            <ContactsSection contacts={contacts} />
+          </div>
           <pre
             className={
-              'whitespace-pre-wrap font-sans text-sm  h-16 overflow-y-auto'
+              'whitespace-pre-wrap font-sans text-sm  '
             }
           >
             {content}
@@ -167,15 +167,9 @@ export default function AdvertPage ({
       </section>
       <footer
         className={'flex justify-center items-center h-16'}
-      >
-        <div
-          className={
-            'w-[90%] flex justify-evenly items-center'
-          }
-        >
-          <ContactsSection contacts={contacts} />
-        </div>
-      </footer>
+      ></footer>
     </div>
   )
 }
+
+export default AdvertPage

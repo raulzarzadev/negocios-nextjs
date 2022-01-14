@@ -159,7 +159,10 @@ export default function Advert ({
               <RatingSection />
             </div>
           </div>
-          <VisitsSecction />
+          <VisitsSecction
+            comments={advert?.comments}
+            advertId={advert?.id}
+          />
           <pre
             className={
               'whitespace-pre-wrap font-sans text-sm  h-16 overflow-y-auto'

@@ -1,40 +1,19 @@
 import firebase from 'firebase'
-import { doc } from 'prettier'
-import { func } from 'prop-types'
 
 export const formatResponse = (
   ok = false,
   type = 'TYPE',
   res = {}
 ) => {
-  return { type, ok, res }
+  return { type, ok, res: normalizeDoc(res) }
 }
 export const normalizeDoc = (doc) => {
   if (!doc?.exists) return 'DOCUMENT_NOT_EXIST' // The document  not exist
   const data = doc.data()
   const id = doc.id
-
-  const {
-    updatedAt,
-    registryDate,
-    createdAt,
-    date,
-    birth,
-    joinedAt,
-    options
-  } = data
-  const dates = unfierebazeDates({
-    updatedAt,
-    registryDate,
-    joinedAt,
-    createdAt,
-    birth,
-    date
-  })
   return {
     id,
-    ...data,
-    ...dates
+    ...data
   }
 }
 

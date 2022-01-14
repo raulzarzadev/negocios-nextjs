@@ -1,25 +1,28 @@
 import AdvertPage from '@comps/Advert.v3/AdvertPage'
 import Loading from '@comps/Loading'
+import { listenAdvert } from 'firebase/adverts'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { useAds } from 'src/hooks/useAds'
+import AdvertContext from 'src/context/AdvertContext'
 
 export default function PublicationDetails () {
-  const { getAdvert } = useAds()
   const {
     query: { advertId, barrioName }
   } = useRouter()
   useEffect(() => {
     if (barrioName && advertId) {
-      getAdvert(advertId).then(setAdvert)
+      listenAdvert({ id: advertId }, (res) => {
+        setAdvert(res)
+      })
     }
   }, [advertId])
   const [advert, setAdvert] = useState(undefined)
-  console.log('advertId', advert)
   if (!advert) return <Loading />
   return (
     <div className="">
-      <AdvertPage advert={advert} />
+      <AdvertContext.Provider value={advert}>
+        <AdvertPage showFavorite={true} />
+      </AdvertContext.Provider>
     </div>
   )
 }

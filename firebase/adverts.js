@@ -84,3 +84,15 @@ export const fbAdvertRemoveImage = async (
       formatResponse(false, 'IMAGE_REMOVED_ERROR', err)
     )
 }
+
+export const listenAdvert = (
+  { id },
+  callback = () => {}
+) => {
+  return db
+    .collection('adverts')
+    .doc(id)
+    .onSnapshot((snapshot) => {
+      callback(snapshot.data())
+    })
+}
