@@ -16,44 +16,46 @@ import useUser from 'src/context/UserContext'
 import LoginModal from '@comps/Modals/LoginModal'
 import { fromNow } from 'src/utils/dates'
 
-const VisitsSecction = ({
+const AdvertComents = ({
   comments = [],
-  advertId = ''
+  advertId = '',
+  className
 }) => {
   const [openComents, setOpenComents] = useState(false)
   const handleOpenComents = () => {
     setOpenComents(!openComents)
   }
 
+  /*
+
+  visitas [
+  {
+     id:1,
+    advertId:1,
+    date:new Date(),
+
+  }
+  ]
+  */
+
   return (
-    <div className="flex justify-between h-8">
-      <div>
+    <>
+      <CommentsModal
+        open={openComents}
+        handleOpen={handleOpenComents}
+        advertId={advertId}
+        comments={comments}
+      />
+      <button
+        onClick={handleOpenComents}
+        className={className}
+      >
         <span className="flex text-sm">
-          <ICONS.DoneArrow
-            className="mx-1 filter "
-            size={'1.2rem'}
-          />
-          Visitas 0
+          <ICONS.Coment className="mx-1" size={'1.2rem'} />
+          Comentarios {comments?.length || '0'}
         </span>
-        <CommentsModal
-          open={openComents}
-          handleOpen={handleOpenComents}
-          advertId={advertId}
-          comments={comments}
-        />
-      </div>
-      <div>
-        <button onClick={handleOpenComents}>
-          <span className="flex text-sm">
-            <ICONS.Coment
-              className="mx-1"
-              size={'1.2rem'}
-            />
-            Comentarios {comments?.length || '0'}
-          </span>
-        </button>
-      </div>
-    </div>
+      </button>
+    </>
   )
 }
 
@@ -228,4 +230,4 @@ const AdminView = ({
     </div>
   )
 }
-export default VisitsSecction
+export default AdvertComents

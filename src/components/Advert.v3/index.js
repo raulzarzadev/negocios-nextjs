@@ -9,8 +9,9 @@ import ContactsSection from './ContactsSection'
 import RatingSection from './RatingSection'
 import DEFAULT_INFO from './DEFAULT_INFO'
 import FavoriteLabel from './FavoriteLabel'
-import VisitsSecction from './VisitSection'
+import VisitsSecction from './AdvertComents'
 import Link from 'next/link'
+import TitleSection from './TitleSection'
 
 export default function Advert ({
   advert = DEFAULT_INFO,
@@ -35,7 +36,8 @@ export default function Advert ({
     id,
     // publication,
     // location
-    publication
+    publication,
+    coments
   } = advert
   const chips = labels?.map((label) =>
     CHIP_LABELS.find((chip) => chip.key === label)
@@ -141,26 +143,10 @@ export default function Advert ({
         </div>
         {/* ---------------------------------TITLE---------------------------------- */}
         <div className={'px-1'}>
-          <div className="text-right">
-            <Link
-              href={`/${publication?.barrioId}/${publication?.advertId}`}
-            >
-              <a className="text-sm font-bold opacity-50 ">
-                ver mas
-              </a>
-            </Link>
-          </div>
-          <div className="flex justify-between">
-            <h5 className="text-start font-bold ">
-              {title}
-            </h5>
-            <div>
-              <RatingSection />
-            </div>
-          </div>
-          <VisitsSecction
-            comments={advert?.comments}
-            advertId={ advert?.id }
+          <TitleSection
+            title={title}
+            comments={coments}
+            advertLink={`/${publication.barrioId}/${publication.advertId}`}
           />
           <pre
             className={

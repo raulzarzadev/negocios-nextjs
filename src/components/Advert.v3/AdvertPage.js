@@ -9,7 +9,8 @@ import ICONS from 'src/utils/ICONS'
 import ContactsSection from './ContactsSection'
 import FavoriteLabel from './FavoriteLabel'
 import RatingSection from './RatingSection'
-import VisitsSecction from './VisitSection'
+import VisitsSecction from './AdvertComents'
+import TitleSection from './TitleSection'
 
 function AdvertPage ({
   showFavorite,
@@ -141,18 +142,12 @@ function AdvertPage ({
         </div>
         {/* ---------------------------------TITLE---------------------------------- */}
         <div className={'px-1'}>
-          <div className="flex justify-between">
-            <h5 className="text-start font-bold ">
-              {title}
-            </h5>
-            <div>
-              <RatingSection />
-            </div>
-          </div>
-          <VisitsSecction
+          <TitleSection
+            title={title}
             advertId={advert.id}
             comments={advert.comments}
           />
+
           <div
             className={
               'w-[90%] flex justify-evenly items-center'
