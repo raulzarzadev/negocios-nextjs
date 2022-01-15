@@ -15,7 +15,7 @@ function AdvertPage ({
   showFavorite,
   edit,
   filter,
-  handleSetFilter
+  handleSetFilter = () => {}
   // form = false
 }) {
   const { user, favoritesList } = useUser()
@@ -59,6 +59,7 @@ function AdvertPage ({
           {chips?.map((chip, i) => (
             <div key={i} className="m-0.4 snap-start">
               <FilterChip
+                disabled
                 label={chip}
                 selected={filter === chip.key}
                 onClick={() => handleSetFilter(chip.key)}

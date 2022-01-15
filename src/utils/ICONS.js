@@ -6,15 +6,13 @@ https://react-icons.github.io/react-icons/icons?name=si
 
  */
 import {
-  BookmarkBorder,
-  BookmarkBorderOutlined,
-  Bookmarks
+  BookmarkBorder
+
 } from '@material-ui/icons'
 import Bookmark from '@material-ui/icons/Bookmark'
 import {
   AiFillEdit,
   AiFillSetting,
-  AiFillFileImage,
   AiOutlineBgColors,
   AiFillContacts,
   AiOutlineLoading3Quarters,
@@ -24,6 +22,7 @@ import {
   AiFillEye,
   AiFillEyeInvisible
 } from 'react-icons/ai'
+import { FcInfo } from 'react-icons/fc'
 import {
   MdAddLocation,
   MdClass,
@@ -37,26 +36,28 @@ import {
   MdLocalHotel,
   MdDirectionsBoat,
   MdLocalParking,
-  MdLocationOn,
   MdCheckCircle,
   MdOutlineDoneOutline,
   MdOutlineTextsms,
   MdPhone,
   MdAdd,
   MdClose,
-  MdDeleteForever
+  MdDeleteForever,
+  MdInfo
 } from 'react-icons/md'
 import {
   RiImageAddFill,
   RiImage2Fill,
-  RiImageEditFill
+  RiImageEditFill,
+  RiInformationLine
 } from 'react-icons/ri'
 import {
   SiGooglemaps,
   SiWhatsapp,
   SiFacebook,
   SiInstagram,
-  SiGoogletranslate
+  SiGoogletranslate,
+  SiGoogle
 } from 'react-icons/si'
 
 const defaultSize = '1.5rem'
@@ -214,8 +215,17 @@ export default {
   Instagram: ({ size, ...rest }) => (
     <SiInstagram {...rest} size={size ?? defaultSize} />
   ),
+  Google: ({ size, ...rest }) => (
+    <SiGoogle {...rest} size={size ?? defaultSize} />
+  ),
   Lang: ({ size, ...rest }) => (
     <SiGoogletranslate
+      {...rest}
+      size={size ?? defaultSize}
+    />
+  ),
+  Info: ({ size, ...rest }) => (
+    <RiInformationLine
       {...rest}
       size={size ?? defaultSize}
     />

@@ -14,6 +14,7 @@ import addComment, {
 import useComment from 'src/hooks/useComment'
 import useUser from 'src/context/UserContext'
 import LoginModal from '@comps/Modals/LoginModal'
+import { fromNow } from 'src/utils/dates'
 
 const VisitsSecction = ({
   comments = [],
@@ -114,18 +115,18 @@ const CommentsModal = ({
           </div>
         )}
       </div>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Textarea
-            label={'Mi opinion:'}
-            error={errors?.comment?.message}
-            {...register('comment')}
-          ></Textarea>
-          <div className="flex w-full justify-end mt-4">
-            <button className="btn btn-primary btn-sm ">
-              Comentar
-            </button>
-          </div>
-        </form>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Textarea
+          label={'Mi opinion:'}
+          error={errors?.comment?.message}
+          {...register('comment')}
+        ></Textarea>
+        <div className="flex w-full justify-end mt-4">
+          <button className="btn btn-primary btn-sm ">
+            Comentar
+          </button>
+        </div>
+      </form>
       <LoginModal
         open={openLoginModal}
         handleOpen={handleOpenLoginModal}
@@ -171,7 +172,7 @@ const Comment = ({ commentId }) => {
                 {comment?.author?.name}
               </h3>
               <span className=" font-bold text-sm opacity-40">
-                {comment?.createdAt?.toMillis()}
+                {fromNow(comment?.createdAt?.toMillis())}
               </span>
             </div>
             <div className="text-sm">
@@ -218,7 +219,7 @@ const AdminView = ({
       <div className="flex justify-between">
         <h3 className="font-bold text-sm">
           {comment?.author?.name}
-        </h3>
+        </h3>{' '}
         <span className=" font-bold text-sm opacity-40">
           {comment?.createdAt?.toMillis()}
         </span>
