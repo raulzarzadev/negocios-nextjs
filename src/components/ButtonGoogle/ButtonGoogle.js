@@ -1,5 +1,3 @@
-import s from './styles.module.css'
-import { FcGoogle } from 'react-icons/fc'
 import ICONS from 'src/utils/ICONS'
 
 export default function ButtonGoogle ({ onClick }) {
