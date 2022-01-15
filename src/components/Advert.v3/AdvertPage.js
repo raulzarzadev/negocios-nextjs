@@ -105,9 +105,9 @@ function AdvertPage ({
               </button>
             </>
           )}
-          <div className="carousel w-full  overflow-x-auto aspect-video  ">
+          <div className="carousel w-full  overflow-x-auto aspect-video  h-[180px]">
             {mainImage && (
-              <div className="carousel-item w-full h-full">
+              <div className="carousel-item w-full h-full ">
                 <div className="relative w-full h-full  ">
                   <Image
                     src={mainImage}
@@ -123,7 +123,7 @@ function AdvertPage ({
             {ImagesList?.map((image) => (
               <div
                 key={image}
-                className="carousel-item w-full h-full"
+                className="carousel-item w-full h-full "
               >
                 <div className="relative w-full h-full ">
                   <Image
