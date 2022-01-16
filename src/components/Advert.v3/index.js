@@ -18,6 +18,7 @@ export default function Advert ({
   handleSetFilter
   // form = false
 }) {
+  console.log('advert', advert)
   const { user, favoritesList } = useUser()
   const [isAdmin, setIsAdmin] = useState(false)
   useEffect(() => {
@@ -34,7 +35,7 @@ export default function Advert ({
     // publication,
     // location
     publication,
-    coments
+    comments
   } = advert
   const chips = labels?.map((label) =>
     CHIP_LABELS.find((chip) => chip.key === label)
@@ -142,7 +143,7 @@ export default function Advert ({
         <div className={'px-1'}>
           <TitleSection
             title={title}
-            comments={coments}
+            comments={comments}
             advertLink={`/${publication.barrioId}/${publication.advertId}`}
           />
           <pre
