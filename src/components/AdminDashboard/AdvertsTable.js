@@ -28,8 +28,6 @@ export default function AdvertsTable ({
     return 0
   }
 
-  console.log('adverts', advertsWhitPublications)
-
   return (
     <div>
       <h3 className="text-xl font-bold text-center my-2">

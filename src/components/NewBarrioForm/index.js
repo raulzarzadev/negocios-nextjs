@@ -2,10 +2,10 @@ import PrimBtn from '@comps/PrimBtn'
 import { ESTADOS_LABEL_MX } from 'CONST/ESTADOS_MX'
 import { addBarrio } from 'firebase/client'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './styles.module.css'
 
-export default function NewBarrioForm () {
+export default function NewBarrioForm ({ barrio }) {
   const router = useRouter()
   const STATES = ESTADOS_LABEL_MX
 
@@ -14,6 +14,11 @@ export default function NewBarrioForm () {
     barrio: '',
     shortName: ''
   })
+
+  useEffect(() => {
+    if (barrio) setForm(barrio)
+  }, [barrio])
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
@@ -27,7 +32,8 @@ export default function NewBarrioForm () {
 
   const [loading, setLoading] = useState(false)
 
-  const isDisabled = !form.state || !form.name || !form.shortName || loading
+  const isDisabled =
+    !form.state || !form.name || !form.shortName || loading
 
   return (
     <div className={styles.form_container}>

@@ -17,6 +17,10 @@ export const normalizeDoc = (doc) => {
   }
 }
 
+export const normalizeSnapshot = (snapshot) => {
+  return { ...snapshot.data(), id: snapshot.id }
+}
+
 export const unfierebazeDate = (date) =>
   date ? date?.toMillis() : null
 export const unfierebazeDates = (dates = {}) => {
