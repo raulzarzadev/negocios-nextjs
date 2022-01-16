@@ -6,11 +6,8 @@ import useUser from 'src/context/UserContext'
 import ICONS from 'src/utils/ICONS'
 import FilterChip from '@comps/Filter/FilterChip'
 import ContactsSection from './ContactsSection'
-import RatingSection from './RatingSection'
 import DEFAULT_INFO from './DEFAULT_INFO'
 import FavoriteLabel from './FavoriteLabel'
-import VisitsSecction from './AdvertComents'
-import Link from 'next/link'
 import TitleSection from './TitleSection'
 
 export default function Advert ({

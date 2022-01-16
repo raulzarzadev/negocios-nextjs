@@ -8,8 +8,6 @@ import useUser from 'src/context/UserContext'
 import ICONS from 'src/utils/ICONS'
 import ContactsSection from './ContactsSection'
 import FavoriteLabel from './FavoriteLabel'
-import RatingSection from './RatingSection'
-import VisitsSecction from './AdvertComents'
 import TitleSection from './TitleSection'
 
 function AdvertPage ({
