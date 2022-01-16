@@ -43,13 +43,15 @@ import {
   MdAdd,
   MdClose,
   MdDeleteForever,
-  MdInfo
+  MdInfo,
+  MdSettings
 } from 'react-icons/md'
 import {
   RiImageAddFill,
   RiImage2Fill,
   RiImageEditFill,
-  RiInformationLine
+  RiInformationLine,
+  RiHomeGearFill
 } from 'react-icons/ri'
 import {
   SiGooglemaps,
@@ -224,6 +226,10 @@ export default {
       size={size ?? defaultSize}
     />
   ),
+  Gear: ({ size, ...rest }) => (
+    <MdSettings {...rest} size={size ?? defaultSize} />
+  ),
+
   Info: ({ size, ...rest }) => (
     <RiInformationLine
       {...rest}

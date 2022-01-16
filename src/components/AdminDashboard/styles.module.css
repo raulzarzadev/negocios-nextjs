@@ -1,11 +1,4 @@
-.dashboard {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  max-width: 700px;
-  margin: 1rem auto;
-}
+.dashboard 
 .page_title {
   text-align: center;
   margin: 1rem 0;

@@ -144,7 +144,7 @@ export default function Advert ({
           <TitleSection
             title={title}
             comments={comments}
-            advertLink={`/${publication.barrioId}/${publication.advertId}`}
+            advertLink={`/${publication?.barrioId}/${publication?.advertId}`}
           />
           <pre
             className={

@@ -1,4 +1,3 @@
-import styles from './styles.module.css'
 import { useEffect, useState } from 'react'
 import { useAds } from 'src/hooks/useAds'
 import { usePublications } from 'src/hooks/usePublications'
@@ -6,8 +5,8 @@ import Link from '@comps/Link'
 import PrimBtn from '@comps/PrimBtn'
 import normalizeBarriosList from 'src/utils/normalizeBarriosList'
 import { useBarrios } from 'src/hooks/useBarrios'
-import AdminAdvertRow from '@comps/AdminAdvertRow'
-import AdminBarrioRow from '@comps/AdminBarrioRow'
+import AdvertsTable from './AdvertsTable'
+import BarriosTable from './BarriosTable'
 
 export default function AdminDashboard () {
   const [states, setStates] = useState()
@@ -21,56 +20,35 @@ export default function AdminDashboard () {
   }, [])
 
   useEffect(() => {
-    getBarrios().then((res) => setStates(normalizeBarriosList(res)))
+    getBarrios().then((res) =>
+      setStates(normalizeBarriosList(res))
+    )
   }, [])
 
-  const normalizeAds = adverts.map((ad) => {
-    const adPublications = publications?.filter((pub) => pub.advertId === ad.id)
-    return { ...ad, publications: adPublications }
-  })
-
   return (
-    <div className={styles.dashboard}>
-      <div>
-        <div className={styles.action}>
+    <div className="grid gap-5 py-5 px-1 place-content-center ">
+      <div className="grid gap-5">
+        <div className="">
           <Link href="/adverts/new">
-            <PrimBtn color="secondary">{'Nuevo anuncio'}</PrimBtn>
+            <PrimBtn color="secondary">
+              {'Nuevo anuncio'}
+            </PrimBtn>
           </Link>
         </div>
-        <div className={styles.action}>
+        <div className="">
           <Link href="/barrios/new">
-            <PrimBtn color="primary">{'Nuevo Barrio'}</PrimBtn>
+            <PrimBtn color="primary">
+              {'Nuevo Barrio'}
+            </PrimBtn>
           </Link>
         </div>
-        <h3 className={styles.page_title}>{'Todos los anuncios'}</h3>
-        <div className={styles.dash_table}>
-          <div className={styles.table_title}>{'Titulo'}</div>
-          <div className={styles.table_title}>{'¿Pub?'}</div>
-          <div className={styles.table_title}>{'Acciones'}</div>
-        </div>
-        {normalizeAds?.map((ad) => (
-          <AdminAdvertRow
-            key={ad.id}
-            ad={ad}
-          />
-        ))}
-        <h3 className={styles.page_title}>{'Barrios'}</h3>
-        {states?.map(({ name, tag, label, barrios }) => (
-          <div key={tag}>
-            <div>
-              <h4>
-                {`${label} - ${tag} `}
-                <span className={styles.barrios_count}>
-                  {`( ${barrios?.length} )`}
-                </span>
-              </h4>
-            </div>
-            {barrios.map((barrio) => (
-              <AdminBarrioRow key={barrio.id} barrio={barrio} />
-            ))}
-          </div>
-        ))}
       </div>
+      <AdvertsTable
+        adverts={adverts}
+        publications={publications}
+      />
+      <BarriosTable states={states} />
+
     </div>
   )
 }
