@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import styles from './styles.module.css'
 
-export default function NewBarrioForm ({ barrio }) {
+export default function BarrioForm ({ barrio }) {
   const router = useRouter()
   const STATES = ESTADOS_LABEL_MX
 
@@ -37,7 +37,6 @@ export default function NewBarrioForm ({ barrio }) {
 
   return (
     <div className={styles.form_container}>
-      <h3>Nuevo Barrio</h3>
       <form
         className={styles.form}
         onSubmit={(e) => {

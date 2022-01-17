@@ -1,24 +1,45 @@
-import AdvertDetails from '@comps/AdvertDetails/AdvertDetails'
+import AdvertPage from '@comps/Advert.v3/AdvertPage'
+import Loading from '@comps/Loading'
+import { listenAdvert } from 'firebase/adverts'
+import { fbGetPublication } from 'firebase/publications'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { useAds } from 'src/hooks/useAds'
+import AdvertContext from 'src/context/AdvertContext'
 
-export default function EditAdvert () {
-  const [advert, setAdvert] = useState(undefined)
-  const router = useRouter()
-  const { getAdvert } = useAds()
-
+export default function PublicationDetails () {
   const {
-    query: { id }
-  } = router
-
+    query: { id, publication: publicationId }
+  } = useRouter()
+  const [publication, setPublication] = useState()
+  useEffect(() => {
+    if (publicationId) {
+      fbGetPublication({ id: publicationId }).then(
+        setPublication
+      )
+    }
+  }, [publicationId])
   useEffect(() => {
     if (id) {
-      getAdvert(id).then(setAdvert)
+      listenAdvert({ id }, (res) => {
+        setAdvert(res)
+      })
+    }
+
+    return () => {
+      setAdvert(undefined)
     }
   }, [id])
 
+  const [advert, setAdvert] = useState(undefined)
+
+  if (!advert) return <Loading />
   return (
-    <AdvertDetails advert={advert} />
+    <div className="">
+      <AdvertContext.Provider
+        value={{ ...advert, publication }}
+      >
+        <AdvertPage showFavorite={true} />
+      </AdvertContext.Provider>
+    </div>
   )
 }

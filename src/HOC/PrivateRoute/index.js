@@ -5,6 +5,7 @@ import Loading from '@comps/Loading'
 
 export default function PrivateRoute ({
   Component,
+  children,
   ...res
 }) {
   const router = useRouter()
@@ -22,6 +23,8 @@ export default function PrivateRoute ({
   }, [user])
 
   if (loading) return <Loading size="lg" />
+
+  if (children) return children
 
   return <Component {...res} user={userData} />
 }

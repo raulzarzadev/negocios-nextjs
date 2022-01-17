@@ -32,13 +32,6 @@ export default function BarriosTable ({ states }) {
 }
 
 function BarrioRow ({ barrio }) {
-  const [openModalEditBarrio, setOpenModalEditBarrio] =
-    useState(false)
-
-  const handleEditBarrio = () => {
-    setOpenModalEditBarrio(!openModalEditBarrio)
-  }
-
   const [openDeleteBarrio, setOpenDeleteBarrio] =
     useState(false)
 

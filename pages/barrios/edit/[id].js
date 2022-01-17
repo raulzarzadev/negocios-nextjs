@@ -1,4 +1,4 @@
-import NewBarrioForm from '@comps/NewBarrioForm'
+import BarrioForm from '@comps/BarrioForm'
 import { listenBarrio } from 'firebase/barrios'
 import router from 'next/router'
 import { useEffect, useState } from 'react'
@@ -12,8 +12,10 @@ export default function EditBarrio () {
   }, [])
   return (
     <div className="">
-      <h3>Barrio</h3>
-      <NewBarrioForm barrio={barrio} />
+      <h3 className="text-center mt-5 font-bold ">
+        Editar Barrio
+      </h3>
+      <BarrioForm barrio={barrio} />
     </div>
   )
 }

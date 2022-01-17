@@ -48,7 +48,7 @@ export default function Advert ({
   return (
     <div
       className={
-        'grid mt-2 shadow-lg rounded-lg  max-w-[320px]'
+        'grid mt-2 shadow-lg rounded-lg  max-w-[320px] w-full'
       }
     >
       <header
@@ -90,22 +90,6 @@ export default function Advert ({
       <section className={''}>
         {/* ---------------------------------IMAGE---------------------------------- */}
         <div className=" aspect-video relative group ">
-          {ImagesList?.length && (
-            <>
-              <button
-                disabled
-                className="absolute top-0 bottom-0 group-hover:bg-slate-300  group-hover:bg-opacity-60 left-0 z-50"
-              >
-                <ICONS.ArrowLeft />
-              </button>
-              <button
-                disabled
-                className="absolute top-0 bottom-0 group-hover:bg-slate-300 group-hover:bg-opacity-60 right-0 z-50"
-              >
-                <ICONS.ArrowRight />
-              </button>
-            </>
-          )}
           <div className="carousel w-full  overflow-x-auto h-48 ">
             {mainImage && (
               <div className="carousel-item w-full h-full">
@@ -138,13 +122,29 @@ export default function Advert ({
               </div>
             ))}
           </div>
+          {ImagesList?.length && (
+            <>
+              <button
+                disabled
+                className="absolute top-0 bottom-0 group-hover:bg-slate-300  group-hover:bg-opacity-60 left-0 "
+              >
+                <ICONS.ArrowLeft />
+              </button>
+              <button
+                disabled
+                className="absolute top-0 bottom-0 group-hover:bg-slate-300 group-hover:bg-opacity-60 right-0 "
+              >
+                <ICONS.ArrowRight />
+              </button>
+            </>
+          )}
         </div>
         {/* ---------------------------------TITLE---------------------------------- */}
         <div className={'px-1'}>
           <TitleSection
             title={title}
             comments={comments}
-            advertLink={`/${publication?.barrioId}/${publication?.advertId}`}
+            advertLink={`/adverts/${publication?.advertId}?publication=${publication?.id}`}
           />
           <pre
             className={

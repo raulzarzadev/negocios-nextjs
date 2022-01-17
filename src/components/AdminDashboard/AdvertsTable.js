@@ -1,3 +1,5 @@
+import DeleteModal from '@comps/Modals/DeleteModal'
+import { fdDeleteAdvert } from 'firebase/adverts'
 import Link from 'next/link'
 import { useState } from 'react'
 import ICONS from 'src/utils/ICONS'
@@ -46,12 +48,7 @@ export default function AdvertsTable ({
         >
           {'¿Pub?'}
         </div>
-        <div
-          className="w-1/4"
-
-        >
-          {'Acciones'}
-        </div>
+        <div className="w-1/4">{'Acciones'}</div>
       </div>
       <div className="">
         {advertsWhitPublications
@@ -66,9 +63,13 @@ export default function AdvertsTable ({
               </div>
               <div className="w-1/4 text-center flex justify-center flex-col">
                 {publications.map(
-                  ({ barrioId, active }) => (
+                  ({
+                    barrioId,
+                    active,
+                    id: publicationId
+                  }) => (
                     <div
-                      key={barrioId}
+                      key={publicationId}
                       className={`rounded-full shadow-sm w-5 h-5 flex justify-center ${
                         active ? 'bg-accent' : 'bg-error'
                       }`}
@@ -85,22 +86,44 @@ export default function AdvertsTable ({
                 )}
               </div>
               <div className="w-1/4 ">
-                <div className="flex justify-evenly">
-                  <Link href={`/adverts/edit/${id}`}>
-                    <a>
-                      <ICONS.Edit className="text-info" />
-                    </a>
-                  </Link>
-                  <button
-                    onClick={() => console.log('borrar')}
-                  >
-                    <ICONS.Delete className="text-error" />
-                  </button>
-                </div>
+                <Actions id={id} title={title} />
               </div>
             </div>
           ))}
       </div>
+    </div>
+  )
+}
+
+const Actions = ({ id, title }) => {
+  const [openDelete, setOpenDelete] = useState()
+  const handleOpenDelete = () => {
+    setOpenDelete(!openDelete)
+  }
+  const handleDelete = () => {
+    fdDeleteAdvert({ id })
+      .then((res) => console.log('res', res))
+  }
+  return (
+    <div className="flex justify-evenly">
+      <Link href={`/adverts/edit/${id}`}>
+        <a>
+          <ICONS.Edit className="text-info" />
+        </a>
+      </Link>
+      <button onClick={handleOpenDelete}>
+        <ICONS.Delete className="text-error" />
+      </button>
+      <DeleteModal
+        open={openDelete}
+        handleOpen={handleOpenDelete}
+        handleDelete={handleDelete}
+      >
+        <div className="text-center">
+          <div>Anuncio</div>
+          <div className="text-2xl font-bold">{title}</div>
+        </div>
+      </DeleteModal>
     </div>
   )
 }

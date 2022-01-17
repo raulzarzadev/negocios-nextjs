@@ -1,3 +1,4 @@
+import AdminAdvertPublications from '@comps/AdminAdvertPublications'
 import FilterChip from '@comps/Filter/FilterChip'
 import { L } from '@comps/L'
 import { CHIP_LABELS } from 'CONST/CHIPS_LABELS'
@@ -33,7 +34,6 @@ function AdvertPage ({
     contacts,
     // backgroundColor,
     id
-    // publication,
     // location
     // publication,
     // resume
@@ -49,6 +49,7 @@ function AdvertPage ({
   const ImagesList = advert?.images
   return (
     <div className={'grid max-w-md mx-auto '}>
+      {user?.admin && <AdminAdvertPublications />}
       <header
         className={
           'px-1 py-1 flex justify-between items-center w-full'

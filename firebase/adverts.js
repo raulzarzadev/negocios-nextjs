@@ -43,6 +43,19 @@ export const fbEditAdvert = async (id, advert) => {
     )
 }
 
+export const fdDeleteAdvert = async ({ id }) => {
+  return await db
+    .collection('adverts')
+    .doc(id)
+    .delete()
+    .then((res) =>
+      formatResponse(true, 'DELETE_ADVERT', res)
+    )
+    .catch((err) =>
+      formatResponse(false, 'DELETE_ADVERT_ERROR', err)
+    )
+}
+
 export const fbAdvertAddImage = async (
   advertId,
   ImageUrl,

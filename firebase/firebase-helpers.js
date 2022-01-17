@@ -18,6 +18,11 @@ export const normalizeDoc = (doc) => {
 }
 
 export const normalizeSnapshot = (snapshot) => {
+  if (snapshot.docs) {
+    return snapshot.docs.map((doc) => {
+      return { ...doc.data(), id: doc.id }
+    })
+  }
   return { ...snapshot.data(), id: snapshot.id }
 }
 
