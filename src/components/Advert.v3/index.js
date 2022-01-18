@@ -1,14 +1,12 @@
 import Image from 'next/image'
 import { CHIP_LABELS } from 'CONST/CHIPS_LABELS'
-import { useEffect, useState } from 'react'
-import { L } from '@comps/L'
 import useUser from 'src/context/UserContext'
 import ICONS from 'src/utils/ICONS'
 import FilterChip from '@comps/Filter/FilterChip'
 import ContactsSection from './ContactsSection'
 import DEFAULT_INFO from './DEFAULT_INFO'
-import FavoriteLabel from './FavoriteLabel'
 import TitleSection from './TitleSection'
+import AdevertRigthInfo from './AdevertRigthInfo'
 
 export default function Advert ({
   advert = DEFAULT_INFO,
@@ -18,12 +16,8 @@ export default function Advert ({
   handleSetFilter
   // form = false
 }) {
-  console.log('advert', advert)
   const { user, favoritesList } = useUser()
-  const [isAdmin, setIsAdmin] = useState(false)
-  useEffect(() => {
-    if (user?.admin) setIsAdmin(true)
-  }, [user])
+
   const {
     labels,
 
@@ -67,25 +61,14 @@ export default function Advert ({
             </div>
           ))}
         </div>
-
-        <div className={' flex items-center '}>
-          {showFavorite && (
-            <FavoriteLabel
-              isFavorite={favoritesList.includes(id)}
-              advertId={id}
-            />
-          )}
-          {edit && (
-            <L href={`/adverts/edit/${id}`}>
-              <ICONS.Edit />
-            </L>
-          )}
-          {isAdmin && (
-            <L href={`/adverts/${id}`}>
-              <ICONS.Settings />
-            </L>
-          )}
-        </div>
+        <AdevertRigthInfo
+          isEditable={edit}
+          isAdmin={user?.admin}
+          advertId={id}
+          isFavorite={favoritesList.includes(id)}
+          publication={publication}
+          showFavorite={showFavorite}
+        />
       </header>
       <section className={''}>
         {/* ---------------------------------IMAGE---------------------------------- */}

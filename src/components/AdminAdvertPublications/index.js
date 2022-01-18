@@ -1,9 +1,12 @@
 import ModalPubish from '@comps/Modals/ModalPublish'
-import { fbListenAdvertPublications } from 'firebase/publications'
+import {
+  fbListenAdvertPublications,
+  fbUpdatePublicationStatus
+} from 'firebase/publications'
 import { useContext, useEffect, useState } from 'react'
 import AdvertContext from 'src/context/AdvertContext'
-import { useAds } from 'src/hooks/useAds'
-import isGoodTime from 'src/utils/isGoodTime'
+import CopyableToClipboard from 'src/HOC/CopyableToClipboard'
+import { fromNow } from 'src/utils/dates'
 
 export default function AdminAdvertPublications () {
   const advert = useContext(AdvertContext)
@@ -16,38 +19,19 @@ export default function AdminAdvertPublications () {
     )
   }, [])
 
-  const { unpublishAdvert, reactivePublish } = useAds()
-  const handleUnpublish = (publicationId) => {
-    unpublishAdvert(publicationId).then((res) =>
-      console.log(res)
-    )
-  }
-  const handleReactivePublish = (publicationId) => {
-    reactivePublish(publicationId).then((res) =>
-      console.log(res)
-    )
-  }
-
   const activesPublications = publications?.filter(
-    ({ active, publishEnds }) => {
-      const { onTime } = isGoodTime(publishEnds)
-      return active && onTime
+    ({ status }) => {
+      return status === 'ACTIVE'
     }
   )
   const finishedPublications = publications?.filter(
-    ({ publishEnds }) => {
-      const finshOn = new Date(publishEnds).getTime()
-      const todayIs = new Date().getTime()
-      return finshOn < todayIs
+    ({ status }) => {
+      return status === 'FINISHED'
     }
   )
   const pausedPublications = publications?.filter(
-    ({ active }) => !active
+    ({ status }) => status === 'PAUSED'
   )
-
-  const handleRepublish = () => {
-    console.log('TODO republish?')
-  }
 
   const [modalPublish, setModalPublish] = useState()
 
@@ -72,29 +56,15 @@ export default function AdminAdvertPublications () {
         <div className="grid grid-flow-col place-content-center grid-cols-3 px-2 gap-2 max-w-md mx-auto">
           <PublicationType
             title="Activas"
-            publications={activesPublications?.map(
-              (pub) => {
-                return { ...pub, status: 'ACTIVE' }
-              }
-            )}
-            changePublicationStatus={handleUnpublish}
+            publications={activesPublications}
           />
           <PublicationType
             title="Pausadas"
-            publications={pausedPublications?.map((pub) => {
-              return { ...pub, status: 'PAUSED' }
-            })}
-            changePublicationStatus={handleReactivePublish}
+            publications={pausedPublications}
           />
           <PublicationType
             title="Terminadas"
-            publications={finishedPublications?.map(
-              (pub) => {
-                return { ...pub, status: 'FINISHED' }
-              }
-            )}
-            color="black"
-            changePublicationStatus={handleRepublish}
+            publications={finishedPublications}
           />
         </div>
       </div>
@@ -107,21 +77,43 @@ export default function AdminAdvertPublications () {
   )
 }
 
-const PublicationType = ({
-  publications = [],
-  changePublicationStatus,
-  title
-}) => {
-  const styling = {
-    ACTIVE: ' bg-success',
-    PAUSED: 'bg-info',
-    FINISHED: 'bg-error'
+const PublicationType = ({ publications = [], title }) => {
+  const PUBLICATION_TYPE = {
+    ACTIVE: {
+      label: 'Pausar',
+      style: 'bg-success',
+      onClick: (id) =>
+        fbUpdatePublicationStatus({
+          publicationId: id,
+          newStatus: 'PAUSED'
+        })
+    },
+    PAUSED: {
+      label: 'Activar',
+      style: 'bg-info',
+      onClick: (id) =>
+        fbUpdatePublicationStatus({
+          publicationId: id,
+          newStatus: 'ACTIVE'
+        })
+    },
+    FINISHED: {
+      label: 'Activar',
+      style: 'bg-error',
+      onClick: (id) => {
+        fbUpdatePublicationStatus({
+          publicationId: id,
+          newStatus: 'ACTIVE'
+        })
+      }
+    }
   }
-  const buttonLabel = {
-    ACTIVE: 'pausar',
-    PAUSED: 'activar',
-    FINISHED: 'publicar'
+  const isPublishedTimeEnds = (publishEnds) => {
+    const finshOn = new Date(publishEnds).getTime()
+    const todayIs = new Date().getTime()
+    return finshOn < todayIs
   }
+
   return (
     <div className="text-center">
       <span className="text-sm">{`${title} (${publications.length})`}</span>
@@ -129,13 +121,41 @@ const PublicationType = ({
         {publications?.map(
           ({ id, barrioId, publishEnds, status }) => (
             <div
-              className={`${styling[status]} `}
-              onClick={() => changePublicationStatus(id)}
+              className={`${PUBLICATION_TYPE[status]?.style} `}
               key={id}
             >
+              <CopyableToClipboard value={id}>
+                <span>Id</span>
+              </CopyableToClipboard>
               <div>{barrioId}</div>
-              <div>{isGoodTime(publishEnds).fromNow}</div>
-              <button className='btn rounded-full btn-primary'>{buttonLabel[status]}</button>
+              <div>
+                <div>Termina: </div>
+                {isPublishedTimeEnds(publishEnds) && (
+                  <div>{}</div>
+                )}
+                {fromNow(publishEnds)}
+              </div>
+              {PUBLICATION_TYPE[status]?.label && (
+                <button
+                  className="btn rounded-full btn-secondary btn-xs"
+                  onClick={() =>
+                    PUBLICATION_TYPE[status]?.onClick(id)
+                  }
+                >
+                  {PUBLICATION_TYPE[status]?.label}
+                </button>
+              )}
+              <button
+                onClick={() =>
+                  fbUpdatePublicationStatus({
+                    publicationId: id,
+                    newStatus: 'FINISHED'
+                  })
+                }
+                className="btn rounded-full btn-error btn-xs"
+              >
+                Terminar
+              </button>
             </div>
           )
         )}

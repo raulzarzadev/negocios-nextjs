@@ -1,14 +1,13 @@
 import AdminAdvertPublications from '@comps/AdminAdvertPublications'
 import FilterChip from '@comps/Filter/FilterChip'
-import { L } from '@comps/L'
 import { CHIP_LABELS } from 'CONST/CHIPS_LABELS'
 import Image from 'next/image'
-import { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import AdvertContext from 'src/context/AdvertContext'
 import useUser from 'src/context/UserContext'
 import ICONS from 'src/utils/ICONS'
+import AdevertRigthInfo from './AdevertRigthInfo'
 import ContactsSection from './ContactsSection'
-import FavoriteLabel from './FavoriteLabel'
 import TitleSection from './TitleSection'
 
 function AdvertPage ({
@@ -19,23 +18,18 @@ function AdvertPage ({
   // form = false
 }) {
   const { user, favoritesList } = useUser()
-  const [isAdmin, setIsAdmin] = useState(false)
 
   const advert = useContext(AdvertContext)
 
-  useEffect(() => {
-    if (user?.admin) setIsAdmin(true)
-  }, [user])
   const {
     labels,
-
     title,
     content,
     contacts,
     // backgroundColor,
-    id
+    id,
     // location
-    // publication,
+    publication
     // resume
   } = advert
 
@@ -67,25 +61,15 @@ function AdvertPage ({
             </div>
           ))}
         </div>
+        <AdevertRigthInfo
+          isEditable={edit}
+          isAdmin={user?.admin}
+          advertId={id}
+          isFavorite={favoritesList.includes(id)}
+          publication={publication}
+          showFavorite={showFavorite}
+        />
 
-        <div className={' flex items-center '}>
-          {showFavorite && (
-            <FavoriteLabel
-              isFavorite={favoritesList.includes(id)}
-              advertId={id}
-            />
-          )}
-          {edit && (
-            <L href={`/adverts/edit/${id}`}>
-              <ICONS.Edit />
-            </L>
-          )}
-          {isAdmin && (
-            <L href={`/adverts/${id}`}>
-              <ICONS.Settings />
-            </L>
-          )}
-        </div>
       </header>
       <section className={''}>
         {/* ---------------------------------IMAGE---------------------------------- */}

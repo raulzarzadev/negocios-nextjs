@@ -9,35 +9,30 @@ import {
 import { fbGetPublication } from 'firebase/publications'
 import { useEffect, useState } from 'react'
 
-export function usePublications({ advertId = false }) {
+export function usePublications () {
   const [publications, setPublications] = useState()
   useEffect(() => {
     listenPublications()
   }, [])
-  useEffect(() => {
-    if (advertId) {
-      listenPublications({ advertId })
-    }
-  }, [advertId])
 
-  function getAllPublications() {
+  function getAllPublications () {
     return fb_getAllPublications()
   }
 
-  function getActivePublications() {
+  function getActivePublications () {
     return fb_getActivePublications()
   }
 
-  function getAdvertPublications(advertId) {
+  function getAdvertPublications (advertId) {
     return fb_getAdvertPublications(advertId)
   }
 
-  function listenPublications() {
+  function listenPublications () {
     return fb_listenPublications(function (res) {
       setPublications(res)
     })
   }
-  function getPublication({ id }) {
+  function getPublication ({ id }) {
     return fbGetPublication({ id })
   }
 

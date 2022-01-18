@@ -27,3 +27,23 @@ export function fbListenAdvertPublications (
       callback(normalizeSnapshot(snapshot))
     })
 }
+
+export async function fbUpdatePublicationStatus ({
+  publicationId,
+  newStatus = ['ACTIVE', 'PAUSED', 'FINISHED']
+}) {
+  return await db
+    .collection('publications')
+    .doc(publicationId)
+    .update({ status: newStatus })
+    .then((res) =>
+      formatResponse(true, 'PUBLICATION_UPDATED', res)
+    )
+    .catch((err) =>
+      formatResponse(
+        false,
+        'PUBLICATION_UPDATED_ERROR',
+        err
+      )
+    )
+}

@@ -57,7 +57,9 @@ export const datesToFirebaseFromat = ({
     'updatedAt',
     'finishAt',
     'startAt',
-    'registryDate'
+    'registryDate',
+    'publishEnds',
+    'publishStart'
   ]
   if (!document) return 'no document'
   if (typeof document !== 'object') {

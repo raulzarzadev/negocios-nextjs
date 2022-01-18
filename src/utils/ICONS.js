@@ -22,7 +22,6 @@ import {
   AiFillEye,
   AiFillEyeInvisible
 } from 'react-icons/ai'
-import { FcInfo } from 'react-icons/fc'
 import {
   MdAddLocation,
   MdClass,
@@ -44,7 +43,9 @@ import {
   MdClose,
   MdDeleteForever,
   MdInfo,
-  MdSettings
+  MdSettings,
+  MdCopyAll,
+  MdAccessTimeFilled
 } from 'react-icons/md'
 import {
   RiImageAddFill,
@@ -232,6 +233,15 @@ export default {
 
   Info: ({ size, ...rest }) => (
     <RiInformationLine
+      {...rest}
+      size={size ?? defaultSize}
+    />
+  ),
+  Copy: ({ size, ...rest }) => (
+    <MdCopyAll {...rest} size={size ?? defaultSize} />
+  ),
+  Clock: ({ size, ...rest }) => (
+    <MdAccessTimeFilled
       {...rest}
       size={size ?? defaultSize}
     />
