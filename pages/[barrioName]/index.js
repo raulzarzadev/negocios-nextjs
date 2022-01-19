@@ -57,7 +57,7 @@ export default function Barrio () {
         return ad.labels.includes(filter)
       })
     )
-  }, [filter])
+  }, [filter, adverts])
 
   const handleSetFilter = (filter) => {
     setFilter(filter)

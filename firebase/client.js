@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import firebase from 'firebase'
 import 'firebase/firestore'
+import 'firebase/auth'
 import 'firebase/app'
 import { v4 as uuidv4 } from 'uuid'
 

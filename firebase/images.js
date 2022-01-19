@@ -1,7 +1,7 @@
 /* eslint-disable node/no-callback-literal */
 import { v4 as uuidv4 } from 'uuid'
 import firebase from 'firebase'
-import 'firebase/firestore'
+import 'firebase/storage'
 import { formatResponse } from './firebase-helpers'
 /* ------------------------------------------------------------------------------------------- */
 /*  ---------------------***---------    IMAGES MANAGE    ----------***-------------------------- */
