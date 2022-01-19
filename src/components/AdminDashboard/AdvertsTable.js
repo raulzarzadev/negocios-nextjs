@@ -1,4 +1,5 @@
 import DeleteModal from '@comps/Modals/DeleteModal'
+import ModalPubish from '@comps/Modals/ModalPublish'
 import { fdDeleteAdvert } from 'firebase/adverts'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -61,29 +62,11 @@ export default function AdvertsTable ({
               <div className="w-1/2 pl-2 ">
                 <span className="">{title}</span>
               </div>
-              <div className="w-1/4 text-center flex justify-center flex-col">
-                {publications.map(
-                  ({
-                    barrioId,
-                    active,
-                    id: publicationId
-                  }) => (
-                    <div
-                      key={publicationId}
-                      className={`rounded-full shadow-sm w-5 h-5 flex justify-center ${
-                        active ? 'bg-accent' : 'bg-error'
-                      }`}
-                    >
-                      <Link href={`/adverts/${id}`}>
-                        <a>
-                          <span className="">
-                            {barrioId}
-                          </span>
-                        </a>
-                      </Link>
-                    </div>
-                  )
-                )}
+              <div className="w-1/4 ">
+                <PublicationsCell
+                  advertId={id}
+                  publications={publications}
+                />
               </div>
               <div className="w-1/4 ">
                 <Actions id={id} title={title} />
@@ -95,14 +78,77 @@ export default function AdvertsTable ({
   )
 }
 
+const PublicationsCell = ({
+  advertId,
+  publications = []
+}) => {
+  const [openModalPublish, setOpenModalPublish] = useState()
+  const handleOpenModalPublish = () => {
+    setOpenModalPublish(!openModalPublish)
+  }
+
+  return (
+    <div className="w-1/4 text-center flex justify-center flex-col">
+      <ModalPubish
+        advertId={advertId}
+        open={openModalPublish}
+        handleOpen={handleOpenModalPublish}
+      />
+      <button onClick={handleOpenModalPublish}>
+        {!publications?.length && 'S/P'}
+        {publications.map(
+          ({ barrioId, active, id: publicationId }) => (
+            <div
+              key={publicationId}
+              className={`rounded-full shadow-sm w-5 h-5 flex justify-center ${
+                active ? 'bg-accent' : 'bg-error'
+              }`}
+            >
+              <span className="">{barrioId}</span>
+            </div>
+          )
+        )}
+      </button>
+
+      {/*  <Link href={`/adverts/${id}`}>
+                  <a>
+                      {!publications?.length && 'S / P'}
+
+                    {publications.map(
+                      ({
+                        barrioId,
+                        active,
+                        id: publicationId
+                      }) => (
+                        <div
+                        key={publicationId}
+                        className={`rounded-full shadow-sm w-5 h-5 flex justify-center ${
+                          active
+                          ? 'bg-accent'
+                          : 'bg-error'
+                        }`}
+                        >
+                        <span className="">
+                        {barrioId}
+                        </span>
+                        </div>
+                      )
+                    )}
+                  </a>
+                </Link> */}
+    </div>
+  )
+}
+
 const Actions = ({ id, title }) => {
   const [openDelete, setOpenDelete] = useState()
   const handleOpenDelete = () => {
     setOpenDelete(!openDelete)
   }
   const handleDelete = () => {
-    fdDeleteAdvert({ id })
-      .then((res) => console.log('res', res))
+    fdDeleteAdvert({ id }).then((res) =>
+      console.log('res', res)
+    )
   }
   return (
     <div className="flex justify-evenly">

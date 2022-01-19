@@ -1,13 +1,10 @@
 import React, { useState } from 'react'
 import { CHIP_LABELS } from 'CONST/CHIPS_LABELS'
 import FilterChip from './FilterChip'
-import BarrioTitle from '@comps/BarrioTitle'
 
 export default function Filter ({
   handleSetFilter,
-  labels = [],
-  barrioTitle = false,
-  barrio
+  labels = []
 }) {
   const formatedLabels = labels.map((label) =>
     CHIP_LABELS.find((chip) => chip.key === label)
@@ -23,7 +20,7 @@ export default function Filter ({
     <div>
       <div
         className={
-          'border-2   grid grid-flow-col overflow-x-auto gap-2 p-2 snap-x'
+          'border-2   grid grid-flow-col overflow-x-auto gap-2 p-2 snap-x '
         }
       >
         <FilterChip
@@ -48,7 +45,7 @@ export default function Filter ({
           />
         ))}
       </div>
-      {barrioTitle && <BarrioTitle barrio={barrio} />}
+      {/*  {barrioTitle && <BarrioTitle barrio={barrio} />} */ }
     </div>
   )
 }

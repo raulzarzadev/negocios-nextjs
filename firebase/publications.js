@@ -20,6 +20,7 @@ export function fbListenAdvertPublications (
   { advertId },
   callback
 ) {
+  if (!advertId) return console.log('no id')
   return db
     .collection('publications')
     .where('advertId', '==', advertId)
@@ -46,4 +47,19 @@ export async function fbUpdatePublicationStatus ({
         err
       )
     )
+}
+
+export function listenBarrioActivePublications (
+  { barrioId },
+  callback
+) {
+  return db
+    .collection('publications')
+    .where('barrioId', '==', barrioId)
+    .where('status', '==', 'ACTIVE')
+    .onSnapshot((snapshot) => {
+      callback(
+        snapshot.docs.map((doc) => normalizeDoc(doc))
+      )
+    })
 }

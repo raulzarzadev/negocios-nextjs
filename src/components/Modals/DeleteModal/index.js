@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Modal from '../Modal'
 
-export default function DeleteModal({
+export default function DeleteModal ({
   handleDelete = () => {},
   handleOpen,
   open,

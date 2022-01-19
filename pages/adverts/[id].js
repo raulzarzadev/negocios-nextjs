@@ -21,7 +21,7 @@ export default function PublicationDetails () {
   useEffect(() => {
     if (id) {
       listenAdvert({ id }, (res) => {
-        setAdvert(res)
+        setAdvert({ ...res, id })
       })
     }
 

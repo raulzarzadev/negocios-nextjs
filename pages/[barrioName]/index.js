@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { useAds } from 'src/hooks/useAds'
 import AdvertsList from '@comps/AdvertsList'
 import Filter from '@comps/Filter/index.js'
 import Head from 'next/head'
 import Loading from '@comps/Loading'
+import { listenBarrioActivePublications } from 'firebase/publications'
+import { fbGetAdvert } from 'firebase/adverts'
+// eslint-disable-next-line camelcase
+import { fb_getBarrio } from 'firebase/client'
 
 export default function Barrio () {
-  const { getAdsByBarrio } = useAds()
+  //  const { getAdsByBarrio } = useAds()
   const router = useRouter()
 
   const [barrio, setBarrio] = useState(undefined)
@@ -18,65 +21,80 @@ export default function Barrio () {
 
   useEffect(() => {
     if (barrioName) {
-      getAdsByBarrio(barrioName).then(setBarrio)
+      fb_getBarrio(barrioName).then(setBarrio)
+      listenBarrioActivePublications(
+        { barrioId: barrioName },
+        setPublications
+      )
     }
   }, [barrioName])
 
-  const [adverts, setAdverts] = useState(barrio?.ads || [])
+  const [publications, setPublications] =
+    useState(undefined)
+
+  useEffect(() => {
+    if (publications) {
+      const adverts = publications?.map((publication) =>
+        fbGetAdvert({ id: publication.advertId }).then(
+          (advert) => {
+            return { ...advert, publication }
+          }
+        )
+      )
+      Promise.all(adverts).then((ads) => setAdverts(ads))
+    }
+  }, [publications])
+
+  const [adverts, setAdverts] = useState([])
+  const [advertsFiltered, setAdvertsFiltered] = useState([])
 
   const [filter, setFilter] = useState('all')
 
   useEffect(() => {
-    setAdverts(barrio?.ads)
-  }, [barrio])
-
-  useEffect(() => {
-    if (filter === 'all') return setAdverts(barrio?.ads)
-    setAdverts(filterAdsByLable)
+    if (filter === 'all') return setAdvertsFiltered(adverts)
+    setAdvertsFiltered(
+      adverts?.filter((ad) => {
+        return ad.labels.includes(filter)
+      })
+    )
   }, [filter])
 
   const handleSetFilter = (filter) => {
     setFilter(filter)
   }
 
-  const filterAdsByLable = () => {
-    const filtered = barrio?.ads?.filter((ad) => {
-      return ad.labels.includes(filter)
-    })
-    return filtered
+  const labelsAvailables = adverts?.reduce((acc, item) => {
+    const labels = [...acc, item.labels]
+      .flat()
+      .reduce((acc, item) => {
+        if (acc.includes(item)) return acc
+        return [...acc, item]
+      }, [])
+
+    return labels
+  }, [])
+  if (!publications === undefined) {
+    return <Loading size="lg" />
   }
-
-  const labelsAvailables = barrio?.ads?.reduce(
-    (acc, item) => {
-      const labels = [...acc, item.labels]
-        .flat()
-        .reduce((acc, item) => {
-          if (acc.includes(item)) return acc
-          return [...acc, item]
-        }, [])
-
-      return labels
-    },
-    []
-  )
-
-  if (barrio === undefined) return <Loading size="lg" />
   return (
     <>
       <Head>
-        <title>Barrio - {barrio.name}</title>
+        <title>Barrio - {barrio?.name}</title>
       </Head>
       <div className="sticky top-0 right-0 left-0 bg-white z-10">
         <Filter
           labels={labelsAvailables}
           handleSetFilter={handleSetFilter}
-          barrioTitle={true}
-          barrio={barrio}
         />
+        <h3 className="text-center mt-2 text-xl font-bold">
+          {barrio?.name}{' '}
+          <span className="text-xs">
+            ({advertsFiltered.length})
+          </span>
+        </h3>
       </div>
       <AdvertsList
-        barrio={barrio}
-        adverts={adverts}
+        adverts={advertsFiltered}
         filter={filter}
         handleSetFilter={handleSetFilter}
       />

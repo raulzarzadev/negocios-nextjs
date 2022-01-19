@@ -3,18 +3,18 @@ import {
   fbListenAdvertPublications,
   fbUpdatePublicationStatus
 } from 'firebase/publications'
-import { useContext, useEffect, useState } from 'react'
-import AdvertContext from 'src/context/AdvertContext'
+import { useEffect, useState } from 'react'
 import CopyableToClipboard from 'src/HOC/CopyableToClipboard'
 import { fromNow } from 'src/utils/dates'
 
-export default function AdminAdvertPublications () {
-  const advert = useContext(AdvertContext)
-  const [publications, setPublications] = useState()
+export default function AdminAdvertPublications ({
+  advertId
+}) {
+  const [publications, setPublications] = useState([])
 
   useEffect(() => {
     fbListenAdvertPublications(
-      { advertId: advert.id },
+      { advertId },
       setPublications
     )
   }, [])
@@ -71,7 +71,7 @@ export default function AdminAdvertPublications () {
       <ModalPubish
         open={modalPublish}
         handleOpen={handleOpenPublish}
-        advertId={advert.id}
+        advertId={advertId}
       />
     </div>
   )

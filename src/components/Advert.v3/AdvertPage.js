@@ -43,7 +43,9 @@ function AdvertPage ({
   const ImagesList = advert?.images
   return (
     <div className={'grid max-w-md mx-auto '}>
-      {user?.admin && <AdminAdvertPublications />}
+      {user?.admin && (
+        <AdminAdvertPublications advertId={advert.id} />
+      )}
       <header
         className={
           'px-1 py-1 flex justify-between items-center w-full'
@@ -69,7 +71,6 @@ function AdvertPage ({
           publication={publication}
           showFavorite={showFavorite}
         />
-
       </header>
       <section className={''}>
         {/* ---------------------------------IMAGE---------------------------------- */}

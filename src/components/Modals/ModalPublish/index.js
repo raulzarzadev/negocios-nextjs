@@ -6,7 +6,7 @@ import normalizeBarriosList from 'src/utils/normalizeBarriosList'
 
 export default function ModalPubish ({
   open,
-  handleOpen,
+  handleOpen = () => {},
   advertId
 }) {
   const [barrios, setBarrios] = useState()
@@ -47,7 +47,8 @@ export default function ModalPubish ({
       barrioId: form?.barrio,
       publishEnds,
       publishStart,
-      active: true
+      active: true,
+      status: 'ACTIVE'
     }
     publishAdvert(publication).then((res) => {
       setMessage({ type: 'success', message: 'Publicado' })

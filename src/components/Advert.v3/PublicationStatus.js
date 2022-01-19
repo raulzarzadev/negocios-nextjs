@@ -18,9 +18,7 @@ export default function PublicationStatus ({ publication }) {
     const finishAt = new Date(
       publication?.publishEnds
     ).getTime()
-    const startAt = new Date(
-      publication?.publishStart
-    ).getTime()
+
     const DAYS = 15
     const timeNearToFinish = 60_000 * 60 * 24 * DAYS
     if (finishAt < new Date().getTime()) {
@@ -39,12 +37,12 @@ export default function PublicationStatus ({ publication }) {
     <div className="">
       <div
         className={`${
-          STATUSES[defineStatus(publication)].style
+          STATUSES[defineStatus(publication)]?.style
         }`}
       >
         <Tooltip
           text={`${
-            STATUSES[defineStatus(publication)].label
+            STATUSES[defineStatus(publication)]?.label
           }`}
         >
           <ICONS.Clock />
