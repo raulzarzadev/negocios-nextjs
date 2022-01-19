@@ -1,8 +1,9 @@
 import BarrioForm from '@comps/BarrioForm'
 import { listenBarrio } from 'firebase/barrios'
-import router from 'next/router'
+import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 export default function EditBarrio () {
+  const router = useRouter()
   const {
     query: { id }
   } = router
