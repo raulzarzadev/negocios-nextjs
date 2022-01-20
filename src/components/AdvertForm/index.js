@@ -45,7 +45,6 @@ export default function AdvertForm ({
       /* --------------New Advert-------------- */
       console.log('form', form)
       addAdvert(form).then(({ res }) => {
-        // TODO add check ok box
         console.log('res', res)
         if (res?.advert?.id) {
           console.log('res.advert', res.advert)
