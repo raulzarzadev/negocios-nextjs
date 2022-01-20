@@ -13,16 +13,33 @@ export const CONTACT_TYPES = [
       <TextIcon
         {...props}
         InputComponent={Phone}
-        specialLabel={ null }
-        
+        specialLabel={null}
         inputProps={{
           className: 'input',
           name: props.name
-
         }}
       />
     ),
     prefix: '521'
+  },
+  {
+    id: 'phone',
+    name: 'tel',
+    type: 'tel',
+    label: 'Telefono fijo',
+    icon: <ICONS.Phone size="1.7rem" />,
+    Input: (props) => (
+      <TextIcon
+        {...props}
+        InputComponent={Phone}
+        specialLabel={null}
+        inputProps={{
+          className: 'input',
+          name: props.name
+        }}
+      />
+    ),
+    prefix: ''
   },
   {
     id: 'facebook',
@@ -47,19 +64,11 @@ export const CONTACT_TYPES = [
     name: 'webpage',
     type: 'web',
     label: 'Web',
-    icon: <ICONS.Water size="1.7rem" />,
+    icon: <ICONS.Web size="1.7rem" />,
     Input: (props) => <TextIcon {...props} />,
     prefix: 'https://'
   },
-  {
-    id: 'phone',
-    name: 'tel',
-    type: 'tel',
-    label: 'Fijo',
-    icon: <ICONS.Phone size="1.7rem" />,
-    Input: (props) => <TextIcon {...props} />,
-    prefix: ''
-  },
+
   {
     id: 'location',
     name: 'location',

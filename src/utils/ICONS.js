@@ -5,10 +5,7 @@ https://react-icons.github.io/react-icons/icons?name=md
 https://react-icons.github.io/react-icons/icons?name=si
 
  */
-import {
-  BookmarkBorder
-
-} from '@material-ui/icons'
+import { BookmarkBorder } from '@material-ui/icons'
 import Bookmark from '@material-ui/icons/Bookmark'
 import {
   AiFillEdit,
@@ -42,17 +39,17 @@ import {
   MdAdd,
   MdClose,
   MdDeleteForever,
-  MdInfo,
   MdSettings,
   MdCopyAll,
+  MdOutlineAlternateEmail,
+  MdOutlinePublic,
   MdAccessTimeFilled
 } from 'react-icons/md'
 import {
   RiImageAddFill,
   RiImage2Fill,
   RiImageEditFill,
-  RiInformationLine,
-  RiHomeGearFill
+  RiInformationLine
 } from 'react-icons/ri'
 import {
   SiGooglemaps,
@@ -209,6 +206,15 @@ export default {
   //           BRANDS
   /* .-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'rz */
 
+  Email: ({ size, ...rest }) => (
+    <MdOutlineAlternateEmail
+      {...rest}
+      size={size ?? defaultSize}
+    />
+  ),
+  Web: ({ size, ...rest }) => (
+    <MdOutlinePublic {...rest} size={size ?? defaultSize} />
+  ),
   Whatsapp: ({ size, ...rest }) => (
     <SiWhatsapp {...rest} size={size ?? defaultSize} />
   ),
