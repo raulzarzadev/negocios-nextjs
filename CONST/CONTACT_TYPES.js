@@ -17,6 +17,7 @@ export const CONTACT_TYPES = [
         inputProps={{
           className: 'input',
           name: props.name
+
         }}
       />
     ),
@@ -36,6 +37,7 @@ export const CONTACT_TYPES = [
         inputProps={{
           className: 'input',
           name: props.name
+
         }}
       />
     ),

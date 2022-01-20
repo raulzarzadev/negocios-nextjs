@@ -11,7 +11,7 @@ export default function Phone ({ onChange, ...rest }) {
     <div>
       <PhoneInput
         localization={es}
-        onChange={(_e, _data, event) => onChange(event)}
+        onChange={ (_e, _data, event) => onChange(event) }
         { ...rest }
         defaultMask='.. .... .. ..'
         alwaysDefaultMask

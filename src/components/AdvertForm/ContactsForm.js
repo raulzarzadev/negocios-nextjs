@@ -1,5 +1,6 @@
 import { CONTACT_TYPES } from 'CONST/CONTACT_TYPES'
 import formatContacts from 'src/utils/formatContacts'
+import ICONS from 'src/utils/ICONS'
 
 export default function ContactsForm ({ form, setForm }) {
   const handleChange = ({ target }) => {
@@ -11,6 +12,15 @@ export default function ContactsForm ({ form, setForm }) {
       }
     })
   }
+  const handleClearInput = (input) => {
+    const contacts = form.contacts
+    delete form.contacts[input]
+    setForm({
+      ...form,
+      contacts
+    })
+  }
+  
   const contacts = form.contacts
   const formatedContacts = formatContacts(contacts)
   const contactsDisplay = CONTACT_TYPES
@@ -18,18 +28,24 @@ export default function ContactsForm ({ form, setForm }) {
     <div>
       <div className="grid gap-2 ">
         {contactsDisplay.map(({ Input, ...props }) => (
-          <Input
-            key={props.id}
-            placeholder={props.label}
-            icon={props.icon}
-            onChange={handleChange}
-            name={props.id}
-            value={
-              formatedContacts.find(
-                ({ id }) => id === props.id
-              )?.value || ''
-            }
-          />
+          <div key={props.id} className="flex">
+            <Input
+              placeholder={props.label}
+              icon={props.icon}
+              onChange={handleChange}
+              name={props.id}
+              value={
+                formatedContacts.find(
+                  ({ id }) => id === props.id
+                )?.value || ''
+              }
+            />
+            <button
+              onClick={() => handleClearInput(props.id)}
+            >
+              <ICONS.Delete />
+            </button>
+          </div>
         ))}
       </div>
     </div>
