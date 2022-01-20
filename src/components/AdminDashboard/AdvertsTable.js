@@ -57,11 +57,13 @@ export default function AdvertsTable ({
           .map(({ id, publications, title }) => (
             <div
               key={id}
-              className=" flex justify-between my-2 shadow-md "
+              className=" flex justify-between my-2 shadow-md hover:bg-slate-300 "
             >
-              <div className="w-1/2 pl-2 ">
-                <span className="">{title}</span>
-              </div>
+              <Link href={`/adverts/${id}`}>
+                <a className="w-1/2 pl-2 ">
+                  <span className="">{title}</span>
+                </a>
+              </Link>
               <div className="w-1/4 ">
                 <PublicationsCell
                   advertId={id}

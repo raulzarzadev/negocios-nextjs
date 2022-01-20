@@ -13,7 +13,6 @@ export default function AdvertForm ({
   advert = null,
   loading = false
 }) {
-  console.log('advert', advert)
   if (loading) return <Loading size="lg" />
 
   const [step, setStep] = useState(0)

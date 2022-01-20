@@ -2,6 +2,7 @@ import formatContacts from 'src/utils/formatContacts'
 
 const ContactsSection = ({ contacts }) => {
   const formatedContacts = formatContacts(contacts)
+  console.log('formatedContacts', formatedContacts)
   return (
     <div className="flex justify-evenly w-full">
       {formatedContacts.map((contact, i) => (
@@ -17,10 +18,10 @@ const ContactLink = ({ contact }) => {
     'Hola, vi tu anuncio en negociosdelbarrio.com. Quisiera...'
   const hrefOptions = {
     ws: `https://wa.me/${contact?.value?.replace(
-    /[\s+]/g,
-    ''
-  )}?text=${wstext}`,
-    tel: `tel:52${contact.value}`
+      /[\s+]/g,
+      ''
+    )}?text=${wstext}`,
+    tel: `tel:${contact.value?.replace(/[\s+]/g, '')}`
   }
 
   return (
