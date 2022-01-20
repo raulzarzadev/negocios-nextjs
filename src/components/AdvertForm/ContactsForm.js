@@ -20,7 +20,7 @@ export default function ContactsForm ({ form, setForm }) {
       contacts
     })
   }
-  
+
   const contacts = form.contacts
   const formatedContacts = formatContacts(contacts)
   const contactsDisplay = CONTACT_TYPES
