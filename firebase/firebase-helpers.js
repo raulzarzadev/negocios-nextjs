@@ -6,10 +6,10 @@ export const formatResponse = (
   type = 'TYPE',
   res = {}
 ) => {
-  return { type, ok, res: normalizeDoc(res) }
+  return { type, ok, res }
 }
 export const normalizeDoc = (doc) => {
-  if (!doc?.exists) return 'DOCUMENT_NOT_EXIST' // The document  not exist
+  if (!doc?.exists) return null // The document  not exist
   const data = doc.data()
   const id = doc.id
   return {

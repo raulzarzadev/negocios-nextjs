@@ -16,10 +16,10 @@ const ContactLink = ({ contact }) => {
   const wstext =
     'Hola, vi tu anuncio en negociosdelbarrio.com. Quisiera...'
   const hrefOptions = {
-    ws: `https://wa.me/${
-      contact.prefix
-    }${contact?.value?.replace(/\n/g, '')}?text=${wstext}`,
-
+    ws: `https://wa.me/${contact?.value?.replace(
+    /[\s+]/g,
+    ''
+  )}?text=${wstext}`,
     tel: `tel:52${contact.value}`
   }
 
@@ -31,6 +31,7 @@ const ContactLink = ({ contact }) => {
         rel="noreferrer"
         className=""
       >
+
         <div className=" p-1">{contact?.icon}</div>
       </a>
     </>

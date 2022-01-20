@@ -19,11 +19,17 @@ export const fbGetAdvert = async ({ id = '' }) => {
 }
 
 export const fbAddAdvert = async ({ advert = {} }) => {
+  console.log('advert', advert)
+  const newAdvertRef = db.collection('adverts').doc()
+  console.log('newAdvertRef', newAdvertRef.id)
   return await db
     .collection('adverts')
-    .add({ ...datesToFirebaseFromat({ document: advert }) })
+    .doc(newAdvertRef.id)
+    .set({ ...datesToFirebaseFromat({ document: advert }) })
     .then((res) =>
-      formatResponse(true, 'ADVERT_CREATED', res)
+      formatResponse(true, 'ADVERT_CREATED', {
+        advert: { ...advert, id: newAdvertRef.id }
+      })
     )
     .catch((err) =>
       formatResponse(false, 'ADVERT_CREATED_ERROR', err)

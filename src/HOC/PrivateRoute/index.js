@@ -19,7 +19,7 @@ export default function PrivateRoute ({
       setLoading(false)
     }
     // console.log(user)
-    if (user === null) router.replace('/')
+    //  if (user === null) router.replace('/')
   }, [user])
 
   if (loading) return <Loading size="lg" />

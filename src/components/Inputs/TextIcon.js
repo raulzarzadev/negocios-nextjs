@@ -1,7 +1,7 @@
 export default function TextIcon ({
   label,
-  className,
   icon,
+  InputComponent,
   ...rest
 }) {
   return (
@@ -12,12 +12,20 @@ export default function TextIcon ({
         </label>
       )}
       <label className="input-group">
-        <span className="w-[20%] text-white bg-primary flex ">{icon}</span>
-        <input
-          className={`${className} input w-[80%] `}
-          type="text"
-          {...rest}
-        />
+        <span className="w-[20%] text-white bg-primary flex ">
+          {icon}
+        </span>
+        {(InputComponent && (
+          <InputComponent
+            {...rest}
+          />
+        )) || (
+          <input
+            className={'input w-[80%]  '}
+            type="text"
+            {...rest}
+          />
+        )}
       </label>
     </div>
   )

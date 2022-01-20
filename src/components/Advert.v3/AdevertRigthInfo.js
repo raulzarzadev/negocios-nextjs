@@ -31,6 +31,11 @@ export default function AdevertRigthInfo ({
           >
             <ICONS.Settings />
           </L>
+          <L
+            href={`/adverts/edit/${advertId}`}
+          >
+            <ICONS.Edit />
+          </L>
           {publication && (
             <PublicationStatus publication={publication} />
           )}

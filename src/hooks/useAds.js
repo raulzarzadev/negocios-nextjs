@@ -32,13 +32,13 @@ export function useAds () {
   }
   async function getAdsByBarrio (barrio) {
     const barrioDetails = await fb_getBarrio(barrio)
-    
+
     const advertDetail = async (id) =>
       await fb_getAdvertById(id)
-    
+
     const activePublications =
       await fb_getBarrioActivePublications(barrio)
-    
+
     const adverts = []
     for (const publication of activePublications) {
       const advert = await advertDetail(
@@ -77,6 +77,7 @@ export function useAds () {
     return fbEditAdvert(id, advert)
   }
   function addAdvert (form) {
+    console.log('form', form)
     return fbAddAdvert({
       advert: {
         userId: user.id,

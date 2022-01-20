@@ -1,3 +1,5 @@
+import Phone from '@comps/Inputs/Phone'
+import TextIcon from '@comps/Inputs/TextIcon'
 import ICONS from 'src/utils/ICONS'
 
 export const CONTACT_TYPES = [
@@ -7,6 +9,19 @@ export const CONTACT_TYPES = [
     type: 'ws',
     label: 'Whatsapp',
     icon: <ICONS.Whatsapp size="1.7rem" />,
+    Input: (props) => (
+      <TextIcon
+        {...props}
+        InputComponent={Phone}
+        specialLabel={ null }
+        
+        inputProps={{
+          className: 'input',
+          name: props.name
+
+        }}
+      />
+    ),
     prefix: '521'
   },
   {
@@ -15,6 +30,7 @@ export const CONTACT_TYPES = [
     type: 'fb',
     label: 'Facebook',
     icon: <ICONS.Facebook size="1.7rem" />,
+    Input: (props) => <TextIcon {...props} />,
     prefix: 'https://facebook.com/'
   },
   {
@@ -23,6 +39,7 @@ export const CONTACT_TYPES = [
     type: 'in',
     label: 'Instagram',
     icon: <ICONS.Instagram size="1.7rem" />,
+    Input: (props) => <TextIcon {...props} />,
     prefix: 'https://instagram.com/'
   },
   {
@@ -31,6 +48,7 @@ export const CONTACT_TYPES = [
     type: 'web',
     label: 'Web',
     icon: <ICONS.Water size="1.7rem" />,
+    Input: (props) => <TextIcon {...props} />,
     prefix: 'https://'
   },
   {
@@ -39,6 +57,7 @@ export const CONTACT_TYPES = [
     type: 'tel',
     label: 'Fijo',
     icon: <ICONS.Phone size="1.7rem" />,
+    Input: (props) => <TextIcon {...props} />,
     prefix: ''
   },
   {
@@ -47,6 +66,7 @@ export const CONTACT_TYPES = [
     type: 'loc',
     label: 'Ubicación',
     icon: <ICONS.Location size="1.7rem" />,
+    Input: (props) => <TextIcon {...props} />,
     prefix: ''
   }
 ]
