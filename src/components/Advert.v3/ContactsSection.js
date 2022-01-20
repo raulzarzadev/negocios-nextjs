@@ -2,7 +2,6 @@ import formatContacts from 'src/utils/formatContacts'
 
 const ContactsSection = ({ contacts }) => {
   const formatedContacts = formatContacts(contacts)
-  console.log('formatedContacts', formatedContacts)
   return (
     <div className="flex justify-evenly w-full">
       {formatedContacts.map((contact, i) => (
