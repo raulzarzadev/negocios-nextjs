@@ -5,7 +5,7 @@ import { fb_getBarrios } from 'firebase/client'
 import { useEffect, useState } from 'react'
 import normalizeBarriosList from 'src/utils/normalizeBarriosList'
 
-export default function PublishForm({ form, setForm }) {
+export default function PublishForm ({ form, setForm }) {
   const [_form, _setForm] = useState({})
   const [barrios, setBarrios] = useState()
   const DAYS_MONTH = 30
