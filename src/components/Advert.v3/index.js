@@ -109,7 +109,6 @@ export default function Advert ({
 }
 
 const Images = ({ images = [], mainImage }) => {
-  console.log('mainImage', mainImage)
   if (!images.length && !mainImage) return null
   return (
     <div className=" aspect-video relative group ">
@@ -145,7 +144,7 @@ const Images = ({ images = [], mainImage }) => {
           </div>
         ))}
       </div>
-      {images?.length && (
+      {!!images?.length && (
         <>
           <button
             disabled
