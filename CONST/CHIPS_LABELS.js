@@ -20,6 +20,11 @@ import ICONS from 'src/utils/ICONS'
 
 export const CHIP_LABELS = [
   {
+    key: 'tours',
+    label: 'Tours',
+    icon: null
+  },
+  {
     key: 'food',
     label: 'Comida',
     icon: <ICONS.Restaurant />
@@ -56,7 +61,7 @@ export const CHIP_LABELS = [
   },
   {
     key: 'whatsapp',
-    label: 'Whats App',
+    label: 'WhatsApp',
     icon: <WhatsAppIcon />
   },
   {

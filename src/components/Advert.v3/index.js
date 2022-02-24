@@ -34,11 +34,11 @@ export default function Advert ({
   const chips = labels?.map((label) =>
     CHIP_LABELS.find((chip) => chip.key === label)
   )
-
+  // TODO fix, remove older images when they upload a new one
   const mainImage = Array.isArray(advert?.image)
     ? advert?.image[advert?.image?.length - 1]
     : advert?.image
-  const ImagesList = advert?.images
+
   return (
     <div
       className={
@@ -72,56 +72,11 @@ export default function Advert ({
       </header>
       <section className={''}>
         {/* ---------------------------------IMAGE---------------------------------- */}
-        <div className=" aspect-video relative group ">
-          <div className="carousel w-full  overflow-x-auto h-48 ">
-            {mainImage && (
-              <div className="carousel-item w-full h-full">
-                <div className="relative w-full h-full  ">
-                  <Image
-                    src={mainImage}
-                    layout="fill"
-                    objectFit="cover"
-                    placeholder="blur"
-                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVR42mP8/5+hnoEIwDiqkL4KAcT9GO0U4BxoAAAAAElFTkSuQmCC"
-                  />
-                </div>
-              </div>
-            )}
 
-            {ImagesList?.map((image) => (
-              <div
-                key={image}
-                className="carousel-item w-full h-full"
-              >
-                <div className="relative w-full h-full ">
-                  <Image
-                    src={image}
-                    layout="fill"
-                    objectFit="cover"
-                    placeholder="blur"
-                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVR42mP8/5+hnoEIwDiqkL4KAcT9GO0U4BxoAAAAAElFTkSuQmCC"
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-          {ImagesList?.length && (
-            <>
-              <button
-                disabled
-                className="absolute top-0 bottom-0 group-hover:bg-slate-300  group-hover:bg-opacity-60 left-0 "
-              >
-                <ICONS.ArrowLeft />
-              </button>
-              <button
-                disabled
-                className="absolute top-0 bottom-0 group-hover:bg-slate-300 group-hover:bg-opacity-60 right-0 "
-              >
-                <ICONS.ArrowRight />
-              </button>
-            </>
-          )}
-        </div>
+        <Images
+          images={advert?.images}
+          mainImage={mainImage}
+        />
         {/* ---------------------------------TITLE---------------------------------- */}
         <div className={'px-1'}>
           <TitleSection
@@ -149,6 +104,63 @@ export default function Advert ({
           <ContactsSection contacts={contacts} />
         </div>
       </footer>
+    </div>
+  )
+}
+
+const Images = ({ images = [], mainImage }) => {
+  console.log('mainImage', mainImage)
+  if (!images.length && !mainImage) return null
+  return (
+    <div className=" aspect-video relative group ">
+      <div className="carousel w-full  overflow-x-auto h-48 ">
+        {mainImage && (
+          <div className="carousel-item w-full h-full">
+            <div className="relative w-full h-full  ">
+              <Image
+                src={mainImage}
+                layout="fill"
+                objectFit="cover"
+                placeholder="blur"
+                blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVR42mP8/5+hnoEIwDiqkL4KAcT9GO0U4BxoAAAAAElFTkSuQmCC"
+              />
+            </div>
+          </div>
+        )}
+
+        {images?.map((image) => (
+          <div
+            key={image}
+            className="carousel-item w-full h-full"
+          >
+            <div className="relative w-full h-full ">
+              <Image
+                src={image}
+                layout="fill"
+                objectFit="cover"
+                placeholder="blur"
+                blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVR42mP8/5+hnoEIwDiqkL4KAcT9GO0U4BxoAAAAAElFTkSuQmCC"
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+      {images?.length && (
+        <>
+          <button
+            disabled
+            className="absolute top-0 bottom-0 group-hover:bg-slate-300  group-hover:bg-opacity-60 left-0 "
+          >
+            <ICONS.ArrowLeft />
+          </button>
+          <button
+            disabled
+            className="absolute top-0 bottom-0 group-hover:bg-slate-300 group-hover:bg-opacity-60 right-0 "
+          >
+            <ICONS.ArrowRight />
+          </button>
+        </>
+      )}
     </div>
   )
 }

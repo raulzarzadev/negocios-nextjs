@@ -7,6 +7,7 @@ import BookmarkIcon from '@material-ui/icons/Bookmark'
 import { useRouter } from 'next/router'
 import useUser from 'src/context/UserContext'
 import ICONS from 'src/utils/ICONS'
+import NavBarMenu from './NavBarMenu'
 
 export default function NavBar () {
   const { user } = useUser()
@@ -41,6 +42,7 @@ export default function NavBar () {
               />
             </L>
           </div>
+
           <menu className={styles.nav_menu}>
             <ul className={styles.nav_menu_list}>
               {!profilePage && user && (
@@ -91,23 +93,23 @@ export default function NavBar () {
                 Acerca de
               </L>
             </li> */}
-              {isLogin && (
-                <li className={styles.list_item}>
-                  <L href="/profile" arialLabel="Tu Perfil">
+              <NavBarMenu>
+                {isLogin && (
+                  <li className={styles.list_item}>
                     <div
                       className={styles.avatar}
                       style={{
                         backgroundImage: `url(${user?.image})`
                       }}
                     />
-                  </L>
-                </li>
-              )}
-              {!isLogin && (
-                <li className={styles.list_item}>
-                  <L href="/login">Ingresa</L>
-                </li>
-              )}
+                  </li>
+                )}
+                {!isLogin && (
+                  <li className={styles.list_item}>
+                    Ingresa
+                  </li>
+                )}
+              </NavBarMenu>
             </ul>
           </menu>
         </nav>

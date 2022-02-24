@@ -1,6 +1,9 @@
+import FilterChip from '@comps/Filter/FilterChip'
 import { Chip } from '@material-ui/core'
 import { CHIP_LABELS } from 'CONST/CHIPS_LABELS'
 import { useEffect, useState } from 'react'
+
+// TODO change chips labels to a database
 
 export default function SelectLabels ({
   labels = [],
@@ -43,18 +46,22 @@ export default function SelectLabels ({
   }, [])
 
   return (
-    <div className={'styles.select_labels'}>
-      <div>
+    <div className="text-center">
+      <em>Max {selectableLabelsLimit} etiquetas</em>
+      <div className="flex flex-wrap ">
         {_labelsSelected?.map((chip, i) => (
           <LabelChip
             chip={chip}
             key={chip}
-            handleDelete={handleRemoveChip(chip)}
+            onDelete={handleRemoveChip(chip)}
           />
         ))}
       </div>
-      <em>Max {selectableLabelsLimit} etiquetas</em>
-      <div className={'styles.labels_availables'}>
+      <div className='my-2'>
+        <em>Max {selectableLabelsLimit} etiquetas</em>
+      </div>
+
+      <div className=" flex flex-wrap  ">
         {_labelsAvailable.map((chip) => {
           return (
             <LabelChip
@@ -78,16 +85,20 @@ const LabelChip = ({ chip, handleDelete, ...rest }) => {
     return CHIP_LABELS.find(({ key }) => key === chip)
   }
   const formatedChip = formatChip(chip)
-
   return (
-    <Chip
-      style={{ margin: '4px' }}
+    <FilterChip
+      style={{ margin: '0.1rem' }}
+      label={{
+        label: formatedChip.label,
+        icon: formatedChip.icon
+      }}
+      {...rest}
+      /*  style={{ margin: '4px' }}
       icon={formatedChip?.icon}
       color={formatedChip?.color || 'primary'}
       label={formatedChip?.label}
       size="small"
-      onDelete={handleDelete}
-      {...rest}
+      {...rest} */
     />
   )
 }

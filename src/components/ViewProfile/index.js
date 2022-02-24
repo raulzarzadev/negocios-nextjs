@@ -1,7 +1,5 @@
+import AdminDashboard from '@comps/AdminDashboard'
 import Advert from '@comps/Advert.v3'
-import { L } from '@comps/L'
-import PrimBtn from '@comps/PrimBtn'
-import { firebaseLogout } from 'firebase/client'
 import { useEffect, useState } from 'react'
 import useUser from 'src/context/UserContext'
 import { useAds } from 'src/hooks/useAds'
@@ -10,22 +8,7 @@ import styles from './styles.module.css'
 
 export default function ViewProfile () {
   const { getAdvert } = useAds()
-  const { favoritesList, user } = useUser()
-
-  const handleLogOut = () => {
-    firebaseLogout()
-  }
-  /*
-  const [userAds, setUserAds] = useState()
-
-  useEffect(() => {
-    getUserAds().then((res) => setUserAds(res))
-  }, []) */
-
-  /*  const [publishedAds, setPublishedAds] = useState([])
-  useEffect(() => {
-    getUserActiveAds().then(setPublishedAds)
-  }, []) */
+  const { favoritesList } = useUser()
 
   const [favorites, setFavorites] = useState([])
   useEffect(() => {
@@ -36,23 +19,8 @@ export default function ViewProfile () {
 
   return (
     <div className={styles.view_profile}>
-      <div className={styles.actions}>
-        {user?.admin && (
-          <div className={styles.action}>
-            <L href="/dashboard">
-              <PrimBtn color="secondary">Dashboard</PrimBtn>
-            </L>
-          </div>
-        )}
-        <div className={styles.action}>
-          <PrimBtn color="danger" onClick={handleLogOut}>
-            {'Salir'}
-          </PrimBtn>
-        </div>
-      </div>
-
       <div className={styles.favs}>
-        <h3>Favoritos Guardados</h3>
+        <h3 className="font-bold text-xl">Favoritos</h3>
         {favorites.length === 0
           ? (
           <p>Aun no has guardado </p>
@@ -70,6 +38,7 @@ export default function ViewProfile () {
           </div>
             )}
       </div>
+      <AdminDashboard />
     </div>
   )
 }

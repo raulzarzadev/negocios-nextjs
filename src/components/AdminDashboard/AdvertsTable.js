@@ -34,7 +34,7 @@ export default function AdvertsTable ({
   return (
     <div>
       <h3 className="text-xl font-bold text-center my-2">
-        {'Todos los anuncios'}
+        {'Anuncios creados'}
       </h3>
       <div className="flex justify-between px-1 text-center">
         <div

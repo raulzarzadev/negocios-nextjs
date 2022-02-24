@@ -20,21 +20,23 @@ export default function LoginView () {
   return (
     <div className="pt-16 p-2">
       <div className=" p-1 rounded-md shadow-lg bg-white max-w-sm mx-auto">
+        <h3 className="text-center text-2xl font-bold mt-2">
+          Ingresa
+        </h3>
         <p className="text-center bg-info rounded-lg px-2 text-xs relative p-1 my-5 max-w-xs mx-auto flex items-center">
           <span className="">
             <ICONS.Info className="text-white" />
           </span>
-          Por tu seguridad dejamos usamos google para
-          verificar la veracidad de la información de
-          nuestros usuarios y anunciantes
+          Usamos Google para verificar el email de nuestros
+          usuarios y anunciantes
         </p>
         <div className="p-2 text-center my-5">
           Para facilitar tu registro se obtendra la
-          siguiente información de tu cuenta de google
-          <ul className="text-left list-disc pl-8">
+          siguiente información de tu cuenta de Google
+          <ul className="text-left list-disc pl-32">
             <li className="">Correo electronico</li>
-            <li className="">Nombre asociado</li>
-            <li className="">Imagen asociada</li>
+            <li className="">Nombre </li>
+            <li className="">Imagen </li>
           </ul>
         </div>
         <label className="flex pl-4 ">

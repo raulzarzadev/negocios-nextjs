@@ -8,7 +8,7 @@ import { listenBarrioActivePublications } from 'firebase/publications'
 import { fbGetAdvert } from 'firebase/adverts'
 // eslint-disable-next-line camelcase
 import { fb_getBarrio } from 'firebase/client'
-
+// TODO this page is bloqued by ads blocking
 export default function Barrio () {
   //  const { getAdsByBarrio } = useAds()
   const router = useRouter()
