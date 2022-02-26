@@ -3,7 +3,7 @@ import Advert from '@comps/Advert.v3'
 export default function AdvertsList ({
   adverts,
   filter,
-  handleSetFilter,
+  handleSetFilter
 }) {
   return (
     <div className={''}>

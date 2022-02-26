@@ -1,5 +1,4 @@
 import ICONS from 'src/utils/ICONS'
-import CloseIcon from './CloseIcon'
 
 const FilterChip = ({
   label,

@@ -1,5 +1,4 @@
 import FilterChip from '@comps/Filter/FilterChip'
-import { Chip } from '@material-ui/core'
 import { CHIP_LABELS } from 'CONST/CHIPS_LABELS'
 import { useEffect, useState } from 'react'
 

@@ -6,7 +6,7 @@ import { useBarrios } from 'src/hooks/useBarrios'
 import AdvertsTable from './AdvertsTable'
 import BarriosTable from './BarriosTable'
 
-export default function AdminDashboard() {
+export default function AdminDashboard () {
   const [states, setStates] = useState()
   const [adverts, setAdverts] = useState([])
   const { getUserAds } = useAds()
