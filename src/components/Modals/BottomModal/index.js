@@ -15,7 +15,9 @@ export default function BottomModal ({
       } modal modal-open `}
       id="modal-1"
       //  style={{ display: !open && 'none' }}
-      onClick={(e) => {
+      onClick={ (e) => {
+        e.preventDefault()
+        e.stopPropagation()
         e.target.id === 'modal-1' && handleOpen()
       }}
     >

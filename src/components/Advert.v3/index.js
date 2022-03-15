@@ -7,6 +7,8 @@ import ContactsSection from './ContactsSection'
 import DEFAULT_INFO from './DEFAULT_INFO'
 import TitleSection from './TitleSection'
 import AdevertRigthInfo from './AdevertRigthInfo'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 export default function Advert ({
   advert = DEFAULT_INFO,
@@ -17,6 +19,7 @@ export default function Advert ({
   // form = false
 }) {
   const { user, favoritesList } = useUser()
+  const Router = useRouter()
 
   const {
     labels,
@@ -38,12 +41,19 @@ export default function Advert ({
   const mainImage = Array.isArray(advert?.image)
     ? advert?.image[advert?.image?.length - 1]
     : advert?.image
-
+  const handelRedirect = (href) => {
+    Router.push(href)
+  }
   return (
     <div
       className={
-        'grid mt-2 shadow-lg rounded-lg  max-w-[320px] w-full'
+        'grid mt-2 shadow-lg rounded-lg  max-w-[320px] w-full border-2 border-transparent hover:border-gray-300'
       }
+      onClick={() => {
+        handelRedirect(
+          `/adverts/${publication?.advertId}?publication=${publication?.id}`
+        )
+      }}
     >
       <header
         className={
@@ -82,23 +92,32 @@ export default function Advert ({
           <TitleSection
             title={title}
             comments={comments}
-            advertLink={`/adverts/${publication?.advertId}?publication=${publication?.id}`}
+            // advertLink={`/adverts/${publication?.advertId}?publication=${publication?.id}`}
           />
+          {/* ---------------------------------CONTENT---------------------------------- */}
           <pre
             className={
-              'whitespace-pre-wrap font-sans text-sm  h-16 overflow-y-auto'
+              'whitespace-pre-wrap font-sans text-sm  h-17 overflow-y-auto'
             }
           >
-            {content}
+            {content.slice(0, 100)}{' '}
+            {content.length > 100 && '...'}{' '}
+            <span className="text-gray-500 whitespace-nowrap">
+              <Link
+                href={`/adverts/${publication?.advertId}?publication=${publication?.id}`}
+              >
+                {' ver mas '}
+              </Link>
+            </span>
           </pre>
         </div>
       </section>
       <footer
-        className={'flex justify-center items-center h-16'}
+        className={'flex justify-center items-center h-11'}
       >
         <div
           className={
-            'w-[90%] flex justify-evenly items-center'
+            'w-[95%] flex justify-evenly items-center'
           }
         >
           <ContactsSection contacts={contacts} />

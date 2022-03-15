@@ -85,7 +85,7 @@ export default function NavBarMenu ({ children }) {
           } -right-1 z-20 w-48 py-2 mt-0 bg-white text-light rounded-bl-xl shadow-xl `}
         >
           {LINKS.map(({ href, label, onClick, hidden }) => (
-            <>
+            <div key={label}>
               {!hidden && (
                 <Link href={href} key={label}>
                   <li
@@ -101,7 +101,7 @@ export default function NavBarMenu ({ children }) {
                   </li>
                 </Link>
               )}
-            </>
+            </div>
           ))}
         </ul>
       </div>

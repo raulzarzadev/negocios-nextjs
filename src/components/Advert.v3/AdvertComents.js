@@ -47,7 +47,11 @@ const AdvertComents = ({
         comments={comments}
       />
       <button
-        onClick={handleOpenComents}
+        onClick={(e) => {
+          e.preventDefault()
+          e.stopPropagation()
+          handleOpenComents()
+        }}
         className={className}
       >
         <span className="flex text-sm">
