@@ -100,8 +100,8 @@ export default function Advert ({
               'whitespace-pre-wrap font-sans text-sm  h-17 overflow-y-auto'
             }
           >
-            {content.slice(0, 100)}{' '}
-            {content.length > 100 && '...'}{' '}
+            {content?.slice(0, 100)}{' '}
+            {content?.length > 100 && '...'}{' '}
             <span className="text-gray-500 whitespace-nowrap">
               <Link
                 href={`/adverts/${publication?.advertId}?publication=${publication?.id}`}

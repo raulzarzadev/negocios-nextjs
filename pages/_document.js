@@ -20,7 +20,10 @@ class MyDocument extends Document {
 
           <meta
             name="description"
-            content="Puestos de Comida. Comercios y establecimientos"
+            content={`
+            Publica y comparte servicios, productos, ofertas y promociones de tu negocio. Hazte presente en intert. 
+            Encuentra productos y servicios cerca de tí.
+            `}
           />
           <link rel="icon" href="/logo.png" />
         </Head>
